@@ -2,6 +2,7 @@ from fastapi import Depends, Header, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from .config import get_settings
 from .database import get_db
 from .models.user import User
 from .security import decode_token
@@ -27,4 +28,15 @@ async def get_current_user(
     user = res.scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="user not found")
+    return user
+
+
+def is_admin_email(email: str) -> bool:
+    return (email or "").lower() in get_settings().admin_email_set
+
+
+async def get_admin_user(user: User = Depends(get_current_user)) -> User:
+    """관리자 권한 필요한 엔드포인트용 의존성."""
+    if not is_admin_email(user.email):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="admin only")
     return user

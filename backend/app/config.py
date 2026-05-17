@@ -47,9 +47,19 @@ class Settings(BaseSettings):
 
     frontend_base_url: str = "http://localhost:5173"
 
+    # Admin 권한 부여 이메일 (콤마 구분). 운영자만 /admin/* 접근 가능
+    admin_emails: str = "aitrendmarketer@gmail.com"
+
+    # 공식 문의 연락처 (Landing/FAQ/Footer 등에 노출용)
+    support_email: str = "master@aitrend.kr"
+
     @property
     def cors_origins_list(self) -> List[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+
+    @property
+    def admin_email_set(self) -> set[str]:
+        return {e.strip().lower() for e in self.admin_emails.split(",") if e.strip()}
 
 
 @lru_cache

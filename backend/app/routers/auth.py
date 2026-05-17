@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..database import get_db
-from ..deps import get_current_user
+from ..deps import get_current_user, is_admin_email
 from ..models.user import User
 from ..schemas.auth import (
     LoginRequest,
@@ -13,6 +13,17 @@ from ..schemas.auth import (
     UpdateProfileRequest,
     UserOut,
 )
+
+
+def _user_out(u: User) -> UserOut:
+    return UserOut(
+        id=u.id,
+        email=u.email,
+        display_name=u.display_name,
+        monthly_income=u.monthly_income,
+        monthly_budget=u.monthly_budget,
+        is_admin=is_admin_email(u.email),
+    )
 from ..security import (
     create_access_token,
     create_refresh_token,
@@ -73,7 +84,7 @@ async def refresh(body: RefreshRequest):
 
 @router.get("/me", response_model=UserOut)
 async def me(user: User = Depends(get_current_user)):
-    return user
+    return _user_out(user)
 
 
 @router.patch("/me", response_model=UserOut)
@@ -90,4 +101,4 @@ async def update_me(
         user.monthly_budget = body.monthly_budget
     await db.commit()
     await db.refresh(user)
-    return user
+    return _user_out(user)

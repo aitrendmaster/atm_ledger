@@ -28,6 +28,7 @@ class UserOut(BaseModel):
     display_name: str | None
     monthly_income: int
     monthly_budget: int
+    is_admin: bool = False
 
     class Config:
         from_attributes = True

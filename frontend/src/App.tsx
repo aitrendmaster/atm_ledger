@@ -6,6 +6,8 @@ import Ledger from './pages/Ledger'
 import Landing from './pages/Landing'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
+import Admin from './pages/Admin'
+import FaqPage from './pages/FaqPage'
 
 function Protected({ children }: { children: JSX.Element }) {
   const { user, loading } = useAuth()
@@ -22,7 +24,9 @@ export default function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
+      <Route path="/faq" element={<FaqPage />} />
       <Route path="/app" element={<Protected><Ledger /></Protected>} />
+      <Route path="/admin" element={<Protected><Admin /></Protected>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

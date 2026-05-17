@@ -73,6 +73,29 @@ export interface User {
   display_name: string | null
   monthly_income: number
   monthly_budget: number
+  is_admin?: boolean
+}
+
+export interface AdminStats {
+  users_total: number
+  entries_total: number
+  planned_total: number
+  reflections_total: number
+  entries_amount_total: number
+  entries_by_category: Record<string, number>
+  recent_signups_7d: number
+}
+
+export interface AdminUserRow {
+  id: number
+  email: string
+  display_name: string | null
+  monthly_income: number
+  monthly_budget: number
+  created_at: string
+  entries_count: number
+  planned_count: number
+  reflections_count: number
 }
 
 export interface TokenPair {
@@ -192,3 +215,14 @@ export const geocodeApi = {
       params: { q },
     }),
 }
+
+// ===== Admin =====
+export const adminApi = {
+  me: () => api.get<{ id: number; email: string; display_name: string | null; is_admin: boolean; support_email: string }>('/admin/me'),
+  stats: () => api.get<AdminStats>('/admin/stats'),
+  users: (limit = 100, offset = 0) =>
+    api.get<AdminUserRow[]>('/admin/users', { params: { limit, offset } }),
+}
+
+// ===== Constants =====
+export const SUPPORT_EMAIL = 'master@aitrend.kr'
