@@ -1,6 +1,7 @@
 from functools import lru_cache
 from typing import List
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -11,6 +12,14 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     database_url: str = "sqlite+aiosqlite:///./atm_ledger.db"
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def _normalize_db_url(cls, v: str) -> str:
+        # Railway / Heroku give postgresql:// — force asyncpg driver
+        if isinstance(v, str) and v.startswith("postgresql://"):
+            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
 
     jwt_secret: str = "change-me"
     jwt_algorithm: str = "HS256"
