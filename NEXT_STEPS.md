@@ -1,6 +1,7 @@
 # 다음 단계 — 사용자가 직접 할 작업
 
-> v0.5 스캐폴딩 + 로컬 검증 완료. 이 문서의 3 단계만 사용자가 직접 진행하면 됩니다.
+> v0.5 스캐폴딩 + 로컬 검증 + **프로덕션 배포 완료** (2026-05-18).
+> Production: https://atm-ledger-ntrv.vercel.app (프론트) · https://atmledger-production.up.railway.app (백엔드)
 
 ---
 
