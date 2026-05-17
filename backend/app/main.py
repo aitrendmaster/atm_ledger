@@ -15,11 +15,11 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # 개발 환경에선 테이블 자동 생성. 프로덕션에선 Alembic 사용.
-    if settings.env != "production":
-        async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
-        logger.info("DB 테이블 자동 생성 (dev mode)")
+    # v0.5: idempotent create_all. SQLAlchemy는 이미 존재하는 테이블을 건드리지 않는다.
+    # v1+에서 Alembic 마이그레이션 도입 후 이 블록은 제거하고 ROADMAP.md 단계대로 진행.
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    logger.info(f"DB 테이블 점검·생성 완료 (env={settings.env})")
     yield
 
 
