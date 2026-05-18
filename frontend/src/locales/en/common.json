@@ -86,5 +86,78 @@
     "minLength": "Password must be at least 8 characters.",
     "success": "Password changed. Please log in again.",
     "failed": "Reset failed"
+  },
+  "ledger": {
+    "title": "My ledger",
+    "todayHint": "Today is {{date}} · slow and steady",
+    "tabs": {
+      "chat": "Chat",
+      "calendar": "Calendar",
+      "place": "Places",
+      "reflect": "Review",
+      "plan": "Plan",
+      "balance": "Balance"
+    },
+    "stats": {
+      "thisMonthFlow": "This month",
+      "budget": "Budget",
+      "freeMoney": "Free to spend",
+      "spent": "Spent",
+      "upcoming": "Upcoming",
+      "dailyAvg": "Daily avg",
+      "monthSpent": "This month",
+      "monthUpcoming": "Upcoming",
+      "won": "KRW"
+    },
+    "input": {
+      "placeholder": "Starbucks Bucheon 6,500…",
+      "send": "Send",
+      "retry": "Could you try again?",
+      "tryAgain": "Please try again."
+    },
+    "messages": {
+      "welcome": "Hi! 6 months of data is already loaded 📊",
+      "welcomeHint": "Check Review/Plan/Balance/Calendar/Places tabs. Tap a date to see that day, tap a place for Google Maps + photo reviews.",
+      "recorded": "Saved ✓ ({{count}} item(s))",
+      "placeRecognized": "📍 \"{{name}}\" detected. Open the entry to pick the exact spot."
+    },
+    "place": {
+      "title": "Your spending map",
+      "intro": "{{count}} place(s) · tap a pin or card to see map, photos and reviews",
+      "frequent": "Frequent places",
+      "emptyPins": "No pinned places yet. Tap a place card to pick the exact spot.",
+      "pickLocation": "Pick the exact spot",
+      "aiHint": "(AI-guessed places can be off, so we don't drop pins automatically.)",
+      "searchPlaceholder": "Near {{name}}",
+      "search": "Search",
+      "searchBusy": "Searching…",
+      "useMyLocationGps": "Use my location (GPS)",
+      "moreAccurate": "More accurate (GPS)",
+      "viewboxIp": "📍 Around {{label}} (±20km)",
+      "viewboxGps": "📍 Around my location (GPS, ±20km)",
+      "viewboxNationwide": "🌐 Searching nationwide",
+      "viewboxDenied": "🌐 Searching nationwide (location denied)",
+      "viewboxUnsupported": "🌐 Searching nationwide (browser unsupported)",
+      "noResults": "No results. Try different words or leave the location empty.",
+      "againGo": "Will revisit",
+      "avoid": "Avoid",
+      "normal": "Neutral",
+      "resetPin": "Pick again"
+    },
+    "categories": {
+      "식비": "Food",
+      "카페/간식": "Cafe & snacks",
+      "쇼핑": "Shopping",
+      "교통": "Transit",
+      "주거/공과금": "Home & utilities",
+      "건강/뷰티": "Health & beauty",
+      "여행/이벤트": "Travel & events",
+      "경조사/선물": "Gifts & ceremonies",
+      "기타": "Other"
+    },
+    "reflect": {
+      "monthly": "Monthly review",
+      "annual": "Annual review"
+    }
   }
 }

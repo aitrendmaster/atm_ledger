@@ -86,5 +86,47 @@
     "minLength": "Mật khẩu phải có ít nhất 8 ký tự.",
     "success": "Đã đổi mật khẩu. Vui lòng đăng nhập lại.",
     "failed": "Đặt lại thất bại"
+  },
+  "ledger": {
+    "title": "Sổ chi tiêu của tôi",
+    "todayHint": "Hôm nay {{date}} · từ từ và đều đặn",
+    "tabs": { "chat": "Trò chuyện", "calendar": "Lịch", "place": "Địa điểm", "reflect": "Nhìn lại", "plan": "Kế hoạch", "balance": "Đối soát" },
+    "stats": {
+      "thisMonthFlow": "Tháng này", "budget": "Ngân sách", "freeMoney": "Có thể tiêu",
+      "spent": "Đã chi", "upcoming": "Sắp tới", "dailyAvg": "TB ngày",
+      "monthSpent": "Tháng này", "monthUpcoming": "Sắp tới", "won": "₫"
+    },
+    "input": {
+      "placeholder": "Starbucks 80k…", "send": "Gửi",
+      "retry": "Bạn viết lại nhé?", "tryAgain": "Vui lòng thử lại."
+    },
+    "messages": {
+      "welcome": "Xin chào! Đã có 6 tháng dữ liệu 📊",
+      "welcomeHint": "Xem các tab Nhìn lại / Kế hoạch / Đối soát / Lịch / Địa điểm. Bấm ngày để xem chi tiêu hôm đó, bấm địa điểm để mở bản đồ và ảnh.",
+      "recorded": "Đã lưu ✓ ({{count}} mục)",
+      "placeRecognized": "📍 Nhận diện \"{{name}}\". Mở mục để chọn vị trí chính xác."
+    },
+    "place": {
+      "title": "Bản đồ chi tiêu", "intro": "{{count}} địa điểm · chạm pin hoặc thẻ để xem bản đồ, ảnh, đánh giá",
+      "frequent": "Hay lui tới",
+      "emptyPins": "Chưa có pin. Chạm vào thẻ để chọn vị trí chính xác.",
+      "pickLocation": "Chọn vị trí chính xác",
+      "aiHint": "(AI đoán có thể sai, vì vậy không tự gắn pin.)",
+      "searchPlaceholder": "Gần {{name}}", "search": "Tìm", "searchBusy": "Đang tìm…",
+      "useMyLocationGps": "Dùng vị trí của tôi (GPS)", "moreAccurate": "Chính xác hơn (GPS)",
+      "viewboxIp": "📍 Quanh {{label}} (±20km)",
+      "viewboxGps": "📍 Quanh tôi (GPS, ±20km)",
+      "viewboxNationwide": "🌐 Tìm toàn quốc",
+      "viewboxDenied": "🌐 Tìm toàn quốc (đã từ chối vị trí)",
+      "viewboxUnsupported": "🌐 Tìm toàn quốc (trình duyệt không hỗ trợ)",
+      "noResults": "Không có kết quả. Đổi từ khoá hoặc để trống vị trí.",
+      "againGo": "Sẽ quay lại", "avoid": "Tránh", "normal": "Bình thường", "resetPin": "Chọn lại"
+    },
+    "categories": {
+      "식비": "Ăn uống", "카페/간식": "Cà phê & vặt", "쇼핑": "Mua sắm", "교통": "Di chuyển",
+      "주거/공과금": "Nhà & tiện ích", "건강/뷰티": "Sức khoẻ & làm đẹp", "여행/이벤트": "Du lịch & sự kiện",
+      "경조사/선물": "Quà & nghi lễ", "기타": "Khác"
+    },
+    "reflect": { "monthly": "Theo tháng", "annual": "Theo năm" }
   }
 }

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut } from 'lucide-react';
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
@@ -115,8 +116,9 @@ const SEED_PLANNED = (() => {
 })();
 
 export default function ChatLedger() {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState([
-    { role: 'assistant', text: '안녕! 6개월 데이터가 들어있어 📊\n\n탭에서 회고/계획/대차표/캘린더/장소 다 확인해봐. 캘린더에서 날짜 클릭하면 그날 지출 다 보이고, 장소 클릭하면 구글 지도랑 사진 후기도 볼 수 있어.', time: new Date() },
+    { role: 'assistant', text: `${t('ledger.messages.welcome')}\n\n${t('ledger.messages.welcomeHint')}`, time: new Date() },
   ]);
   const [entries, setEntries] = useState(SEED_ENTRIES);
   const [planned, setPlanned] = useState(SEED_PLANNED);
@@ -405,7 +407,7 @@ export default function ChatLedger() {
     try {
       const parsed = await parseWithClaude(cur, curImg);
       if (!parsed || parsed.length === 0) {
-        setMessages(prev => [...prev, { role: 'assistant', text: '다시 적어줄래?', time: new Date() }]);
+        setMessages(prev => [...prev, { role: 'assistant', text: t('ledger.input.retry'), time: new Date() }]);
       } else {
         // 자동 지오코딩 제거. 임의 좌표(다른 시·구) 핀이 찍히는 문제를 차단한다.
         // place_name 만 저장하고 좌표는 null. 사용자가 장소 상세 모달에서 직접 검색·선택.
@@ -428,16 +430,16 @@ export default function ChatLedger() {
         if (newPlanned.length > 0) setPlanned(prev => [...prev, ...newPlanned]);
         const namedPlace = newSpent.find(e => e.place?.name);
         const placeHint = namedPlace
-          ? `\n📍 "${namedPlace.place.name}" 장소가 인식됐어. 정확한 위치는 항목을 눌러 직접 골라줘.`
+          ? '\n' + t('ledger.messages.placeRecognized', { name: namedPlace.place.name })
           : '';
         setMessages(prev => [...prev, {
           role: 'assistant',
-          text: `기록했어 ✓ (${newSpent.length + newPlanned.length}건)${placeHint}`,
+          text: t('ledger.messages.recorded', { count: newSpent.length + newPlanned.length }) + placeHint,
           time: new Date(),
         }]);
       }
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'assistant', text: '다시 시도해줘.', time: new Date() }]);
+      setMessages(prev => [...prev, { role: 'assistant', text: t('ledger.input.tryAgain'), time: new Date() }]);
     } finally {
       setLoading(false);
     }
@@ -566,7 +568,7 @@ export default function ChatLedger() {
       <div className="max-w-7xl mx-auto p-4 lg:p-8">
         <header className="mb-6 lg:mb-8">
           <div className="flex items-baseline gap-3">
-            <h1 className="text-3xl lg:text-4xl font-bold" style={{ color: '#2C2418' }}>나의 가계부</h1>
+            <h1 className="text-3xl lg:text-4xl font-bold" style={{ color: '#2C2418' }}>{t('ledger.title')}</h1>
             <span className="handwritten text-2xl lg:text-3xl" style={{ color: '#A0633C' }}>{now.getMonth() + 1}월</span>
           </div>
           <p className="text-sm mt-1" style={{ color: '#7A7567' }}>오늘은 {now.getMonth() + 1}월 {now.getDate()}일 · 천천히, 꾸준히</p>
@@ -618,7 +620,7 @@ export default function ChatLedger() {
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
                 <textarea value={input} onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-                  placeholder="스벅 부천역점 6500원..." rows={1}
+                  placeholder={t('ledger.input.placeholder')} rows={1}
                   className="flex-1 px-4 py-3 rounded-2xl resize-none outline-none text-sm lg:text-[15px]"
                   style={{ backgroundColor: '#F5F1EA', color: '#2C2418', maxHeight: '120px' }} />
                 <button onClick={handleSend} disabled={loading || (!input.trim() && !pendingImage)}

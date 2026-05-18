@@ -86,5 +86,78 @@
     "minLength": "비밀번호는 8자 이상이어야 합니다.",
     "success": "비밀번호가 변경되었습니다. 다시 로그인해 주세요.",
     "failed": "재설정 실패"
+  },
+  "ledger": {
+    "title": "나의 가계부",
+    "todayHint": "오늘은 {{date}} · 천천히, 꾸준히",
+    "tabs": {
+      "chat": "채팅",
+      "calendar": "캘린더",
+      "place": "장소",
+      "reflect": "회고",
+      "plan": "계획",
+      "balance": "대차표"
+    },
+    "stats": {
+      "thisMonthFlow": "이번 달 흐름",
+      "budget": "예산",
+      "freeMoney": "자유롭게 쓸 수 있는 돈",
+      "spent": "사용",
+      "upcoming": "예정",
+      "dailyAvg": "일평균",
+      "monthSpent": "이 달 사용",
+      "monthUpcoming": "예정",
+      "won": "원"
+    },
+    "input": {
+      "placeholder": "스벅 부천역점 6500원…",
+      "send": "보내기",
+      "retry": "다시 적어줄래?",
+      "tryAgain": "다시 시도해줘."
+    },
+    "messages": {
+      "welcome": "안녕! 6개월 데이터가 들어있어 📊",
+      "welcomeHint": "탭에서 회고/계획/대차표/캘린더/장소 다 확인해봐. 캘린더에서 날짜 클릭하면 그날 지출 다 보이고, 장소 클릭하면 구글 지도랑 사진 후기도 볼 수 있어.",
+      "recorded": "기록했어 ✓ ({{count}}건)",
+      "placeRecognized": "📍 \"{{name}}\" 장소가 인식됐어. 정확한 위치는 항목을 눌러 직접 골라줘."
+    },
+    "place": {
+      "title": "나의 지출 지도",
+      "intro": "{{count}}곳 · 핀이나 카드를 누르면 구글지도, 사진, 리뷰까지 보여",
+      "frequent": "자주 간 곳",
+      "emptyPins": "아직 핀으로 표시할 위치가 없어. 장소 카드를 눌러 정확한 위치를 골라줘.",
+      "pickLocation": "정확한 위치를 골라줘",
+      "aiHint": "(AI 가 추측한 위치는 부정확할 수 있어 자동으로 핀을 찍지 않아)",
+      "searchPlaceholder": "{{name}} 근처",
+      "search": "검색",
+      "searchBusy": "검색…",
+      "useMyLocationGps": "내 위치 사용 (GPS)",
+      "moreAccurate": "더 정확하게 (GPS)",
+      "viewboxIp": "📍 {{label}} 주변 (±20km)",
+      "viewboxGps": "📍 내 위치 주변 (GPS, ±20km)",
+      "viewboxNationwide": "🌐 전체 한국 검색",
+      "viewboxDenied": "🌐 전체 한국 검색 (위치 권한 거부됨)",
+      "viewboxUnsupported": "🌐 전체 한국 검색 (브라우저 미지원)",
+      "noResults": "검색 결과가 없어. 다른 검색어로 시도하거나 위치를 비워둬도 돼.",
+      "againGo": "또 갈래",
+      "avoid": "안 갈래",
+      "normal": "보통",
+      "resetPin": "위치 다시 지정"
+    },
+    "categories": {
+      "식비": "식비",
+      "카페/간식": "카페·간식",
+      "쇼핑": "쇼핑",
+      "교통": "교통",
+      "주거/공과금": "주거·공과금",
+      "건강/뷰티": "건강·뷰티",
+      "여행/이벤트": "여행·이벤트",
+      "경조사/선물": "경조사·선물",
+      "기타": "기타"
+    },
+    "reflect": {
+      "monthly": "월간 회고",
+      "annual": "연간 회고"
+    }
   }
 }

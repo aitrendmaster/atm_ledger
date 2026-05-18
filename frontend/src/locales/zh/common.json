@@ -86,5 +86,47 @@
     "minLength": "密码至少 8 位。",
     "success": "密码已修改。请重新登录。",
     "failed": "重置失败"
+  },
+  "ledger": {
+    "title": "我的记账本",
+    "todayHint": "今天是 {{date}} · 慢慢来,坚持下去",
+    "tabs": { "chat": "聊天", "calendar": "日历", "place": "地点", "reflect": "复盘", "plan": "计划", "balance": "对账" },
+    "stats": {
+      "thisMonthFlow": "本月情况", "budget": "预算", "freeMoney": "可自由支配",
+      "spent": "已花", "upcoming": "待支出", "dailyAvg": "日均",
+      "monthSpent": "本月", "monthUpcoming": "待支出", "won": "元"
+    },
+    "input": {
+      "placeholder": "星巴克 30…", "send": "发送",
+      "retry": "可以重写一下吗?", "tryAgain": "请再试一次。"
+    },
+    "messages": {
+      "welcome": "你好!已有 6 个月的数据 📊",
+      "welcomeHint": "切换标签查看复盘 / 计划 / 对账 / 日历 / 地点。点日历看当天支出,点地点看地图和照片。",
+      "recorded": "已记录 ✓ ({{count}} 条)",
+      "placeRecognized": "📍 已识别「{{name}}」。点击该条目选择准确位置。"
+    },
+    "place": {
+      "title": "我的支出地图", "intro": "{{count}} 处 · 点钉或卡片查看地图、照片、评论",
+      "frequent": "常去的地方",
+      "emptyPins": "暂无可显示的钉。请点击卡片选择准确位置。",
+      "pickLocation": "选择准确位置",
+      "aiHint": "(AI 猜测的位置可能不准,因此不会自动打钉。)",
+      "searchPlaceholder": "{{name}} 附近", "search": "搜索", "searchBusy": "搜索中…",
+      "useMyLocationGps": "使用我的位置 (GPS)", "moreAccurate": "更精确 (GPS)",
+      "viewboxIp": "📍 {{label}} 附近 (±20km)",
+      "viewboxGps": "📍 我的位置附近 (GPS, ±20km)",
+      "viewboxNationwide": "🌐 全国搜索",
+      "viewboxDenied": "🌐 全国搜索 (位置权限被拒)",
+      "viewboxUnsupported": "🌐 全国搜索 (浏览器不支持)",
+      "noResults": "没有结果。可换关键词或保留位置为空。",
+      "againGo": "还想去", "avoid": "不去了", "normal": "一般", "resetPin": "重新选位置"
+    },
+    "categories": {
+      "식비": "餐饮", "카페/간식": "咖啡·零食", "쇼핑": "购物", "교통": "交通",
+      "주거/공과금": "居家·水电", "건강/뷰티": "健康·美容", "여행/이벤트": "旅行·活动",
+      "경조사/선물": "礼仪·礼物", "기타": "其他"
+    },
+    "reflect": { "monthly": "月度复盘", "annual": "年度复盘" }
   }
 }

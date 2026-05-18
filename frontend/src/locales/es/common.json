@@ -86,5 +86,47 @@
     "minLength": "La contraseña debe tener al menos 8 caracteres.",
     "success": "Contraseña cambiada. Inicia sesión de nuevo.",
     "failed": "No se pudo cambiar"
+  },
+  "ledger": {
+    "title": "Mi libro de gastos",
+    "todayHint": "Hoy es {{date}} · despacio y firme",
+    "tabs": { "chat": "Chat", "calendar": "Calendario", "place": "Lugares", "reflect": "Reflexión", "plan": "Plan", "balance": "Balance" },
+    "stats": {
+      "thisMonthFlow": "Este mes", "budget": "Presupuesto", "freeMoney": "Disponible",
+      "spent": "Gastado", "upcoming": "Pendiente", "dailyAvg": "Promedio diario",
+      "monthSpent": "Este mes", "monthUpcoming": "Pendiente", "won": "€"
+    },
+    "input": {
+      "placeholder": "Starbucks 6 €…", "send": "Enviar",
+      "retry": "¿Lo escribes de nuevo?", "tryAgain": "Inténtalo otra vez."
+    },
+    "messages": {
+      "welcome": "¡Hola! Ya hay 6 meses de datos 📊",
+      "welcomeHint": "Mira las pestañas Reflexión / Plan / Balance / Calendario / Lugares. Toca una fecha para ver ese día y un lugar para mapa y fotos.",
+      "recorded": "Guardado ✓ ({{count}} elemento(s))",
+      "placeRecognized": "📍 Detectado \"{{name}}\". Abre el registro para elegir la ubicación exacta."
+    },
+    "place": {
+      "title": "Tu mapa de gastos", "intro": "{{count}} sitio(s) · toca un pin o tarjeta para ver mapa, fotos y reseñas",
+      "frequent": "Lugares frecuentes",
+      "emptyPins": "Aún no hay pines. Toca una tarjeta para elegir la ubicación exacta.",
+      "pickLocation": "Elige la ubicación exacta",
+      "aiHint": "(Las suposiciones de la IA pueden fallar; no fijamos pines automáticamente.)",
+      "searchPlaceholder": "Cerca de {{name}}", "search": "Buscar", "searchBusy": "Buscando…",
+      "useMyLocationGps": "Usar mi ubicación (GPS)", "moreAccurate": "Más preciso (GPS)",
+      "viewboxIp": "📍 Cerca de {{label}} (±20km)",
+      "viewboxGps": "📍 Cerca de mí (GPS, ±20km)",
+      "viewboxNationwide": "🌐 Búsqueda nacional",
+      "viewboxDenied": "🌐 Búsqueda nacional (permiso denegado)",
+      "viewboxUnsupported": "🌐 Búsqueda nacional (no compatible)",
+      "noResults": "Sin resultados. Prueba otras palabras o deja el lugar vacío.",
+      "againGo": "Volvería", "avoid": "Evitar", "normal": "Normal", "resetPin": "Elegir otra vez"
+    },
+    "categories": {
+      "식비": "Comida", "카페/간식": "Café y snacks", "쇼핑": "Compras", "교통": "Transporte",
+      "주거/공과금": "Hogar y servicios", "건강/뷰티": "Salud y belleza", "여행/이벤트": "Viajes y eventos",
+      "경조사/선물": "Regalos y ceremonias", "기타": "Otros"
+    },
+    "reflect": { "monthly": "Mensual", "annual": "Anual" }
   }
 }

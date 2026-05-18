@@ -86,5 +86,47 @@
     "minLength": "Kata laluan mestilah sekurang-kurangnya 8 aksara.",
     "success": "Kata laluan ditukar. Sila log masuk semula.",
     "failed": "Tetap semula gagal"
+  },
+  "ledger": {
+    "title": "Buku belanja saya",
+    "todayHint": "Hari ini {{date}} · perlahan dan konsisten",
+    "tabs": { "chat": "Sembang", "calendar": "Kalendar", "place": "Tempat", "reflect": "Imbas", "plan": "Rancang", "balance": "Baki" },
+    "stats": {
+      "thisMonthFlow": "Bulan ini", "budget": "Belanjawan", "freeMoney": "Boleh dibelanjakan",
+      "spent": "Telah belanja", "upcoming": "Akan datang", "dailyAvg": "Purata harian",
+      "monthSpent": "Bulan ini", "monthUpcoming": "Akan datang", "won": "RM"
+    },
+    "input": {
+      "placeholder": "Starbucks 20…", "send": "Hantar",
+      "retry": "Boleh tulis semula?", "tryAgain": "Sila cuba lagi."
+    },
+    "messages": {
+      "welcome": "Hai! Ada 6 bulan data 📊",
+      "welcomeHint": "Lihat tab Imbas / Rancang / Baki / Kalendar / Tempat. Tekan tarikh untuk perbelanjaan hari itu, tekan tempat untuk peta dan foto.",
+      "recorded": "Disimpan ✓ ({{count}} item)",
+      "placeRecognized": "📍 Mengesan \"{{name}}\". Buka entri untuk pilih lokasi tepat."
+    },
+    "place": {
+      "title": "Peta perbelanjaan", "intro": "{{count}} tempat · tekan pin atau kad untuk peta, foto, ulasan",
+      "frequent": "Tempat kerap",
+      "emptyPins": "Belum ada pin. Tekan kad tempat untuk pilih lokasi tepat.",
+      "pickLocation": "Pilih lokasi tepat",
+      "aiHint": "(Tekaan AI mungkin tidak tepat — pin tidak diletakkan automatik.)",
+      "searchPlaceholder": "Berhampiran {{name}}", "search": "Cari", "searchBusy": "Mencari…",
+      "useMyLocationGps": "Guna lokasi saya (GPS)", "moreAccurate": "Lebih tepat (GPS)",
+      "viewboxIp": "📍 Sekitar {{label}} (±20km)",
+      "viewboxGps": "📍 Sekitar saya (GPS, ±20km)",
+      "viewboxNationwide": "🌐 Carian seluruh negara",
+      "viewboxDenied": "🌐 Carian seluruh negara (lokasi ditolak)",
+      "viewboxUnsupported": "🌐 Carian seluruh negara (tidak disokong)",
+      "noResults": "Tiada hasil. Cuba kata lain atau biarkan kosong.",
+      "againGo": "Akan kembali", "avoid": "Elak", "normal": "Biasa", "resetPin": "Pilih semula"
+    },
+    "categories": {
+      "식비": "Makanan", "카페/간식": "Kafe & snek", "쇼핑": "Membeli-belah", "교통": "Pengangkutan",
+      "주거/공과금": "Rumah & utiliti", "건강/뷰티": "Kesihatan & kecantikan", "여행/이벤트": "Pelancongan & acara",
+      "경조사/선물": "Majlis & hadiah", "기타": "Lain-lain"
+    },
+    "reflect": { "monthly": "Bulanan", "annual": "Tahunan" }
   }
 }

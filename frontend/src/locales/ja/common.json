@@ -86,5 +86,47 @@
     "minLength": "パスワードは 8 文字以上にしてください。",
     "success": "パスワードを変更しました。再度ログインしてください。",
     "failed": "再設定失敗"
+  },
+  "ledger": {
+    "title": "私の家計簿",
+    "todayHint": "今日は {{date}} · ゆっくり、こつこつ",
+    "tabs": { "chat": "チャット", "calendar": "カレンダー", "place": "場所", "reflect": "振り返り", "plan": "予定", "balance": "残高" },
+    "stats": {
+      "thisMonthFlow": "今月の流れ", "budget": "予算", "freeMoney": "自由に使えるお金",
+      "spent": "使った", "upcoming": "予定", "dailyAvg": "1日平均",
+      "monthSpent": "今月", "monthUpcoming": "予定", "won": "円"
+    },
+    "input": {
+      "placeholder": "スタバ 650円…", "send": "送信",
+      "retry": "もう一度書いてくれる?", "tryAgain": "もう一度試してね。"
+    },
+    "messages": {
+      "welcome": "こんにちは!6か月分のデータが入っています 📊",
+      "welcomeHint": "振り返り/予定/残高/カレンダー/場所タブを確認してね。日付クリックでその日の支出、場所クリックで地図と写真も見れます。",
+      "recorded": "記録しました ✓ ({{count}}件)",
+      "placeRecognized": "📍 「{{name}}」 を認識。項目を開いて正確な場所を選んでね。"
+    },
+    "place": {
+      "title": "支出マップ", "intro": "{{count}}か所 · ピンまたはカードを押すと地図・写真・レビュー",
+      "frequent": "よく行く場所",
+      "emptyPins": "まだピンに表示する位置がありません。カードを押して正確な場所を選んでください。",
+      "pickLocation": "正確な場所を選んでね",
+      "aiHint": "(AI 推定の位置は不正確なことがあるので自動でピンは打ちません)",
+      "searchPlaceholder": "{{name}} の近く", "search": "検索", "searchBusy": "検索中…",
+      "useMyLocationGps": "現在地を使う (GPS)", "moreAccurate": "より正確に (GPS)",
+      "viewboxIp": "📍 {{label}} 周辺 (±20km)",
+      "viewboxGps": "📍 現在地周辺 (GPS, ±20km)",
+      "viewboxNationwide": "🌐 全国検索",
+      "viewboxDenied": "🌐 全国検索 (位置情報拒否)",
+      "viewboxUnsupported": "🌐 全国検索 (ブラウザ非対応)",
+      "noResults": "結果なし。別のキーワードで検索するか、場所を空にしても OK です。",
+      "againGo": "また行く", "avoid": "行かない", "normal": "普通", "resetPin": "ピンを再設定"
+    },
+    "categories": {
+      "식비": "食費", "카페/간식": "カフェ・おやつ", "쇼핑": "ショッピング", "교통": "交通",
+      "주거/공과금": "住居・光熱費", "건강/뷰티": "健康・美容", "여행/이벤트": "旅行・イベント",
+      "경조사/선물": "冠婚葬祭・贈り物", "기타": "その他"
+    },
+    "reflect": { "monthly": "月間振り返り", "annual": "年間振り返り" }
   }
 }
