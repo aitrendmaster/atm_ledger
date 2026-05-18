@@ -1,0 +1,90 @@
+{
+  "app": { "name": "Moa AI 记账本" },
+  "lang": { "label": "语言" },
+  "common": {
+    "or": "或",
+    "cancel": "取消",
+    "save": "保存",
+    "loading": "加载中…",
+    "back": "返回",
+    "retry": "请稍后再试。"
+  },
+  "nav": {
+    "myAccount": "我的账户",
+    "faq": "常见问题",
+    "admin": "Admin",
+    "logout": "退出登录"
+  },
+  "landing": {
+    "badge": "公测免费 — AI 记账",
+    "headline1": "像聊天一样记录,",
+    "headline2": "每月轻松复盘。",
+    "subtitle": "一句话就够了 —「星巴克 30 元」。AI 自动整理类别、金额和日期,每月给你温暖的复盘建议。",
+    "ctaPrimary": "免费开始",
+    "ctaLogin": "登录",
+    "ctaApp": "打开记账 →",
+    "uspHeading": "记账可以这么轻松。",
+    "uspSubtitle": "每天一分钟,重新理解你的一个月。",
+    "uspChatTitle": "一秒输入",
+    "uspChatDesc": "随手写「午餐 25」,AI 自动归类金额和日期。小票照片也支持识别。",
+    "uspCalendarTitle": "日历 + 待支出",
+    "uspCalendarDesc": "本月已花和将花一屏看清,精确显示距下次发薪还能花的钱。",
+    "uspMapTitle": "地点钉与评价",
+    "uspMapDesc": "每个去过的地方留下评分、照片和点评,地图上一览无余。哪里值得再去,一目了然。",
+    "uspCoachTitle": "每月 AI 复盘",
+    "uspCoachDesc": "记下遗憾、亮点和下月承诺,AI 教练对比上月给你温柔有用的洞察。",
+    "cta2Heading": "从这个月起,感觉就会不一样。",
+    "cta2Subtitle": "30 秒注册。无需信用卡。公测期免费。",
+    "footerTagline": "用聊天记录的 AI 记账本",
+    "footerTerms": "服务条款",
+    "footerPrivacy": "隐私政策"
+  },
+  "login": {
+    "subtitle": "登录开始记账。",
+    "email": "邮箱",
+    "password8": "密码 (8 位以上)",
+    "submit": "登录",
+    "submitBusy": "登录中…",
+    "noAccount": "还没有账户?",
+    "signupLink": "注册",
+    "forgotLink": "忘记密码?",
+    "failed": "登录失败"
+  },
+  "signup": {
+    "title": "创建账户",
+    "nickname": "昵称 (可选)",
+    "agreeStart": "我已阅读并同意",
+    "agreeTerms": "服务条款",
+    "agreeAnd": " 与 ",
+    "agreePrivacy": "隐私政策",
+    "agreeEnd": "。",
+    "agreeRequired": "请先同意服务条款与隐私政策。",
+    "submit": "注册",
+    "submitBusy": "创建中…",
+    "hasAccount": "已有账户?",
+    "loginLink": "登录",
+    "failed": "注册失败"
+  },
+  "forgot": {
+    "title": "重置密码",
+    "intro": "输入注册邮箱,我们将向您发送重置链接。",
+    "sent": "若该邮箱已注册,我们已发送重置说明。若未收到请查看垃圾邮件。链接有效期 1 小时。",
+    "submit": "发送重置邮件",
+    "submitBusy": "发送中…",
+    "backLogin": "返回登录",
+    "backLoginLink": "返回登录页"
+  },
+  "reset": {
+    "title": "设置新密码",
+    "intro": "请输入 8 位以上的新密码。",
+    "newPassword": "新密码",
+    "submit": "修改密码",
+    "submitBusy": "保存中…",
+    "invalid": "无效链接",
+    "invalidDesc": "缺少重置令牌。请重新使用邮件中的链接。",
+    "requestAgain": "重新发送重置邮件",
+    "minLength": "密码至少 8 位。",
+    "success": "密码已修改。请重新登录。",
+    "failed": "重置失败"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "app": { "name": "Moa AI Ledger" },
+  "lang": { "label": "Language" },
+  "common": {
+    "or": "or",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading…",
+    "back": "Back",
+    "retry": "Please try again in a moment."
+  },
+  "nav": {
+    "myAccount": "My account",
+    "faq": "FAQ",
+    "admin": "Admin",
+    "logout": "Log out"
+  },
+  "landing": {
+    "badge": "Free in beta — AI ledger",
+    "headline1": "Jot it like a chat,",
+    "headline2": "look back every month.",
+    "subtitle": "One line — \"Starbucks 6,500 won\" — is enough. AI sorts the category, amount and date for you, and each month you get a warm coaching note on your habits.",
+    "ctaPrimary": "Start for free",
+    "ctaLogin": "Log in",
+    "ctaApp": "Open my ledger →",
+    "uspHeading": "Personal finance shouldn't be a spreadsheet.",
+    "uspSubtitle": "One minute a day, a new view of your month.",
+    "uspChatTitle": "Type it in a second",
+    "uspChatDesc": "Write \"lunch 9k\" however you like — AI extracts category, amount and date. Receipts work too.",
+    "uspCalendarTitle": "Calendar + upcoming",
+    "uspCalendarDesc": "See what you've spent and what's coming on one screen, with the real amount left until your next paycheck.",
+    "uspMapTitle": "Map of your places",
+    "uspMapDesc": "Star, photograph and review every spot. A glance tells you where to come back and what to skip.",
+    "uspCoachTitle": "Monthly AI coaching",
+    "uspCoachDesc": "Log a regret, a win, and a promise — your AI coach compares it to last month and replies with a kind, useful insight.",
+    "cta2Heading": "Even the first month feels different.",
+    "cta2Subtitle": "30 seconds to sign up. No credit card. Free during beta.",
+    "footerTagline": "A chat-first AI ledger",
+    "footerTerms": "Terms",
+    "footerPrivacy": "Privacy"
+  },
+  "login": {
+    "subtitle": "Log in to start your ledger.",
+    "email": "Email",
+    "password8": "Password (8+ characters)",
+    "submit": "Log in",
+    "submitBusy": "Logging in…",
+    "noAccount": "No account yet?",
+    "signupLink": "Sign up",
+    "forgotLink": "Forgot your password?",
+    "failed": "Login failed"
+  },
+  "signup": {
+    "title": "Create your account",
+    "nickname": "Display name (optional)",
+    "agreeStart": "I agree to the ",
+    "agreeTerms": "Terms",
+    "agreeAnd": " and ",
+    "agreePrivacy": "Privacy Policy",
+    "agreeEnd": ".",
+    "agreeRequired": "Please agree to the Terms and Privacy Policy.",
+    "submit": "Sign up",
+    "submitBusy": "Creating…",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Log in",
+    "failed": "Sign-up failed"
+  },
+  "forgot": {
+    "title": "Reset your password",
+    "intro": "Enter the email you signed up with and we'll send a reset link.",
+    "sent": "If that email is registered, we've sent reset instructions. Check your spam folder if you don't see it. The link is valid for 1 hour.",
+    "submit": "Send reset email",
+    "submitBusy": "Sending…",
+    "backLogin": "Back to log in",
+    "backLoginLink": "Back to log in"
+  },
+  "reset": {
+    "title": "Set a new password",
+    "intro": "Use 8 characters or more.",
+    "newPassword": "New password",
+    "submit": "Change password",
+    "submitBusy": "Saving…",
+    "invalid": "Invalid link",
+    "invalidDesc": "Reset token is missing. Use the link from the email again.",
+    "requestAgain": "Send the reset email again",
+    "minLength": "Password must be at least 8 characters.",
+    "success": "Password changed. Please log in again.",
+    "failed": "Reset failed"
+  }
+}

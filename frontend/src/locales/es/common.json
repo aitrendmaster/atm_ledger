@@ -1,0 +1,90 @@
+{
+  "app": { "name": "Moa AI Libro de gastos" },
+  "lang": { "label": "Idioma" },
+  "common": {
+    "or": "o",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "loading": "Cargando…",
+    "back": "Volver",
+    "retry": "Por favor, inténtalo de nuevo en un momento."
+  },
+  "nav": {
+    "myAccount": "Mi cuenta",
+    "faq": "FAQ",
+    "admin": "Admin",
+    "logout": "Cerrar sesión"
+  },
+  "landing": {
+    "badge": "Beta gratis — libro IA",
+    "headline1": "Anota como en un chat,",
+    "headline2": "y mira tu mes con claridad.",
+    "subtitle": "Una línea basta — \"Starbucks 6 €\". La IA clasifica categoría, monto y fecha, y cada mes te devuelve un consejo cálido sobre tus hábitos.",
+    "ctaPrimary": "Empezar gratis",
+    "ctaLogin": "Iniciar sesión",
+    "ctaApp": "Abrir mi libro →",
+    "uspHeading": "Las finanzas no tienen que ser un Excel.",
+    "uspSubtitle": "Un minuto al día, una visión nueva del mes.",
+    "uspChatTitle": "Anota en un segundo",
+    "uspChatDesc": "Escribe \"comida 9 €\" como quieras y la IA detecta categoría, monto y fecha. También lee recibos.",
+    "uspCalendarTitle": "Calendario + previstos",
+    "uspCalendarDesc": "Lo gastado y lo que viene en una sola pantalla, con el saldo real hasta el próximo cobro.",
+    "uspMapTitle": "Pines y reseñas",
+    "uspMapDesc": "Deja estrellas, fotos y notas en cada sitio. De un vistazo sabes dónde volver y dónde no.",
+    "uspCoachTitle": "Coaching mensual con IA",
+    "uspCoachDesc": "Registra arrepentimientos, aciertos y una promesa: la IA los compara con el mes anterior y te da una mirada cálida.",
+    "cta2Heading": "Desde el primer mes notarás la diferencia.",
+    "cta2Subtitle": "30 segundos para registrarte. Sin tarjeta. Gratis en beta.",
+    "footerTagline": "Tu libro de gastos por chat con IA",
+    "footerTerms": "Términos",
+    "footerPrivacy": "Privacidad"
+  },
+  "login": {
+    "subtitle": "Inicia sesión y empieza tu libro.",
+    "email": "Correo",
+    "password8": "Contraseña (8+ caracteres)",
+    "submit": "Iniciar sesión",
+    "submitBusy": "Iniciando…",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "signupLink": "Regístrate",
+    "forgotLink": "¿Olvidaste tu contraseña?",
+    "failed": "No se pudo iniciar sesión"
+  },
+  "signup": {
+    "title": "Crear cuenta",
+    "nickname": "Apodo (opcional)",
+    "agreeStart": "Acepto los ",
+    "agreeTerms": "Términos",
+    "agreeAnd": " y la ",
+    "agreePrivacy": "Política de privacidad",
+    "agreeEnd": ".",
+    "agreeRequired": "Por favor, acepta los Términos y la Política de privacidad.",
+    "submit": "Registrarme",
+    "submitBusy": "Creando…",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "loginLink": "Iniciar sesión",
+    "failed": "Registro fallido"
+  },
+  "forgot": {
+    "title": "Recuperar contraseña",
+    "intro": "Escribe el correo con el que te registraste y te enviaremos un enlace.",
+    "sent": "Si ese correo está registrado, hemos enviado las instrucciones. Revisa el spam si no aparece. El enlace dura 1 hora.",
+    "submit": "Enviar correo",
+    "submitBusy": "Enviando…",
+    "backLogin": "Volver al inicio de sesión",
+    "backLoginLink": "Volver al inicio de sesión"
+  },
+  "reset": {
+    "title": "Nueva contraseña",
+    "intro": "Usa 8 caracteres o más.",
+    "newPassword": "Nueva contraseña",
+    "submit": "Cambiar contraseña",
+    "submitBusy": "Guardando…",
+    "invalid": "Enlace inválido",
+    "invalidDesc": "Falta el token. Usa otra vez el enlace del correo.",
+    "requestAgain": "Reenviar correo de recuperación",
+    "minLength": "La contraseña debe tener al menos 8 caracteres.",
+    "success": "Contraseña cambiada. Inicia sesión de nuevo.",
+    "failed": "No se pudo cambiar"
+  }
+}

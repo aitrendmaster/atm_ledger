@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 
 import App from './App'
 import { AuthProvider } from './hooks/useAuth'
+import './i18n'
 import './index.css'
 
 const qc = new QueryClient({

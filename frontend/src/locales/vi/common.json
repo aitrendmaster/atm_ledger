@@ -1,0 +1,90 @@
+{
+  "app": { "name": "Sổ chi tiêu Moa AI" },
+  "lang": { "label": "Ngôn ngữ" },
+  "common": {
+    "or": "hoặc",
+    "cancel": "Huỷ",
+    "save": "Lưu",
+    "loading": "Đang tải…",
+    "back": "Quay lại",
+    "retry": "Vui lòng thử lại sau ít phút."
+  },
+  "nav": {
+    "myAccount": "Tài khoản",
+    "faq": "Hỏi đáp",
+    "admin": "Admin",
+    "logout": "Đăng xuất"
+  },
+  "landing": {
+    "badge": "Miễn phí Beta — sổ chi tiêu AI",
+    "headline1": "Ghi như đang chat,",
+    "headline2": "nhìn lại trọn tháng nhẹ tênh.",
+    "subtitle": "Một dòng là đủ — \"Starbucks 80k\". AI tự phân loại, ghi số tiền và ngày, mỗi tháng gửi bạn lời khuyên ấm áp về thói quen.",
+    "ctaPrimary": "Bắt đầu miễn phí",
+    "ctaLogin": "Đăng nhập",
+    "ctaApp": "Mở sổ chi tiêu →",
+    "uspHeading": "Quản lý chi tiêu nhẹ nhàng hơn cả bạn nghĩ.",
+    "uspSubtitle": "Mỗi ngày 1 phút, mỗi tháng một góc nhìn mới.",
+    "uspChatTitle": "Nhập trong 1 giây",
+    "uspChatDesc": "Viết \"cơm trưa 50k\" thoải mái, AI tự gắn nhãn, số tiền và ngày. Cả hoá đơn cũng đọc được.",
+    "uspCalendarTitle": "Lịch + khoản sắp chi",
+    "uspCalendarDesc": "Đã chi và sắp chi trên một màn hình, kèm số dư thực đến kỳ lương kế tiếp.",
+    "uspMapTitle": "Ghim địa điểm và đánh giá",
+    "uspMapDesc": "Mỗi nơi để lại sao, ảnh và bình luận. Bản đồ cho bạn biết chỗ nên quay lại hay không.",
+    "uspCoachTitle": "AI huấn luyện hàng tháng",
+    "uspCoachDesc": "Ghi điều tiếc nuối, điều làm tốt, lời hứa tháng sau — AI so sánh tháng trước và phản hồi ấm áp.",
+    "cta2Heading": "Khác biệt từ tháng đầu tiên.",
+    "cta2Subtitle": "30 giây đăng ký. Không cần thẻ. Miễn phí trong Beta.",
+    "footerTagline": "Sổ chi tiêu AI ghi bằng cách chat",
+    "footerTerms": "Điều khoản",
+    "footerPrivacy": "Quyền riêng tư"
+  },
+  "login": {
+    "subtitle": "Đăng nhập và bắt đầu ghi sổ.",
+    "email": "Email",
+    "password8": "Mật khẩu (từ 8 ký tự)",
+    "submit": "Đăng nhập",
+    "submitBusy": "Đang đăng nhập…",
+    "noAccount": "Chưa có tài khoản?",
+    "signupLink": "Đăng ký",
+    "forgotLink": "Quên mật khẩu?",
+    "failed": "Đăng nhập thất bại"
+  },
+  "signup": {
+    "title": "Tạo tài khoản",
+    "nickname": "Biệt danh (tuỳ chọn)",
+    "agreeStart": "Tôi đồng ý với ",
+    "agreeTerms": "Điều khoản",
+    "agreeAnd": " và ",
+    "agreePrivacy": "Chính sách bảo mật",
+    "agreeEnd": ".",
+    "agreeRequired": "Vui lòng đồng ý Điều khoản và Chính sách bảo mật.",
+    "submit": "Đăng ký",
+    "submitBusy": "Đang tạo…",
+    "hasAccount": "Đã có tài khoản?",
+    "loginLink": "Đăng nhập",
+    "failed": "Đăng ký thất bại"
+  },
+  "forgot": {
+    "title": "Đặt lại mật khẩu",
+    "intro": "Nhập email đã đăng ký, chúng tôi sẽ gửi liên kết.",
+    "sent": "Nếu email tồn tại, hướng dẫn đã được gửi. Kiểm tra thư rác nếu chưa thấy. Liên kết có hiệu lực 1 giờ.",
+    "submit": "Gửi email đặt lại",
+    "submitBusy": "Đang gửi…",
+    "backLogin": "Quay về đăng nhập",
+    "backLoginLink": "Về trang đăng nhập"
+  },
+  "reset": {
+    "title": "Đặt mật khẩu mới",
+    "intro": "Từ 8 ký tự trở lên.",
+    "newPassword": "Mật khẩu mới",
+    "submit": "Đổi mật khẩu",
+    "submitBusy": "Đang lưu…",
+    "invalid": "Liên kết không hợp lệ",
+    "invalidDesc": "Thiếu mã đặt lại. Hãy dùng lại liên kết trong email.",
+    "requestAgain": "Gửi lại email đặt lại",
+    "minLength": "Mật khẩu phải có ít nhất 8 ký tự.",
+    "success": "Đã đổi mật khẩu. Vui lòng đăng nhập lại.",
+    "failed": "Đặt lại thất bại"
+  }
+}

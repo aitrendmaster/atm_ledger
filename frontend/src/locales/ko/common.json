@@ -1,0 +1,90 @@
+{
+  "app": { "name": "Moa AI 가계부" },
+  "lang": { "label": "언어" },
+  "common": {
+    "or": "또는",
+    "cancel": "취소",
+    "save": "저장",
+    "loading": "로딩 중…",
+    "back": "뒤로",
+    "retry": "잠시 후 다시 시도해 주세요."
+  },
+  "nav": {
+    "myAccount": "내 계정",
+    "faq": "FAQ",
+    "admin": "Admin",
+    "logout": "로그아웃"
+  },
+  "landing": {
+    "badge": "베타 무료 — AI 가계부",
+    "headline1": "대화하듯 적고,",
+    "headline2": "한 달을 회고하세요.",
+    "subtitle": "\"스벅 6500원\" 한 줄이면 끝. AI가 카테고리·금액·날짜를 알아서 분류하고, 매월 코칭으로 소비 습관을 함께 돌봅니다.",
+    "ctaPrimary": "무료로 시작하기",
+    "ctaLogin": "로그인",
+    "ctaApp": "가계부 열기 →",
+    "uspHeading": "가계부가 이렇게 쉬워질 줄 몰랐죠?",
+    "uspSubtitle": "매일 1분, 한 달을 다시 보게 됩니다.",
+    "uspChatTitle": "채팅으로 1초 입력",
+    "uspChatDesc": "\"점심 9천원\" 처럼 자유롭게 적으면 AI가 카테고리·금액·날짜를 자동으로 분류합니다. 영수증 사진도 인식해요.",
+    "uspCalendarTitle": "캘린더 + 예정 지출",
+    "uspCalendarDesc": "이번 달 실제 지출과 예정 지출을 한 화면에. 다음 결제일까지 진짜로 남은 돈을 정확히 보여드립니다.",
+    "uspMapTitle": "장소 핀과 후기",
+    "uspMapDesc": "간 곳마다 별점·사진·코멘트를 남기면 지도에서 한눈에. 다시 갈 곳·안 갈 곳이 분명해집니다.",
+    "uspCoachTitle": "월별 AI 회고 코칭",
+    "uspCoachDesc": "아쉬운 점·잘한 점·다음 달 약속을 기록하면 AI 코치가 지난 달과 비교해 따뜻한 인사이트를 줍니다.",
+    "cta2Heading": "지금 시작해도 첫 달부터 달라집니다.",
+    "cta2Subtitle": "가입은 30초. 신용카드 불필요. 베타 기간 무료.",
+    "footerTagline": "대화로 기록하는 AI 가계부",
+    "footerTerms": "이용약관",
+    "footerPrivacy": "개인정보 처리방침"
+  },
+  "login": {
+    "subtitle": "로그인하고 가계부를 시작하세요.",
+    "email": "이메일",
+    "password8": "비밀번호 (8자 이상)",
+    "submit": "로그인",
+    "submitBusy": "로그인 중…",
+    "noAccount": "계정이 없으세요?",
+    "signupLink": "가입하기",
+    "forgotLink": "비밀번호를 잊으셨나요?",
+    "failed": "로그인 실패"
+  },
+  "signup": {
+    "title": "계정 만들기",
+    "nickname": "닉네임 (선택)",
+    "agreeStart": "",
+    "agreeTerms": "이용약관",
+    "agreeAnd": "과 ",
+    "agreePrivacy": "개인정보 처리방침",
+    "agreeEnd": "에 동의합니다.",
+    "agreeRequired": "약관과 개인정보 처리방침에 동의해주세요.",
+    "submit": "가입하기",
+    "submitBusy": "가입 중…",
+    "hasAccount": "이미 계정이 있으세요?",
+    "loginLink": "로그인",
+    "failed": "가입 실패"
+  },
+  "forgot": {
+    "title": "비밀번호 재설정",
+    "intro": "가입하신 이메일을 입력하시면 재설정 링크를 보내드립니다.",
+    "sent": "해당 이메일이 등록되어 있다면 비밀번호 재설정 안내를 발송했어요. 메일이 보이지 않으면 스팸함을 확인해 주세요. 링크는 1시간 동안 유효합니다.",
+    "submit": "재설정 메일 받기",
+    "submitBusy": "발송 중…",
+    "backLogin": "로그인 페이지로",
+    "backLoginLink": "로그인으로 돌아가기"
+  },
+  "reset": {
+    "title": "새 비밀번호 설정",
+    "intro": "8자 이상으로 입력해 주세요.",
+    "newPassword": "새 비밀번호",
+    "submit": "비밀번호 변경",
+    "submitBusy": "변경 중…",
+    "invalid": "잘못된 링크",
+    "invalidDesc": "재설정 토큰이 없습니다. 메일 안의 링크를 다시 사용해 주세요.",
+    "requestAgain": "재설정 메일 다시 받기",
+    "minLength": "비밀번호는 8자 이상이어야 합니다.",
+    "success": "비밀번호가 변경되었습니다. 다시 로그인해 주세요.",
+    "failed": "재설정 실패"
+  }
+}

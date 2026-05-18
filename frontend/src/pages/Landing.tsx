@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   MessageCircle,
   Calendar,
@@ -12,26 +13,28 @@ import { useAuth } from '../hooks/useAuth'
 import { SUPPORT_EMAIL } from '../services/api'
 import AnnouncementBar from '../components/AnnouncementBar'
 import Faq from '../components/Faq'
+import LanguageSwitcher from '../components/LanguageSwitcher'
 
 export default function Landing() {
   const { user } = useAuth()
+  const { t } = useTranslation()
 
   return (
     <div className="min-h-screen bg-atm-bg">
       <AnnouncementBar />
+      <div className="absolute top-4 right-6 z-10"><LanguageSwitcher /></div>
       {/* Hero */}
       <section className="px-6 pt-20 pb-16 max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-stone-200 rounded-full text-xs text-atm-muted mb-6">
           <Sparkles size={14} className="text-atm-accent" />
-          베타 무료 — AI 가계부
+          {t('landing.badge')}
         </div>
         <h1 className="text-5xl sm:text-6xl font-semibold text-atm-ink mb-5 leading-tight tracking-tight">
-          대화하듯 적고,<br />
-          <span className="text-atm-accent">한 달을 회고하세요.</span>
+          {t('landing.headline1')}<br />
+          <span className="text-atm-accent">{t('landing.headline2')}</span>
         </h1>
         <p className="text-atm-muted text-lg sm:text-xl leading-relaxed max-w-2xl mb-10">
-          "스벅 6500원" 한 줄이면 끝. AI가 카테고리·금액·날짜를 알아서 분류하고,
-          매월 코칭으로 소비 습관을 함께 돌봅니다.
+          {t('landing.subtitle')}
         </p>
         <div className="flex flex-wrap gap-3">
           {user ? (
@@ -39,7 +42,7 @@ export default function Landing() {
               to="/app"
               className="px-6 py-3 bg-atm-accent text-white rounded-lg font-medium hover:opacity-90 transition"
             >
-              가계부 열기 →
+              {t('landing.ctaApp')}
             </Link>
           ) : (
             <>
@@ -47,13 +50,13 @@ export default function Landing() {
                 to="/signup"
                 className="px-6 py-3 bg-atm-accent text-white rounded-lg font-medium hover:opacity-90 transition"
               >
-                무료로 시작하기
+                {t('landing.ctaPrimary')}
               </Link>
               <Link
                 to="/login"
                 className="px-6 py-3 bg-white border border-stone-300 text-atm-ink rounded-lg font-medium hover:bg-stone-50 transition"
               >
-                로그인
+                {t('landing.ctaLogin')}
               </Link>
             </>
           )}
@@ -64,32 +67,16 @@ export default function Landing() {
       <section className="px-6 py-16 max-w-5xl mx-auto">
         <header className="text-center mb-12">
           <h2 className="text-3xl font-semibold text-atm-ink mb-3">
-            가계부가 이렇게 쉬워질 줄 몰랐죠?
+            {t('landing.uspHeading')}
           </h2>
-          <p className="text-atm-muted">매일 1분, 한 달을 다시 보게 됩니다.</p>
+          <p className="text-atm-muted">{t('landing.uspSubtitle')}</p>
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <Usp
-            icon={MessageCircle}
-            title="채팅으로 1초 입력"
-            desc='"점심 9천원" 처럼 자유롭게 적으면 AI가 카테고리·금액·날짜를 자동으로 분류합니다. 영수증 사진도 인식해요.'
-          />
-          <Usp
-            icon={Calendar}
-            title="캘린더 + 예정 지출"
-            desc="이번 달 실제 지출과 예정 지출을 한 화면에. 다음 결제일까지 진짜로 남은 돈을 정확히 보여드립니다."
-          />
-          <Usp
-            icon={MapPin}
-            title="장소 핀과 후기"
-            desc="간 곳마다 별점·사진·코멘트를 남기면 지도에서 한눈에. 다시 갈 곳·안 갈 곳이 분명해집니다."
-          />
-          <Usp
-            icon={BarChart3}
-            title="월별 AI 회고 코칭"
-            desc="아쉬운 점·잘한 점·다음 달 약속을 기록하면 AI 코치가 지난 달과 비교해 따뜻한 인사이트를 줍니다."
-          />
+          <Usp icon={MessageCircle} title={t('landing.uspChatTitle')} desc={t('landing.uspChatDesc')} />
+          <Usp icon={Calendar} title={t('landing.uspCalendarTitle')} desc={t('landing.uspCalendarDesc')} />
+          <Usp icon={MapPin} title={t('landing.uspMapTitle')} desc={t('landing.uspMapDesc')} />
+          <Usp icon={BarChart3} title={t('landing.uspCoachTitle')} desc={t('landing.uspCoachDesc')} />
         </div>
       </section>
 
@@ -101,17 +88,15 @@ export default function Landing() {
       {/* CTA + 연락처 */}
       <section className="px-6 py-16 max-w-2xl mx-auto text-center">
         <h2 className="text-2xl font-semibold text-atm-ink mb-3">
-          지금 시작해도 첫 달부터 달라집니다.
+          {t('landing.cta2Heading')}
         </h2>
-        <p className="text-atm-muted mb-6">
-          가입은 30초. 신용카드 불필요. 베타 기간 무료.
-        </p>
+        <p className="text-atm-muted mb-6">{t('landing.cta2Subtitle')}</p>
         {!user && (
           <Link
             to="/signup"
             className="inline-block px-8 py-3 bg-atm-accent text-white rounded-lg font-medium hover:opacity-90 transition"
           >
-            무료로 시작하기
+            {t('landing.ctaPrimary')}
           </Link>
         )}
       </section>
@@ -120,8 +105,8 @@ export default function Landing() {
       <footer className="px-6 py-10 bg-stone-50 border-t border-stone-200">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 text-sm">
           <div>
-            <div className="font-semibold text-atm-ink mb-1">Moa AI 가계부</div>
-            <div className="text-xs text-atm-muted">대화로 기록하는 AI 가계부</div>
+            <div className="font-semibold text-atm-ink mb-1">{t('app.name')}</div>
+            <div className="text-xs text-atm-muted">{t('landing.footerTagline')}</div>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-atm-muted">
             <a
@@ -130,8 +115,8 @@ export default function Landing() {
             >
               <Mail size={14} /> {SUPPORT_EMAIL}
             </a>
-            <Link to="/terms" className="hover:text-atm-ink">이용약관</Link>
-            <Link to="/privacy" className="hover:text-atm-ink">개인정보 처리방침</Link>
+            <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
+            <Link to="/privacy" className="hover:text-atm-ink">{t('landing.footerPrivacy')}</Link>
           </div>
         </div>
       </footer>

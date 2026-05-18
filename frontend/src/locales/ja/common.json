@@ -1,0 +1,90 @@
+{
+  "app": { "name": "Moa AI 家計簿" },
+  "lang": { "label": "言語" },
+  "common": {
+    "or": "または",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "loading": "読み込み中…",
+    "back": "戻る",
+    "retry": "しばらくしてから再度お試しください。"
+  },
+  "nav": {
+    "myAccount": "アカウント",
+    "faq": "FAQ",
+    "admin": "Admin",
+    "logout": "ログアウト"
+  },
+  "landing": {
+    "badge": "ベータ無料 — AI 家計簿",
+    "headline1": "チャットのように記録し、",
+    "headline2": "毎月を振り返ろう。",
+    "subtitle": "「スタバ 650円」と一言書くだけ。AI がカテゴリ・金額・日付を整理し、毎月あたたかいコーチングで習慣を整えます。",
+    "ctaPrimary": "無料ではじめる",
+    "ctaLogin": "ログイン",
+    "ctaApp": "家計簿を開く →",
+    "uspHeading": "家計簿って、こんなに簡単でいいんだ。",
+    "uspSubtitle": "1 日 1 分、ひと月が見え方を変える。",
+    "uspChatTitle": "1 秒で入力",
+    "uspChatDesc": "「ランチ 900円」のように自由に書くと、AI が自動で分類。レシートの写真にも対応。",
+    "uspCalendarTitle": "カレンダー + 予定支出",
+    "uspCalendarDesc": "今月の実支出と予定をひと画面に。次の給与日まで本当に残るお金を提示します。",
+    "uspMapTitle": "場所ピンとレビュー",
+    "uspMapDesc": "行った先に星・写真・コメントを残せば、地図で一望。また行きたい所とそうでない所が一目瞭然。",
+    "uspCoachTitle": "月次 AI コーチング",
+    "uspCoachDesc": "反省点・良かった点・来月の約束を記録すると、AI コーチが先月と比較して優しい洞察をくれます。",
+    "cta2Heading": "今からでも、初月から手応えが違います。",
+    "cta2Subtitle": "登録 30 秒。クレカ不要。ベータ期間無料。",
+    "footerTagline": "チャットで記録する AI 家計簿",
+    "footerTerms": "利用規約",
+    "footerPrivacy": "プライバシー"
+  },
+  "login": {
+    "subtitle": "ログインして家計簿を始めましょう。",
+    "email": "メール",
+    "password8": "パスワード (8文字以上)",
+    "submit": "ログイン",
+    "submitBusy": "ログイン中…",
+    "noAccount": "アカウントがありませんか?",
+    "signupLink": "登録",
+    "forgotLink": "パスワードをお忘れですか?",
+    "failed": "ログイン失敗"
+  },
+  "signup": {
+    "title": "アカウント作成",
+    "nickname": "ニックネーム (任意)",
+    "agreeStart": "",
+    "agreeTerms": "利用規約",
+    "agreeAnd": " と ",
+    "agreePrivacy": "プライバシーポリシー",
+    "agreeEnd": " に同意します。",
+    "agreeRequired": "利用規約とプライバシーポリシーに同意してください。",
+    "submit": "登録する",
+    "submitBusy": "作成中…",
+    "hasAccount": "既にアカウントをお持ちですか?",
+    "loginLink": "ログイン",
+    "failed": "登録失敗"
+  },
+  "forgot": {
+    "title": "パスワード再設定",
+    "intro": "登録したメールを入力すると再設定リンクを送ります。",
+    "sent": "そのメールが登録済みなら、再設定のご案内を送信しました。届かない場合は迷惑メールをご確認ください。リンクは 1 時間有効です。",
+    "submit": "再設定メールを送る",
+    "submitBusy": "送信中…",
+    "backLogin": "ログイン画面へ",
+    "backLoginLink": "ログインに戻る"
+  },
+  "reset": {
+    "title": "新しいパスワード設定",
+    "intro": "8 文字以上で入力してください。",
+    "newPassword": "新しいパスワード",
+    "submit": "パスワード変更",
+    "submitBusy": "保存中…",
+    "invalid": "無効なリンク",
+    "invalidDesc": "再設定トークンが見つかりません。メール内のリンクを再度使用してください。",
+    "requestAgain": "再設定メールをもう一度送る",
+    "minLength": "パスワードは 8 文字以上にしてください。",
+    "success": "パスワードを変更しました。再度ログインしてください。",
+    "failed": "再設定失敗"
+  }
+}
