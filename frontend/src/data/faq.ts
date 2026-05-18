@@ -5,7 +5,7 @@ export interface FaqItem {
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    q: 'ATM 가계부는 유료인가요?',
+    q: 'Moa AI 가계부는 유료인가요?',
     a: '현재는 무료입니다. 베타 기간 동안 모든 핵심 기능을 무료로 제공하며, 추후 유료 플랜이 도입되면 기존 사용자에게는 사전 안내드립니다.',
   },
   {

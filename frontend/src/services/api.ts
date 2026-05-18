@@ -92,10 +92,16 @@ export interface AdminUserRow {
   display_name: string | null
   monthly_income: number
   monthly_budget: number
+  is_admin: boolean
   created_at: string
   entries_count: number
   planned_count: number
   reflections_count: number
+}
+
+export interface AdminActionResult {
+  ok: boolean
+  message: string | null
 }
 
 export interface TokenPair {
@@ -209,10 +215,29 @@ export const aiApi = {
 }
 
 // ===== Geocode =====
+export interface GeocodeResult {
+  name: string | null
+  lat: number
+  lng: number
+  address: string | null
+  type: string | null
+  distance_km?: number
+}
+
+export interface GeocodeSearchResponse {
+  results: GeocodeResult[]
+  user_lat: number | null
+  user_lng: number | null
+}
+
 export const geocodeApi = {
-  search: (q: string) =>
-    api.get<{ lat: number | null; lng: number | null; address: string | null }>('/geocode', {
-      params: { q },
+  /**
+   * 장소 검색. lat/lng 가 있으면 사용자 위치 주변 우선 + 거리순 정렬.
+   * 결과는 항상 배열(있으면 1~limit개, 없으면 빈 배열). **임의 폴백 좌표 미부여.**
+   */
+  search: (q: string, lat?: number, lng?: number, limit = 5) =>
+    api.get<GeocodeSearchResponse>('/geocode', {
+      params: { q, lat, lng, limit },
     }),
 }
 
@@ -222,6 +247,14 @@ export const adminApi = {
   stats: () => api.get<AdminStats>('/admin/stats'),
   users: (limit = 100, offset = 0) =>
     api.get<AdminUserRow[]>('/admin/users', { params: { limit, offset } }),
+  resetPassword: (userId: number, newPassword: string) =>
+    api.post<AdminActionResult>(`/admin/users/${userId}/reset-password`, {
+      new_password: newPassword,
+    }),
+  setAdmin: (userId: number, isAdmin: boolean) =>
+    api.patch<AdminActionResult>(`/admin/users/${userId}/admin`, { is_admin: isAdmin }),
+  softDelete: (userId: number) =>
+    api.delete<AdminActionResult>(`/admin/users/${userId}`),
 }
 
 // ===== Constants =====

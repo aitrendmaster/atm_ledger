@@ -147,6 +147,11 @@ export default function ChatLedger() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [editingEntry, setEditingEntry] = useState(null);
   const [photoUploadEntry, setPhotoUploadEntry] = useState(null);
+  // 장소 위치 검색 (모달 안)
+  const [placeSearchQuery, setPlaceSearchQuery] = useState('');
+  const [placeSearchResults, setPlaceSearchResults] = useState([]);
+  const [placeSearchBusy, setPlaceSearchBusy] = useState(false);
+  const [placeSearchedOnce, setPlaceSearchedOnce] = useState(false);
 
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -306,12 +311,42 @@ export default function ChatLedger() {
     }));
   };
 
-  const geocodePlace = async (placeName) => {
+  // 사용자 위치 (Geolocation API). 첫 검색 시 권한 요청. 거부 시 null 로 남아 전국 검색.
+  const [userGeo, setUserGeo] = useState(null); // { lat, lng } | null
+  const [geoStatus, setGeoStatus] = useState('idle'); // idle | requesting | granted | denied | unsupported
+
+  const requestUserGeo = () => {
+    if (!('geolocation' in navigator)) {
+      setGeoStatus('unsupported');
+      return Promise.resolve(null);
+    }
+    setGeoStatus('requesting');
+    return new Promise(resolve => {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const g = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          setUserGeo(g);
+          setGeoStatus('granted');
+          resolve(g);
+        },
+        () => {
+          setGeoStatus('denied');
+          resolve(null);
+        },
+        { timeout: 8000, maximumAge: 5 * 60 * 1000 },
+      );
+    });
+  };
+
+  // 수동 위치 검색 — Geolocation 있으면 주변 우선, 없으면 전국. 임의 폴백 좌표 없음.
+  const searchPlaces = async (placeName) => {
+    const geo = userGeo;
     try {
-      const res = await geocodeApi.search(placeName);
-      if (res.data.lat != null && res.data.lng != null) return res.data;
-    } catch (e) {}
-    return { lat: 37.5172, lng: 127.0473, address: null };
+      const res = await geocodeApi.search(placeName, geo?.lat, geo?.lng, 5);
+      return res.data.results || [];
+    } catch (e) {
+      return [];
+    }
   };
 
   const generateMonthInsight = async (monthKey) => {
@@ -346,17 +381,18 @@ export default function ChatLedger() {
       if (!parsed || parsed.length === 0) {
         setMessages(prev => [...prev, { role: 'assistant', text: '다시 적어줄래?', time: new Date() }]);
       } else {
-        const newSpent = await Promise.all(parsed.filter(p => p.kind === 'spent').map(async (p, i) => {
-          let place = null;
-          if (p.placeName) {
-            const geo = await geocodePlace(p.placeName);
-            place = { name: p.placeName, ...geo };
-          }
-          return {
-            id: Date.now() + i, description: p.description, amount: p.amount,
-            category: CATEGORIES[p.category] ? p.category : '기타',
-            date: p.date, place, rating: null, review: null, mood: null, photos: [],
-          };
+        // 자동 지오코딩 제거. 임의 좌표(다른 시·구) 핀이 찍히는 문제를 차단한다.
+        // place_name 만 저장하고 좌표는 null. 사용자가 장소 상세 모달에서 직접 검색·선택.
+        const newSpent = parsed.filter(p => p.kind === 'spent').map((p, i) => ({
+          id: Date.now() + i,
+          description: p.description,
+          amount: p.amount,
+          category: CATEGORIES[p.category] ? p.category : '기타',
+          date: p.date,
+          place: p.placeName
+            ? { name: p.placeName, lat: null, lng: null, address: null }
+            : null,
+          rating: null, review: null, mood: null, photos: [],
         }));
         const newPlanned = parsed.filter(p => p.kind === 'planned').map((p, i) => ({
           id: 'u' + Date.now() + i, description: p.description, amount: p.amount,
@@ -364,11 +400,14 @@ export default function ChatLedger() {
         }));
         if (newSpent.length > 0) setEntries(prev => [...prev, ...newSpent]);
         if (newPlanned.length > 0) setPlanned(prev => [...prev, ...newPlanned]);
-        const hasPlace = newSpent.some(e => e.place);
+        const namedPlace = newSpent.find(e => e.place?.name);
+        const placeHint = namedPlace
+          ? `\n📍 "${namedPlace.place.name}" 장소가 인식됐어. 정확한 위치는 항목을 눌러 직접 골라줘.`
+          : '';
         setMessages(prev => [...prev, {
           role: 'assistant',
-          text: `기록했어 ✓ (${newSpent.length + newPlanned.length}건)${hasPlace ? '\n📍 장소 핀 찍었어. 별점이랑 사진 남겨봐!' : ''}`,
-          time: new Date()
+          text: `기록했어 ✓ (${newSpent.length + newPlanned.length}건)${placeHint}`,
+          time: new Date(),
         }]);
       }
     } catch (err) {
@@ -1400,9 +1439,13 @@ export default function ChatLedger() {
                   </button>
                 </div>
 
-                {/* 외부 지도 열기 */}
+                {/* 외부 지도 열기 — 좌표 있으면 좌표 기반, 없으면 이름 검색 fallback */}
                 <div className="flex gap-2 mt-3">
-                  <a href={`https://www.google.com/maps/search/?api=1&query=${selectedPlace.lat},${selectedPlace.lng}&query_place_id=${encodeURIComponent(selectedPlace.name)}`}
+                  <a href={
+                    typeof selectedPlace.lat === 'number' && typeof selectedPlace.lng === 'number'
+                      ? `https://www.google.com/maps/search/?api=1&query=${selectedPlace.lat},${selectedPlace.lng}&query_place_id=${encodeURIComponent(selectedPlace.name)}`
+                      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedPlace.name)}`
+                  }
                     target="_blank" rel="noopener noreferrer"
                     className="flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs font-medium"
                     style={{ backgroundColor: '#E5ECF2', color: '#5B7C99' }}>
@@ -1450,17 +1493,155 @@ export default function ChatLedger() {
                 </div>
               </div>
 
-              {/* Google Maps 임베드 */}
-              <div className="flex-shrink-0" style={{ height: '180px' }}>
-                <iframe
-                  title={selectedPlace.name}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  src={`https://maps.google.com/maps?q=${selectedPlace.lat},${selectedPlace.lng}&z=16&output=embed`}
-                  loading="lazy"
-                />
-              </div>
+              {/* 위치 패널 — 좌표 있으면 임베드 지도, 없으면 위치 지정 검색 UI */}
+              {typeof selectedPlace.lat === 'number' && typeof selectedPlace.lng === 'number' ? (
+                <div className="flex-shrink-0 relative" style={{ height: '180px' }}>
+                  <iframe
+                    title={selectedPlace.name}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    src={`https://maps.google.com/maps?q=${selectedPlace.lat},${selectedPlace.lng}&z=16&output=embed`}
+                    loading="lazy"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // 위치 다시 지정: 좌표 초기화 + 검색 UI 노출
+                      const targetName = selectedPlace.name;
+                      setEntries(prev => prev.map(e =>
+                        e.place?.name === targetName
+                          ? { ...e, place: { ...e.place, lat: null, lng: null, address: null } }
+                          : e
+                      ));
+                      setSelectedPlace({ ...selectedPlace, lat: null, lng: null, address: null });
+                      setPlaceSearchQuery(targetName);
+                      setPlaceSearchResults([]);
+                      setPlaceSearchedOnce(false);
+                    }}
+                    className="absolute top-2 right-2 px-2.5 py-1 rounded-full text-[11px] font-medium"
+                    style={{ backgroundColor: 'rgba(255,253,248,0.95)', color: '#A0633C', border: '1px solid #E8E2D5' }}
+                  >
+                    위치 다시 지정
+                  </button>
+                </div>
+              ) : (
+                <div className="p-4 border-b" style={{ borderColor: '#E8E2D5', backgroundColor: '#FAF7F0' }}>
+                  <div className="text-xs font-medium mb-2 flex items-center gap-1.5" style={{ color: '#2C2418' }}>
+                    <MapPin size={12} style={{ color: '#A0633C' }} />
+                    정확한 위치를 골라줘
+                    <span className="text-[10px] font-normal" style={{ color: '#7A7567' }}>
+                      (AI 가 추측한 위치는 부정확할 수 있어 자동으로 핀을 찍지 않아)
+                    </span>
+                  </div>
+
+                  <div className="flex gap-1.5 mb-2">
+                    <input
+                      type="text"
+                      value={placeSearchQuery}
+                      onChange={(e) => setPlaceSearchQuery(e.target.value)}
+                      placeholder={selectedPlace.name + ' 근처'}
+                      className="flex-1 px-3 py-2 rounded-lg text-sm focus:outline-none"
+                      style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+                      onKeyDown={async (e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          const q = (placeSearchQuery || selectedPlace.name).trim();
+                          if (!q) return;
+                          setPlaceSearchBusy(true);
+                          setPlaceSearchedOnce(true);
+                          const results = await searchPlaces(q);
+                          setPlaceSearchResults(results);
+                          setPlaceSearchBusy(false);
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      disabled={placeSearchBusy}
+                      onClick={async () => {
+                        const q = (placeSearchQuery || selectedPlace.name).trim();
+                        if (!q) return;
+                        setPlaceSearchBusy(true);
+                        setPlaceSearchedOnce(true);
+                        const results = await searchPlaces(q);
+                        setPlaceSearchResults(results);
+                        setPlaceSearchBusy(false);
+                      }}
+                      className="px-3 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
+                      style={{ backgroundColor: '#A0633C', color: 'white' }}
+                    >
+                      {placeSearchBusy ? '검색…' : '검색'}
+                    </button>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] mb-2" style={{ color: '#7A7567' }}>
+                    <span>
+                      {geoStatus === 'granted' && userGeo && '📍 내 위치 주변 우선 (±20km)'}
+                      {geoStatus === 'denied' && '🌐 전체 한국 검색 (위치 권한 거부됨)'}
+                      {geoStatus === 'unsupported' && '🌐 전체 한국 검색 (브라우저 미지원)'}
+                      {(geoStatus === 'idle' || geoStatus === 'requesting') && '🌐 전체 한국 검색'}
+                    </span>
+                    {(geoStatus === 'idle' || geoStatus === 'denied') && (
+                      <button
+                        type="button"
+                        onClick={() => requestUserGeo()}
+                        className="underline"
+                        style={{ color: '#A0633C' }}
+                      >
+                        내 위치 사용
+                      </button>
+                    )}
+                  </div>
+
+                  {placeSearchedOnce && !placeSearchBusy && placeSearchResults.length === 0 && (
+                    <div className="text-xs text-center py-3" style={{ color: '#7A7567' }}>
+                      검색 결과가 없어. 다른 검색어로 시도하거나 위치를 비워둬도 돼.
+                    </div>
+                  )}
+
+                  {placeSearchResults.length > 0 && (
+                    <div className="space-y-1.5 max-h-44 overflow-y-auto">
+                      {placeSearchResults.map((r, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => {
+                            const targetName = selectedPlace.name;
+                            // 같은 place.name 을 가진 모든 entry 의 좌표 일괄 업데이트
+                            setEntries(prev => prev.map(e =>
+                              e.place?.name === targetName
+                                ? { ...e, place: { name: targetName, lat: r.lat, lng: r.lng, address: r.address } }
+                                : e
+                            ));
+                            setSelectedPlace({
+                              ...selectedPlace,
+                              lat: r.lat,
+                              lng: r.lng,
+                              address: r.address,
+                            });
+                            setPlaceSearchResults([]);
+                            setPlaceSearchQuery('');
+                            setPlaceSearchedOnce(false);
+                          }}
+                          className="w-full text-left p-2.5 rounded-lg text-xs"
+                          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5' }}
+                        >
+                          <div className="font-medium truncate" style={{ color: '#2C2418' }}>
+                            {r.name || r.address}
+                          </div>
+                          <div className="flex items-center gap-2 mt-0.5 text-[10px]" style={{ color: '#7A7567' }}>
+                            {r.address && <span className="truncate">{r.address}</span>}
+                            {typeof r.distance_km === 'number' && (
+                              <span style={{ color: '#A0633C' }}>· {r.distance_km}km</span>
+                            )}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* 사진 갤러리 */}
               {selectedPlace.allPhotos.length > 0 && (
@@ -1550,11 +1731,20 @@ export default function ChatLedger() {
 
 function SimpleMap({ places, onPinClick, CATEGORIES }) {
   const SVG_W = 600, SVG_H = 320;
+  // 좌표가 지정된 장소만 핀으로 표시 (사용자가 직접 위치를 선택한 곳).
+  const pinned = places.filter(p => typeof p.lat === 'number' && typeof p.lng === 'number');
+  if (pinned.length === 0) {
+    return (
+      <div className="rounded-2xl p-6 text-xs text-center" style={{ backgroundColor: '#F0EBE0', color: '#7A7567' }}>
+        아직 핀으로 표시할 위치가 없어. 장소 카드를 눌러 정확한 위치를 골라줘.
+      </div>
+    );
+  }
   const bounds = {
-    minLat: Math.min(...places.map(p => p.lat)) - 0.005,
-    maxLat: Math.max(...places.map(p => p.lat)) + 0.005,
-    minLng: Math.min(...places.map(p => p.lng)) - 0.005,
-    maxLng: Math.max(...places.map(p => p.lng)) + 0.005,
+    minLat: Math.min(...pinned.map(p => p.lat)) - 0.005,
+    maxLat: Math.max(...pinned.map(p => p.lat)) + 0.005,
+    minLng: Math.min(...pinned.map(p => p.lng)) - 0.005,
+    maxLng: Math.max(...pinned.map(p => p.lng)) + 0.005,
   };
   const projectX = (lng) => ((lng - bounds.minLng) / (bounds.maxLng - bounds.minLng)) * SVG_W;
   const projectY = (lat) => SVG_H - ((lat - bounds.minLat) / (bounds.maxLat - bounds.minLat)) * SVG_H;
@@ -1569,7 +1759,7 @@ function SimpleMap({ places, onPinClick, CATEGORIES }) {
         </defs>
         <rect width={SVG_W} height={SVG_H} fill="url(#grid-mini)" />
         <path d="M 0 160 Q 200 140 300 180 T 600 160" stroke="#D4CDC0" strokeWidth="2" fill="none" opacity="0.4" />
-        {places.map((p, i) => {
+        {pinned.map((p, i) => {
           const x = projectX(p.lng), y = projectY(p.lat);
           const catColor = CATEGORIES[p.category]?.color || '#7A7567';
           const size = Math.min(24, 14 + Math.sqrt(p.totalSpent / 5000));

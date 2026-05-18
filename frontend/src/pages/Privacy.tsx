@@ -9,7 +9,7 @@ export default function Privacy() {
         <ul className="list-disc pl-5">
           <li>필수: 이메일, 비밀번호(해시), 닉네임(선택)</li>
           <li>서비스 이용 중 생성: 지출 기록, 장소·사진·후기, 회고 텍스트</li>
-          <li>자동 수집: 접속 IP, 브라우저 정보, 쿠키</li>
+          <li>자동 수집: 접속 IP, 브라우저 정보, 쿠키, Google Analytics 트래픽 통계(쿠키 기반, 개인 식별 정보 없음)</li>
         </ul>
 
         <h2 className="font-semibold mt-6">2. 이용 목적</h2>
@@ -29,7 +29,7 @@ export default function Privacy() {
         <p>회원은 언제든지 본인 정보 열람·수정·삭제·탈퇴를 요청할 수 있습니다.</p>
 
         <h2 className="font-semibold mt-6">6. 개인정보 보호책임자</h2>
-        <p>이메일: privacy@atm-ledger.example</p>
+        <p>이메일: master@aitrend.kr</p>
 
         <p className="text-xs text-atm-muted mt-8">시행일: 2026-05-17 (초안)</p>
       </article>

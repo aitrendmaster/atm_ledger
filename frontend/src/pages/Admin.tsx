@@ -1,7 +1,22 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { ArrowLeft, Users, ShoppingBag, Calendar, BookOpen, TrendingUp, ShieldAlert } from 'lucide-react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
+import {
+  ArrowLeft,
+  BookOpen,
+  Calendar,
+  Eye,
+  EyeOff,
+  Key,
+  ShieldAlert,
+  ShieldCheck,
+  ShoppingBag,
+  Trash2,
+  TrendingUp,
+  Users,
+  X,
+} from 'lucide-react'
 import { adminApi } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
 
@@ -10,7 +25,12 @@ const fmtDate = (s: string) => new Date(s).toLocaleString('ko-KR', { dateStyle: 
 
 export default function Admin() {
   const { user, loading } = useAuth()
+  const queryClient = useQueryClient()
   const [accessDenied, setAccessDenied] = useState(false)
+  const [busyId, setBusyId] = useState<number | null>(null)
+  const [pwTarget, setPwTarget] = useState<{ id: number; email: string } | null>(null)
+  const [pwValue, setPwValue] = useState('')
+  const [pwShow, setPwShow] = useState(false)
 
   const statsQ = useQuery({
     queryKey: ['admin', 'stats'],
@@ -29,6 +49,73 @@ export default function Admin() {
   useEffect(() => {
     if (!loading && user && !user.is_admin) setAccessDenied(true)
   }, [loading, user])
+
+  const refreshAdminData = () => {
+    queryClient.invalidateQueries({ queryKey: ['admin', 'users'] })
+    queryClient.invalidateQueries({ queryKey: ['admin', 'stats'] })
+  }
+
+  const openResetPassword = (id: number, email: string) => {
+    setPwTarget({ id, email })
+    setPwValue('')
+    setPwShow(false)
+  }
+
+  const submitResetPassword = async () => {
+    if (!pwTarget) return
+    if (pwValue.length < 8) {
+      toast.error('비밀번호는 8자 이상이어야 합니다.')
+      return
+    }
+    setBusyId(pwTarget.id)
+    try {
+      const r = await adminApi.resetPassword(pwTarget.id, pwValue)
+      toast.success(r.data.message || '비밀번호 재설정 완료')
+      setPwTarget(null)
+      setPwValue('')
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '재설정 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const handleToggleAdmin = async (id: number, email: string, current: boolean) => {
+    const next = !current
+    const ok = window.confirm(
+      `${email} 의 admin 권한을 ${next ? '부여' : '해제'}하시겠습니까?`,
+    )
+    if (!ok) return
+    setBusyId(id)
+    try {
+      const r = await adminApi.setAdmin(id, next)
+      toast.success(r.data.message || '권한 변경 완료')
+      refreshAdminData()
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '권한 변경 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const handleSoftDelete = async (id: number, email: string) => {
+    const ok = window.confirm(
+      `${email} 계정을 비활성화(soft delete)합니다.\n` +
+        `해당 사용자는 로그인 불가, admin 목록에서 제외됩니다.\n` +
+        `가계부 데이터는 보존됩니다. 진행할까요?`,
+    )
+    if (!ok) return
+    setBusyId(id)
+    try {
+      const r = await adminApi.softDelete(id)
+      toast.success(r.data.message || '비활성화 완료')
+      refreshAdminData()
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '삭제 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
 
   if (loading) return <div className="p-8 text-atm-muted">로딩 중…</div>
 
@@ -131,7 +218,7 @@ export default function Admin() {
           <h2 className="text-sm font-semibold text-atm-muted mb-3 uppercase tracking-wide">
             사용자 목록 ({users.length})
           </h2>
-          <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden">
+          <div className="bg-white border border-stone-200 rounded-2xl overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-stone-50 text-xs text-atm-muted">
                 <tr>
@@ -142,20 +229,76 @@ export default function Admin() {
                   <th className="text-right px-4 py-2.5 font-medium">예정</th>
                   <th className="text-right px-4 py-2.5 font-medium">회고</th>
                   <th className="text-left px-4 py-2.5 font-medium">가입일</th>
+                  <th className="text-right px-4 py-2.5 font-medium">액션</th>
                 </tr>
               </thead>
               <tbody>
-                {users.map(u => (
-                  <tr key={u.id} className="border-t border-stone-100">
-                    <td className="px-4 py-2.5 text-atm-muted">{u.id}</td>
-                    <td className="px-4 py-2.5 text-atm-ink">{u.email}</td>
-                    <td className="px-4 py-2.5 text-atm-muted">{u.display_name || '—'}</td>
-                    <td className="px-4 py-2.5 text-right">{u.entries_count}</td>
-                    <td className="px-4 py-2.5 text-right">{u.planned_count}</td>
-                    <td className="px-4 py-2.5 text-right">{u.reflections_count}</td>
-                    <td className="px-4 py-2.5 text-atm-muted text-xs">{fmtDate(u.created_at)}</td>
-                  </tr>
-                ))}
+                {users.map(u => {
+                  const isSelf = u.id === user.id
+                  const busy = busyId === u.id
+                  return (
+                    <tr key={u.id} className="border-t border-stone-100">
+                      <td className="px-4 py-2.5 text-atm-muted">{u.id}</td>
+                      <td className="px-4 py-2.5 text-atm-ink">
+                        <div className="flex items-center gap-2">
+                          <span>{u.email}</span>
+                          {u.is_admin && (
+                            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-atm-accent/10 text-atm-accent rounded text-[10px] font-medium">
+                              <ShieldCheck size={10} /> ADMIN
+                            </span>
+                          )}
+                          {isSelf && (
+                            <span className="px-1.5 py-0.5 bg-stone-100 text-atm-muted rounded text-[10px]">
+                              본인
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 py-2.5 text-atm-muted">{u.display_name || '—'}</td>
+                      <td className="px-4 py-2.5 text-right">{u.entries_count}</td>
+                      <td className="px-4 py-2.5 text-right">{u.planned_count}</td>
+                      <td className="px-4 py-2.5 text-right">{u.reflections_count}</td>
+                      <td className="px-4 py-2.5 text-atm-muted text-xs whitespace-nowrap">
+                        {fmtDate(u.created_at)}
+                      </td>
+                      <td className="px-4 py-2.5 text-right whitespace-nowrap">
+                        <div className="inline-flex gap-1.5">
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => openResetPassword(u.id, u.email)}
+                            title="비밀번호 재설정"
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs border border-stone-200 rounded-md hover:bg-stone-50 disabled:opacity-50"
+                          >
+                            <Key size={12} />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={busy || isSelf}
+                            onClick={() => handleToggleAdmin(u.id, u.email, u.is_admin)}
+                            title={u.is_admin ? 'admin 해제' : 'admin 부여'}
+                            className={`inline-flex items-center gap-1 px-2 py-1 text-xs border rounded-md disabled:opacity-50 ${
+                              u.is_admin
+                                ? 'border-atm-accent text-atm-accent hover:bg-atm-accent/5'
+                                : 'border-stone-200 text-atm-muted hover:bg-stone-50'
+                            }`}
+                          >
+                            <ShieldCheck size={12} />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={busy || isSelf}
+                            onClick={() => handleSoftDelete(u.id, u.email)}
+                            title="비활성화 (soft delete)"
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs border border-red-200 text-red-600 rounded-md hover:bg-red-50 disabled:opacity-50"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
             {users.length === 0 && (
@@ -170,6 +313,79 @@ export default function Admin() {
           </div>
         )}
       </main>
+
+      {/* 비밀번호 재설정 모달 */}
+      {pwTarget && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          onClick={() => setPwTarget(null)}
+        >
+          <div
+            className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Key size={16} className="text-atm-accent" />
+                <h3 className="text-base font-semibold text-atm-ink">비밀번호 재설정</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPwTarget(null)}
+                className="text-atm-muted hover:text-atm-ink"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <p className="text-xs text-atm-muted mb-3">
+              <span className="text-atm-ink font-medium">{pwTarget.email}</span> 의 새 비밀번호 (8자 이상).
+              사용자에게는 별도 안전한 채널로 전달하세요.
+            </p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                void submitResetPassword()
+              }}
+            >
+              <div className="relative mb-4">
+                <input
+                  type={pwShow ? 'text' : 'password'}
+                  autoFocus
+                  value={pwValue}
+                  onChange={(e) => setPwValue(e.target.value)}
+                  minLength={8}
+                  placeholder="새 비밀번호"
+                  className="w-full px-3 py-2.5 pr-9 border border-stone-200 rounded-lg focus:outline-none focus:border-atm-accent text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setPwShow((s) => !s)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-atm-muted hover:text-atm-ink"
+                  title={pwShow ? '숨기기' : '보기'}
+                >
+                  {pwShow ? <EyeOff size={14} /> : <Eye size={14} />}
+                </button>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPwTarget(null)}
+                  className="flex-1 py-2 border border-stone-200 rounded-lg text-sm text-atm-muted hover:bg-stone-50"
+                >
+                  취소
+                </button>
+                <button
+                  type="submit"
+                  disabled={busyId === pwTarget.id || pwValue.length < 8}
+                  className="flex-1 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
+                >
+                  {busyId === pwTarget.id ? '저장 중…' : '재설정'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

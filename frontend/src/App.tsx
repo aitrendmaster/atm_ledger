@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
+import { useGaPageView } from './hooks/useGaPageView'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Ledger from './pages/Ledger'
@@ -17,6 +18,7 @@ function Protected({ children }: { children: JSX.Element }) {
 }
 
 export default function App() {
+  useGaPageView()
   return (
     <Routes>
       <Route path="/" element={<Landing />} />

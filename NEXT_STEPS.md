@@ -1,7 +1,6 @@
 # 다음 단계 — 사용자가 직접 할 작업
 
-> v0.5 스캐폴딩 + 로컬 검증 + **프로덕션 배포 완료** (2026-05-18).
-> Production: https://atm-ledger-ntrv.vercel.app (프론트) · https://atmledger-production.up.railway.app (백엔드)
+> v0.5 스캐폴딩 + 로컬 검증 완료. 이 문서의 3 단계만 사용자가 직접 진행하면 됩니다.
 
 ---
 
@@ -101,7 +100,7 @@
 |------|----------|---------|------|
 | `ANTHROPIC_API_KEY` | `c:\Users\okiro\OneDrive\문서\New solution\backend\.env` (Adora AI 프로젝트의 `.env` 라인 2) | `sk-ant-api03-TvYy…A6Ww-Rw393AAA` | Adora AI와 동일 키 사용. 프로덕션 출시 후엔 별도 키 발급해 분리 권장 (사용량·과금·롤링 정책 분리). |
 | `JWT_SECRET` | 신규 생성 (`python -c "import secrets; print(secrets.token_hex(32))"`) | `3125c50933c62…68a0` | 로컬용. **프로덕션(Railway)에는 반드시 새로 발급한 별도 시크릿 사용.** |
-| `OPENAI_API_KEY` | 미사용 | — | ATM 가계부는 Claude만 사용 (이미지 픽스가 없음). |
+| `OPENAI_API_KEY` | 미사용 | — | Moa AI 가계부는 Claude만 사용 (이미지 픽스가 없음). |
 | `GOOGLE_*`, `KAKAO_*` | 비워둠 | — | v1.5에서 소셜 로그인 추가 시 발급. |
 | `R2_*` | 비워둠 | — | v1+ 사진 영구 저장 시 발급. v1 출시까지는 `STORAGE_BACKEND=local` 로 충분. |
 

@@ -28,15 +28,23 @@ async def get_current_user(
     user = res.scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="user not found")
+    if user.deleted_at is not None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="account disabled")
     return user
 
 
 def is_admin_email(email: str) -> bool:
+    """ENV 화이트리스트 기준 admin 여부 — 부트스트랩/UI 미사용 시 fallback. 운영 판정은 User.is_admin."""
     return (email or "").lower() in get_settings().admin_email_set
+
+
+def is_admin(user: User) -> bool:
+    """현행 판정 함수. DB 컬럼이 truth source. ENV 화이트리스트는 부트스트랩 시드로만 사용."""
+    return bool(user.is_admin)
 
 
 async def get_admin_user(user: User = Depends(get_current_user)) -> User:
     """관리자 권한 필요한 엔드포인트용 의존성."""
-    if not is_admin_email(user.email):
+    if not is_admin(user):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="admin only")
     return user

@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from loguru import logger
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..database import get_db
-from ..deps import get_current_user, is_admin_email
+from ..deps import get_current_user, is_admin
 from ..models.user import User
 from ..schemas.auth import (
     LoginRequest,
@@ -22,7 +23,7 @@ def _user_out(u: User) -> UserOut:
         display_name=u.display_name,
         monthly_income=u.monthly_income,
         monthly_budget=u.monthly_budget,
-        is_admin=is_admin_email(u.email),
+        is_admin=is_admin(u),
     )
 from ..security import (
     create_access_token,
@@ -44,19 +45,28 @@ def _issue_tokens(user_id: int) -> TokenPair:
 
 @router.post("/signup", response_model=TokenPair, status_code=status.HTTP_201_CREATED)
 async def signup(body: SignupRequest, db: AsyncSession = Depends(get_db)):
-    res = await db.execute(select(User).where(User.email == body.email.lower()))
-    if res.scalar_one_or_none():
-        raise HTTPException(status_code=409, detail="이미 가입된 이메일입니다.")
-    user = User(
-        email=body.email.lower(),
-        password_hash=hash_password(body.password),
-        display_name=body.display_name,
-        auth_provider="password",
-    )
-    db.add(user)
-    await db.commit()
-    await db.refresh(user)
-    return _issue_tokens(user.id)
+    try:
+        res = await db.execute(select(User).where(User.email == body.email.lower()))
+        if res.scalar_one_or_none():
+            raise HTTPException(status_code=409, detail="이미 가입된 이메일입니다.")
+        user = User(
+            email=body.email.lower(),
+            password_hash=hash_password(body.password),
+            display_name=body.display_name,
+            auth_provider="password",
+        )
+        db.add(user)
+        await db.commit()
+        await db.refresh(user)
+        return _issue_tokens(user.id)
+    except HTTPException:
+        raise
+    except Exception:
+        logger.exception(f"signup failed for email={body.email!r}")
+        raise HTTPException(
+            status_code=500,
+            detail="회원가입 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+        )
 
 
 @router.post("/login", response_model=TokenPair)

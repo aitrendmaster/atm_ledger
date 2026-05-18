@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class AdminUserRow(BaseModel):
@@ -8,6 +8,7 @@ class AdminUserRow(BaseModel):
     display_name: str | None
     monthly_income: int
     monthly_budget: int
+    is_admin: bool
     created_at: datetime
     entries_count: int
     planned_count: int
@@ -30,3 +31,16 @@ class AdminMeOut(BaseModel):
     display_name: str | None
     is_admin: bool
     support_email: str
+
+
+class ResetPasswordIn(BaseModel):
+    new_password: str = Field(min_length=8, max_length=128)
+
+
+class SetAdminIn(BaseModel):
+    is_admin: bool
+
+
+class AdminActionResult(BaseModel):
+    ok: bool
+    message: str | None = None

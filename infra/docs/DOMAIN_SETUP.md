@@ -118,7 +118,7 @@ Vercel은 도메인을 변경해도 빌드된 코드 안의 `VITE_API_BASE_URL` 
 ```
 https://moa.atm.ai.kr
 ```
-접속 → ATM 가계부 랜딩 페이지 표시. SSL 자물쇠 아이콘 ✓ 확인.
+접속 → Moa AI 가계부 랜딩 페이지 표시. SSL 자물쇠 아이콘 ✓ 확인.
 
 회원가입·로그인 → CORS 에러 없이 정상 동작 → 끝.
 

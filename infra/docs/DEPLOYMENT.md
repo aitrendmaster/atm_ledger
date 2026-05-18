@@ -15,7 +15,7 @@
 cd atm-ledger
 git init
 git add .
-git commit -m "init: ATM 가계부 v0.5 scaffold"
+git commit -m "init: Moa AI 가계부 v0.5 scaffold"
 gh repo create atm-ledger --private --source=. --push
 ```
 

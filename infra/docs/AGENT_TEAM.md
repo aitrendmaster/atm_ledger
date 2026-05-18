@@ -1,6 +1,6 @@
-# ATM 가계부 — 에이전트 팀 구조 & R&R
+# Moa AI 가계부 — 에이전트 팀 구조 & R&R
 
-> 이 문서는 ATM 가계부 프로젝트를 개발할 때 Claude Code 에이전트 팀을 어떻게 구성·운영할지 정의합니다.
+> 이 문서는 Moa AI 가계부 프로젝트를 개발할 때 Claude Code 에이전트 팀을 어떻게 구성·운영할지 정의합니다.
 > 리더(메인 세션)는 작업 전 이 문서를 참고하여 팀을 구성하고, 팀원에게 적절한 역할을 위임합니다.
 
 ---
@@ -227,14 +227,14 @@
 Agent({
   subagent_type: "Plan",
   description: "지출 분할 기능 설계",
-  prompt: "ATM 가계부에 '지출 분할' 기능 추가. 한 entry를 여러 카테고리로 나눠 금액 분배. backend Entry 모델, 마이그레이션, 라우터 변경과 frontend UI 흐름 plan."
+  prompt: "Moa AI 가계부에 '지출 분할' 기능 추가. 한 entry를 여러 카테고리로 나눠 금액 분배. backend Entry 모델, 마이그레이션, 라우터 변경과 frontend UI 흐름 plan."
 })
 
 # QA & Reviewer 호출
 Agent({
   subagent_type: "general-purpose",
   description: "최근 변경 코드 리뷰",
-  prompt: "ATM 가계부 프로젝트. backend/app/routers/entries.py 와 frontend/src/pages/Ledger.jsx 의 최근 변경을 AGENT_TEAM.md R4 체크리스트 기준으로 리뷰. P0/P1/P2 분류해서 리포트."
+  prompt: "Moa AI 가계부 프로젝트. backend/app/routers/entries.py 와 frontend/src/pages/Ledger.jsx 의 최근 변경을 AGENT_TEAM.md R4 체크리스트 기준으로 리뷰. P0/P1/P2 분류해서 리포트."
 })
 
 # Test & Eval 호출

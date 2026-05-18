@@ -3,7 +3,7 @@ export default function Terms() {
     <div className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
       <h1 className="text-3xl font-semibold mb-6">이용약관</h1>
       <article className="prose prose-sm text-atm-ink space-y-4">
-        <p>본 약관은 ATM 가계부(이하 "서비스")의 이용 조건을 정합니다. <strong>※ 본 문서는 초안 템플릿이며, 정식 출시 전에 법률 검토가 필요합니다.</strong></p>
+        <p>본 약관은 Moa AI 가계부(이하 "서비스")의 이용 조건을 정합니다. <strong>※ 본 문서는 초안 템플릿이며, 정식 출시 전에 법률 검토가 필요합니다.</strong></p>
 
         <h2 className="font-semibold mt-6">제1조 (목적)</h2>
         <p>본 약관은 서비스 제공자(이하 "회사")와 회원 간의 권리·의무·책임사항을 규정함을 목적으로 합니다.</p>

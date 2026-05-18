@@ -110,7 +110,7 @@ export default function Landing() {
       <footer className="px-6 py-10 bg-stone-50 border-t border-stone-200">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 text-sm">
           <div>
-            <div className="font-semibold text-atm-ink mb-1">ATM 가계부</div>
+            <div className="font-semibold text-atm-ink mb-1">Moa AI 가계부</div>
             <div className="text-xs text-atm-muted">대화로 기록하는 AI 가계부</div>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-atm-muted">

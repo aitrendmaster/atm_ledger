@@ -26,7 +26,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <form onSubmit={onSubmit} className="w-full max-w-sm bg-white rounded-2xl shadow-sm p-6 space-y-4">
-        <h1 className="text-2xl font-semibold text-atm-ink">ATM 가계부</h1>
+        <h1 className="text-2xl font-semibold text-atm-ink">Moa AI 가계부</h1>
         <p className="text-sm text-atm-muted">로그인하고 가계부를 시작하세요.</p>
         <input
           type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
