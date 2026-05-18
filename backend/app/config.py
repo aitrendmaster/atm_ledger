@@ -54,6 +54,14 @@ class Settings(BaseSettings):
     # Password reset 토큰 유효 기간
     password_reset_ttl_min: int = 60
 
+    # Stripe 정기결제 — 값이 비어 있으면 결제 엔드포인트가 503 으로 graceful disable.
+    # Stripe Dashboard → Products → Price 등록 후 STRIPE_PRICE_ID 사용 ($4/mo recurring).
+    # Webhook secret 은 Stripe CLI 또는 Dashboard 에서 webhook endpoint 등록 후 발급.
+    stripe_secret_key: str = ""
+    stripe_publishable_key: str = ""
+    stripe_price_id: str = ""
+    stripe_webhook_secret: str = ""
+
     # Admin 권한 부여 이메일 (콤마 구분). 운영자만 /admin/* 접근 가능
     admin_emails: str = "aitrendmarketer@gmail.com"
 

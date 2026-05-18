@@ -101,6 +101,8 @@ export interface BillingStatus {
   paid_until: string | null
   days_remaining: number
   price_usd_monthly: number
+  stripe_configured: boolean
+  subscription_status: string | null
 }
 
 export interface AdminStats {
@@ -330,6 +332,8 @@ export const meApi = {
   billing: () => api.get<BillingStatus>('/me/billing'),
   upgrade: () => api.post<BillingStatus>('/me/billing/upgrade'),
   cancel: () => api.post<BillingStatus>('/me/billing/cancel'),
+  checkout: () => api.post<{ url: string }>('/me/billing/checkout'),
+  portal: () => api.post<{ url: string }>('/me/billing/portal'),
   exportXlsx: (params: { period: 'monthly'; month: string } | { period: 'annual'; year: string }) =>
     api.get<Blob>('/me/export.xlsx', { params, responseType: 'blob' }),
 }

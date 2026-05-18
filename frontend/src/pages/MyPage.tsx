@@ -327,10 +327,21 @@ function BillingTab({
   const refetch = () => queryClient.invalidateQueries({ queryKey: ['me', 'billing'] })
 
   const upgrade = async () => {
+    // Stripe 연동 시: Checkout 으로 redirect / 미연동 시: mock upgrade
+    const b = q.data
+    if (b?.stripe_configured) {
+      try {
+        const r = await meApi.checkout()
+        window.location.href = r.data.url
+      } catch (err: any) {
+        toast.error(err?.response?.data?.detail || '결제 세션 생성 실패')
+      }
+      return
+    }
     const ok = window.confirm(
       '월 $4 (약 5,400원) 유료 플랜으로 업그레이드하시겠습니까?\n\n' +
-        '※ 현재 결제 게이트웨이 연동 전 — 데모용 즉시 전환이 됩니다 (실 결제 없음).\n' +
-        'Stripe / Toss 연동은 다음 PR (J2) 에서 적용됩니다.',
+        '※ 현재 결제 게이트웨이가 운영자 환경에 연결되지 않았습니다.\n' +
+        '데모용 즉시 전환이 됩니다 (실 결제 없음).',
     )
     if (!ok) return
     try {
@@ -343,6 +354,17 @@ function BillingTab({
   }
 
   const cancel = async () => {
+    const b = q.data
+    if (b?.stripe_configured) {
+      // Stripe Customer Portal 로 redirect (해지·결제수단 변경·영수증)
+      try {
+        const r = await meApi.portal()
+        window.location.href = r.data.url
+      } catch (err: any) {
+        toast.error(err?.response?.data?.detail || '결제 포털 열기 실패')
+      }
+      return
+    }
     const ok = window.confirm('유료 플랜을 해지하시겠습니까? 만료일까지는 유료 기능을 계속 사용할 수 있습니다.')
     if (!ok) return
     try {
@@ -421,10 +443,19 @@ function BillingTab({
         />
       </div>
 
-      <div className="text-[11px] text-atm-muted bg-stone-50 border border-stone-200 rounded-xl p-3">
-        💡 현재 결제 게이트웨이(Stripe / Toss / Paddle 등) 연동 전입니다.
-        업그레이드 버튼은 데모용 즉시 전환만 수행합니다. 실 결제 연결은 다음 업데이트(PR-J2)에서 제공됩니다.
-      </div>
+      {b.stripe_configured ? (
+        <div className="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+          ✅ Stripe 정기결제 연결됨. 업그레이드는 Stripe Checkout, 해지·결제수단 변경은 Customer Portal 로 이동합니다.
+          {b.subscription_status && (
+            <span className="ml-1 font-mono">(status: {b.subscription_status})</span>
+          )}
+        </div>
+      ) : (
+        <div className="text-[11px] text-atm-muted bg-stone-50 border border-stone-200 rounded-xl p-3">
+          💡 현재 운영자 환경에 Stripe 키가 입력되어 있지 않아 데모 모드입니다 (실 결제 없음).
+          STRIPE_SECRET_KEY 와 STRIPE_PRICE_ID 가 Railway 에 설정되면 자동으로 실 결제 흐름이 활성화됩니다.
+        </div>
+      )}
     </div>
   )
 }

@@ -13,6 +13,8 @@ from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from fastapi.responses import StreamingResponse
+
+from ..config import get_settings
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -23,6 +25,7 @@ from ..models.entry import Entry
 from ..models.planned import Planned
 from ..models.reflection import Reflection
 from ..models.user import User
+from ..services import stripe_service
 from ..services.geo_service import (
     apply_geo_to_user,
     cached_geo_is_fresh,
@@ -110,11 +113,15 @@ class BillingStatus(BaseModel):
     paid_until: datetime | None
     days_remaining: int
     price_usd_monthly: int
+    # Stripe 연동 상태 — 프론트가 결제 흐름을 선택할 때 사용
+    stripe_configured: bool = False
+    subscription_status: str | None = None  # trialing | active | past_due | canceled | None
 
 
 def _billing_status(user: User) -> BillingStatus:
     now = datetime.now(timezone.utc)
     free_trial_ends = (user.created_at or now) + timedelta(days=FREE_TRIAL_DAYS)
+    stripe_on = stripe_service.configured()
     if user.subscription_tier == "paid" and (
         user.subscription_expires_at is None or user.subscription_expires_at > now
     ):
@@ -127,6 +134,8 @@ def _billing_status(user: User) -> BillingStatus:
             paid_until=paid_until,
             days_remaining=days,
             price_usd_monthly=PAID_MONTHLY_USD,
+            stripe_configured=stripe_on,
+            subscription_status=user.subscription_status,
         )
     active = now < free_trial_ends
     days_remaining = max(0, (free_trial_ends - now).days)
@@ -137,6 +146,8 @@ def _billing_status(user: User) -> BillingStatus:
         paid_until=None,
         days_remaining=days_remaining,
         price_usd_monthly=PAID_MONTHLY_USD,
+        stripe_configured=stripe_on,
+        subscription_status=user.subscription_status,
     )
 
 
@@ -145,16 +156,72 @@ async def my_billing(user: User = Depends(get_current_user)):
     return _billing_status(user)
 
 
+class CheckoutUrlOut(BaseModel):
+    url: str
+
+
+@router.post("/billing/checkout", response_model=CheckoutUrlOut)
+async def my_billing_checkout(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Stripe Checkout Session 을 생성하고 redirect URL 반환.
+
+    Stripe 미설정 시 503 — 프론트는 그 경우 mock upgrade(아래) 노출.
+    """
+    if not stripe_service.configured():
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="결제 게이트웨이가 아직 활성화되지 않았습니다.",
+        )
+    settings = get_settings()
+    base = settings.frontend_base_url.rstrip("/")
+    customer_id = await stripe_service.ensure_customer(db, user)
+    url = stripe_service.create_checkout_session(
+        customer_id=customer_id,
+        success_url=f"{base}/me?billing=success",
+        cancel_url=f"{base}/me?billing=cancel",
+    )
+    return CheckoutUrlOut(url=url)
+
+
+@router.post("/billing/portal", response_model=CheckoutUrlOut)
+async def my_billing_portal(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """결제 정보 관리/해지 — Stripe Customer Portal."""
+    if not stripe_service.configured():
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="결제 게이트웨이가 아직 활성화되지 않았습니다.",
+        )
+    if not user.stripe_customer_id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="아직 결제를 진행한 적이 없습니다.",
+        )
+    settings = get_settings()
+    url = stripe_service.create_portal_session(
+        customer_id=user.stripe_customer_id,
+        return_url=f"{settings.frontend_base_url.rstrip('/')}/me?billing=portal",
+    )
+    return CheckoutUrlOut(url=url)
+
+
 @router.post("/billing/upgrade", response_model=BillingStatus)
 async def my_billing_upgrade(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """결제 게이트웨이 연동 전 mock — paid 로 즉시 전환 후 30일 유효.
-
-    PR-J2 에서 Stripe/Toss 등 실결제로 교체.
-    """
+    """**Stripe 미설정 시 한정** — 데모용 즉시 paid 전환. 실 결제 활성 시 405."""
+    if stripe_service.configured():
+        raise HTTPException(
+            status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
+            detail="실 결제가 활성화되어 있습니다. /me/billing/checkout 을 사용하세요.",
+        )
     user.subscription_tier = "paid"
+    user.subscription_status = "active"
     user.subscription_expires_at = datetime.now(timezone.utc) + timedelta(days=PAID_MONTHLY_DAYS)
     await db.commit()
     return _billing_status(user)
@@ -165,8 +232,14 @@ async def my_billing_cancel(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """기간 만료 후 free 전환을 위해 즉시 subscription_expires_at 만 그대로 두고 tier 만 free 로."""
+    """Stripe 활성 시: Portal 로 안내(405). 미설정 시: 데모용 즉시 free 전환."""
+    if stripe_service.configured():
+        raise HTTPException(
+            status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
+            detail="실 결제가 활성화되어 있습니다. /me/billing/portal 을 사용하세요.",
+        )
     user.subscription_tier = "free"
+    user.subscription_status = "canceled"
     await db.commit()
     return _billing_status(user)
 

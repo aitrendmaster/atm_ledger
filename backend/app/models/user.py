@@ -25,6 +25,15 @@ class User(Base):
     subscription_expires_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    # Stripe 정기결제 — webhook 가 동기화. 미연동 시 NULL 유지(레거시 free/paid 그대로).
+    stripe_customer_id: Mapped[str | None] = mapped_column(
+        String(255), nullable=True, index=True
+    )
+    stripe_subscription_id: Mapped[str | None] = mapped_column(
+        String(255), nullable=True, index=True
+    )
+    # trialing | active | past_due | canceled | unpaid | incomplete | NULL
+    subscription_status: Mapped[str | None] = mapped_column(String(32), nullable=True)
     # 개인정보: 위치 메타데이터(도시/지역) 를 AI 가 제품 경험 개선용으로 사용해도 되는지.
     allow_location_metadata: Mapped[bool] = mapped_column(
         Boolean, default=False, nullable=False, server_default="0"
