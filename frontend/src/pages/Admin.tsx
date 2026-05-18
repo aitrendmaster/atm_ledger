@@ -23,6 +23,7 @@ import {
   TrendingUp,
   Users,
   X,
+  type LucideIcon,
 } from 'lucide-react'
 import type { AdminUserSort, AnnouncementLevel } from '../services/api'
 import { adminApi } from '../services/api'
@@ -1056,7 +1057,7 @@ export default function Admin() {
 }
 
 interface KpiProps {
-  icon: React.ComponentType<{ size?: number; className?: string }>
+  icon: LucideIcon
   label: string
   value: number | string
   sub?: string

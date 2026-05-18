@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom'
-import { MessageCircle, Calendar, MapPin, BarChart3, Mail, Sparkles } from 'lucide-react'
+import {
+  MessageCircle,
+  Calendar,
+  MapPin,
+  BarChart3,
+  Mail,
+  Sparkles,
+  type LucideIcon,
+} from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { SUPPORT_EMAIL } from '../services/api'
 import AnnouncementBar from '../components/AnnouncementBar'
@@ -132,7 +140,7 @@ export default function Landing() {
 }
 
 interface UspProps {
-  icon: React.ComponentType<{ size?: number; className?: string }>
+  icon: LucideIcon
   title: string
   desc: string
 }
