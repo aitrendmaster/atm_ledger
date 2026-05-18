@@ -381,6 +381,13 @@ export const adminApi = {
     api.patch<AdminActionResult>(`/admin/users/${userId}/admin`, { is_admin: isAdmin }),
   softDelete: (userId: number) =>
     api.delete<AdminActionResult>(`/admin/users/${userId}`),
+  // GDPR
+  exportUser: (userId: number) =>
+    api.get<Blob>(`/admin/users/${userId}/export`, { responseType: 'blob' }),
+  hardDelete: (userId: number, confirmEmail: string) =>
+    api.delete<AdminActionResult>(`/admin/users/${userId}/hard`, {
+      params: { confirm: confirmEmail },
+    }),
   // Announcements (admin)
   listAnnouncements: () => api.get<Announcement[]>('/admin/announcements'),
   createAnnouncement: (body: AnnouncementCreate) =>

@@ -385,6 +385,192 @@ async def admin_soft_delete(
     return AdminActionResult(ok=True, message=f"{target.email} 비활성화 완료 (soft delete)")
 
 
+# ---------- GDPR: Hard delete + 사용자 데이터 익스포트 ----------
+
+
+async def _build_user_export(db: AsyncSession, target: User) -> dict:
+    """Right to data portability (GDPR Art. 20). 사용자의 모든 도메인 데이터를 JSON 객체로 반환."""
+    entries = (
+        await db.execute(
+            select(Entry).where(Entry.user_id == target.id).order_by(Entry.date.desc())
+        )
+    ).scalars().all()
+    entry_ids = [e.id for e in entries]
+    photos = (
+        (
+            await db.execute(
+                select(EntryPhoto).where(EntryPhoto.entry_id.in_(entry_ids))
+            )
+        ).scalars().all()
+        if entry_ids
+        else []
+    )
+    planned = (
+        await db.execute(
+            select(Planned).where(Planned.user_id == target.id).order_by(Planned.date.desc())
+        )
+    ).scalars().all()
+    reflections = (
+        await db.execute(
+            select(Reflection)
+            .where(Reflection.user_id == target.id)
+            .order_by(Reflection.month.desc())
+        )
+    ).scalars().all()
+
+    def _entry(e: Entry) -> dict:
+        return {
+            "id": e.id,
+            "description": e.description,
+            "amount": e.amount,
+            "category": e.category,
+            "date": e.date,
+            "place_name": e.place_name,
+            "place_lat": e.place_lat,
+            "place_lng": e.place_lng,
+            "place_address": e.place_address,
+            "rating": e.rating,
+            "review": e.review,
+            "mood": e.mood,
+            "created_at": e.created_at.isoformat() if e.created_at else None,
+        }
+
+    return {
+        "schema": "moa-ai-user-export/1",
+        "exported_at": datetime.now(timezone.utc).isoformat(),
+        "user": {
+            "id": target.id,
+            "email": target.email,
+            "display_name": target.display_name,
+            "auth_provider": target.auth_provider,
+            "monthly_income": target.monthly_income,
+            "monthly_budget": target.monthly_budget,
+            "is_admin": bool(target.is_admin),
+            "created_at": target.created_at.isoformat() if target.created_at else None,
+            "deleted_at": target.deleted_at.isoformat() if target.deleted_at else None,
+        },
+        "entries": [_entry(e) for e in entries],
+        "entry_photos": [
+            {"id": p.id, "entry_id": p.entry_id, "url": p.url, "created_at": p.created_at.isoformat() if p.created_at else None}
+            for p in photos
+        ],
+        "planned": [
+            {
+                "id": p.id,
+                "description": p.description,
+                "amount": p.amount,
+                "category": p.category,
+                "date": p.date,
+                "type": p.type,
+                "note": p.note,
+                "created_at": p.created_at.isoformat() if p.created_at else None,
+            }
+            for p in planned
+        ],
+        "reflections": [
+            {
+                "id": r.id,
+                "month": r.month,
+                "type": r.type,
+                "text": r.text,
+                "created_at": r.created_at.isoformat() if r.created_at else None,
+            }
+            for r in reflections
+        ],
+    }
+
+
+@router.get("/users/{user_id}/export")
+async def admin_user_export(
+    user_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """GDPR Article 20 — 회원의 모든 도메인 데이터를 JSON 파일로 다운로드."""
+    res = await db.execute(select(User).where(User.id == user_id))
+    target = res.scalar_one_or_none()
+    if not target:
+        raise HTTPException(status_code=404, detail="user not found")
+
+    bundle = await _build_user_export(db, target)
+    await _audit(
+        db,
+        me,
+        "user_export",
+        target=target,
+        payload={"entries": len(bundle["entries"]), "planned": len(bundle["planned"])},
+    )
+    await db.commit()
+
+    body = json.dumps(bundle, ensure_ascii=False, indent=2)
+    filename = f"moa-ai-user-{target.id}-{datetime.utcnow().strftime('%Y%m%d-%H%M')}.json"
+    return StreamingResponse(
+        iter([body]),
+        media_type="application/json; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@router.delete("/users/{user_id}/hard", response_model=AdminActionResult)
+async def admin_hard_delete(
+    user_id: int = Path(..., ge=1),
+    confirm: str = Query(..., description="확인 문구. 대상 이메일을 그대로 입력해야 통과"),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """GDPR Article 17 — 영구 삭제. entries/planned/reflections/photos 모두 cascade 삭제.
+
+    안전 가드:
+    - 자기 자신 삭제 금지
+    - 마지막 admin 삭제 금지
+    - confirm 쿼리에 대상 이메일을 정확히 입력해야 통과 (실수 방지)
+    """
+    res = await db.execute(select(User).where(User.id == user_id))
+    target = res.scalar_one_or_none()
+    if not target:
+        raise HTTPException(status_code=404, detail="user not found")
+
+    if target.id == me.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="자기 자신은 영구 삭제할 수 없습니다.",
+        )
+
+    if confirm.strip().lower() != target.email.lower():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="confirm 쿼리에 대상 이메일을 정확히 입력해야 합니다.",
+        )
+
+    if target.is_admin:
+        active_admins = await _count_active_admins(db)
+        if active_admins <= 1:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="마지막 남은 admin 입니다. 다른 사용자에게 권한을 부여한 뒤 삭제하세요.",
+            )
+
+    snapshot_email = target.email
+    snapshot_id = target.id
+
+    # 명시적 cascade: FK ondelete=CASCADE 가 SET 되어 있어 .delete(user) 만으로도
+    # entries/planned/reflections + entry_photos(entry CASCADE) 가 정리된다.
+    # admin_audit.target_user_id 는 SET NULL.
+    await db.delete(target)
+    await _audit(
+        db,
+        me,
+        "hard_delete",
+        target=None,
+        payload={"email": snapshot_email, "user_id": snapshot_id},
+    )
+    await db.commit()
+    logger.warning(f"admin_hard_delete by={me.email} target={snapshot_email}")
+    return AdminActionResult(
+        ok=True, message=f"{snapshot_email} 영구 삭제 완료 (GDPR Art.17)"
+    )
+
+
 # ---------- 감사 로그 ----------
 
 

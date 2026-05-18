@@ -160,6 +160,48 @@ export default function Admin() {
     }
   }
 
+  const handleExportUser = async (id: number, email: string) => {
+    try {
+      const res = await adminApi.exportUser(id)
+      const url = URL.createObjectURL(res.data)
+      const a = document.createElement('a')
+      a.href = url
+      const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')
+      a.download = `moa-ai-user-${id}-${stamp}.json`
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(url)
+      toast.success(`${email} 데이터 익스포트 완료`)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '익스포트 실패')
+    }
+  }
+
+  const handleHardDelete = async (id: number, email: string) => {
+    const confirmText = window.prompt(
+      `⚠️ ${email} 의 모든 데이터(가계부/예정/회고/사진)를 영구 삭제합니다.\n` +
+        `이 작업은 되돌릴 수 없습니다.\n\n` +
+        `진행하려면 대상 이메일을 그대로 입력하세요:`,
+    )
+    if (!confirmText) return
+    if (confirmText.trim().toLowerCase() !== email.toLowerCase()) {
+      toast.error('이메일 불일치. 작업 취소.')
+      return
+    }
+    setBusyId(id)
+    try {
+      const r = await adminApi.hardDelete(id, confirmText.trim())
+      toast.success(r.data.message || '영구 삭제 완료')
+      refreshAdminData()
+      setDetailUserId(null)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '영구 삭제 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
+
   const handleExportCsv = async () => {
     try {
       const res = await adminApi.exportUsersCsv()
@@ -898,6 +940,37 @@ export default function Admin() {
                         </div>
                       </div>
                     )}
+
+                    {/* GDPR 액션 */}
+                    <div className="pt-4 border-t border-stone-200">
+                      <h4 className="text-xs font-semibold text-atm-muted uppercase tracking-wide mb-2">
+                        GDPR
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleExportUser(d.id, d.email)}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs border border-stone-200 rounded-lg hover:bg-stone-50"
+                          title="해당 회원의 모든 데이터 JSON 익스포트 (Article 20)"
+                        >
+                          <Download size={12} /> 데이터 익스포트 (JSON)
+                        </button>
+                        {d.id !== user.id && (
+                          <button
+                            type="button"
+                            disabled={busyId === d.id}
+                            onClick={() => handleHardDelete(d.id, d.email)}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs border border-red-300 text-red-700 rounded-lg hover:bg-red-50 disabled:opacity-50"
+                            title="영구 삭제 (Article 17) — 되돌릴 수 없음"
+                          >
+                            <Trash2 size={12} /> 영구 삭제
+                          </button>
+                        )}
+                      </div>
+                      <div className="text-[11px] text-atm-muted mt-2">
+                        영구 삭제는 가계부·예정·회고·사진을 모두 즉시 제거합니다. 이메일 확인을 통과해야 진행됩니다.
+                      </div>
+                    </div>
                   </>
                 )
               })()}
