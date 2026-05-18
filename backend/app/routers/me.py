@@ -123,6 +123,8 @@ class BillingStatus(BaseModel):
     card_brand: str | None = None
     card_last4: str | None = None
     last_billing_error: str | None = None
+    # 베타 기간 무료 모드 — 활성 시 모든 사용자가 유료 권한, UI 는 결제 비활성
+    beta_free_mode: bool = False
 
 
 def _customer_key_for(user: User) -> str:
@@ -136,6 +138,7 @@ def _billing_status(user: User) -> BillingStatus:
     settings = get_settings()
     toss_on = toss_service.configured()
     provider = "toss" if toss_on else "none"
+    beta = bool(settings.beta_free_mode)
 
     common = dict(
         free_trial_ends_at=free_trial_ends,
@@ -149,7 +152,19 @@ def _billing_status(user: User) -> BillingStatus:
         card_brand=user.toss_card_brand,
         card_last4=user.toss_card_last4,
         last_billing_error=user.last_billing_error,
+        beta_free_mode=beta,
     )
+
+    # 베타 기간 무료 — 모든 사용자가 active. 표시되는 tier 는 그대로(`free`)지만
+    # active=True 라 _paid_or_trial_active() 가 통과 → 엑셀 등 유료 기능 개방.
+    if beta:
+        return BillingStatus(
+            tier=user.subscription_tier or "free",
+            active=True,
+            paid_until=None,
+            days_remaining=9999,
+            **common,
+        )
 
     if user.subscription_tier == "paid" and (
         user.subscription_expires_at is None or user.subscription_expires_at > now
@@ -195,6 +210,11 @@ async def my_billing_toss_confirm(
     customerKey 는 백엔드가 발급한 결정적 값이어야 함 — 클라이언트가 변조해 보내도
     서버 측 _customer_key_for(user) 와 일치할 때만 통과.
     """
+    if get_settings().beta_free_mode:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="현재 베타 기간 동안 무료로 운영되어 결제가 비활성화되어 있습니다.",
+        )
     if not toss_service.configured():
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -285,6 +305,11 @@ async def my_billing_upgrade_mock(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    if get_settings().beta_free_mode:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="현재 베타 기간 동안 무료로 운영되어 결제가 비활성화되어 있습니다.",
+        )
     if toss_service.configured():
         raise HTTPException(
             status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
@@ -317,6 +342,7 @@ async def my_billing_cancel_mock(
 
 
 def _paid_or_trial_active(user: User) -> bool:
+    # _billing_status() 가 베타 모드면 active=True 로 반환하므로 자동 통과.
     s = _billing_status(user)
     return s.active
 

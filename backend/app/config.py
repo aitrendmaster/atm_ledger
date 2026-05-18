@@ -63,6 +63,13 @@ class Settings(BaseSettings):
     toss_monthly_price_krw: int = 5400
     toss_monthly_order_name: str = "Moa AI 가계부 월 정기결제"
 
+    # 베타 기간 무료 모드. true 면:
+    # - 모든 사용자가 paid 와 동일한 권한 (엑셀 익스포트 등)
+    # - 트라이얼 만료/구독 게이트 우회
+    # - UI 결제 탭에 "베타 기간 무료" 안내 표시, 업그레이드 버튼 비활성
+    # 정식 유료화 출시 시 BETA_FREE_MODE=false 로 변경.
+    beta_free_mode: bool = True
+
     # Admin 권한 부여 이메일 (콤마 구분). 운영자만 /admin/* 접근 가능
     admin_emails: str = "aitrendmarketer@gmail.com"
 

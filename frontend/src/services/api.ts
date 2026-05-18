@@ -110,6 +110,7 @@ export interface BillingStatus {
   card_brand: string | null
   card_last4: string | null
   last_billing_error: string | null
+  beta_free_mode: boolean
 }
 
 export interface AdminStats {

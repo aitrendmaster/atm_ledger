@@ -364,6 +364,10 @@ function BillingTab({
 
   const upgrade = async () => {
     const b = q.data
+    if (b?.beta_free_mode) {
+      toast('베타 기간 동안은 모든 기능이 무료입니다.', { icon: '🎉' })
+      return
+    }
     if (b?.toss_configured && b.toss_client_key && b.customer_key) {
       try {
         const widget = await loadPaymentWidget(b.toss_client_key, b.customer_key)
@@ -431,6 +435,17 @@ function BillingTab({
 
   return (
     <div className="space-y-4">
+      {b.beta_free_mode && (
+        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-sm">
+          <div className="font-medium text-emerald-800 mb-1">🎉 베타 기간 무료 운영 중</div>
+          <div className="text-emerald-700 text-xs leading-relaxed">
+            현재 모든 기능을 무료로 이용할 수 있어요. 엑셀 내보내기·전체 가계부 기능 포함.
+            정식 유료화(<strong>₩{b.price_krw_monthly.toLocaleString()} / 월</strong>)와 결제 시스템(Toss Payments)은
+            현재 <strong>테스트 모드</strong>로 준비되어 있으며, 베타 종료 시 별도 안내드립니다.
+          </div>
+        </div>
+      )}
+
       <div className="bg-white border border-stone-200 rounded-2xl p-5">
         <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3 flex items-center gap-2">
           <CreditCard size={14} /> 결제 상태
@@ -509,9 +524,16 @@ function BillingTab({
             '엑셀(.xlsx) 월별·연간 내보내기',
             '우선 지원',
           ]}
-          highlight={b.tier === 'paid'}
-          actionLabel={b.tier === 'paid' ? '해지' : '업그레이드'}
+          highlight={b.tier === 'paid' && !b.beta_free_mode}
+          actionLabel={
+            b.beta_free_mode
+              ? '베타 기간 무료'
+              : b.tier === 'paid'
+              ? '해지'
+              : '업그레이드'
+          }
           onAction={b.tier === 'paid' ? cancel : upgrade}
+          actionDisabled={b.beta_free_mode}
         />
       </div>
 
@@ -540,6 +562,7 @@ function PlanCard({
   highlight,
   actionLabel,
   onAction,
+  actionDisabled,
 }: {
   title: string
   price: string
@@ -547,6 +570,7 @@ function PlanCard({
   highlight?: boolean
   actionLabel?: string
   onAction?: () => void
+  actionDisabled?: boolean
 }) {
   return (
     <div
@@ -572,8 +596,11 @@ function PlanCard({
         <button
           type="button"
           onClick={onAction}
+          disabled={actionDisabled}
           className={`w-full py-2 rounded-lg text-sm font-medium ${
-            highlight
+            actionDisabled
+              ? 'border border-stone-200 text-atm-muted cursor-not-allowed opacity-60'
+              : highlight
               ? 'border border-stone-200 text-atm-muted hover:bg-stone-50'
               : 'bg-atm-accent text-white hover:opacity-90'
           }`}
@@ -804,10 +831,15 @@ function ExportTab() {
           </div>
         </div>
 
-        {!active && (
+        {!active && !billing.data?.beta_free_mode && (
           <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
             엑셀 내보내기는 유료 플랜에서 제공됩니다.{' '}
             <strong>결제 탭</strong>에서 업그레이드하시면 즉시 이용 가능합니다.
+          </div>
+        )}
+        {billing.data?.beta_free_mode && (
+          <div className="mt-4 bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs text-emerald-800">
+            🎉 베타 기간 동안 무료로 엑셀 내보내기를 사용할 수 있어요.
           </div>
         )}
       </div>
