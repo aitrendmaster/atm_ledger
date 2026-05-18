@@ -25,7 +25,7 @@ from ..models.entry import Entry
 from ..models.planned import Planned
 from ..models.reflection import Reflection
 from ..models.user import User
-from ..services import stripe_service
+from ..services import toss_service
 from ..services.geo_service import (
     apply_geo_to_user,
     cached_geo_is_fresh,
@@ -112,16 +112,45 @@ class BillingStatus(BaseModel):
     free_trial_ends_at: datetime
     paid_until: datetime | None
     days_remaining: int
-    price_usd_monthly: int
-    # Stripe 연동 상태 — 프론트가 결제 흐름을 선택할 때 사용
-    stripe_configured: bool = False
-    subscription_status: str | None = None  # trialing | active | past_due | canceled | None
+    price_usd_monthly: int  # 표시용 (실제 청구는 KRW)
+    price_krw_monthly: int
+    # Toss 연동 상태
+    provider: str  # toss | none
+    toss_configured: bool = False
+    toss_client_key: str | None = None  # 프론트 위젯 초기화용 publishable key
+    customer_key: str | None = None     # 위젯 requestBillingAuth 에 전달
+    subscription_status: str | None = None  # active | past_due | canceled | None
+    card_brand: str | None = None
+    card_last4: str | None = None
+    last_billing_error: str | None = None
+
+
+def _customer_key_for(user: User) -> str:
+    """Toss 가 요구하는 customerKey — 가맹점이 관리. 결정적·고유."""
+    return user.toss_customer_key or f"moa-user-{user.id}"
 
 
 def _billing_status(user: User) -> BillingStatus:
     now = datetime.now(timezone.utc)
     free_trial_ends = (user.created_at or now) + timedelta(days=FREE_TRIAL_DAYS)
-    stripe_on = stripe_service.configured()
+    settings = get_settings()
+    toss_on = toss_service.configured()
+    provider = "toss" if toss_on else "none"
+
+    common = dict(
+        free_trial_ends_at=free_trial_ends,
+        price_usd_monthly=PAID_MONTHLY_USD,
+        price_krw_monthly=settings.toss_monthly_price_krw,
+        provider=provider,
+        toss_configured=toss_on,
+        toss_client_key=(settings.toss_client_key or None) if toss_on else None,
+        customer_key=_customer_key_for(user) if toss_on else None,
+        subscription_status=user.subscription_status,
+        card_brand=user.toss_card_brand,
+        card_last4=user.toss_card_last4,
+        last_billing_error=user.last_billing_error,
+    )
+
     if user.subscription_tier == "paid" and (
         user.subscription_expires_at is None or user.subscription_expires_at > now
     ):
@@ -130,24 +159,18 @@ def _billing_status(user: User) -> BillingStatus:
         return BillingStatus(
             tier="paid",
             active=True,
-            free_trial_ends_at=free_trial_ends,
             paid_until=paid_until,
             days_remaining=days,
-            price_usd_monthly=PAID_MONTHLY_USD,
-            stripe_configured=stripe_on,
-            subscription_status=user.subscription_status,
+            **common,
         )
     active = now < free_trial_ends
     days_remaining = max(0, (free_trial_ends - now).days)
     return BillingStatus(
         tier="free",
         active=active,
-        free_trial_ends_at=free_trial_ends,
         paid_until=None,
         days_remaining=days_remaining,
-        price_usd_monthly=PAID_MONTHLY_USD,
-        stripe_configured=stripe_on,
-        subscription_status=user.subscription_status,
+        **common,
     )
 
 
@@ -156,69 +179,116 @@ async def my_billing(user: User = Depends(get_current_user)):
     return _billing_status(user)
 
 
-class CheckoutUrlOut(BaseModel):
-    url: str
+class TossConfirmIn(BaseModel):
+    auth_key: str
+    customer_key: str
 
 
-@router.post("/billing/checkout", response_model=CheckoutUrlOut)
-async def my_billing_checkout(
+@router.post("/billing/toss/confirm", response_model=BillingStatus)
+async def my_billing_toss_confirm(
+    body: TossConfirmIn,
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Stripe Checkout Session 을 생성하고 redirect URL 반환.
+    """카드 등록 위젯이 반환한 authKey 를 영구 빌링키로 교환하고 즉시 첫 결제.
 
-    Stripe 미설정 시 503 — 프론트는 그 경우 mock upgrade(아래) 노출.
+    customerKey 는 백엔드가 발급한 결정적 값이어야 함 — 클라이언트가 변조해 보내도
+    서버 측 _customer_key_for(user) 와 일치할 때만 통과.
     """
-    if not stripe_service.configured():
+    if not toss_service.configured():
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="결제 게이트웨이가 아직 활성화되지 않았습니다.",
         )
+    expected_ck = _customer_key_for(user)
+    if body.customer_key != expected_ck:
+        raise HTTPException(status_code=400, detail="customerKey 가 일치하지 않습니다.")
+
+    # 1) 빌링키 발급
+    try:
+        bk_resp = await toss_service.issue_billing_key(
+            auth_key=body.auth_key, customer_key=expected_ck
+        )
+    except toss_service.TossError as e:
+        raise HTTPException(status_code=400, detail=f"빌링키 발급 실패: {e.message}")
+
+    billing_key = bk_resp.get("billingKey")
+    if not billing_key:
+        raise HTTPException(status_code=400, detail="빌링키 응답이 비어 있습니다.")
+
+    card = bk_resp.get("card") or {}
+    user.toss_customer_key = expected_ck
+    user.toss_billing_key = billing_key
+    user.toss_card_brand = (card.get("company") or card.get("issuerCode")) or None
+    user.toss_card_last4 = ((card.get("number") or "")[-4:]) or None
+    user.toss_billing_issued_at = datetime.now(timezone.utc)
+    user.last_billing_error = None
+    await db.commit()
+
+    # 2) 즉시 첫 결제
     settings = get_settings()
-    base = settings.frontend_base_url.rstrip("/")
-    customer_id = await stripe_service.ensure_customer(db, user)
-    url = stripe_service.create_checkout_session(
-        customer_id=customer_id,
-        success_url=f"{base}/me?billing=success",
-        cancel_url=f"{base}/me?billing=cancel",
-    )
-    return CheckoutUrlOut(url=url)
+    now = datetime.now(timezone.utc)
+    period = now.strftime("%Y%m")
+    order_id = toss_service.make_order_id(user.id, period)
+    try:
+        charge_resp = await toss_service.charge(
+            billing_key=billing_key,
+            customer_key=expected_ck,
+            amount=settings.toss_monthly_price_krw,
+            order_id=order_id,
+            order_name=settings.toss_monthly_order_name,
+        )
+    except toss_service.TossError as e:
+        user.last_billing_error = f"{e.code}: {e.message[:200]}"
+        user.subscription_status = "past_due"
+        await db.commit()
+        raise HTTPException(status_code=402, detail=f"결제 승인 실패: {e.message}")
+
+    if charge_resp.get("status") != "DONE":
+        user.subscription_status = "past_due"
+        await db.commit()
+        raise HTTPException(
+            status_code=402,
+            detail=f"결제가 완료되지 않았습니다 (status={charge_resp.get('status')})",
+        )
+
+    user.subscription_tier = "paid"
+    user.subscription_status = "active"
+    user.subscription_expires_at = now + timedelta(days=PAID_MONTHLY_DAYS)
+    user.last_billing_error = None
+    await db.commit()
+    return _billing_status(user)
 
 
-@router.post("/billing/portal", response_model=CheckoutUrlOut)
-async def my_billing_portal(
+@router.post("/billing/toss/cancel", response_model=BillingStatus)
+async def my_billing_toss_cancel(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """결제 정보 관리/해지 — Stripe Customer Portal."""
-    if not stripe_service.configured():
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="결제 게이트웨이가 아직 활성화되지 않았습니다.",
-        )
-    if not user.stripe_customer_id:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="아직 결제를 진행한 적이 없습니다.",
-        )
-    settings = get_settings()
-    url = stripe_service.create_portal_session(
-        customer_id=user.stripe_customer_id,
-        return_url=f"{settings.frontend_base_url.rstrip('/')}/me?billing=portal",
-    )
-    return CheckoutUrlOut(url=url)
+    """정기결제 해지. 빌링키 폐기 + tier='free'. 남은 기간은 유지하지 않고 즉시 free.
+
+    (Toss 는 별도 빌링키 폐기 API 가 없음 — 가맹점이 자체 폐기. 다음 청구 안 함.)
+    """
+    user.subscription_tier = "free"
+    user.subscription_status = "canceled"
+    user.toss_billing_key = None
+    user.toss_card_brand = None
+    user.toss_card_last4 = None
+    user.last_billing_error = None
+    await db.commit()
+    return _billing_status(user)
 
 
+# 레거시 mock 경로 (Toss 미설정 + 개발 폴백) — Toss 활성 시 405 로 차단.
 @router.post("/billing/upgrade", response_model=BillingStatus)
-async def my_billing_upgrade(
+async def my_billing_upgrade_mock(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """**Stripe 미설정 시 한정** — 데모용 즉시 paid 전환. 실 결제 활성 시 405."""
-    if stripe_service.configured():
+    if toss_service.configured():
         raise HTTPException(
             status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
-            detail="실 결제가 활성화되어 있습니다. /me/billing/checkout 을 사용하세요.",
+            detail="실 결제가 활성화되어 있습니다. /me/billing/toss/confirm 을 사용하세요.",
         )
     user.subscription_tier = "paid"
     user.subscription_status = "active"
@@ -228,15 +298,14 @@ async def my_billing_upgrade(
 
 
 @router.post("/billing/cancel", response_model=BillingStatus)
-async def my_billing_cancel(
+async def my_billing_cancel_mock(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Stripe 활성 시: Portal 로 안내(405). 미설정 시: 데모용 즉시 free 전환."""
-    if stripe_service.configured():
+    if toss_service.configured():
         raise HTTPException(
             status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
-            detail="실 결제가 활성화되어 있습니다. /me/billing/portal 을 사용하세요.",
+            detail="실 결제가 활성화되어 있습니다. /me/billing/toss/cancel 을 사용하세요.",
         )
     user.subscription_tier = "free"
     user.subscription_status = "canceled"

@@ -24,8 +24,9 @@ from .routers import (
     photos,
     planned,
     reflections,
-    stripe_webhook,
+    toss_webhook,
 )
+from .services import subscription_scheduler
 
 settings = get_settings()
 
@@ -104,6 +105,10 @@ async def lifespan(app: FastAPI):
         logger.exception(
             "DB 초기화/마이그레이션 실패 — Railway Variables(DATABASE_URL) 와 Postgres 연결 확인 필요"
         )
+
+    # Toss 정기결제 자동 청구 스케줄러 (Toss 미설정이면 no-op)
+    subscription_scheduler.start()
+
     yield
 
 
@@ -127,7 +132,7 @@ if settings.storage_backend == "local":
 app.include_router(auth.router)
 app.include_router(oauth.router)
 app.include_router(me.router)
-app.include_router(stripe_webhook.router)
+app.include_router(toss_webhook.router)
 app.include_router(entries.router)
 app.include_router(planned.router)
 app.include_router(reflections.router)

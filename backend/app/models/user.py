@@ -25,15 +25,28 @@ class User(Base):
     subscription_expires_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
-    # Stripe 정기결제 — webhook 가 동기화. 미연동 시 NULL 유지(레거시 free/paid 그대로).
+    # Stripe 레거시 컬럼 — 한국 사업자 가입 불가로 PR-J2-rev 에서 Toss 로 교체.
+    # drop 비용 회피 위해 컬럼만 유지(데이터 미사용).
     stripe_customer_id: Mapped[str | None] = mapped_column(
         String(255), nullable=True, index=True
     )
     stripe_subscription_id: Mapped[str | None] = mapped_column(
         String(255), nullable=True, index=True
     )
-    # trialing | active | past_due | canceled | unpaid | incomplete | NULL
+    # active | past_due | canceled | NULL — Toss 가 재사용.
     subscription_status: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    # Toss Payments 빌링키 — 카드 1회 등록 후 매월 자동 청구에 사용.
+    toss_customer_key: Mapped[str | None] = mapped_column(
+        String(64), nullable=True, index=True
+    )
+    toss_billing_key: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    toss_card_brand: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    toss_card_last4: Mapped[str | None] = mapped_column(String(8), nullable=True)
+    # 빌링키 발급/갱신 시각, 마지막 결제 실패 사유
+    toss_billing_issued_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    last_billing_error: Mapped[str | None] = mapped_column(String(255), nullable=True)
     # 개인정보: 위치 메타데이터(도시/지역) 를 AI 가 제품 경험 개선용으로 사용해도 되는지.
     allow_location_metadata: Mapped[bool] = mapped_column(
         Boolean, default=False, nullable=False, server_default="0"

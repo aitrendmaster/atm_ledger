@@ -101,8 +101,15 @@ export interface BillingStatus {
   paid_until: string | null
   days_remaining: number
   price_usd_monthly: number
-  stripe_configured: boolean
+  price_krw_monthly: number
+  provider: 'toss' | 'none'
+  toss_configured: boolean
+  toss_client_key: string | null
+  customer_key: string | null
   subscription_status: string | null
+  card_brand: string | null
+  card_last4: string | null
+  last_billing_error: string | null
 }
 
 export interface AdminStats {
@@ -332,8 +339,12 @@ export const meApi = {
   billing: () => api.get<BillingStatus>('/me/billing'),
   upgrade: () => api.post<BillingStatus>('/me/billing/upgrade'),
   cancel: () => api.post<BillingStatus>('/me/billing/cancel'),
-  checkout: () => api.post<{ url: string }>('/me/billing/checkout'),
-  portal: () => api.post<{ url: string }>('/me/billing/portal'),
+  tossConfirm: (authKey: string, customerKey: string) =>
+    api.post<BillingStatus>('/me/billing/toss/confirm', {
+      auth_key: authKey,
+      customer_key: customerKey,
+    }),
+  tossCancel: () => api.post<BillingStatus>('/me/billing/toss/cancel'),
   exportXlsx: (params: { period: 'monthly'; month: string } | { period: 'annual'; year: string }) =>
     api.get<Blob>('/me/export.xlsx', { params, responseType: 'blob' }),
 }

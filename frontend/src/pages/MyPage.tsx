@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
+import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk'
 import {
   ArrowLeft,
   CreditCard,
@@ -325,21 +326,61 @@ function BillingTab({
   })
 
   const refetch = () => queryClient.invalidateQueries({ queryKey: ['me', 'billing'] })
+  const [params, setParams] = useSearchParams()
+
+  // Toss 위젯이 success_url 로 돌려준 authKey/customerKey 를 백엔드 confirm 으로 교환
+  useEffect(() => {
+    const authKey = params.get('authKey')
+    const customerKey = params.get('customerKey')
+    const billingResult = params.get('billing')
+    if (authKey && customerKey) {
+      ;(async () => {
+        try {
+          await meApi.tossConfirm(authKey, customerKey)
+          toast.success('결제가 완료되었습니다.')
+          refetch()
+        } catch (err: any) {
+          toast.error(err?.response?.data?.detail || '결제 확정 실패')
+        } finally {
+          const next = new URLSearchParams(params)
+          next.delete('authKey')
+          next.delete('customerKey')
+          next.delete('billing')
+          next.delete('code')
+          next.delete('message')
+          setParams(next, { replace: true })
+        }
+      })()
+    } else if (billingResult === 'fail') {
+      toast.error(params.get('message') || '결제 창에서 취소되었습니다.')
+      const next = new URLSearchParams(params)
+      next.delete('billing')
+      next.delete('code')
+      next.delete('message')
+      setParams(next, { replace: true })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const upgrade = async () => {
-    // Stripe 연동 시: Checkout 으로 redirect / 미연동 시: mock upgrade
     const b = q.data
-    if (b?.stripe_configured) {
+    if (b?.toss_configured && b.toss_client_key && b.customer_key) {
       try {
-        const r = await meApi.checkout()
-        window.location.href = r.data.url
+        const widget = await loadPaymentWidget(b.toss_client_key, b.customer_key)
+        const base = window.location.origin
+        await widget.requestBillingAuth('카드', {
+          customerEmail: undefined,
+          successUrl: `${base}/me?billing=success`,
+          failUrl: `${base}/me?billing=fail`,
+        })
       } catch (err: any) {
-        toast.error(err?.response?.data?.detail || '결제 세션 생성 실패')
+        toast.error(err?.message || '결제창을 열지 못했습니다.')
       }
       return
     }
+    // Toss 미설정 시: 데모 mock
     const ok = window.confirm(
-      '월 $4 (약 5,400원) 유료 플랜으로 업그레이드하시겠습니까?\n\n' +
+      `월 ₩${(b?.price_krw_monthly ?? 5400).toLocaleString()} (≈ $${b?.price_usd_monthly ?? 4}) 유료 플랜으로 업그레이드하시겠습니까?\n\n` +
         '※ 현재 결제 게이트웨이가 운영자 환경에 연결되지 않았습니다.\n' +
         '데모용 즉시 전환이 됩니다 (실 결제 없음).',
     )
@@ -353,22 +394,25 @@ function BillingTab({
     }
   }
 
+  const changeCard = async () => {
+    // 동일 흐름 — 빌링키 재발급. 기존 카드는 폐기.
+    return upgrade()
+  }
+
   const cancel = async () => {
     const b = q.data
-    if (b?.stripe_configured) {
-      // Stripe Customer Portal 로 redirect (해지·결제수단 변경·영수증)
-      try {
-        const r = await meApi.portal()
-        window.location.href = r.data.url
-      } catch (err: any) {
-        toast.error(err?.response?.data?.detail || '결제 포털 열기 실패')
-      }
-      return
-    }
-    const ok = window.confirm('유료 플랜을 해지하시겠습니까? 만료일까지는 유료 기능을 계속 사용할 수 있습니다.')
+    const ok = window.confirm(
+      '유료 플랜을 해지하시겠습니까?\n' +
+        '· 카드 빌링키가 즉시 폐기되며, 다음 결제는 청구되지 않습니다.\n' +
+        '· 이번 결제 기간이 끝나면 자동으로 무료로 전환됩니다.',
+    )
     if (!ok) return
     try {
-      await meApi.cancel()
+      if (b?.toss_configured) {
+        await meApi.tossCancel()
+      } else {
+        await meApi.cancel()
+      }
       toast.success('해지 처리되었습니다.')
       refetch()
     } catch (err: any) {
@@ -403,9 +447,12 @@ function BillingTab({
           >
             {b.tier === 'paid' ? '유료' : b.active ? '무료 (트라이얼 중)' : '만료됨'}
           </span>
-          <span className="text-xs text-atm-muted">
-            {b.days_remaining}일 남음
-          </span>
+          <span className="text-xs text-atm-muted">{b.days_remaining}일 남음</span>
+          {b.subscription_status === 'past_due' && (
+            <span className="px-2 py-0.5 rounded-full text-[10px] bg-red-100 text-red-700">
+              결제 보류
+            </span>
+          )}
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
           <div className="text-atm-muted">무료 트라이얼 만료</div>
@@ -417,8 +464,33 @@ function BillingTab({
             </>
           )}
           <div className="text-atm-muted">유료 가격</div>
-          <div className="text-atm-ink">월 ${b.price_usd_monthly}</div>
+          <div className="text-atm-ink">
+            ₩{b.price_krw_monthly.toLocaleString()} / 월{' '}
+            <span className="text-xs text-atm-muted">(≈ ${b.price_usd_monthly})</span>
+          </div>
+          {b.card_brand && b.card_last4 && (
+            <>
+              <div className="text-atm-muted">등록 카드</div>
+              <div className="text-atm-ink">
+                {b.card_brand} · **** {b.card_last4}
+              </div>
+            </>
+          )}
         </div>
+        {b.tier === 'paid' && b.toss_configured && (
+          <button
+            type="button"
+            onClick={changeCard}
+            className="mt-3 text-xs underline text-atm-muted hover:text-atm-ink"
+          >
+            결제수단 변경 (새 카드 등록)
+          </button>
+        )}
+        {b.last_billing_error && (
+          <div className="mt-3 text-[11px] text-red-700 bg-red-50 border border-red-200 rounded-xl p-2">
+            마지막 결제 오류: <span className="font-mono">{b.last_billing_error}</span>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -430,7 +502,7 @@ function BillingTab({
         />
         <PlanCard
           title="유료"
-          price="$4 / 월"
+          price={`₩${b.price_krw_monthly.toLocaleString()} / 월`}
           features={[
             '무료 모든 기능',
             '가계부 지속 이용',
@@ -443,17 +515,18 @@ function BillingTab({
         />
       </div>
 
-      {b.stripe_configured ? (
+      {b.toss_configured ? (
         <div className="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl p-3">
-          ✅ Stripe 정기결제 연결됨. 업그레이드는 Stripe Checkout, 해지·결제수단 변경은 Customer Portal 로 이동합니다.
+          ✅ Toss Payments 정기결제 연결됨. 카드 1회 등록 후 매월 자동 청구됩니다 (한국 PG).
           {b.subscription_status && (
             <span className="ml-1 font-mono">(status: {b.subscription_status})</span>
           )}
         </div>
       ) : (
         <div className="text-[11px] text-atm-muted bg-stone-50 border border-stone-200 rounded-xl p-3">
-          💡 현재 운영자 환경에 Stripe 키가 입력되어 있지 않아 데모 모드입니다 (실 결제 없음).
-          STRIPE_SECRET_KEY 와 STRIPE_PRICE_ID 가 Railway 에 설정되면 자동으로 실 결제 흐름이 활성화됩니다.
+          💡 현재 운영자 환경에 Toss 키가 입력되어 있지 않아 데모 모드입니다 (실 결제 없음).
+          <code className="mx-1">TOSS_SECRET_KEY</code> 와 <code className="mx-1">TOSS_CLIENT_KEY</code>
+          가 Railway 에 설정되면 자동으로 실 결제 흐름이 활성화됩니다.
         </div>
       )}
     </div>

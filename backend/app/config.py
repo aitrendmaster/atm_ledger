@@ -54,13 +54,14 @@ class Settings(BaseSettings):
     # Password reset 토큰 유효 기간
     password_reset_ttl_min: int = 60
 
-    # Stripe 정기결제 — 값이 비어 있으면 결제 엔드포인트가 503 으로 graceful disable.
-    # Stripe Dashboard → Products → Price 등록 후 STRIPE_PRICE_ID 사용 ($4/mo recurring).
-    # Webhook secret 은 Stripe CLI 또는 Dashboard 에서 webhook endpoint 등록 후 발급.
-    stripe_secret_key: str = ""
-    stripe_publishable_key: str = ""
-    stripe_price_id: str = ""
-    stripe_webhook_secret: str = ""
+    # Toss Payments 정기결제 (빌링키 기반). 한국 사업자 PG.
+    # 값이 비어 있으면 결제 엔드포인트가 503 으로 graceful disable.
+    # 가맹 신청 후 dev center 에서 test_sk_*/test_ck_* 발급 → 검증 → live 키 전환.
+    toss_secret_key: str = ""
+    toss_client_key: str = ""
+    # 정기결제 가격(KRW). UI 에는 "₩5,400 / 월 (≈ $4)" 로 표시.
+    toss_monthly_price_krw: int = 5400
+    toss_monthly_order_name: str = "Moa AI 가계부 월 정기결제"
 
     # Admin 권한 부여 이메일 (콤마 구분). 운영자만 /admin/* 접근 가능
     admin_emails: str = "aitrendmarketer@gmail.com"
