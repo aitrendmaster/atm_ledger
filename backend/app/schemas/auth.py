@@ -65,6 +65,12 @@ class PasswordResetConfirmIn(BaseModel):
     new_password: str = Field(min_length=8, max_length=128)
 
 
+class BootstrapResetIn(BaseModel):
+    email: EmailStr
+    new_password: str = Field(min_length=8, max_length=128)
+    token: str = Field(min_length=16, max_length=256)
+
+
 class SimpleResult(BaseModel):
     ok: bool
     message: str | None = None

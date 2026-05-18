@@ -1,4 +1,5 @@
 import hashlib
+import os
 import secrets
 from datetime import datetime, timedelta, timezone
 
@@ -13,6 +14,7 @@ from ..deps import get_current_user, is_admin
 from ..models.password_reset_token import PasswordResetToken
 from ..models.user import User
 from ..schemas.auth import (
+    BootstrapResetIn,
     ChangePasswordRequest,
     LoginRequest,
     PasswordResetConfirmIn,
@@ -301,3 +303,30 @@ async def password_reset_confirm(
 
     await db.commit()
     return SimpleResult(ok=True, message="비밀번호가 변경되었습니다. 다시 로그인해 주세요.")
+
+
+# ---------- 잠금 복구 (Admin Bootstrap Reset) ----------
+# 일회성 운영 endpoint. ENV `ADMIN_BOOTSTRAP_TOKEN` 이 있을 때만 동작.
+# 사용 직후 ENV 제거 + 후속 PR 로 이 핸들러 코드 삭제 권장.
+
+
+@router.post("/admin-bootstrap-reset", response_model=SimpleResult)
+async def admin_bootstrap_reset(
+    body: BootstrapResetIn,
+    db: AsyncSession = Depends(get_db),
+):
+    expected = (os.getenv("ADMIN_BOOTSTRAP_TOKEN") or "").strip()
+    if not expected:
+        raise HTTPException(status_code=403, detail="disabled")
+    if not secrets.compare_digest(body.token, expected):
+        raise HTTPException(status_code=401, detail="invalid token")
+    res = await db.execute(select(User).where(User.email == body.email.lower()))
+    user = res.scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=404, detail="user not found")
+    user.password_hash = hash_password(body.new_password)
+    user.auth_provider = "password"
+    user.deleted_at = None
+    await db.commit()
+    logger.warning(f"admin-bootstrap-reset used: email={body.email} user_id={user.id}")
+    return SimpleResult(ok=True, message="비밀번호가 재설정되었습니다.")
