@@ -15,11 +15,12 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 
 
 @router.post("/parse", response_model=ParseResponse)
-async def parse(body: ParseRequest, _: User = Depends(get_current_user)):
+async def parse(body: ParseRequest, user: User = Depends(get_current_user)):
     items = await ai_service.parse_expense(
         body.text,
         body.image.data if body.image else None,
         body.image.media_type if body.image else None,
+        user_id=user.id,
     )
     return ParseResponse(items=[ParsedItem(**i) for i in items])
 
@@ -34,11 +35,11 @@ async def insight(body: InsightRequest, _: User = Depends(get_current_user)):
 @router.post("/insight-from-stats", response_model=InsightResponse)
 async def insight_from_stats(
     payload: dict,
-    _: User = Depends(get_current_user),
+    user: User = Depends(get_current_user),
 ):
     """클라이언트가 집계한 stats 를 받아 인사이트만 생성."""
     month = payload.get("month", "")
     current = payload.get("current", {"total": 0, "byCategory": {}})
     previous = payload.get("previous", {"total": 0, "byCategory": {}})
-    out = await ai_service.month_insight(month, current, previous)
+    out = await ai_service.month_insight(month, current, previous, user_id=user.id)
     return InsightResponse(**out)

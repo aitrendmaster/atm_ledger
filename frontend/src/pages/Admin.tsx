@@ -7,6 +7,7 @@ import {
   BookOpen,
   Bell,
   Calendar,
+  Cpu,
   Download,
   Eye,
   EyeOff,
@@ -85,6 +86,13 @@ export default function Admin() {
     queryFn: () => adminApi.audit(50).then(r => r.data),
     enabled: Boolean(user?.is_admin) && auditOpen,
     staleTime: 0,
+  })
+
+  const aiUsageQ = useQuery({
+    queryKey: ['admin', 'ai-usage'],
+    queryFn: () => adminApi.aiUsageSummary().then(r => r.data),
+    enabled: Boolean(user?.is_admin),
+    staleTime: 30_000,
   })
 
   const annoListQ = useQuery({
@@ -298,6 +306,83 @@ export default function Admin() {
               full
             />
           </div>
+        </section>
+
+        {/* AI 사용량 위젯 */}
+        <section>
+          <h2 className="text-sm font-semibold text-atm-muted mb-3 uppercase tracking-wide flex items-center gap-2">
+            <Cpu size={14} /> AI 사용량 (Claude)
+          </h2>
+          {aiUsageQ.data ? (
+            <div className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {([
+                  ['오늘', aiUsageQ.data.today],
+                  ['최근 7일', aiUsageQ.data.last_7d],
+                  ['최근 30일', aiUsageQ.data.last_30d],
+                ] as const).map(([label, b]) => (
+                  <div key={label} className="bg-white border border-stone-200 rounded-2xl p-4">
+                    <div className="text-xs text-atm-muted mb-1.5">{label}</div>
+                    <div className="text-lg font-semibold text-atm-ink">
+                      ${b.estimated_cost_usd.toFixed(4)}
+                    </div>
+                    <div className="text-xs text-atm-muted mt-1 flex flex-wrap gap-x-3 gap-y-0.5">
+                      <span>호출 {b.calls.toLocaleString()}</span>
+                      <span>입력 {b.input_tokens.toLocaleString()}t</span>
+                      <span>출력 {b.output_tokens.toLocaleString()}t</span>
+                      {b.errors > 0 && (
+                        <span className="text-red-600">실패 {b.errors}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {aiUsageQ.data.by_model.length > 0 && (
+                <div className="bg-white border border-stone-200 rounded-2xl overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-stone-50 text-xs text-atm-muted">
+                      <tr>
+                        <th className="text-left px-4 py-2 font-medium">모델 (최근 30일)</th>
+                        <th className="text-right px-4 py-2 font-medium">호출</th>
+                        <th className="text-right px-4 py-2 font-medium">입력 토큰</th>
+                        <th className="text-right px-4 py-2 font-medium">출력 토큰</th>
+                        <th className="text-right px-4 py-2 font-medium">비용 (USD)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {aiUsageQ.data.by_model.map((r) => (
+                        <tr key={r.model} className="border-t border-stone-100">
+                          <td className="px-4 py-2 text-atm-ink font-mono text-xs">{r.model}</td>
+                          <td className="px-4 py-2 text-right">{r.calls.toLocaleString()}</td>
+                          <td className="px-4 py-2 text-right text-atm-muted">{r.input_tokens.toLocaleString()}</td>
+                          <td className="px-4 py-2 text-right text-atm-muted">{r.output_tokens.toLocaleString()}</td>
+                          <td className="px-4 py-2 text-right font-medium">${r.estimated_cost_usd.toFixed(4)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {aiUsageQ.data.recent_errors.length > 0 && (
+                <details className="bg-red-50 border border-red-200 rounded-xl p-3 text-xs">
+                  <summary className="cursor-pointer text-red-700 font-medium">
+                    최근 오류 {aiUsageQ.data.recent_errors.length}건
+                  </summary>
+                  <ul className="mt-2 space-y-1 text-red-700">
+                    {aiUsageQ.data.recent_errors.map((e, i) => (
+                      <li key={i} className="font-mono break-all">{e}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </div>
+          ) : aiUsageQ.isLoading ? (
+            <div className="text-sm text-atm-muted">불러오는 중…</div>
+          ) : (
+            <div className="text-sm text-atm-muted">사용량 데이터가 없습니다.</div>
+          )}
         </section>
 
         {/* Category breakdown */}

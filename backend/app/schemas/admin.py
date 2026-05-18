@@ -82,3 +82,28 @@ class AdminAuditRow(BaseModel):
     target_email: str | None
     payload: str | None
     created_at: datetime
+
+
+class AIUsageBucket(BaseModel):
+    label: str  # today | last_7d | last_30d
+    calls: int
+    errors: int
+    input_tokens: int
+    output_tokens: int
+    estimated_cost_usd: float
+
+
+class AIUsageModelRow(BaseModel):
+    model: str
+    calls: int
+    input_tokens: int
+    output_tokens: int
+    estimated_cost_usd: float
+
+
+class AIUsageSummary(BaseModel):
+    today: AIUsageBucket
+    last_7d: AIUsageBucket
+    last_30d: AIUsageBucket
+    by_model: list[AIUsageModelRow]
+    recent_errors: list[str]

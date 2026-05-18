@@ -14,6 +14,7 @@ from ..config import get_settings
 from ..database import get_db
 from ..deps import get_admin_user
 from ..models.admin_audit import AdminAudit
+from ..models.ai_usage import AIUsage
 from ..models.announcement import Announcement
 from ..models.entry import Entry, EntryPhoto
 from ..models.planned import Planned
@@ -27,6 +28,9 @@ from ..schemas.admin import (
     AdminStats,
     AdminUserDetail,
     AdminUserRow,
+    AIUsageBucket,
+    AIUsageModelRow,
+    AIUsageSummary,
     ResetPasswordIn,
     SetAdminIn,
 )
@@ -573,3 +577,102 @@ async def admin_announcement_delete(
     )
     await db.commit()
     return AdminActionResult(ok=True, message=f"공지 삭제 완료: {title}")
+
+
+# ---------- AI 사용량 ----------
+
+
+async def _bucket(db: AsyncSession, label: str, since: datetime) -> AIUsageBucket:
+    row = (
+        await db.execute(
+            select(
+                func.count(AIUsage.id),
+                func.coalesce(func.sum(AIUsage.input_tokens), 0),
+                func.coalesce(func.sum(AIUsage.output_tokens), 0),
+                func.coalesce(func.sum(AIUsage.estimated_cost_mc), 0),
+                func.coalesce(
+                    func.sum(
+                        func.case((AIUsage.status == "error", 1), else_=0)
+                        if hasattr(func, "case")
+                        else 0
+                    ),
+                    0,
+                ),
+            ).where(AIUsage.created_at >= since)
+        )
+    ).one()
+    calls, in_tok, out_tok, cost_mc, _ = row
+    # Error count via simpler query (cross-DB safe).
+    errors = (
+        await db.execute(
+            select(func.count(AIUsage.id)).where(
+                AIUsage.created_at >= since, AIUsage.status == "error"
+            )
+        )
+    ).scalar_one()
+    return AIUsageBucket(
+        label=label,
+        calls=int(calls or 0),
+        errors=int(errors or 0),
+        input_tokens=int(in_tok or 0),
+        output_tokens=int(out_tok or 0),
+        estimated_cost_usd=round(int(cost_mc or 0) / 100000.0, 4),
+    )
+
+
+@router.get("/ai-usage/summary", response_model=AIUsageSummary)
+async def admin_ai_usage_summary(
+    _: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    now = datetime.now(timezone.utc)
+    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    last7 = now - timedelta(days=7)
+    last30 = now - timedelta(days=30)
+
+    today_b = await _bucket(db, "today", today_start)
+    week_b = await _bucket(db, "last_7d", last7)
+    month_b = await _bucket(db, "last_30d", last30)
+
+    by_model_rows = (
+        await db.execute(
+            select(
+                AIUsage.model,
+                func.count(AIUsage.id),
+                func.coalesce(func.sum(AIUsage.input_tokens), 0),
+                func.coalesce(func.sum(AIUsage.output_tokens), 0),
+                func.coalesce(func.sum(AIUsage.estimated_cost_mc), 0),
+            )
+            .where(AIUsage.created_at >= last30)
+            .group_by(AIUsage.model)
+            .order_by(desc(func.count(AIUsage.id)))
+        )
+    ).all()
+    by_model = [
+        AIUsageModelRow(
+            model=m,
+            calls=int(c or 0),
+            input_tokens=int(it or 0),
+            output_tokens=int(ot or 0),
+            estimated_cost_usd=round(int(cost or 0) / 100000.0, 4),
+        )
+        for m, c, it, ot, cost in by_model_rows
+    ]
+
+    recent_errors = (
+        await db.execute(
+            select(AIUsage.error)
+            .where(AIUsage.status == "error")
+            .where(AIUsage.error.isnot(None))
+            .order_by(AIUsage.created_at.desc())
+            .limit(5)
+        )
+    ).scalars().all()
+
+    return AIUsageSummary(
+        today=today_b,
+        last_7d=week_b,
+        last_30d=month_b,
+        by_model=by_model,
+        recent_errors=[e for e in recent_errors if e],
+    )

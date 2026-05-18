@@ -175,6 +175,31 @@ export interface AdminAuditRow {
   created_at: string
 }
 
+export interface AIUsageBucket {
+  label: string
+  calls: number
+  errors: number
+  input_tokens: number
+  output_tokens: number
+  estimated_cost_usd: number
+}
+
+export interface AIUsageModelRow {
+  model: string
+  calls: number
+  input_tokens: number
+  output_tokens: number
+  estimated_cost_usd: number
+}
+
+export interface AIUsageSummary {
+  today: AIUsageBucket
+  last_7d: AIUsageBucket
+  last_30d: AIUsageBucket
+  by_model: AIUsageModelRow[]
+  recent_errors: string[]
+}
+
 export type AdminUserSort =
   | 'created_at_desc'
   | 'created_at_asc'
@@ -364,6 +389,8 @@ export const adminApi = {
     api.patch<Announcement>(`/admin/announcements/${id}`, patch),
   deleteAnnouncement: (id: number) =>
     api.delete<AdminActionResult>(`/admin/announcements/${id}`),
+  // AI usage
+  aiUsageSummary: () => api.get<AIUsageSummary>('/admin/ai-usage/summary'),
 }
 
 // ===== Announcements (public) =====
