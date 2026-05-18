@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useAuth } from '../hooks/useAuth'
+import GoogleSignInButton from '../components/GoogleSignInButton'
 
 export default function Signup() {
   const { signup } = useAuth()
@@ -61,6 +62,7 @@ export default function Signup() {
         <div className="text-sm text-center text-atm-muted">
           이미 계정이 있으세요? <Link to="/login" className="text-atm-accent">로그인</Link>
         </div>
+        <GoogleSignInButton />
       </form>
     </div>
   )

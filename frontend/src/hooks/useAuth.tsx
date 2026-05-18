@@ -6,6 +6,7 @@ interface AuthCtx {
   loading: boolean
   signin: (email: string, password: string) => Promise<void>
   signup: (email: string, password: string, displayName?: string) => Promise<void>
+  signinWithGoogle: (idToken: string) => Promise<void>
   signout: () => void
   refresh: () => Promise<void>
 }
@@ -47,6 +48,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
     async signup(email, password, displayName) {
       const r = await authApi.signup(email, password, displayName)
+      tokenStore.set(r.data.access_token, r.data.refresh_token)
+      await loadMe()
+    },
+    async signinWithGoogle(idToken) {
+      const r = await authApi.googleLogin(idToken)
       tokenStore.set(r.data.access_token, r.data.refresh_token)
       await loadMe()
     },

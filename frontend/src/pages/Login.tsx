@@ -52,6 +52,7 @@ export default function Login() {
             비밀번호를 잊으셨나요?
           </Link>
         </div>
+        <GoogleSignInButton />
       </form>
     </div>
   )

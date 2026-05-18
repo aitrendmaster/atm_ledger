@@ -287,6 +287,8 @@ export const authApi = {
     api.post<SimpleResult>('/auth/password-reset/request', { email }),
   confirmPasswordReset: (token: string, new_password: string) =>
     api.post<SimpleResult>('/auth/password-reset/confirm', { token, new_password }),
+  googleLogin: (id_token: string) =>
+    api.post<TokenPair & { user: User }>('/auth/google', { id_token }),
 }
 
 // ===== Entries =====
