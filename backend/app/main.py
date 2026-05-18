@@ -12,7 +12,17 @@ from sqlalchemy import create_engine, inspect, text
 
 from .config import get_settings
 from .database import engine
-from .routers import admin, ai, auth, entries, geocode, photos, planned, reflections
+from .routers import (
+    admin,
+    ai,
+    announcements,
+    auth,
+    entries,
+    geocode,
+    photos,
+    planned,
+    reflections,
+)
 
 settings = get_settings()
 
@@ -118,6 +128,7 @@ app.include_router(reflections.router)
 app.include_router(ai.router)
 app.include_router(geocode.router)
 app.include_router(photos.router)
+app.include_router(announcements.router)
 app.include_router(admin.router)
 
 

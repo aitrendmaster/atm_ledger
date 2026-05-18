@@ -132,6 +132,39 @@ export interface AdminUserDetail {
   recent_entries: AdminEntrySummary[]
 }
 
+export type AnnouncementLevel = 'info' | 'warning' | 'critical'
+
+export interface Announcement {
+  id: number
+  title: string
+  body: string
+  level: AnnouncementLevel
+  active: boolean
+  starts_at: string | null
+  ends_at: string | null
+  created_by_email: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface AnnouncementCreate {
+  title: string
+  body: string
+  level?: AnnouncementLevel
+  active?: boolean
+  starts_at?: string | null
+  ends_at?: string | null
+}
+
+export interface AnnouncementUpdate {
+  title?: string
+  body?: string
+  level?: AnnouncementLevel
+  active?: boolean
+  starts_at?: string | null
+  ends_at?: string | null
+}
+
 export interface AdminAuditRow {
   id: number
   admin_email: string
@@ -323,6 +356,19 @@ export const adminApi = {
     api.patch<AdminActionResult>(`/admin/users/${userId}/admin`, { is_admin: isAdmin }),
   softDelete: (userId: number) =>
     api.delete<AdminActionResult>(`/admin/users/${userId}`),
+  // Announcements (admin)
+  listAnnouncements: () => api.get<Announcement[]>('/admin/announcements'),
+  createAnnouncement: (body: AnnouncementCreate) =>
+    api.post<Announcement>('/admin/announcements', body),
+  updateAnnouncement: (id: number, patch: AnnouncementUpdate) =>
+    api.patch<Announcement>(`/admin/announcements/${id}`, patch),
+  deleteAnnouncement: (id: number) =>
+    api.delete<AdminActionResult>(`/admin/announcements/${id}`),
+}
+
+// ===== Announcements (public) =====
+export const announcementsApi = {
+  active: () => api.get<Announcement[]>('/announcements/active'),
 }
 
 // ===== Constants =====

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { HelpCircle, LogOut, ShieldCheck } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
+import AnnouncementBar from '../components/AnnouncementBar'
 // @ts-ignore - .jsx 파일을 무타입으로 가져옴 (점진적 TS 전환)
 import ChatLedger from './Ledger.jsx'
 
@@ -8,6 +9,7 @@ export default function Ledger() {
   const { user, signout } = useAuth()
   return (
     <div className="relative">
+      <AnnouncementBar />
       <div className="absolute top-3 right-4 z-50 flex items-center gap-2">
         <span className="hidden sm:inline text-xs text-atm-muted">
           {user?.display_name || user?.email}

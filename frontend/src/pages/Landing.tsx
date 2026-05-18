@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { MessageCircle, Calendar, MapPin, BarChart3, Mail, Sparkles } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { SUPPORT_EMAIL } from '../services/api'
+import AnnouncementBar from '../components/AnnouncementBar'
 import Faq from '../components/Faq'
 
 export default function Landing() {
@@ -9,6 +10,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-atm-bg">
+      <AnnouncementBar />
       {/* Hero */}
       <section className="px-6 pt-20 pb-16 max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-stone-200 rounded-full text-xs text-atm-muted mb-6">

@@ -1,7 +1,16 @@
 from .admin_audit import AdminAudit
+from .announcement import Announcement
 from .entry import Entry, EntryPhoto
 from .planned import Planned
 from .reflection import Reflection
 from .user import User
 
-__all__ = ["AdminAudit", "Entry", "EntryPhoto", "Planned", "Reflection", "User"]
+__all__ = [
+    "AdminAudit",
+    "Announcement",
+    "Entry",
+    "EntryPhoto",
+    "Planned",
+    "Reflection",
+    "User",
+]

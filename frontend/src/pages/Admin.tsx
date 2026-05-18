@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import {
   ArrowLeft,
   BookOpen,
+  Bell,
   Calendar,
   Download,
   Eye,
@@ -12,6 +13,7 @@ import {
   FileText,
   History,
   Key,
+  Plus,
   Search,
   ShieldAlert,
   ShieldCheck,
@@ -21,7 +23,7 @@ import {
   Users,
   X,
 } from 'lucide-react'
-import type { AdminUserSort } from '../services/api'
+import type { AdminUserSort, AnnouncementLevel } from '../services/api'
 import { adminApi } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
 
@@ -45,6 +47,14 @@ export default function Admin() {
   const [detailUserId, setDetailUserId] = useState<number | null>(null)
   // 감사 로그 펼치기
   const [auditOpen, setAuditOpen] = useState(false)
+  // 공지 관리
+  const [annoOpen, setAnnoOpen] = useState(false)
+  const [annoForm, setAnnoForm] = useState<{
+    title: string
+    body: string
+    level: AnnouncementLevel
+    active: boolean
+  }>({ title: '', body: '', level: 'info', active: true })
 
   const statsQ = useQuery({
     queryKey: ['admin', 'stats'],
@@ -76,6 +86,58 @@ export default function Admin() {
     enabled: Boolean(user?.is_admin) && auditOpen,
     staleTime: 0,
   })
+
+  const annoListQ = useQuery({
+    queryKey: ['admin', 'announcements'],
+    queryFn: () => adminApi.listAnnouncements().then(r => r.data),
+    enabled: Boolean(user?.is_admin) && annoOpen,
+    staleTime: 0,
+  })
+
+  const refreshAnnouncements = () => {
+    queryClient.invalidateQueries({ queryKey: ['admin', 'announcements'] })
+    queryClient.invalidateQueries({ queryKey: ['announcements', 'active'] })
+  }
+
+  const submitAnnouncement = async () => {
+    if (!annoForm.title.trim() || !annoForm.body.trim()) {
+      toast.error('제목과 본문은 필수입니다.')
+      return
+    }
+    try {
+      await adminApi.createAnnouncement({
+        title: annoForm.title.trim(),
+        body: annoForm.body.trim(),
+        level: annoForm.level,
+        active: annoForm.active,
+      })
+      setAnnoForm({ title: '', body: '', level: 'info', active: true })
+      refreshAnnouncements()
+      toast.success('공지 추가 완료')
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '공지 추가 실패')
+    }
+  }
+
+  const toggleAnnouncementActive = async (id: number, active: boolean) => {
+    try {
+      await adminApi.updateAnnouncement(id, { active })
+      refreshAnnouncements()
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '갱신 실패')
+    }
+  }
+
+  const deleteAnnouncement = async (id: number, title: string) => {
+    if (!window.confirm(`공지 "${title}" 을 삭제하시겠습니까?`)) return
+    try {
+      await adminApi.deleteAnnouncement(id)
+      refreshAnnouncements()
+      toast.success('삭제 완료')
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '삭제 실패')
+    }
+  }
 
   useEffect(() => {
     if (!loading && user && !user.is_admin) setAccessDenied(true)
@@ -431,6 +493,154 @@ export default function Admin() {
               </div>
             )}
           </div>
+        </section>
+
+        {/* 공지 배너 관리 */}
+        <section>
+          <button
+            type="button"
+            onClick={() => setAnnoOpen((o) => !o)}
+            className="flex items-center gap-2 mb-3 text-sm font-semibold text-atm-muted uppercase tracking-wide hover:text-atm-ink"
+          >
+            <Bell size={14} />
+            공지 배너 {annoOpen ? '▾' : '▸'}
+          </button>
+          {annoOpen && (
+            <div className="space-y-3">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  void submitAnnouncement()
+                }}
+                className="bg-white border border-stone-200 rounded-2xl p-4 space-y-3"
+              >
+                <input
+                  type="text"
+                  value={annoForm.title}
+                  onChange={(e) => setAnnoForm((f) => ({ ...f, title: e.target.value }))}
+                  placeholder="제목 (예: 점검 안내)"
+                  maxLength={120}
+                  className="w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+                />
+                <textarea
+                  value={annoForm.body}
+                  onChange={(e) => setAnnoForm((f) => ({ ...f, body: e.target.value }))}
+                  placeholder="본문 (한 줄~여러 줄)"
+                  rows={3}
+                  maxLength={4000}
+                  className="w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent resize-y"
+                />
+                <div className="flex flex-wrap items-center gap-3 text-sm">
+                  <label className="inline-flex items-center gap-1.5">
+                    중요도
+                    <select
+                      value={annoForm.level}
+                      onChange={(e) =>
+                        setAnnoForm((f) => ({
+                          ...f,
+                          level: e.target.value as AnnouncementLevel,
+                        }))
+                      }
+                      className="px-2 py-1 border border-stone-200 rounded-md bg-white"
+                    >
+                      <option value="info">info</option>
+                      <option value="warning">warning</option>
+                      <option value="critical">critical (닫기 불가)</option>
+                    </select>
+                  </label>
+                  <label className="inline-flex items-center gap-1.5 text-atm-muted">
+                    <input
+                      type="checkbox"
+                      checked={annoForm.active}
+                      onChange={(e) =>
+                        setAnnoForm((f) => ({ ...f, active: e.target.checked }))
+                      }
+                      className="accent-atm-accent"
+                    />
+                    즉시 활성
+                  </label>
+                  <div className="flex-1" />
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-atm-accent text-white rounded-lg text-sm"
+                  >
+                    <Plus size={12} /> 추가
+                  </button>
+                </div>
+              </form>
+
+              <div className="bg-white border border-stone-200 rounded-2xl overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-stone-50 text-xs text-atm-muted">
+                    <tr>
+                      <th className="text-left px-4 py-2.5 font-medium">제목 / 본문</th>
+                      <th className="text-left px-4 py-2.5 font-medium">레벨</th>
+                      <th className="text-left px-4 py-2.5 font-medium">활성</th>
+                      <th className="text-left px-4 py-2.5 font-medium">생성</th>
+                      <th className="text-right px-4 py-2.5 font-medium">액션</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(annoListQ.data ?? []).map((a) => (
+                      <tr key={a.id} className="border-t border-stone-100">
+                        <td className="px-4 py-2 max-w-md">
+                          <div className="font-medium text-atm-ink truncate">{a.title}</div>
+                          <div className="text-xs text-atm-muted truncate">{a.body}</div>
+                        </td>
+                        <td className="px-4 py-2">
+                          <span
+                            className={`px-1.5 py-0.5 rounded text-[11px] font-medium ${
+                              a.level === 'critical'
+                                ? 'bg-red-100 text-red-700'
+                                : a.level === 'warning'
+                                ? 'bg-amber-100 text-amber-700'
+                                : 'bg-sky-100 text-sky-700'
+                            }`}
+                          >
+                            {a.level}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2">
+                          <label className="inline-flex items-center gap-1 text-xs cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={a.active}
+                              onChange={(e) => toggleAnnouncementActive(a.id, e.target.checked)}
+                              className="accent-atm-accent"
+                            />
+                            {a.active ? '노출' : '숨김'}
+                          </label>
+                        </td>
+                        <td className="px-4 py-2 text-atm-muted text-xs whitespace-nowrap">
+                          {fmtDate(a.created_at)}
+                        </td>
+                        <td className="px-4 py-2 text-right">
+                          <button
+                            type="button"
+                            onClick={() => deleteAnnouncement(a.id, a.title)}
+                            className="inline-flex items-center px-2 py-1 text-xs border border-red-200 text-red-600 rounded-md hover:bg-red-50"
+                            title="삭제"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {annoListQ.data && annoListQ.data.length === 0 && (
+                  <div className="px-4 py-6 text-center text-sm text-atm-muted">
+                    공지가 없습니다.
+                  </div>
+                )}
+                {annoListQ.isLoading && (
+                  <div className="px-4 py-6 text-center text-sm text-atm-muted">
+                    불러오는 중…
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* 감사 로그 */}

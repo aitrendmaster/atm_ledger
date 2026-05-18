@@ -14,6 +14,7 @@ from ..config import get_settings
 from ..database import get_db
 from ..deps import get_admin_user
 from ..models.admin_audit import AdminAudit
+from ..models.announcement import Announcement
 from ..models.entry import Entry, EntryPhoto
 from ..models.planned import Planned
 from ..models.reflection import Reflection
@@ -28,6 +29,11 @@ from ..schemas.admin import (
     AdminUserRow,
     ResetPasswordIn,
     SetAdminIn,
+)
+from ..schemas.announcement import (
+    AnnouncementCreate,
+    AnnouncementOut,
+    AnnouncementUpdate,
 )
 from ..security import hash_password
 
@@ -473,3 +479,97 @@ async def admin_export_users(
         media_type="text/csv; charset=utf-8",
         headers=headers,
     )
+
+
+# ---------- 공지 (Announcements) ----------
+
+
+@router.get("/announcements", response_model=list[AnnouncementOut])
+async def admin_announcements_list(
+    _: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    rows = (
+        await db.execute(select(Announcement).order_by(Announcement.created_at.desc()))
+    ).scalars().all()
+    return [AnnouncementOut.model_validate(r, from_attributes=True) for r in rows]
+
+
+@router.post(
+    "/announcements", response_model=AnnouncementOut, status_code=status.HTTP_201_CREATED
+)
+async def admin_announcement_create(
+    body: AnnouncementCreate,
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    row = Announcement(
+        title=body.title,
+        body=body.body,
+        level=body.level,
+        active=body.active,
+        starts_at=body.starts_at,
+        ends_at=body.ends_at,
+        created_by_id=me.id,
+        created_by_email=me.email,
+    )
+    db.add(row)
+    await db.flush()
+    await _audit(
+        db,
+        me,
+        "announcement_create",
+        payload={"id": row.id, "title": row.title, "level": row.level},
+    )
+    await db.commit()
+    await db.refresh(row)
+    return AnnouncementOut.model_validate(row, from_attributes=True)
+
+
+@router.patch("/announcements/{announcement_id}", response_model=AnnouncementOut)
+async def admin_announcement_update(
+    body: AnnouncementUpdate,
+    announcement_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    res = await db.execute(select(Announcement).where(Announcement.id == announcement_id))
+    row = res.scalar_one_or_none()
+    if not row:
+        raise HTTPException(status_code=404, detail="announcement not found")
+
+    patch = body.model_dump(exclude_unset=True)
+    for k, v in patch.items():
+        setattr(row, k, v)
+
+    await _audit(
+        db,
+        me,
+        "announcement_update",
+        payload={"id": row.id, "changed": list(patch.keys())},
+    )
+    await db.commit()
+    await db.refresh(row)
+    return AnnouncementOut.model_validate(row, from_attributes=True)
+
+
+@router.delete("/announcements/{announcement_id}", response_model=AdminActionResult)
+async def admin_announcement_delete(
+    announcement_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    res = await db.execute(select(Announcement).where(Announcement.id == announcement_id))
+    row = res.scalar_one_or_none()
+    if not row:
+        raise HTTPException(status_code=404, detail="announcement not found")
+    title = row.title
+    await db.delete(row)
+    await _audit(
+        db,
+        me,
+        "announcement_delete",
+        payload={"id": announcement_id, "title": title},
+    )
+    await db.commit()
+    return AdminActionResult(ok=True, message=f"공지 삭제 완료: {title}")
