@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { HelpCircle, LogOut, ShieldCheck } from 'lucide-react'
+import { HelpCircle, LogOut, ShieldCheck, User as UserIcon } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import AnnouncementBar from '../components/AnnouncementBar'
 // @ts-ignore - .jsx 파일을 무타입으로 가져옴 (점진적 TS 전환)
@@ -14,6 +14,13 @@ export default function Ledger() {
         <span className="hidden sm:inline text-xs text-atm-muted">
           {user?.display_name || user?.email}
         </span>
+        <Link
+          to="/me"
+          title="마이페이지"
+          className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+        >
+          <UserIcon size={14} /> <span className="hidden sm:inline">내 계정</span>
+        </Link>
         <Link
           to="/faq"
           title="자주 묻는 질문"

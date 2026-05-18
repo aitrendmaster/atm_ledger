@@ -47,6 +47,11 @@ export default function Login() {
         <div className="text-sm text-center text-atm-muted">
           계정이 없으세요? <Link to="/signup" className="text-atm-accent">가입하기</Link>
         </div>
+        <div className="text-xs text-center">
+          <Link to="/forgot-password" className="text-atm-muted hover:text-atm-ink underline">
+            비밀번호를 잊으셨나요?
+          </Link>
+        </div>
       </form>
     </div>
   )

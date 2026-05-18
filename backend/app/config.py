@@ -47,6 +47,13 @@ class Settings(BaseSettings):
 
     frontend_base_url: str = "http://localhost:5173"
 
+    # Resend (이메일 발송). 비어 있으면 reset 링크를 백엔드 로그에 출력만 함(개발용 폴백).
+    resend_api_key: str = ""
+    resend_from: str = "Moa AI 가계부 <onboarding@resend.dev>"
+
+    # Password reset 토큰 유효 기간
+    password_reset_ttl_min: int = 60
+
     # Admin 권한 부여 이메일 (콤마 구분). 운영자만 /admin/* 접근 가능
     admin_emails: str = "aitrendmarketer@gmail.com"
 

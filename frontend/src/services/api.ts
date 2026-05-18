@@ -264,6 +264,11 @@ export interface ParsedItem {
   place_name: string | null
 }
 
+export interface SimpleResult {
+  ok: boolean
+  message: string | null
+}
+
 // ===== Auth =====
 export const authApi = {
   signup: (email: string, password: string, display_name?: string) =>
@@ -273,6 +278,15 @@ export const authApi = {
   me: () => api.get<User>('/auth/me'),
   updateMe: (patch: Partial<Pick<User, 'display_name' | 'monthly_income' | 'monthly_budget'>>) =>
     api.patch<User>('/auth/me', patch),
+  changePassword: (current_password: string, new_password: string) =>
+    api.post<SimpleResult>('/auth/change-password', { current_password, new_password }),
+  exportMyData: () =>
+    api.get<Blob>('/auth/me/export', { responseType: 'blob' }),
+  deleteMe: () => api.delete<SimpleResult>('/auth/me'),
+  requestPasswordReset: (email: string) =>
+    api.post<SimpleResult>('/auth/password-reset/request', { email }),
+  confirmPasswordReset: (token: string, new_password: string) =>
+    api.post<SimpleResult>('/auth/password-reset/confirm', { token, new_password }),
 }
 
 // ===== Entries =====
