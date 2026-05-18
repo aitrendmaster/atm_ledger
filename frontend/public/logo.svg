@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <title>moa · atm — Moa AI 가계부</title>
+
+  <!-- 왼쪽 마크: 둥근 사각형 + moa/atm 두 줄 -->
+  <g>
+    <rect x="6" y="10" width="60" height="60" rx="14" ry="14" fill="#E07856"/>
+    <text x="36" y="38"
+          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
+          font-size="20" font-weight="800" fill="#FFFDF8"
+          text-anchor="middle" letter-spacing="-1">moa</text>
+    <text x="36" y="58"
+          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
+          font-size="14" font-weight="700" fill="#FFFDF8" opacity="0.92"
+          text-anchor="middle" letter-spacing="2.5">atm</text>
+  </g>
+
+  <!-- 워드마크: moa · atm -->
+  <g>
+    <!-- moa: 굵게, accent 색 -->
+    <text x="86" y="48"
+          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
+          font-size="28" font-weight="800" fill="#E07856"
+          letter-spacing="-0.5">moa</text>
+
+    <!-- 중간 dot 구분자 -->
+    <circle cx="155" cy="42" r="3.2" fill="#2E2A24"/>
+
+    <!-- atm: ink 색 -->
+    <text x="166" y="48"
+          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
+          font-size="28" font-weight="800" fill="#2E2A24"
+          letter-spacing="-0.5">atm</text>
+
+    <!-- 서브 태그: AI 가계부 -->
+    <text x="86" y="68"
+          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
+          font-size="11" font-weight="600" fill="#7A7567"
+          letter-spacing="2">AI 가계부</text>
+  </g>
+</svg>

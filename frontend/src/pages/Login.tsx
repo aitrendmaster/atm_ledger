@@ -31,7 +31,10 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="absolute top-3 right-4"><LanguageSwitcher /></div>
       <form onSubmit={onSubmit} className="w-full max-w-sm bg-white rounded-2xl shadow-sm p-6 space-y-4">
-        <h1 className="text-2xl font-semibold text-atm-ink">{t('app.name')}</h1>
+        <div className="flex items-center gap-3">
+          <img src="/favicon.svg" alt="" width={48} height={48} className="flex-shrink-0" />
+          <h1 className="text-2xl font-semibold text-atm-ink">{t('app.name')}</h1>
+        </div>
         <p className="text-sm text-atm-muted">{t('login.subtitle')}</p>
         <input
           type="email" required value={email} onChange={(e) => setEmail(e.target.value)}

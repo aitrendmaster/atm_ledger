@@ -24,7 +24,8 @@ export default function Landing() {
       <AnnouncementBar />
       <AppHeader />
       {/* Hero */}
-      <section className="px-6 pt-20 pb-16 max-w-4xl mx-auto">
+      <section className="px-6 pt-16 pb-16 max-w-4xl mx-auto">
+        <img src="/logo.svg" alt="moa · atm" height={48} className="h-12 w-auto mb-8" />
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-stone-200 rounded-full text-xs text-atm-muted mb-6">
           <Sparkles size={14} className="text-atm-accent" />
           {t('landing.badge')}
@@ -104,9 +105,12 @@ export default function Landing() {
       {/* Footer */}
       <footer className="px-6 py-10 bg-stone-50 border-t border-stone-200">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 text-sm">
-          <div>
-            <div className="font-semibold text-atm-ink mb-1">{t('app.name')}</div>
-            <div className="text-xs text-atm-muted">{t('landing.footerTagline')}</div>
+          <div className="flex items-center gap-3">
+            <img src="/favicon.svg" alt="" width={40} height={40} className="flex-shrink-0" />
+            <div>
+              <div className="font-semibold text-atm-ink mb-0.5">{t('app.name')}</div>
+              <div className="text-xs text-atm-muted">{t('landing.footerTagline')}</div>
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-atm-muted">
             <a
