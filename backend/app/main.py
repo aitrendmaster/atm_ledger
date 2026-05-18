@@ -50,11 +50,10 @@ def _run_alembic_migrations() -> None:
         insp = inspect(sync_eng)
         names = set(insp.get_table_names())
         if "users" in names and "alembic_version" not in names:
-            logger.warning(
-                "기존 DB 감지(alembic_version 없음). baseline 자동 stamp 진행."
-            )
-            command.stamp(cfg, "head")
-            return
+            # 베이스라인 스키마는 이미 적용된 상태로 간주하고 베이스라인 revision 만 stamp.
+            # 그 이후 누락된 마이그레이션은 아래 upgrade 가 차례로 적용한다.
+            logger.warning("기존 DB 감지(alembic_version 없음). 베이스라인 stamp 후 upgrade.")
+            command.stamp(cfg, "43a1bec11fce")
         command.upgrade(cfg, "head")
     finally:
         sync_eng.dispose()
