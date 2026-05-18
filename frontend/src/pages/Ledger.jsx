@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut } from 'lucide-react';
-import { aiApi, geocodeApi } from '../services/api';
+import { aiApi, geocodeApi, meApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 
 const CATEGORIES = {
@@ -312,8 +312,34 @@ export default function ChatLedger() {
   };
 
   // 사용자 위치 (Geolocation API). 첫 검색 시 권한 요청. 거부 시 null 로 남아 전국 검색.
-  const [userGeo, setUserGeo] = useState(null); // { lat, lng } | null
-  const [geoStatus, setGeoStatus] = useState('idle'); // idle | requesting | granted | denied | unsupported
+  // geoStatus: idle | requesting | granted | denied | unsupported | ip
+  //   - ip: 옵트인된 사용자의 IP 기반 추정 좌표 (정확도 ~ 도시 단위)
+  //   - granted: 브라우저 Geolocation 으로 받은 정확한 좌표 (덮어쓰기 우선)
+  const [userGeo, setUserGeo] = useState(null); // { lat, lng, source } | null
+  const [geoStatus, setGeoStatus] = useState('idle');
+  const [geoLabel, setGeoLabel] = useState(''); // "서울 ·" 같은 라벨
+
+  // 컴포넌트 마운트 시 IP 기반 위치를 자동 fetch — 옵트인된 사용자만 lat/lng 가 채워짐.
+  // 사용자가 명시적으로 "내 위치 사용" 을 누르면 navigator.geolocation 으로 더 정확한 좌표로 덮어씀.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await meApi.geo();
+        if (cancelled || !res?.data?.enabled) return;
+        const g = res.data;
+        if (typeof g.lat === 'number' && typeof g.lng === 'number') {
+          // 이미 GPS 좌표가 있으면 덮어쓰지 않음
+          setUserGeo((prev) => (prev && prev.source === 'gps' ? prev : { lat: g.lat, lng: g.lng, source: 'ip' }));
+          setGeoStatus((s) => (s === 'granted' ? s : 'ip'));
+          setGeoLabel([g.city, g.region].filter(Boolean).join(', '));
+        }
+      } catch {
+        /* 옵트인 안 됐거나 네트워크 오류 — 무시 */
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   const requestUserGeo = () => {
     if (!('geolocation' in navigator)) {
@@ -324,7 +350,7 @@ export default function ChatLedger() {
     return new Promise(resolve => {
       navigator.geolocation.getCurrentPosition(
         pos => {
-          const g = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          const g = { lat: pos.coords.latitude, lng: pos.coords.longitude, source: 'gps' };
           setUserGeo(g);
           setGeoStatus('granted');
           resolve(g);
@@ -1577,19 +1603,20 @@ export default function ChatLedger() {
 
                   <div className="flex items-center justify-between text-[11px] mb-2" style={{ color: '#7A7567' }}>
                     <span>
-                      {geoStatus === 'granted' && userGeo && '📍 내 위치 주변 우선 (±20km)'}
+                      {geoStatus === 'granted' && userGeo && '📍 내 위치 주변 (GPS, ±20km)'}
+                      {geoStatus === 'ip' && userGeo && `📍 ${geoLabel || 'IP 기준'} 주변 (±20km)`}
                       {geoStatus === 'denied' && '🌐 전체 한국 검색 (위치 권한 거부됨)'}
                       {geoStatus === 'unsupported' && '🌐 전체 한국 검색 (브라우저 미지원)'}
                       {(geoStatus === 'idle' || geoStatus === 'requesting') && '🌐 전체 한국 검색'}
                     </span>
-                    {(geoStatus === 'idle' || geoStatus === 'denied') && (
+                    {(geoStatus === 'idle' || geoStatus === 'ip' || geoStatus === 'denied') && (
                       <button
                         type="button"
                         onClick={() => requestUserGeo()}
                         className="underline"
                         style={{ color: '#A0633C' }}
                       >
-                        내 위치 사용
+                        {geoStatus === 'ip' ? '더 정확하게 (GPS)' : '내 위치 사용 (GPS)'}
                       </button>
                     )}
                   </div>

@@ -1,43 +1,43 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import {
   ArrowLeft,
+  CreditCard,
   Download,
   Eye,
   EyeOff,
+  Globe2,
   KeyRound,
-  LogOut,
+  MapPin,
+  Shield,
   Trash2,
   User as UserIcon,
 } from 'lucide-react'
-import { authApi } from '../services/api'
+import { authApi, meApi } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
+import AppHeader from '../components/AppHeader'
+
+type Tab = 'general' | 'billing' | 'privacy' | 'location' | 'export'
+
+const TABS: { key: Tab; label: string; icon: typeof UserIcon }[] = [
+  { key: 'general', label: '일반', icon: UserIcon },
+  { key: 'billing', label: '결제', icon: CreditCard },
+  { key: 'privacy', label: '개인정보보호', icon: Shield },
+  { key: 'location', label: '위치', icon: MapPin },
+  { key: 'export', label: '데이터 내보내기', icon: Download },
+]
+
+const won = (n: number) => `${n.toLocaleString('ko-KR')}원`
+const fmtDate = (s: string | null | undefined) =>
+  s ? new Date(s).toLocaleDateString('ko-KR') : '—'
 
 export default function MyPage() {
   const { user, signout, refresh } = useAuth()
   const queryClient = useQueryClient()
   const nav = useNavigate()
-
-  // 프로필
-  const [displayName, setDisplayName] = useState('')
-  const [monthlyIncome, setMonthlyIncome] = useState(0)
-  const [monthlyBudget, setMonthlyBudget] = useState(0)
-  const [profileBusy, setProfileBusy] = useState(false)
-
-  // 비밀번호
-  const [curPw, setCurPw] = useState('')
-  const [newPw, setNewPw] = useState('')
-  const [showPw, setShowPw] = useState(false)
-  const [pwBusy, setPwBusy] = useState(false)
-
-  useEffect(() => {
-    if (!user) return
-    setDisplayName(user.display_name || '')
-    setMonthlyIncome(user.monthly_income || 0)
-    setMonthlyBudget(user.monthly_budget || 0)
-  }, [user])
+  const [tab, setTab] = useState<Tab>('general')
 
   if (!user) {
     return (
@@ -47,11 +47,109 @@ export default function MyPage() {
     )
   }
 
+  return (
+    <div className="min-h-screen bg-atm-bg">
+      <header className="px-6 py-4 bg-white border-b border-stone-200">
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <Link to="/app" className="text-atm-muted hover:text-atm-ink">
+              <ArrowLeft size={18} />
+            </Link>
+            <h1 className="text-lg font-semibold text-atm-ink flex items-center gap-2">
+              <UserIcon size={18} /> 마이페이지
+            </h1>
+          </div>
+          <AppHeader variant="inline" showFaq={false} />
+        </div>
+      </header>
+
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6">
+          {/* 사이드 탭 */}
+          <aside>
+            <nav className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible">
+              {TABS.map((t) => {
+                const Icon = t.icon
+                const active = tab === t.key
+                return (
+                  <button
+                    key={t.key}
+                    type="button"
+                    onClick={() => setTab(t.key)}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap ${
+                      active
+                        ? 'bg-white border border-stone-200 text-atm-ink font-medium shadow-sm'
+                        : 'text-atm-muted hover:text-atm-ink hover:bg-white'
+                    }`}
+                  >
+                    <Icon size={14} /> {t.label}
+                  </button>
+                )
+              })}
+            </nav>
+          </aside>
+
+          {/* 본문 */}
+          <section className="space-y-5">
+            {tab === 'general' && (
+              <GeneralTab user={user} refresh={refresh} queryClient={queryClient} />
+            )}
+            {tab === 'billing' && <BillingTab queryClient={queryClient} />}
+            {tab === 'privacy' && (
+              <PrivacyTab user={user} refresh={refresh} queryClient={queryClient} />
+            )}
+            {tab === 'location' && <LocationTab />}
+            {tab === 'export' && <ExportTab />}
+
+            <DangerZone
+              email={user.email}
+              onDeleted={() => {
+                signout()
+                nav('/', { replace: true })
+              }}
+            />
+          </section>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+// =================== 일반 ===================
+
+function GeneralTab({
+  user,
+  refresh,
+  queryClient,
+}: {
+  user: any
+  refresh: () => Promise<void>
+  queryClient: ReturnType<typeof useQueryClient>
+}) {
+  const [fullName, setFullName] = useState('')
+  const [displayName, setDisplayName] = useState('')
+  const [monthlyIncome, setMonthlyIncome] = useState(0)
+  const [monthlyBudget, setMonthlyBudget] = useState(0)
+  const [profileBusy, setProfileBusy] = useState(false)
+
+  const [curPw, setCurPw] = useState('')
+  const [newPw, setNewPw] = useState('')
+  const [showPw, setShowPw] = useState(false)
+  const [pwBusy, setPwBusy] = useState(false)
+
+  useEffect(() => {
+    setFullName(user.full_name || '')
+    setDisplayName(user.display_name || '')
+    setMonthlyIncome(user.monthly_income || 0)
+    setMonthlyBudget(user.monthly_budget || 0)
+  }, [user])
+
   const saveProfile = async (e: FormEvent) => {
     e.preventDefault()
     setProfileBusy(true)
     try {
       await authApi.updateMe({
+        full_name: fullName,
         display_name: displayName,
         monthly_income: monthlyIncome,
         monthly_budget: monthlyBudget,
@@ -85,24 +183,569 @@ export default function MyPage() {
     }
   }
 
-  const exportData = async () => {
+  return (
+    <>
+      <div className="bg-white border border-stone-200 rounded-2xl p-5">
+        <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3">
+          계정
+        </h2>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+          <div className="text-atm-muted">이메일</div>
+          <div className="text-atm-ink">{user.email}</div>
+          <div className="text-atm-muted">권한</div>
+          <div className="text-atm-ink">
+            {user.is_admin ? <span className="text-atm-accent font-medium">관리자</span> : '일반 회원'}
+          </div>
+        </div>
+      </div>
+
+      <form
+        onSubmit={saveProfile}
+        className="bg-white border border-stone-200 rounded-2xl p-5 space-y-3"
+      >
+        <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide">프로필</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label className="block">
+            <span className="text-xs text-atm-muted">이름</span>
+            <input
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              maxLength={80}
+              placeholder="홍길동"
+              className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+            />
+          </label>
+          <label className="block">
+            <span className="text-xs text-atm-muted">닉네임</span>
+            <input
+              type="text"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              maxLength={80}
+              placeholder="가계부지킴이"
+              className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+            />
+          </label>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label className="block">
+            <span className="text-xs text-atm-muted">월 수입 (원)</span>
+            <input
+              type="number"
+              min={0}
+              value={monthlyIncome}
+              onChange={(e) => setMonthlyIncome(Number(e.target.value) || 0)}
+              className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+            />
+            <span className="text-[10px] text-atm-muted">{won(monthlyIncome)}</span>
+          </label>
+          <label className="block">
+            <span className="text-xs text-atm-muted">월 예산 (원)</span>
+            <input
+              type="number"
+              min={0}
+              value={monthlyBudget}
+              onChange={(e) => setMonthlyBudget(Number(e.target.value) || 0)}
+              className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+            />
+            <span className="text-[10px] text-atm-muted">{won(monthlyBudget)}</span>
+          </label>
+        </div>
+        <button
+          type="submit"
+          disabled={profileBusy}
+          className="px-4 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
+        >
+          {profileBusy ? '저장 중…' : '프로필 저장'}
+        </button>
+      </form>
+
+      <form
+        onSubmit={changePw}
+        className="bg-white border border-stone-200 rounded-2xl p-5 space-y-3 max-w-md"
+      >
+        <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide flex items-center gap-2">
+          <KeyRound size={14} /> 비밀번호 수정
+        </h2>
+        <input
+          type={showPw ? 'text' : 'password'}
+          required
+          value={curPw}
+          onChange={(e) => setCurPw(e.target.value)}
+          placeholder="현재 비밀번호"
+          className="w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+        />
+        <div className="relative">
+          <input
+            type={showPw ? 'text' : 'password'}
+            required
+            minLength={8}
+            value={newPw}
+            onChange={(e) => setNewPw(e.target.value)}
+            placeholder="새 비밀번호 (8자 이상)"
+            className="w-full px-3 py-2 pr-10 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPw((s) => !s)}
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-atm-muted hover:text-atm-ink p-1"
+          >
+            {showPw ? <EyeOff size={14} /> : <Eye size={14} />}
+          </button>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="submit"
+            disabled={pwBusy}
+            className="px-4 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
+          >
+            {pwBusy ? '변경 중…' : '비밀번호 변경'}
+          </button>
+          <Link to="/forgot-password" className="text-xs text-atm-muted hover:text-atm-ink underline">
+            비밀번호를 잊으셨나요?
+          </Link>
+        </div>
+      </form>
+    </>
+  )
+}
+
+// =================== 결제 ===================
+
+function BillingTab({
+  queryClient,
+}: {
+  queryClient: ReturnType<typeof useQueryClient>
+}) {
+  const q = useQuery({
+    queryKey: ['me', 'billing'],
+    queryFn: () => meApi.billing().then((r) => r.data),
+    staleTime: 30_000,
+  })
+
+  const refetch = () => queryClient.invalidateQueries({ queryKey: ['me', 'billing'] })
+
+  const upgrade = async () => {
+    const ok = window.confirm(
+      '월 $4 (약 5,400원) 유료 플랜으로 업그레이드하시겠습니까?\n\n' +
+        '※ 현재 결제 게이트웨이 연동 전 — 데모용 즉시 전환이 됩니다 (실 결제 없음).\n' +
+        'Stripe / Toss 연동은 다음 PR (J2) 에서 적용됩니다.',
+    )
+    if (!ok) return
     try {
-      const res = await authApi.exportMyData()
+      await meApi.upgrade()
+      toast.success('유료 플랜으로 전환되었습니다.')
+      refetch()
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '업그레이드 실패')
+    }
+  }
+
+  const cancel = async () => {
+    const ok = window.confirm('유료 플랜을 해지하시겠습니까? 만료일까지는 유료 기능을 계속 사용할 수 있습니다.')
+    if (!ok) return
+    try {
+      await meApi.cancel()
+      toast.success('해지 처리되었습니다.')
+      refetch()
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '해지 실패')
+    }
+  }
+
+  const b = q.data
+  if (!b) {
+    return (
+      <div className="bg-white border border-stone-200 rounded-2xl p-5 text-sm text-atm-muted">
+        {q.isLoading ? '불러오는 중…' : '구독 정보를 가져올 수 없습니다.'}
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-white border border-stone-200 rounded-2xl p-5">
+        <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3 flex items-center gap-2">
+          <CreditCard size={14} /> 결제 상태
+        </h2>
+        <div className="flex items-center gap-3 mb-3">
+          <span
+            className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+              b.tier === 'paid'
+                ? 'bg-atm-accent/10 text-atm-accent'
+                : b.active
+                ? 'bg-emerald-100 text-emerald-700'
+                : 'bg-red-100 text-red-700'
+            }`}
+          >
+            {b.tier === 'paid' ? '유료' : b.active ? '무료 (트라이얼 중)' : '만료됨'}
+          </span>
+          <span className="text-xs text-atm-muted">
+            {b.days_remaining}일 남음
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
+          <div className="text-atm-muted">무료 트라이얼 만료</div>
+          <div className="text-atm-ink">{fmtDate(b.free_trial_ends_at)}</div>
+          {b.paid_until && (
+            <>
+              <div className="text-atm-muted">유료 유효</div>
+              <div className="text-atm-ink">~ {fmtDate(b.paid_until)}</div>
+            </>
+          )}
+          <div className="text-atm-muted">유료 가격</div>
+          <div className="text-atm-ink">월 ${b.price_usd_monthly}</div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <PlanCard
+          title="무료"
+          price="₩ 0"
+          features={['가입 후 1개월 가계부 이용', 'AI 분류·캘린더·회고', '장소 핀과 후기', '내 데이터 JSON 익스포트']}
+          highlight={b.tier === 'free'}
+        />
+        <PlanCard
+          title="유료"
+          price="$4 / 월"
+          features={[
+            '무료 모든 기능',
+            '가계부 지속 이용',
+            '엑셀(.xlsx) 월별·연간 내보내기',
+            '우선 지원',
+          ]}
+          highlight={b.tier === 'paid'}
+          actionLabel={b.tier === 'paid' ? '해지' : '업그레이드'}
+          onAction={b.tier === 'paid' ? cancel : upgrade}
+        />
+      </div>
+
+      <div className="text-[11px] text-atm-muted bg-stone-50 border border-stone-200 rounded-xl p-3">
+        💡 현재 결제 게이트웨이(Stripe / Toss / Paddle 등) 연동 전입니다.
+        업그레이드 버튼은 데모용 즉시 전환만 수행합니다. 실 결제 연결은 다음 업데이트(PR-J2)에서 제공됩니다.
+      </div>
+    </div>
+  )
+}
+
+function PlanCard({
+  title,
+  price,
+  features,
+  highlight,
+  actionLabel,
+  onAction,
+}: {
+  title: string
+  price: string
+  features: string[]
+  highlight?: boolean
+  actionLabel?: string
+  onAction?: () => void
+}) {
+  return (
+    <div
+      className={`bg-white border rounded-2xl p-5 ${
+        highlight ? 'border-atm-accent shadow-sm' : 'border-stone-200'
+      }`}
+    >
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-base font-semibold text-atm-ink">{title}</h3>
+        {highlight && (
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-atm-accent/10 text-atm-accent font-medium">
+            현재 플랜
+          </span>
+        )}
+      </div>
+      <div className="text-2xl font-semibold text-atm-ink mb-3">{price}</div>
+      <ul className="space-y-1 text-sm text-atm-muted mb-4">
+        {features.map((f) => (
+          <li key={f}>· {f}</li>
+        ))}
+      </ul>
+      {actionLabel && onAction && (
+        <button
+          type="button"
+          onClick={onAction}
+          className={`w-full py-2 rounded-lg text-sm font-medium ${
+            highlight
+              ? 'border border-stone-200 text-atm-muted hover:bg-stone-50'
+              : 'bg-atm-accent text-white hover:opacity-90'
+          }`}
+        >
+          {actionLabel}
+        </button>
+      )}
+    </div>
+  )
+}
+
+// =================== 개인정보보호 ===================
+
+function PrivacyTab({
+  user,
+  refresh,
+  queryClient,
+}: {
+  user: any
+  refresh: () => Promise<void>
+  queryClient: ReturnType<typeof useQueryClient>
+}) {
+  const [allow, setAllow] = useState<boolean>(!!user.allow_location_metadata)
+  const [busy, setBusy] = useState(false)
+
+  useEffect(() => setAllow(!!user.allow_location_metadata), [user.allow_location_metadata])
+
+  const save = async (next: boolean) => {
+    setBusy(true)
+    try {
+      await authApi.updateMe({ allow_location_metadata: next })
+      setAllow(next)
+      await refresh()
+      queryClient.invalidateQueries({ queryKey: ['me', 'geo'] })
+      toast.success(next ? '위치 메타데이터 사용을 허용했습니다.' : '위치 메타데이터 사용을 해제했습니다.')
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '저장 실패')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <div className="bg-white border border-stone-200 rounded-2xl p-5 space-y-4">
+      <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide flex items-center gap-2">
+        <Shield size={14} /> 개인정보보호
+      </h2>
+      <label className="flex items-start gap-3 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={allow}
+          disabled={busy}
+          onChange={(e) => save(e.target.checked)}
+          className="mt-1 accent-atm-accent w-4 h-4"
+        />
+        <span className="text-sm">
+          <div className="text-atm-ink font-medium">위치 메타데이터 사용 허용</div>
+          <div className="text-xs text-atm-muted mt-1 leading-relaxed">
+            Claude 가 제품 경험을 개선하기 위해 대략적인 위치 메타데이터(도시 / 지역)를 사용할 수 있도록 허용합니다.
+            정확한 좌표는 사용되지 않으며, IP 기반 추정만 활용됩니다.{' '}
+            <Link to="/privacy" className="underline text-atm-accent">자세히 알아보기</Link>
+          </div>
+          <div className="text-[11px] text-atm-muted mt-2">
+            {allow ? '✓ 현재 사용 중 — 가계부 입력 시 주변 장소 자동 추천에 활용됩니다.' : '○ 해제됨 — IP 기반 위치 추정을 사용하지 않습니다.'}
+          </div>
+        </span>
+      </label>
+    </div>
+  )
+}
+
+// =================== 위치 ===================
+
+function LocationTab() {
+  const q = useQuery({
+    queryKey: ['me', 'geo'],
+    queryFn: () => meApi.geo().then((r) => r.data),
+    staleTime: 60_000,
+  })
+
+  const g = q.data
+
+  return (
+    <div className="bg-white border border-stone-200 rounded-2xl p-5 space-y-4">
+      <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide flex items-center gap-2">
+        <MapPin size={14} /> 위치
+      </h2>
+      <p className="text-sm text-atm-muted">
+        가계부 입력 시 장소를 연결하면 <strong>접속한 IP(모바일·PC)</strong> 기반으로 주변 위치가 우선 제안됩니다.
+        결과가 부정확하면 장소 상세 화면에서 검색·지도로 직접 수정할 수 있습니다.
+      </p>
+
+      {!g || !g.enabled ? (
+        <div className="bg-stone-50 border border-stone-200 rounded-xl p-3 text-sm text-atm-muted">
+          위치 메타데이터 사용이 해제되어 있습니다. <strong>개인정보보호</strong> 탭에서 허용하면 자동 추정이 활성화됩니다.
+        </div>
+      ) : !g.lat || !g.lng ? (
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm text-amber-800">
+          IP 기반 위치 추정이 일시 실패했어요. 새로고침하거나 잠시 후 다시 시도해 주세요.
+          {g.ip && <div className="text-xs mt-1">감지된 IP: {g.ip}</div>}
+        </div>
+      ) : (
+        <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
+            <div className="text-atm-muted">국가</div>
+            <div className="text-atm-ink">{g.country || '—'}</div>
+            <div className="text-atm-muted">시·도</div>
+            <div className="text-atm-ink">{g.region || '—'}</div>
+            <div className="text-atm-muted">도시</div>
+            <div className="text-atm-ink">{g.city || '—'}</div>
+            <div className="text-atm-muted">위·경도</div>
+            <div className="text-atm-ink font-mono text-xs">
+              {g.lat?.toFixed(4)}, {g.lng?.toFixed(4)}
+            </div>
+            <div className="text-atm-muted">IP</div>
+            <div className="text-atm-ink font-mono text-xs">{g.ip || '—'}</div>
+            <div className="text-atm-muted">데이터 출처</div>
+            <div className="text-atm-ink text-xs">
+              {g.cached ? '캐시 (최근 1시간)' : '방금 새로 추정'}
+            </div>
+          </div>
+          <iframe
+            title="map"
+            width="100%"
+            height="220"
+            style={{ border: 0, borderRadius: 12 }}
+            src={`https://maps.google.com/maps?q=${g.lat},${g.lng}&z=11&output=embed`}
+            loading="lazy"
+          />
+          <div className="text-[11px] text-atm-muted flex items-center gap-1.5">
+            <Globe2 size={11} /> 수동 수정은 각 가계부 항목의 장소 상세 화면에서 검색·지도 클릭으로 진행하세요.
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// =================== 데이터 내보내기 ===================
+
+function ExportTab() {
+  const billing = useQuery({
+    queryKey: ['me', 'billing'],
+    queryFn: () => meApi.billing().then((r) => r.data),
+    staleTime: 30_000,
+  })
+
+  const now = new Date()
+  const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+  const thisYear = String(now.getFullYear())
+  const [month, setMonth] = useState(thisMonth)
+  const [year, setYear] = useState(thisYear)
+
+  const active = billing.data?.active === true
+
+  const download = async (params: { period: 'monthly'; month: string } | { period: 'annual'; year: string }) => {
+    if (!active) {
+      toast.error('무료 트라이얼이 만료되었습니다. 유료로 업그레이드해 주세요.')
+      return
+    }
+    try {
+      const res = await meApi.exportXlsx(params)
       const url = URL.createObjectURL(res.data)
       const a = document.createElement('a')
       a.href = url
-      const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')
-      a.download = `moa-ai-mydata-${stamp}.json`
+      a.download = params.period === 'monthly' ? `moa-ai-${params.month}.xlsx` : `moa-ai-${params.year}.xlsx`
       document.body.appendChild(a)
       a.click()
       a.remove()
       URL.revokeObjectURL(url)
-      toast.success('데이터 다운로드를 시작합니다.')
+      toast.success('엑셀 다운로드를 시작합니다.')
     } catch (err: any) {
-      toast.error(err?.response?.data?.detail || '내보내기 실패')
+      const detail = err?.response?.data?.detail
+      toast.error(detail || '내보내기 실패')
     }
   }
 
+  return (
+    <div className="space-y-4">
+      <div className="bg-white border border-stone-200 rounded-2xl p-5">
+        <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3 flex items-center gap-2">
+          <Download size={14} /> 가계부 내역 엑셀 내보내기
+        </h2>
+        <p className="text-xs text-atm-muted mb-4">
+          .xlsx 파일로 다운로드. 월별 시트 한 장 또는 연간 12개월 + 요약 시트.
+        </p>
+
+        <div className="space-y-3">
+          <div className="flex items-end gap-2 flex-wrap">
+            <label className="flex-1 min-w-[160px]">
+              <span className="text-xs text-atm-muted">월별</span>
+              <input
+                type="month"
+                value={month}
+                onChange={(e) => setMonth(e.target.value)}
+                className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+              />
+            </label>
+            <button
+              type="button"
+              disabled={!active}
+              onClick={() => download({ period: 'monthly', month })}
+              className="px-3 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
+            >
+              월별 다운로드
+            </button>
+          </div>
+          <div className="flex items-end gap-2 flex-wrap">
+            <label className="flex-1 min-w-[160px]">
+              <span className="text-xs text-atm-muted">연간</span>
+              <input
+                type="number"
+                min={2020}
+                max={2100}
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
+              />
+            </label>
+            <button
+              type="button"
+              disabled={!active}
+              onClick={() => download({ period: 'annual', year })}
+              className="px-3 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
+            >
+              연간 다운로드
+            </button>
+          </div>
+        </div>
+
+        {!active && (
+          <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
+            엑셀 내보내기는 유료 플랜에서 제공됩니다.{' '}
+            <strong>결제 탭</strong>에서 업그레이드하시면 즉시 이용 가능합니다.
+          </div>
+        )}
+      </div>
+
+      <div className="bg-white border border-stone-200 rounded-2xl p-5">
+        <h3 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-2">
+          전체 데이터 (GDPR)
+        </h3>
+        <p className="text-xs text-atm-muted mb-3">
+          가계부 + 예정 + 회고 + 사진 메타데이터를 JSON 으로 내려받습니다. 어떤 플랜에서도 항상 가능합니다.
+        </p>
+        <button
+          type="button"
+          onClick={async () => {
+            try {
+              const res = await authApi.exportMyData()
+              const url = URL.createObjectURL(res.data)
+              const a = document.createElement('a')
+              a.href = url
+              const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')
+              a.download = `moa-ai-mydata-${stamp}.json`
+              document.body.appendChild(a)
+              a.click()
+              a.remove()
+              URL.revokeObjectURL(url)
+              toast.success('데이터 다운로드를 시작합니다.')
+            } catch (err: any) {
+              toast.error(err?.response?.data?.detail || '내보내기 실패')
+            }
+          }}
+          className="inline-flex items-center gap-1.5 px-3 py-2 border border-stone-200 rounded-lg text-sm hover:bg-stone-50"
+        >
+          <Download size={13} /> 전체 데이터 (JSON)
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// =================== Danger Zone ===================
+
+function DangerZone({ email, onDeleted }: { email: string; onDeleted: () => void }) {
   const deleteAccount = async () => {
     const ok = window.confirm(
       `정말 탈퇴하시겠습니까?\n\n` +
@@ -112,174 +755,32 @@ export default function MyPage() {
     )
     if (!ok) return
     const phrase = window.prompt('탈퇴하려면 본인 이메일을 입력해 주세요.')
-    if (!phrase || phrase.trim().toLowerCase() !== user.email.toLowerCase()) {
+    if (!phrase || phrase.trim().toLowerCase() !== email.toLowerCase()) {
       toast.error('이메일 불일치. 작업 취소.')
       return
     }
     try {
       await authApi.deleteMe()
       toast.success('탈퇴 처리되었습니다.')
-      signout()
-      nav('/', { replace: true })
+      onDeleted()
     } catch (err: any) {
       toast.error(err?.response?.data?.detail || '탈퇴 실패')
     }
   }
 
-  const won = (n: number) => `${n.toLocaleString('ko-KR')}원`
-
   return (
-    <div className="min-h-screen bg-atm-bg">
-      <header className="px-6 py-4 bg-white border-b border-stone-200">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/app" className="text-atm-muted hover:text-atm-ink">
-              <ArrowLeft size={18} />
-            </Link>
-            <h1 className="text-lg font-semibold text-atm-ink flex items-center gap-2">
-              <UserIcon size={18} /> 마이페이지
-            </h1>
-          </div>
-          <button
-            onClick={signout}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
-          >
-            <LogOut size={12} /> 로그아웃
-          </button>
-        </div>
-      </header>
-
-      <main className="max-w-3xl mx-auto px-6 py-8 space-y-8">
-        {/* 계정 정보 */}
-        <section className="bg-white border border-stone-200 rounded-2xl p-5">
-          <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3">
-            계정
-          </h2>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-            <div className="text-atm-muted">이메일</div>
-            <div className="text-atm-ink">{user.email}</div>
-            <div className="text-atm-muted">로그인 방식</div>
-            <div className="text-atm-ink">이메일·비밀번호</div>
-            {user.is_admin && (
-              <>
-                <div className="text-atm-muted">권한</div>
-                <div className="text-atm-accent font-medium">관리자</div>
-              </>
-            )}
-          </div>
-        </section>
-
-        {/* 프로필 */}
-        <section className="bg-white border border-stone-200 rounded-2xl p-5">
-          <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3">
-            프로필
-          </h2>
-          <form onSubmit={saveProfile} className="space-y-3">
-            <label className="block">
-              <span className="text-xs text-atm-muted">닉네임</span>
-              <input
-                type="text" value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                maxLength={80}
-                className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
-              />
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label className="block">
-                <span className="text-xs text-atm-muted">월 수입 (원)</span>
-                <input
-                  type="number" min={0} value={monthlyIncome}
-                  onChange={(e) => setMonthlyIncome(Number(e.target.value) || 0)}
-                  className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
-                />
-                <span className="text-[10px] text-atm-muted">{won(monthlyIncome)}</span>
-              </label>
-              <label className="block">
-                <span className="text-xs text-atm-muted">월 예산 (원)</span>
-                <input
-                  type="number" min={0} value={monthlyBudget}
-                  onChange={(e) => setMonthlyBudget(Number(e.target.value) || 0)}
-                  className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
-                />
-                <span className="text-[10px] text-atm-muted">{won(monthlyBudget)}</span>
-              </label>
-            </div>
-            <button
-              type="submit" disabled={profileBusy}
-              className="px-4 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
-            >
-              {profileBusy ? '저장 중…' : '프로필 저장'}
-            </button>
-          </form>
-        </section>
-
-        {/* 비밀번호 변경 */}
-        <section className="bg-white border border-stone-200 rounded-2xl p-5">
-          <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3 flex items-center gap-2">
-            <KeyRound size={14} /> 비밀번호 변경
-          </h2>
-          <form onSubmit={changePw} className="space-y-3 max-w-sm">
-            <input
-              type={showPw ? 'text' : 'password'} required
-              value={curPw} onChange={(e) => setCurPw(e.target.value)}
-              placeholder="현재 비밀번호"
-              className="w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
-            />
-            <div className="relative">
-              <input
-                type={showPw ? 'text' : 'password'} required minLength={8}
-                value={newPw} onChange={(e) => setNewPw(e.target.value)}
-                placeholder="새 비밀번호 (8자 이상)"
-                className="w-full px-3 py-2 pr-10 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
-              />
-              <button
-                type="button" onClick={() => setShowPw((s) => !s)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-atm-muted hover:text-atm-ink p-1"
-              >
-                {showPw ? <EyeOff size={14} /> : <Eye size={14} />}
-              </button>
-            </div>
-            <button
-              type="submit" disabled={pwBusy}
-              className="px-4 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
-            >
-              {pwBusy ? '변경 중…' : '비밀번호 변경'}
-            </button>
-          </form>
-          <div className="mt-3 text-xs text-atm-muted">
-            비밀번호를 잊으셨다면{' '}
-            <Link to="/forgot-password" className="text-atm-accent">
-              재설정 메일을 받으세요
-            </Link>
-            .
-          </div>
-        </section>
-
-        {/* 데이터 / 탈퇴 */}
-        <section className="bg-white border border-stone-200 rounded-2xl p-5">
-          <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide mb-3">
-            내 데이터
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button" onClick={exportData}
-              className="inline-flex items-center gap-1.5 px-3 py-2 border border-stone-200 rounded-lg text-sm hover:bg-stone-50"
-              title="GDPR Art.20 데이터 이동권 — 모든 가계부 데이터를 JSON 으로 다운로드"
-            >
-              <Download size={13} /> 내 데이터 내보내기 (JSON)
-            </button>
-            <button
-              type="button" onClick={deleteAccount}
-              className="inline-flex items-center gap-1.5 px-3 py-2 border border-red-300 text-red-700 rounded-lg text-sm hover:bg-red-50"
-            >
-              <Trash2 size={13} /> 탈퇴
-            </button>
-          </div>
-          <div className="text-xs text-atm-muted mt-2">
-            탈퇴 시 로그인이 즉시 차단됩니다. 가계부 데이터는 일정 기간 보존된 뒤 영구 삭제됩니다.
-          </div>
-        </section>
-      </main>
+    <div className="bg-white border border-red-200 rounded-2xl p-5">
+      <h3 className="text-sm font-semibold text-red-700 uppercase tracking-wide mb-2">위험 영역</h3>
+      <p className="text-xs text-atm-muted mb-3">
+        탈퇴 시 로그인이 즉시 차단됩니다. 가계부 데이터는 일정 기간 보존된 뒤 영구 삭제됩니다.
+      </p>
+      <button
+        type="button"
+        onClick={deleteAccount}
+        className="inline-flex items-center gap-1.5 px-3 py-2 border border-red-300 text-red-700 rounded-lg text-sm hover:bg-red-50"
+      >
+        <Trash2 size={13} /> 탈퇴
+      </button>
     </div>
   )
 }

@@ -28,6 +28,7 @@ import {
 import type { AdminUserSort, AnnouncementLevel } from '../services/api'
 import { adminApi } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
+import AppHeader from '../components/AppHeader'
 
 const won = (n: number) => `${n.toLocaleString('ko-KR')}원`
 const fmtDate = (s: string) => new Date(s).toLocaleString('ko-KR', { dateStyle: 'short', timeStyle: 'short' })
@@ -320,14 +321,14 @@ export default function Admin() {
   return (
     <div className="min-h-screen bg-atm-bg">
       <header className="px-6 py-4 bg-white border-b border-stone-200">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <Link to="/app" className="text-atm-muted hover:text-atm-ink">
               <ArrowLeft size={18} />
             </Link>
             <h1 className="text-lg font-semibold text-atm-ink">관리자 대시보드</h1>
           </div>
-          <div className="text-xs text-atm-muted">{user.email}</div>
+          <AppHeader variant="inline" />
         </div>
       </header>
 

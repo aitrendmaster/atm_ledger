@@ -12,8 +12,8 @@ import {
 import { useAuth } from '../hooks/useAuth'
 import { SUPPORT_EMAIL } from '../services/api'
 import AnnouncementBar from '../components/AnnouncementBar'
+import AppHeader from '../components/AppHeader'
 import Faq from '../components/Faq'
-import LanguageSwitcher from '../components/LanguageSwitcher'
 
 export default function Landing() {
   const { user } = useAuth()
@@ -22,7 +22,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-atm-bg">
       <AnnouncementBar />
-      <div className="absolute top-4 right-6 z-10"><LanguageSwitcher /></div>
+      <AppHeader />
       {/* Hero */}
       <section className="px-6 pt-20 pb-16 max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-stone-200 rounded-full text-xs text-atm-muted mb-6">

@@ -31,10 +31,17 @@ def _user_out(u: User) -> UserOut:
     return UserOut(
         id=u.id,
         email=u.email,
+        full_name=u.full_name,
         display_name=u.display_name,
         monthly_income=u.monthly_income,
         monthly_budget=u.monthly_budget,
         is_admin=is_admin(u),
+        subscription_tier=u.subscription_tier or "free",
+        subscription_expires_at=u.subscription_expires_at,
+        allow_location_metadata=bool(u.allow_location_metadata),
+        last_geo_city=u.last_geo_city,
+        last_geo_region=u.last_geo_region,
+        last_geo_country=u.last_geo_country,
     )
 from ..security import (
     create_access_token,
@@ -114,12 +121,16 @@ async def update_me(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    if body.full_name is not None:
+        user.full_name = body.full_name
     if body.display_name is not None:
         user.display_name = body.display_name
     if body.monthly_income is not None:
         user.monthly_income = body.monthly_income
     if body.monthly_budget is not None:
         user.monthly_budget = body.monthly_budget
+    if body.allow_location_metadata is not None:
+        user.allow_location_metadata = body.allow_location_metadata
     await db.commit()
     await db.refresh(user)
     return _user_out(user)

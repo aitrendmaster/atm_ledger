@@ -70,10 +70,37 @@ api.interceptors.response.use(
 export interface User {
   id: number
   email: string
+  full_name?: string | null
   display_name: string | null
   monthly_income: number
   monthly_budget: number
   is_admin?: boolean
+  subscription_tier?: 'free' | 'paid'
+  subscription_expires_at?: string | null
+  allow_location_metadata?: boolean
+  last_geo_city?: string | null
+  last_geo_region?: string | null
+  last_geo_country?: string | null
+}
+
+export interface GeoResult {
+  enabled: boolean
+  ip?: string | null
+  country?: string | null
+  region?: string | null
+  city?: string | null
+  lat?: number | null
+  lng?: number | null
+  cached?: boolean
+}
+
+export interface BillingStatus {
+  tier: 'free' | 'paid'
+  active: boolean
+  free_trial_ends_at: string
+  paid_until: string | null
+  days_remaining: number
+  price_usd_monthly: number
 }
 
 export interface AdminStats {
@@ -276,8 +303,14 @@ export const authApi = {
   login: (email: string, password: string) =>
     api.post<TokenPair>('/auth/login', { email, password }),
   me: () => api.get<User>('/auth/me'),
-  updateMe: (patch: Partial<Pick<User, 'display_name' | 'monthly_income' | 'monthly_budget'>>) =>
-    api.patch<User>('/auth/me', patch),
+  updateMe: (
+    patch: Partial<
+      Pick<
+        User,
+        'full_name' | 'display_name' | 'monthly_income' | 'monthly_budget' | 'allow_location_metadata'
+      >
+    >,
+  ) => api.patch<User>('/auth/me', patch),
   changePassword: (current_password: string, new_password: string) =>
     api.post<SimpleResult>('/auth/change-password', { current_password, new_password }),
   exportMyData: () =>
@@ -289,6 +322,16 @@ export const authApi = {
     api.post<SimpleResult>('/auth/password-reset/confirm', { token, new_password }),
   googleLogin: (id_token: string) =>
     api.post<TokenPair & { user: User }>('/auth/google', { id_token }),
+}
+
+// ===== Me (마이페이지 전용) =====
+export const meApi = {
+  geo: () => api.get<GeoResult>('/me/geo'),
+  billing: () => api.get<BillingStatus>('/me/billing'),
+  upgrade: () => api.post<BillingStatus>('/me/billing/upgrade'),
+  cancel: () => api.post<BillingStatus>('/me/billing/cancel'),
+  exportXlsx: (params: { period: 'monthly'; month: string } | { period: 'annual'; year: string }) =>
+    api.get<Blob>('/me/export.xlsx', { params, responseType: 'blob' }),
 }
 
 // ===== Entries =====

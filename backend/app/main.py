@@ -19,6 +19,7 @@ from .routers import (
     auth,
     entries,
     geocode,
+    me,
     oauth,
     photos,
     planned,
@@ -124,6 +125,7 @@ if settings.storage_backend == "local":
 
 app.include_router(auth.router)
 app.include_router(oauth.router)
+app.include_router(me.router)
 app.include_router(entries.router)
 app.include_router(planned.router)
 app.include_router(reflections.router)

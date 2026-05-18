@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -25,19 +27,28 @@ class RefreshRequest(BaseModel):
 class UserOut(BaseModel):
     id: int
     email: EmailStr
+    full_name: str | None = None
     display_name: str | None
     monthly_income: int
     monthly_budget: int
     is_admin: bool = False
+    subscription_tier: str = "free"
+    subscription_expires_at: datetime | None = None
+    allow_location_metadata: bool = False
+    last_geo_city: str | None = None
+    last_geo_region: str | None = None
+    last_geo_country: str | None = None
 
     class Config:
         from_attributes = True
 
 
 class UpdateProfileRequest(BaseModel):
+    full_name: str | None = Field(default=None, max_length=80)
     display_name: str | None = Field(default=None, max_length=80)
     monthly_income: int | None = Field(default=None, ge=0)
     monthly_budget: int | None = Field(default=None, ge=0)
+    allow_location_metadata: bool | None = None
 
 
 class ChangePasswordRequest(BaseModel):

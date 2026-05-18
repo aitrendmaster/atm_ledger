@@ -1,0 +1,68 @@
+import { Link } from 'react-router-dom'
+import { HelpCircle, LogOut, ShieldCheck, User as UserIcon } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
+import LanguageSwitcher from './LanguageSwitcher'
+
+/**
+ * 페이지 우상단 공통 헤더. 로그인 상태/관리자 여부에 따라 메뉴가 다름.
+ * Landing/Login/Signup/Ledger/MyPage/Admin/FAQ 등 어디서나 같은 UX.
+ *
+ * - 비로그인: 언어 셀렉터만
+ * - 로그인: 언어 셀렉터 + FAQ + 내 계정 + (admin 이면) Admin + 로그아웃
+ */
+export default function AppHeader({
+  variant = 'absolute',
+  showFaq = true,
+}: {
+  variant?: 'absolute' | 'inline'
+  showFaq?: boolean
+}) {
+  const { user, signout } = useAuth()
+  const wrapperClass =
+    variant === 'absolute'
+      ? 'absolute top-3 right-4 z-40 flex items-center gap-2'
+      : 'flex items-center gap-2'
+
+  return (
+    <div className={wrapperClass}>
+      <LanguageSwitcher />
+      {user && (
+        <>
+          {showFaq && (
+            <Link
+              to="/faq"
+              title="FAQ"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+            >
+              <HelpCircle size={14} /> <span className="hidden sm:inline">FAQ</span>
+            </Link>
+          )}
+          <Link
+            to="/me"
+            title="마이페이지"
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+          >
+            <UserIcon size={14} /> <span className="hidden sm:inline">내 계정</span>
+          </Link>
+          {user.is_admin && (
+            <Link
+              to="/admin"
+              title="관리자 대시보드"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-accent hover:bg-stone-50"
+            >
+              <ShieldCheck size={14} /> <span className="hidden sm:inline">Admin</span>
+            </Link>
+          )}
+          <button
+            type="button"
+            onClick={signout}
+            title="로그아웃"
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+          >
+            <LogOut size={14} /> <span className="hidden sm:inline">로그아웃</span>
+          </button>
+        </>
+      )}
+    </div>
+  )
+}
