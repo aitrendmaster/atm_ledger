@@ -104,6 +104,58 @@ export interface AdminActionResult {
   message: string | null
 }
 
+export interface AdminEntrySummary {
+  id: number
+  description: string
+  amount: number
+  category: string
+  date: string
+  place_name: string | null
+}
+
+export interface AdminUserDetail {
+  id: number
+  email: string
+  display_name: string | null
+  monthly_income: number
+  monthly_budget: number
+  is_admin: boolean
+  auth_provider: string
+  created_at: string
+  deleted_at: string | null
+  entries_count: number
+  planned_count: number
+  reflections_count: number
+  photos_count: number
+  entries_amount_total: number
+  entries_by_category: Record<string, number>
+  recent_entries: AdminEntrySummary[]
+}
+
+export interface AdminAuditRow {
+  id: number
+  admin_email: string
+  action: string
+  target_user_id: number | null
+  target_email: string | null
+  payload: string | null
+  created_at: string
+}
+
+export type AdminUserSort =
+  | 'created_at_desc'
+  | 'created_at_asc'
+  | 'email'
+  | 'entries_desc'
+
+export interface AdminUserListParams {
+  q?: string
+  sort?: AdminUserSort
+  has_data?: boolean
+  limit?: number
+  offset?: number
+}
+
 export interface TokenPair {
   access_token: string
   refresh_token: string
@@ -245,8 +297,24 @@ export const geocodeApi = {
 export const adminApi = {
   me: () => api.get<{ id: number; email: string; display_name: string | null; is_admin: boolean; support_email: string }>('/admin/me'),
   stats: () => api.get<AdminStats>('/admin/stats'),
-  users: (limit = 100, offset = 0) =>
-    api.get<AdminUserRow[]>('/admin/users', { params: { limit, offset } }),
+  users: (params: AdminUserListParams = {}) =>
+    api.get<AdminUserRow[]>('/admin/users', {
+      params: {
+        q: params.q || undefined,
+        sort: params.sort || 'created_at_desc',
+        has_data: params.has_data || undefined,
+        limit: params.limit ?? 100,
+        offset: params.offset ?? 0,
+      },
+    }),
+  userDetail: (userId: number) =>
+    api.get<AdminUserDetail>(`/admin/users/${userId}`),
+  audit: (limit = 50, action?: string) =>
+    api.get<AdminAuditRow[]>('/admin/audit', {
+      params: { limit, action: action || undefined },
+    }),
+  exportUsersCsv: () =>
+    api.get<Blob>('/admin/export/users.csv', { responseType: 'blob' }),
   resetPassword: (userId: number, newPassword: string) =>
     api.post<AdminActionResult>(`/admin/users/${userId}/reset-password`, {
       new_password: newPassword,

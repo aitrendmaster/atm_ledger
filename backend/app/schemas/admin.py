@@ -44,3 +44,41 @@ class SetAdminIn(BaseModel):
 class AdminActionResult(BaseModel):
     ok: bool
     message: str | None = None
+
+
+class AdminEntrySummary(BaseModel):
+    id: int
+    description: str
+    amount: int
+    category: str
+    date: str
+    place_name: str | None = None
+
+
+class AdminUserDetail(BaseModel):
+    id: int
+    email: EmailStr
+    display_name: str | None
+    monthly_income: int
+    monthly_budget: int
+    is_admin: bool
+    auth_provider: str
+    created_at: datetime
+    deleted_at: datetime | None
+    entries_count: int
+    planned_count: int
+    reflections_count: int
+    photos_count: int
+    entries_amount_total: int
+    entries_by_category: dict[str, int]
+    recent_entries: list[AdminEntrySummary]
+
+
+class AdminAuditRow(BaseModel):
+    id: int
+    admin_email: str
+    action: str
+    target_user_id: int | None
+    target_email: str | None
+    payload: str | None
+    created_at: datetime
