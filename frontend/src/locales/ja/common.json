@@ -164,9 +164,62 @@
     },
     "balance": {
       "title": "残高表",
-      "income": "収入", "spent": "支出", "planned": "予定", "saving": "貯金", "savingRate": "貯蓄率",
+      "headerMonth": "{{month}}月 残高表",
+      "subtitle": "会計の視点で1か月の流れ",
+      "income": "収入",
+      "incomeRow": "給料",
+      "expenseByCategory": "支出 (カテゴリ別)",
+      "expenseSubtotal": "支出小計",
+      "plannedHeader": "予定支出",
+      "plannedRow": "今月の予定 ({{count}}件)",
+      "netLine": "= 純利益 (収入 − 支出 − 予定)",
+      "savingPossible": "貯められる金額",
+      "needIncome": "もう少し収入が必要",
+      "spent": "支出", "planned": "予定", "saving": "貯金", "savingRate": "貯蓄率",
       "modeCurrent": "今月", "modeNext": "来月",
       "healthyTip": "💡 20% 以上が健全な貯蓄率"
+    },
+    "plan": {
+      "monthLabel": "{{month}}月 計画",
+      "lastMonthPledge": "先月の誓い · 今月も守ろう",
+      "lastMonthSucceed": "先月達成",
+      "bigPictureTitle": "{{mode}} 全体像",
+      "modeCurrent": "今月", "modeNext": "来月",
+      "bigPictureSubtitle": "流れを先取りで描こう",
+      "currentUsage": "現在の使用",
+      "plannedAmount": "予定",
+      "totalProjected": "総予想支出",
+      "budgetSuffix": "/ 予算 {{budget}}",
+      "overBy": "{{amount}} 超過予想",
+      "nextMonthPledge": "来月の誓い",
+      "letterToSelf": "自分への手紙",
+      "nextPledgePlaceholder": "例: カフェは週2回まで",
+      "saveAsGoal": "来月の約束として保存"
+    },
+    "dayModal": {
+      "header": "{{month}}月 {{day}}日",
+      "spentLine": "支出 {{spent}} · 予定 {{planned}}",
+      "empty": "この日は記録なし",
+      "plannedTag": "予定"
+    },
+    "year": {
+      "last12Title": "過去12か月をひと目で",
+      "yearSummary": "合計 {{total}} · 月平均 {{avg}}",
+      "mostSpent": "もっとも使った月",
+      "mostSaved": "もっとも節約した月",
+      "yearMonth": "{{year}}年 {{month}}月",
+      "yearCategoriesTitle": "1年で多く使った分野",
+      "monthlyAvgLabel": "月平均 {{amount}}"
+    },
+    "placeModal": {
+      "visitCount": "{{count}}回 訪問",
+      "totalSpent": "合計 {{amount}}",
+      "openGoogle": "Googleマップ",
+      "openKakao": "Kakaoマップ",
+      "openNaver": "Naverマップ",
+      "moodAgainWant": "また行きたい",
+      "moodNormal": "普通",
+      "moodAvoid": "行かない"
     },
     "entryEdit": {
       "name": "名前", "amount": "金額", "date": "日付", "category": "分類",

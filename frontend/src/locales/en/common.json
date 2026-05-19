@@ -98,6 +98,19 @@
   "ledger": {
     "title": "My Ledger",
     "todayHint": "Today is {{date}} · slow and steady",
+    "monthSuffix": "{{month}}",
+    "todayTagline": "Today is {{month}}/{{day}} · slow and steady",
+    "receiptLabel": "Receipt",
+    "receiptUploadTitle": "Attach receipt photo",
+    "guideTitle": "Try writing it this way",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "moneyUnit": {
+      "tenK": "k",
+      "thousand": "k"
+    },
     "tabs": {
       "chat": "Chat",
       "calendar": "Calendar",
@@ -204,6 +217,7 @@
       "suggestion": "Next month",
       "addToGoal": "Add to next month's pledge",
       "monthChange": "Compared to last month",
+      "lastMonthLabel": "Last month",
       "monthHeader": "{{year}} · {{month}} review",
       "monthTotal": "Total {{amount}}",
       "types": {
@@ -215,7 +229,17 @@
     },
     "balance": {
       "title": "Balance sheet",
+      "headerMonth": "Balance — {{month}}",
+      "subtitle": "Your month from an accounting view",
       "income": "Income",
+      "incomeRow": "Salary",
+      "expenseByCategory": "Expenses (by category)",
+      "expenseSubtotal": "Expense subtotal",
+      "plannedHeader": "Upcoming expenses",
+      "plannedRow": "This month upcoming ({{count}})",
+      "netLine": "= Net (Income − Expenses − Upcoming)",
+      "savingPossible": "You could save this",
+      "needIncome": "You'll need more income",
       "spent": "Spent",
       "planned": "Planned",
       "saving": "Saving",
@@ -223,6 +247,49 @@
       "modeCurrent": "This month",
       "modeNext": "Next month",
       "healthyTip": "💡 20%+ is a healthy saving rate"
+    },
+    "plan": {
+      "monthLabel": "{{month}} plan",
+      "lastMonthPledge": "Last month's pledge · keep it going this month",
+      "lastMonthSucceed": "Made it last month",
+      "bigPictureTitle": "{{mode}} big picture",
+      "modeCurrent": "This month",
+      "modeNext": "Next month",
+      "bigPictureSubtitle": "Sketch the flow before it happens",
+      "currentUsage": "Currently spent",
+      "plannedAmount": "Upcoming",
+      "totalProjected": "Total projected",
+      "budgetSuffix": "/ budget {{budget}}",
+      "overBy": "Projected over by {{amount}}",
+      "nextMonthPledge": "Next month's pledge",
+      "letterToSelf": "A note to yourself",
+      "nextPledgePlaceholder": "e.g. cafe only twice a week",
+      "saveAsGoal": "Save as next month's pledge"
+    },
+    "dayModal": {
+      "header": "{{month}}/{{day}}",
+      "spentLine": "Spent {{spent}} · Upcoming {{planned}}",
+      "empty": "No entries on this day",
+      "plannedTag": "Upcoming"
+    },
+    "year": {
+      "last12Title": "Last 12 months at a glance",
+      "yearSummary": "Total {{total}} · Monthly avg {{avg}}",
+      "mostSpent": "Highest-spend month",
+      "mostSaved": "Most-saved month",
+      "yearMonth": "{{month}} {{year}}",
+      "yearCategoriesTitle": "Where you spent most over the year",
+      "monthlyAvgLabel": "Monthly avg {{amount}}"
+    },
+    "placeModal": {
+      "visitCount": "{{count}} visit(s)",
+      "totalSpent": "Total {{amount}}",
+      "openGoogle": "Google Maps",
+      "openKakao": "Kakao Map",
+      "openNaver": "Naver Map",
+      "moodAgainWant": "Want to revisit",
+      "moodNormal": "Average",
+      "moodAvoid": "Won't return"
     },
     "entryEdit": {
       "name": "Name",

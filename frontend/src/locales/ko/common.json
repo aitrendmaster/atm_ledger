@@ -98,6 +98,19 @@
   "ledger": {
     "title": "나의 가계부",
     "todayHint": "오늘은 {{date}} · 천천히, 꾸준히",
+    "monthSuffix": "{{month}}월",
+    "todayTagline": "오늘은 {{month}}월 {{day}}일 · 천천히, 꾸준히",
+    "receiptLabel": "영수증",
+    "receiptUploadTitle": "영수증 사진 첨부",
+    "guideTitle": "이렇게 적어보세요",
+    "actions": {
+      "edit": "수정",
+      "delete": "삭제"
+    },
+    "moneyUnit": {
+      "tenK": "만",
+      "thousand": "k"
+    },
     "tabs": {
       "chat": "채팅",
       "calendar": "캘린더",
@@ -204,6 +217,7 @@
       "suggestion": "다음달 제안",
       "addToGoal": "다음달 약속에 추가",
       "monthChange": "전월 대비 변화",
+      "lastMonthLabel": "지난달",
       "monthHeader": "{{year}}년 {{month}}월 회고",
       "monthTotal": "총 {{amount}}",
       "types": {
@@ -215,7 +229,17 @@
     },
     "balance": {
       "title": "대차대조표",
+      "headerMonth": "{{month}}월 대차대조표",
+      "subtitle": "회계 관점에서 한 달 흐름",
       "income": "수입",
+      "incomeRow": "월급",
+      "expenseByCategory": "지출 (카테고리별)",
+      "expenseSubtotal": "지출 소계",
+      "plannedHeader": "예정된 지출",
+      "plannedRow": "이번 달 예정 ({{count}}건)",
+      "netLine": "= 순익 (수입 - 지출 - 예정)",
+      "savingPossible": "저축 가능 금액",
+      "needIncome": "추가 수입이 필요해",
       "spent": "사용",
       "planned": "예정",
       "saving": "저축",
@@ -223,6 +247,49 @@
       "modeCurrent": "이번 달",
       "modeNext": "다음 달",
       "healthyTip": "💡 20% 이상이면 건강한 저축률"
+    },
+    "plan": {
+      "monthLabel": "{{month}}월 계획",
+      "lastMonthPledge": "지난달 다짐 · 이번 달에도 지켜보자",
+      "lastMonthSucceed": "지난달 성공",
+      "bigPictureTitle": "{{mode}} 큰 그림",
+      "modeCurrent": "이번 달",
+      "modeNext": "다음 달",
+      "bigPictureSubtitle": "예상 흐름을 미리 그려보자",
+      "currentUsage": "현재 사용",
+      "plannedAmount": "예정",
+      "totalProjected": "총 예상 지출",
+      "budgetSuffix": "/ 예산 {{budget}}",
+      "overBy": "{{amount}} 초과 예상",
+      "nextMonthPledge": "다음 달 다짐",
+      "letterToSelf": "나에게 보내는 편지",
+      "nextPledgePlaceholder": "예: 카페는 일주일에 2번만",
+      "saveAsGoal": "다음달 약속으로 저장"
+    },
+    "dayModal": {
+      "header": "{{month}}월 {{day}}일",
+      "spentLine": "사용 {{spent}} · 예정 {{planned}}",
+      "empty": "이 날은 기록이 없어",
+      "plannedTag": "예정"
+    },
+    "year": {
+      "last12Title": "지난 12개월 한눈에",
+      "yearSummary": "총 {{total}} · 월평균 {{avg}}",
+      "mostSpent": "제일 많이 쓴 달",
+      "mostSaved": "가장 절약한 달",
+      "yearMonth": "{{year}}년 {{month}}월",
+      "yearCategoriesTitle": "1년간 어디에 가장 많이 썼나",
+      "monthlyAvgLabel": "월평균 {{amount}}"
+    },
+    "placeModal": {
+      "visitCount": "{{count}}회 방문",
+      "totalSpent": "총 {{amount}}",
+      "openGoogle": "Google 지도",
+      "openKakao": "카카오맵",
+      "openNaver": "네이버",
+      "moodAgainWant": "또 가고 싶음",
+      "moodNormal": "보통",
+      "moodAvoid": "안 갈래"
     },
     "entryEdit": {
       "name": "이름",

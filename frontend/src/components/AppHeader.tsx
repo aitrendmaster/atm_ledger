@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { HelpCircle, LogOut, ShieldCheck, User as UserIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../hooks/useAuth'
 import LanguageSwitcher from './LanguageSwitcher'
 
@@ -17,6 +18,7 @@ export default function AppHeader({
   variant?: 'absolute' | 'inline'
   showFaq?: boolean
 }) {
+  const { t } = useTranslation()
   const { user, signout } = useAuth()
   const wrapperClass =
     variant === 'absolute'
@@ -39,27 +41,27 @@ export default function AppHeader({
           )}
           <Link
             to="/me"
-            title="마이페이지"
+            title={t('appHeader.myAccount')}
             className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
           >
-            <UserIcon size={14} /> <span className="hidden sm:inline">내 계정</span>
+            <UserIcon size={14} /> <span className="hidden sm:inline">{t('appHeader.myAccount')}</span>
           </Link>
           {user.is_admin && (
             <Link
               to="/admin"
-              title="관리자 대시보드"
+              title={t('appHeader.admin')}
               className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-accent hover:bg-stone-50"
             >
-              <ShieldCheck size={14} /> <span className="hidden sm:inline">Admin</span>
+              <ShieldCheck size={14} /> <span className="hidden sm:inline">{t('appHeader.admin')}</span>
             </Link>
           )}
           <button
             type="button"
             onClick={signout}
-            title="로그아웃"
+            title={t('appHeader.logout')}
             className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
           >
-            <LogOut size={14} /> <span className="hidden sm:inline">로그아웃</span>
+            <LogOut size={14} /> <span className="hidden sm:inline">{t('appHeader.logout')}</span>
           </button>
         </>
       )}

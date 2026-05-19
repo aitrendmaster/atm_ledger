@@ -140,9 +140,62 @@
     },
     "balance": {
       "title": "对账表",
-      "income": "收入", "spent": "支出", "planned": "待支出", "saving": "结余", "savingRate": "储蓄率",
+      "headerMonth": "{{month}}月 对账表",
+      "subtitle": "从会计视角看一个月",
+      "income": "收入",
+      "incomeRow": "工资",
+      "expenseByCategory": "支出 (按类别)",
+      "expenseSubtotal": "支出小计",
+      "plannedHeader": "待支出",
+      "plannedRow": "本月待支出 ({{count}} 笔)",
+      "netLine": "= 净额 (收入 − 支出 − 待支出)",
+      "savingPossible": "可存下的金额",
+      "needIncome": "需要额外收入",
+      "spent": "支出", "planned": "待支出", "saving": "结余", "savingRate": "储蓄率",
       "modeCurrent": "本月", "modeNext": "下月",
       "healthyTip": "💡 20% 以上是健康的储蓄率"
+    },
+    "plan": {
+      "monthLabel": "{{month}}月 计划",
+      "lastMonthPledge": "上月承诺 · 本月也要守住",
+      "lastMonthSucceed": "上月已达成",
+      "bigPictureTitle": "{{mode}} 全景",
+      "modeCurrent": "本月", "modeNext": "下月",
+      "bigPictureSubtitle": "提前画出流向",
+      "currentUsage": "已使用",
+      "plannedAmount": "待支出",
+      "totalProjected": "预计总支出",
+      "budgetSuffix": "/ 预算 {{budget}}",
+      "overBy": "预计超支 {{amount}}",
+      "nextMonthPledge": "下月承诺",
+      "letterToSelf": "给自己的便条",
+      "nextPledgePlaceholder": "例如:咖啡每周只两次",
+      "saveAsGoal": "保存为下月承诺"
+    },
+    "dayModal": {
+      "header": "{{month}}月{{day}}日",
+      "spentLine": "已花 {{spent}} · 待支出 {{planned}}",
+      "empty": "这天没有记录",
+      "plannedTag": "待支出"
+    },
+    "year": {
+      "last12Title": "近 12 个月一览",
+      "yearSummary": "合计 {{total}} · 月均 {{avg}}",
+      "mostSpent": "花得最多的月",
+      "mostSaved": "最省的月",
+      "yearMonth": "{{year}}年 {{month}}月",
+      "yearCategoriesTitle": "一年下来钱花在哪里",
+      "monthlyAvgLabel": "月均 {{amount}}"
+    },
+    "placeModal": {
+      "visitCount": "到访 {{count}} 次",
+      "totalSpent": "合计 {{amount}}",
+      "openGoogle": "谷歌地图",
+      "openKakao": "Kakao 地图",
+      "openNaver": "Naver 地图",
+      "moodAgainWant": "想再去",
+      "moodNormal": "一般",
+      "moodAvoid": "不去了"
     },
     "entryEdit": {
       "name": "名称", "amount": "金额", "date": "日期", "category": "分类",
