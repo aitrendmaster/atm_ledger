@@ -16,104 +16,12 @@ const CATEGORIES = {
   '기타': { icon: Sparkles, color: '#7A7567', bg: '#EFECE6' },
 };
 
-const SEED_ENTRIES = (() => {
-  const today = new Date();
-  const cm = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
-  const cd = today.getDate();
-  const monthStr = (offset) => {
-    const d = new Date(today.getFullYear(), today.getMonth() - offset, 1);
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-  };
+// 신규 가입 사용자는 빈 가계부로 시작한다. 데모용 더미 데이터는 더 이상 주입하지 않는다.
+const SEED_ENTRIES = [];
+const SEED_REFLECTIONS = [];
+const SEED_PLANNED = [];
 
-  const entries = [];
-  let idCounter = 1000;
-
-  for (let m = 5; m >= 1; m--) {
-    const month = monthStr(m);
-    entries.push({ id: idCounter++, description: '점심 식사', amount: 9000 + m * 500, category: '식비', date: `${month}-05` });
-    entries.push({ id: idCounter++, description: '저녁 외식', amount: 25000 - m * 1000, category: '식비', date: `${month}-12` });
-    entries.push({ id: idCounter++, description: '회식', amount: 45000, category: '식비', date: `${month}-15` });
-    entries.push({ id: idCounter++, description: '마트 장보기', amount: 58000 + m * 2000, category: '식비', date: `${month}-22` });
-    entries.push({ id: idCounter++, description: '스타벅스', amount: 6500, category: '카페/간식', date: `${month}-03` });
-    entries.push({ id: idCounter++, description: '카페 디저트', amount: 12000, category: '카페/간식', date: `${month}-09` });
-    entries.push({ id: idCounter++, description: '커피', amount: 5500, category: '카페/간식', date: `${month}-16` });
-    if (m <= 3) entries.push({ id: idCounter++, description: '브런치', amount: 18000, category: '카페/간식', date: `${month}-21` });
-    entries.push({ id: idCounter++, description: '의류', amount: m === 3 ? 150000 : 45000, category: '쇼핑', date: `${month}-18` });
-    entries.push({ id: idCounter++, description: '교통비', amount: 65000, category: '교통', date: `${month}-01` });
-    entries.push({ id: idCounter++, description: '택시', amount: 8500, category: '교통', date: `${month}-25` });
-    entries.push({ id: idCounter++, description: '넷플릭스', amount: 17000, category: '기타', date: `${month}-05` });
-    entries.push({ id: idCounter++, description: 'SKT 통신비', amount: 65000, category: '주거/공과금', date: `${month}-15` });
-    entries.push({ id: idCounter++, description: '유튜브 프리미엄', amount: 14900, category: '기타', date: `${month}-22` });
-    entries.push({ id: idCounter++, description: '관리비', amount: 180000, category: '주거/공과금', date: `${month}-25` });
-    if (m % 2 === 0) entries.push({ id: idCounter++, description: '올리브영', amount: 35000, category: '건강/뷰티', date: `${month}-10` });
-    if (m === 4) entries.push({ id: idCounter++, description: '친구 결혼식', amount: 100000, category: '경조사/선물', date: `${month}-20` });
-    if (m === 2) entries.push({ id: idCounter++, description: '어머니 생신', amount: 150000, category: '경조사/선물', date: `${month}-08` });
-  }
-
-  // 이번 달 (장소 + 사진 데이터 포함)
-  const cdSafe = (n) => String(Math.max(1, Math.min(28, cd - n))).padStart(2, '0');
-  entries.push({
-    id: 9001, description: '스타벅스', amount: 6500, category: '카페/간식', date: `${cm}-${cdSafe(5)}`,
-    place: { name: '스타벅스 부천역점', lat: 37.4843, lng: 126.7831, address: '경기 부천시 부천로 1' },
-    rating: 4, review: '늘 가던 곳. 콘센트 자리 많아서 노트북 작업하기 좋음', mood: 'normal',
-    photos: ['https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400']
-  });
-  entries.push({
-    id: 9002, description: '점심 파스타', amount: 14000, category: '식비', date: `${cm}-${cdSafe(4)}`,
-    place: { name: '라파스타 강남점', lat: 37.5172, lng: 127.0473, address: '서울 강남구 테헤란로 152' },
-    rating: 5, review: '크림 파스타 진짜 부드러웠어. 면 두께도 적당하고 토핑 짱짱. 또 가야지', mood: 'again',
-    photos: ['https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400', 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400']
-  });
-  entries.push({
-    id: 9003, description: '카페 디저트', amount: 12000, category: '카페/간식', date: `${cm}-${cdSafe(3)}`,
-    place: { name: '뺑드빱바 한남점', lat: 37.5447, lng: 127.0057, address: '서울 용산구 한남대로 27길' },
-    rating: 5, review: '크로플 인생 디저트 발견. 외국에서 사 먹는 그 맛임', mood: 'again',
-    photos: ['https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400']
-  });
-  entries.push({
-    id: 9004, description: '브런치', amount: 22000, category: '카페/간식', date: `${cm}-${cdSafe(2)}`,
-    place: { name: '카페 마들렌 강남', lat: 37.5172, lng: 127.0470, address: '서울 강남구 강남대로 396' },
-    rating: 3, review: '비싼 거 같음. 가격대비 양이 적어', mood: 'normal',
-    photos: []
-  });
-  entries.push({
-    id: 9005, description: '저녁 외식', amount: 38000, category: '식비', date: `${cm}-${cdSafe(1)}`,
-    place: { name: '이연복의 목란', lat: 37.5042, lng: 127.0470, address: '서울 강남구 봉은사로 524' },
-    rating: 4, review: '맛있었음. 마파두부가 일품', mood: 'again',
-    photos: []
-  });
-  entries.push({ id: 9006, description: '넷플릭스', amount: 17000, category: '기타', date: `${cm}-05` });
-  entries.push({ id: 9007, description: 'SKT 통신비', amount: 65000, category: '주거/공과금', date: `${cm}-15` });
-  entries.push({ id: 9008, description: '커피', amount: 5500, category: '카페/간식', date: `${cm}-${cdSafe(6)}` });
-  entries.push({ id: 9009, description: '커피', amount: 6500, category: '카페/간식', date: `${cm}-${cdSafe(0)}` });
-
-  return entries;
-})();
-
-const DEFAULT_INCOME = 3500000;
-
-const SEED_REFLECTIONS = (() => {
-  const today = new Date();
-  const lm = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-  const lmStr = `${lm.getFullYear()}-${String(lm.getMonth() + 1).padStart(2, '0')}`;
-  return [
-    { id: 'r1', month: lmStr, type: 'regret', text: '카페에서 9만원 썼다... 매일 사 마신 게 이렇게 큰 줄 몰랐어. 다음달은 텀블러 챙겨다니자.', createdAt: new Date().toISOString() },
-    { id: 'r2', month: lmStr, type: 'goal', text: '카페/간식 5만원 이하로 줄이기', createdAt: new Date().toISOString() },
-    { id: 'r3', month: lmStr, type: 'praise', text: '구독 정리 잘했음. 안 보던 OTT 3개 해지해서 매월 5만원 아낌', createdAt: new Date().toISOString() },
-  ];
-})();
-
-const SEED_PLANNED = (() => {
-  const today = new Date();
-  const fmt = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  const fut = (offset) => { const d = new Date(today); d.setDate(d.getDate() + offset); return fmt(d); };
-  return [
-    { id: 'p1', description: '넷플릭스', amount: 17000, category: '기타', date: fut(3), type: 'recurring' },
-    { id: 'p2', description: '관리비', amount: 180000, category: '주거/공과금', date: fut(8), type: 'recurring' },
-    { id: 'p5', description: '엄마 생신 선물', amount: 100000, category: '경조사/선물', date: fut(11), type: 'event', note: '꽃다발 + 식사' },
-    { id: 'p7', description: '제주 여행', amount: 350000, category: '여행/이벤트', date: fut(15), type: 'planned', note: '항공권 + 숙소' },
-  ];
-})();
+const DEFAULT_INCOME = 0;
 
 export default function ChatLedger() {
   const { t } = useTranslation();
@@ -124,7 +32,7 @@ export default function ChatLedger() {
   const [planned, setPlanned] = useState(SEED_PLANNED);
   const [reflections, setReflections] = useState(SEED_REFLECTIONS);
   const [income, setIncome] = useState(DEFAULT_INCOME);
-  const [budget, setBudget] = useState(800000);
+  const [budget, setBudget] = useState(0);
   const [showBudgetEdit, setShowBudgetEdit] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -149,6 +57,25 @@ export default function ChatLedger() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [editingEntry, setEditingEntry] = useState(null);
   const [photoUploadEntry, setPhotoUploadEntry] = useState(null);
+
+  // 캘린더 일자 상세 모달 안에서 항목 수정/삭제 (지출·예정 공용)
+  // editingDayItem: { id, kind: 'spent' | 'planned', draft: { description, amount, category, date } } | null
+  const [editingDayItem, setEditingDayItem] = useState(null);
+
+  // 채팅 입력 사용 가이드 모달 — 최초 가입/로그인 시 자동으로 열고, 닫으면 localStorage 에 표시
+  const [showInputGuide, setShowInputGuide] = useState(false);
+  useEffect(() => {
+    try {
+      const seen = localStorage.getItem('moa_chat_guide_seen');
+      if (!seen) setShowInputGuide(true);
+    } catch {
+      /* localStorage 차단된 환경 (시크릿 모드 등) — 무시 */
+    }
+  }, []);
+  const dismissInputGuide = () => {
+    try { localStorage.setItem('moa_chat_guide_seen', '1'); } catch {}
+    setShowInputGuide(false);
+  };
   // 장소 위치 검색 (모달 안)
   const [placeSearchQuery, setPlaceSearchQuery] = useState('');
   const [placeSearchResults, setPlaceSearchResults] = useState([]);
@@ -467,6 +394,75 @@ export default function ChatLedger() {
     ));
   };
 
+  // 예정(planned) 항목 수정/삭제
+  const updatePlanned = (id, updates) => {
+    setPlanned(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+  };
+  const deletePlanned = (id) => setPlanned(prev => prev.filter(p => p.id !== id));
+
+  // 캘린더 일자 모달 안에서 사용. 항목을 편집 모드로 전환한다.
+  const startEditDayItem = (item, kind) => {
+    setEditingDayItem({
+      id: item.id,
+      kind,
+      draft: {
+        description: item.description || '',
+        amount: item.amount || 0,
+        category: item.category || '기타',
+        date: item.date || '',
+      },
+    });
+  };
+  const cancelEditDayItem = () => setEditingDayItem(null);
+  const saveEditDayItem = () => {
+    if (!editingDayItem) return;
+    const { id, kind, draft } = editingDayItem;
+    const cleaned = {
+      description: (draft.description || '').trim() || '(이름 없음)',
+      amount: Math.max(0, Number(draft.amount) || 0),
+      category: CATEGORIES[draft.category] ? draft.category : '기타',
+      date: draft.date,
+    };
+    if (kind === 'planned') {
+      updatePlanned(id, cleaned);
+    } else {
+      updateEntry(id, cleaned);
+    }
+    // selectedDate 모달이 열려 있다면 화면도 동기화
+    if (selectedDate) {
+      const refreshedDay = {
+        ...selectedDate,
+        spent: selectedDate.spent.map(e => e.id === id && kind === 'spent' ? { ...e, ...cleaned } : e)
+          .filter(e => e.date === selectedDate.date),
+        planned: selectedDate.planned.map(p => p.id === id && kind === 'planned' ? { ...p, ...cleaned } : p)
+          .filter(p => p.date === selectedDate.date),
+      };
+      refreshedDay.totalSpent = refreshedDay.spent.reduce((s, e) => s + e.amount, 0);
+      refreshedDay.totalPlanned = refreshedDay.planned.reduce((s, p) => s + p.amount, 0);
+      setSelectedDate(refreshedDay);
+    }
+    setEditingDayItem(null);
+  };
+  const removeDayItem = (item, kind) => {
+    if (!window.confirm(`"${item.description}" 항목을 삭제할까?`)) return;
+    if (kind === 'planned') {
+      deletePlanned(item.id);
+    } else {
+      deleteEntry(item.id);
+    }
+    if (selectedDate) {
+      const refreshedDay = {
+        ...selectedDate,
+        spent: kind === 'spent' ? selectedDate.spent.filter(e => e.id !== item.id) : selectedDate.spent,
+        planned: kind === 'planned' ? selectedDate.planned.filter(p => p.id !== item.id) : selectedDate.planned,
+      };
+      refreshedDay.totalSpent = refreshedDay.spent.reduce((s, e) => s + e.amount, 0);
+      refreshedDay.totalPlanned = refreshedDay.planned.reduce((s, p) => s + p.amount, 0);
+      setSelectedDate(refreshedDay);
+    }
+    if (editingDayItem?.id === item.id) setEditingDayItem(null);
+  };
+
   const addReflection = (month, type, text) => {
     if (!text.trim()) return;
     setReflections(prev => [...prev, {
@@ -614,8 +610,11 @@ export default function ChatLedger() {
                 </div>
               )}
               <div className="flex items-end gap-2">
-                <button onClick={() => fileInputRef.current?.click()} className="p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
+                <button onClick={() => fileInputRef.current?.click()} className="p-3 rounded-2xl" title="영수증 사진 첨부" style={{ backgroundColor: '#F5F1EA' }}>
                   <Camera size={20} style={{ color: '#A0633C' }} />
+                </button>
+                <button onClick={() => setShowInputGuide(true)} className="p-3 rounded-2xl" title="이렇게 적어보세요" style={{ backgroundColor: '#F5F1EA' }}>
+                  <Lightbulb size={20} style={{ color: '#A0633C' }} />
                 </button>
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
                 <textarea value={input} onChange={(e) => setInput(e.target.value)}
@@ -628,6 +627,13 @@ export default function ChatLedger() {
                   style={{ backgroundColor: (input.trim() || pendingImage) ? '#2C2418' : '#D4CDC0', color: '#FFFDF8' }}>
                   <Send size={20} />
                 </button>
+              </div>
+              <div className="flex items-center justify-between mt-2 px-1">
+                <button onClick={() => setShowInputGuide(true)} className="text-[11px] flex items-center gap-1 hover:opacity-80"
+                  style={{ color: '#A0633C' }}>
+                  <Lightbulb size={11} /> 어떤 말이 가능해? 사용 가이드 보기
+                </button>
+                <span className="text-[10px]" style={{ color: '#A8A296' }}>Enter 보내기 · Shift+Enter 줄바꿈</span>
               </div>
             </div>
           </div>
@@ -667,8 +673,8 @@ export default function ChatLedger() {
                 </div>
               </div>
               <div className="mt-4 h-3 rounded-full overflow-hidden flex" style={{ backgroundColor: 'rgba(255,253,248,0.15)' }}>
-                <div className="h-full" style={{ width: `${Math.min(100, (monthTotal / budget) * 100)}%`, backgroundColor: '#A8C99A' }} />
-                <div className="h-full" style={{ width: `${Math.min(100 - (monthTotal / budget) * 100, (upcomingTotal / budget) * 100)}%`, backgroundColor: '#E0A856' }} />
+                <div className="h-full" style={{ width: `${budget > 0 ? Math.min(100, (monthTotal / budget) * 100) : 0}%`, backgroundColor: '#A8C99A' }} />
+                <div className="h-full" style={{ width: `${budget > 0 ? Math.max(0, Math.min(100 - (monthTotal / budget) * 100, (upcomingTotal / budget) * 100)) : 0}%`, backgroundColor: '#E0A856' }} />
               </div>
             </div>
 
@@ -1372,9 +1378,23 @@ export default function ChatLedger() {
                   <>
                     {selectedDate.planned.map(p => {
                       const Icon = CATEGORIES[p.category]?.icon || Sparkles;
+                      const isEditing = editingDayItem?.id === p.id && editingDayItem?.kind === 'planned';
+                      if (isEditing) {
+                        return (
+                          <EntryEditCard
+                            key={p.id}
+                            draft={editingDayItem.draft}
+                            categories={CATEGORIES}
+                            bg="#FFF8EC"
+                            onChange={(next) => setEditingDayItem({ ...editingDayItem, draft: next })}
+                            onCancel={cancelEditDayItem}
+                            onSave={saveEditDayItem}
+                          />
+                        );
+                      }
                       return (
-                        <div key={p.id} className="flex items-center gap-3 p-3 rounded-2xl" style={{ backgroundColor: '#FFF8EC' }}>
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: CATEGORIES[p.category]?.bg }}>
+                        <div key={p.id} className="flex items-center gap-3 p-3 rounded-2xl group" style={{ backgroundColor: '#FFF8EC' }}>
+                          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[p.category]?.bg }}>
                             <Icon size={16} style={{ color: CATEGORIES[p.category]?.color }} />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -1385,51 +1405,88 @@ export default function ChatLedger() {
                             <div className="text-xs" style={{ color: '#7A7567' }}>{p.category}</div>
                           </div>
                           <span className="text-sm font-semibold tabular-nums" style={{ color: '#A0633C' }}>{p.amount.toLocaleString()}원</span>
+                          <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                            <button onClick={() => startEditDayItem(p, 'planned')} title="수정"
+                              className="p-1.5 rounded-lg hover:bg-white">
+                              <PenLine size={13} style={{ color: '#7A7567' }} />
+                            </button>
+                            <button onClick={() => removeDayItem(p, 'planned')} title="삭제"
+                              className="p-1.5 rounded-lg hover:bg-white">
+                              <Trash2 size={13} style={{ color: '#E07856' }} />
+                            </button>
+                          </div>
                         </div>
                       );
                     })}
                     {selectedDate.spent.map(e => {
                       const Icon = CATEGORIES[e.category]?.icon || Sparkles;
+                      const isEditing = editingDayItem?.id === e.id && editingDayItem?.kind === 'spent';
+                      if (isEditing) {
+                        return (
+                          <EntryEditCard
+                            key={e.id}
+                            draft={editingDayItem.draft}
+                            categories={CATEGORIES}
+                            bg="#FAF7F0"
+                            onChange={(next) => setEditingDayItem({ ...editingDayItem, draft: next })}
+                            onCancel={cancelEditDayItem}
+                            onSave={saveEditDayItem}
+                          />
+                        );
+                      }
                       return (
-                        <button key={e.id}
-                          onClick={() => {
-                            if (e.place) {
-                              const place = placesMap.find(p => p.name === e.place.name);
-                              if (place) { setSelectedDate(null); setSelectedPlace(place); }
-                            }
-                          }}
-                          className="w-full flex items-start gap-3 p-3 rounded-2xl text-left hover:opacity-80"
+                        <div key={e.id}
+                          className="w-full flex items-start gap-3 p-3 rounded-2xl group"
                           style={{ backgroundColor: '#FAF7F0' }}>
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[e.category]?.bg }}>
-                            <Icon size={16} style={{ color: CATEGORIES[e.category]?.color }} />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-sm font-medium truncate" style={{ color: '#2C2418' }}>{e.description}</span>
-                              {e.place && <MapPin size={10} style={{ color: '#A0633C' }} />}
+                          <button
+                            onClick={() => {
+                              if (e.place) {
+                                const place = placesMap.find(p => p.name === e.place.name);
+                                if (place) { setSelectedDate(null); setSelectedPlace(place); }
+                              }
+                            }}
+                            className="flex items-start gap-3 flex-1 min-w-0 text-left hover:opacity-80">
+                            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[e.category]?.bg }}>
+                              <Icon size={16} style={{ color: CATEGORIES[e.category]?.color }} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="text-sm font-medium truncate" style={{ color: '#2C2418' }}>{e.description}</span>
+                                {e.place && <MapPin size={10} style={{ color: '#A0633C' }} />}
+                                {e.photos?.length > 0 && (
+                                  <span className="text-[9px] px-1 py-0.5 rounded flex items-center gap-0.5" style={{ backgroundColor: '#F0E6F1', color: '#8B5A8C' }}>
+                                    <ImageIcon size={8} /> {e.photos.length}
+                                  </span>
+                                )}
+                                {e.rating && (
+                                  <span className="text-[10px] flex items-center gap-0.5">
+                                    <Star size={9} fill="#E0A856" stroke="#E0A856" />{e.rating}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-xs" style={{ color: '#7A7567' }}>{e.category}{e.place && ` · ${e.place.name}`}</div>
+                              {e.review && <div className="handwritten text-sm mt-1" style={{ color: '#2C2418' }}>"{e.review}"</div>}
                               {e.photos?.length > 0 && (
-                                <span className="text-[9px] px-1 py-0.5 rounded flex items-center gap-0.5" style={{ backgroundColor: '#F0E6F1', color: '#8B5A8C' }}>
-                                  <ImageIcon size={8} /> {e.photos.length}
-                                </span>
-                              )}
-                              {e.rating && (
-                                <span className="text-[10px] flex items-center gap-0.5">
-                                  <Star size={9} fill="#E0A856" stroke="#E0A856" />{e.rating}
-                                </span>
+                                <div className="flex gap-1 mt-2">
+                                  {e.photos.slice(0, 3).map((ph, j) => (
+                                    <img key={j} src={ph} alt="" className="w-12 h-12 rounded-lg object-cover" />
+                                  ))}
+                                </div>
                               )}
                             </div>
-                            <div className="text-xs" style={{ color: '#7A7567' }}>{e.category}{e.place && ` · ${e.place.name}`}</div>
-                            {e.review && <div className="handwritten text-sm mt-1" style={{ color: '#2C2418' }}>"{e.review}"</div>}
-                            {e.photos?.length > 0 && (
-                              <div className="flex gap-1 mt-2">
-                                {e.photos.slice(0, 3).map((ph, j) => (
-                                  <img key={j} src={ph} alt="" className="w-12 h-12 rounded-lg object-cover" />
-                                ))}
-                              </div>
-                            )}
-                          </div>
+                          </button>
                           <span className="text-sm font-semibold tabular-nums" style={{ color: '#2C2418' }}>{e.amount.toLocaleString()}원</span>
-                        </button>
+                          <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                            <button onClick={() => startEditDayItem(e, 'spent')} title="수정"
+                              className="p-1.5 rounded-lg hover:bg-white">
+                              <PenLine size={13} style={{ color: '#7A7567' }} />
+                            </button>
+                            <button onClick={() => removeDayItem(e, 'spent')} title="삭제"
+                              className="p-1.5 rounded-lg hover:bg-white">
+                              <Trash2 size={13} style={{ color: '#E07856' }} />
+                            </button>
+                          </div>
+                        </div>
                       );
                     })}
                   </>
@@ -1753,6 +1810,249 @@ export default function ChatLedger() {
             </div>
           </div>
         )}
+
+        {/* === 채팅 입력 사용 가이드 모달 === */}
+        {showInputGuide && (
+          <InputGuideModal onClose={dismissInputGuide} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function InputGuideModal({ onClose }) {
+  const sections = [
+    {
+      title: '한 줄로 지출 기록',
+      icon: PenLine,
+      tips: [
+        '스타벅스 6500원',
+        '점심 김밥 4천원',
+        '편의점에서 2,300원 썼어',
+      ],
+    },
+    {
+      title: '여러 건 한꺼번에',
+      icon: ListIcon,
+      tips: [
+        '오늘 점심 8천원, 카페 5천5백, 택시 9천원',
+        '마트 32000 + 영화 15000',
+      ],
+    },
+    {
+      title: '날짜 / 시점 명시',
+      icon: Calendar,
+      tips: [
+        '어제 저녁에 회식 4만원',
+        '지난 금요일 미용실 3만원',
+        '3월 15일 친구 결혼식 10만원',
+      ],
+    },
+    {
+      title: '장소 같이 적기',
+      icon: MapPin,
+      tips: [
+        '스타벅스 강남역점에서 커피 6500원',
+        '집 근처 올리브영에서 2만원',
+        '※ AI는 장소 이름만 인식하고, 정확한 위치 핀은 항목을 눌러 직접 지정해줘',
+      ],
+    },
+    {
+      title: '앞으로 나갈 돈 (예정)',
+      icon: Clock,
+      tips: [
+        '다음주 화요일 넷플릭스 17000원 나가',
+        '15일에 관리비 18만원 예정',
+        '내달 5일 친구 생일선물 5만원 살 거야',
+      ],
+    },
+    {
+      title: '영수증 / 사진',
+      icon: Camera,
+      tips: [
+        '왼쪽 📷 버튼으로 영수증 사진을 올리면 AI가 자동으로 항목·금액·날짜를 뽑아줘',
+        '여러 줄 영수증도 한 번에 처리돼',
+      ],
+    },
+    {
+      title: '카테고리 힌트',
+      icon: Sparkles,
+      tips: [
+        '"올리브영 마스크팩 1만원" → 건강/뷰티 로 자동 분류',
+        '"택시 1만2천" → 교통',
+        '분류가 틀렸으면 항목 옆 ✏️ 수정 버튼으로 바꿀 수 있어',
+      ],
+    },
+  ];
+  const tabs = [
+    { name: '캘린더', desc: '날짜를 누르면 그날 지출·예정이 다 보여' },
+    { name: '장소', desc: '자주 간 곳을 지도와 사진으로 정리' },
+    { name: '회고', desc: '월말마다 잘한 점/아쉬운 점/다음 달 약속을 메모' },
+    { name: '계획', desc: '다음 달까지 나갈 돈을 미리 잡기' },
+    { name: '대차표', desc: '수입·지출·저축률을 한 눈에' },
+  ];
+  return (
+    <div className="fixed inset-0 z-[60] flex items-end lg:items-center justify-center p-0 lg:p-4"
+      style={{ backgroundColor: 'rgba(44, 36, 24, 0.55)' }} onClick={onClose}>
+      <div className="w-full lg:max-w-2xl rounded-t-3xl lg:rounded-3xl overflow-hidden max-h-[90vh] flex flex-col"
+        style={{ backgroundColor: '#FFFDF8' }} onClick={(e) => e.stopPropagation()}>
+        <div className="p-5 lg:p-6 border-b flex items-start justify-between flex-shrink-0"
+          style={{ borderColor: '#E8E2D5', backgroundColor: '#FFFDF8' }}>
+          <div>
+            <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#2C2418' }}>
+              <Lightbulb size={18} style={{ color: '#A0633C' }} /> 채팅으로 이렇게 적어보세요
+            </h3>
+            <p className="text-xs mt-1" style={{ color: '#7A7567' }}>
+              평소에 말하듯 자유롭게 적어도 돼. AI가 금액·카테고리·날짜·장소를 알아서 정리해줘.
+            </p>
+          </div>
+          <button onClick={onClose} className="p-2 -mr-2 -mt-1"><X size={20} style={{ color: '#7A7567' }} /></button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5 lg:p-6 space-y-4">
+          <div className="rounded-2xl p-4" style={{ backgroundColor: '#F5E9DD' }}>
+            <div className="text-xs font-medium mb-1" style={{ color: '#A0633C' }}>3초 요약</div>
+            <p className="text-sm leading-relaxed" style={{ color: '#2C2418' }}>
+              <strong>"무엇을, 얼마, (선택) 언제·어디서"</strong> 이 정도면 충분해.<br />
+              예: <span className="handwritten text-base">"오늘 스타벅스 부천역점에서 6500원 썼어"</span>
+            </p>
+          </div>
+
+          {sections.map((sec) => {
+            const Icon = sec.icon;
+            return (
+              <div key={sec.title} className="rounded-2xl p-4" style={{ backgroundColor: '#FAF7F0', border: '1px solid #E8E2D5' }}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F5E9DD' }}>
+                    <Icon size={14} style={{ color: '#A0633C' }} />
+                  </div>
+                  <h4 className="text-sm font-semibold" style={{ color: '#2C2418' }}>{sec.title}</h4>
+                </div>
+                <ul className="space-y-1.5 pl-1">
+                  {sec.tips.map((tip, i) => (
+                    <li key={i} className="text-sm flex items-start gap-2" style={{ color: '#2C2418' }}>
+                      <span className="mt-1 w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: '#A0633C' }} />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+
+          <div className="rounded-2xl p-4" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8EEE6' }}>
+                <Compass size={14} style={{ color: '#6B8E6B' }} />
+              </div>
+              <h4 className="text-sm font-semibold" style={{ color: '#2C2418' }}>채팅 말고도 활용해 봐</h4>
+            </div>
+            <ul className="space-y-1.5 pl-1">
+              {tabs.map((t) => (
+                <li key={t.name} className="text-sm" style={{ color: '#2C2418' }}>
+                  <span className="font-medium" style={{ color: '#A0633C' }}>{t.name}</span>
+                  <span style={{ color: '#7A7567' }}> — {t.desc}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs mt-3" style={{ color: '#7A7567' }}>
+              ✏️ 각 항목 옆의 연필/휴지통 아이콘으로 개별 항목을 수정·삭제할 수 있어.
+            </p>
+          </div>
+
+          <div className="rounded-2xl p-4" style={{ backgroundColor: '#FDF0EA' }}>
+            <div className="text-xs font-medium mb-1" style={{ color: '#E07856' }}>이런 건 안 돼</div>
+            <ul className="text-xs space-y-1 pl-1" style={{ color: '#2C2418' }}>
+              <li>· 금액이 없는 메시지 (예: "오늘 카페 갔어") → 얼마인지 같이 적어줘</li>
+              <li>· 가계부와 무관한 질문 (예: 날씨·뉴스 검색) → 가계부 정리 전용이야</li>
+              <li>· 개인 식별 정보(주민번호·카드번호 전체) → 절대 적지 마</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="p-4 border-t flex justify-end flex-shrink-0" style={{ borderColor: '#E8E2D5', backgroundColor: '#FFFDF8' }}>
+          <button onClick={onClose}
+            className="px-5 py-2 rounded-xl text-sm font-medium"
+            style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+            알겠어, 시작해볼게
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave }) {
+  const set = (patch) => onChange({ ...draft, ...patch });
+  return (
+    <div className="p-3 rounded-2xl space-y-2" style={{ backgroundColor: bg, border: '1px solid #E8E2D5' }}>
+      <div className="flex items-center gap-2">
+        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>이름</span>
+        <input
+          autoFocus
+          value={draft.description}
+          onChange={(e) => set({ description: e.target.value })}
+          className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none"
+          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+          placeholder="예: 점심 김밥"
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>금액</span>
+        <input
+          type="number"
+          inputMode="numeric"
+          value={draft.amount}
+          onChange={(e) => set({ amount: e.target.value })}
+          className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none tabular-nums"
+          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+        />
+        <span className="text-xs" style={{ color: '#7A7567' }}>원</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>날짜</span>
+        <input
+          type="date"
+          value={draft.date}
+          onChange={(e) => set({ date: e.target.value })}
+          className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none"
+          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+        />
+      </div>
+      <div className="flex items-start gap-2">
+        <span className="text-[10px] font-medium pt-1.5" style={{ color: '#7A7567' }}>분류</span>
+        <div className="flex-1 flex flex-wrap gap-1">
+          {Object.keys(categories).map((cat) => {
+            const active = draft.category === cat;
+            const info = categories[cat];
+            return (
+              <button
+                key={cat}
+                onClick={() => set({ category: cat })}
+                className="text-[11px] px-2 py-1 rounded-full"
+                style={{
+                  backgroundColor: active ? info.bg : 'white',
+                  color: active ? info.color : '#7A7567',
+                  border: `1px solid ${active ? info.color : '#E8E2D5'}`,
+                }}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="flex justify-end gap-2 pt-1">
+        <button onClick={onCancel}
+          className="px-3 py-1.5 rounded-lg text-xs font-medium"
+          style={{ backgroundColor: 'white', color: '#7A7567', border: '1px solid #E8E2D5' }}>
+          취소
+        </button>
+        <button onClick={onSave}
+          className="px-3 py-1.5 rounded-lg text-xs font-medium"
+          style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+          저장
+        </button>
       </div>
     </div>
   );

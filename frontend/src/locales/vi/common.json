@@ -101,8 +101,8 @@
       "retry": "Bạn viết lại nhé?", "tryAgain": "Vui lòng thử lại."
     },
     "messages": {
-      "welcome": "Xin chào! Đã có 6 tháng dữ liệu 📊",
-      "welcomeHint": "Xem các tab Nhìn lại / Kế hoạch / Đối soát / Lịch / Địa điểm. Bấm ngày để xem chi tiêu hôm đó, bấm địa điểm để mở bản đồ và ảnh.",
+      "welcome": "Xin chào! Bắt đầu sổ chi tiêu nào 📒",
+      "welcomeHint": "Cứ viết như đang nói, ví dụ \"trưa nay kimbap 4.000 KRW\". Bấm nút 💡 cạnh ô nhập để xem có thể viết gì. Dùng các tab Lịch / Địa điểm / Nhìn lại / Kế hoạch / Đối soát để tổng kết tháng, và biểu tượng ✏️·🗑 ở mỗi mục để sửa hoặc xóa.",
       "recorded": "Đã lưu ✓ ({{count}} mục)",
       "placeRecognized": "📍 Nhận diện \"{{name}}\". Mở mục để chọn vị trí chính xác."
     },

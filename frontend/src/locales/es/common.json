@@ -101,8 +101,8 @@
       "retry": "¿Lo escribes de nuevo?", "tryAgain": "Inténtalo otra vez."
     },
     "messages": {
-      "welcome": "¡Hola! Ya hay 6 meses de datos 📊",
-      "welcomeHint": "Mira las pestañas Reflexión / Plan / Balance / Calendario / Lugares. Toca una fecha para ver ese día y un lugar para mapa y fotos.",
+      "welcome": "¡Hola! Empecemos tu cuaderno de gastos 📒",
+      "welcomeHint": "Escribe como hablas — por ejemplo \"almuerzo kimbap 4.000 KRW hoy\". Toca el botón 💡 junto al campo para ver qué puedes escribir. Usa las pestañas Calendario / Lugares / Reflexión / Plan / Balance para cerrar el mes, y los iconos ✏️·🗑 de cada fila para editar o borrar.",
       "recorded": "Guardado ✓ ({{count}} elemento(s))",
       "placeRecognized": "📍 Detectado \"{{name}}\". Abre el registro para elegir la ubicación exacta."
     },

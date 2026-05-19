@@ -101,8 +101,8 @@
       "retry": "Boleh tulis semula?", "tryAgain": "Sila cuba lagi."
     },
     "messages": {
-      "welcome": "Hai! Ada 6 bulan data 📊",
-      "welcomeHint": "Lihat tab Imbas / Rancang / Baki / Kalendar / Tempat. Tekan tarikh untuk perbelanjaan hari itu, tekan tempat untuk peta dan foto.",
+      "welcome": "Hai! Jom mula rekod belanja 📒",
+      "welcomeHint": "Taip macam bercakap je, contohnya \"makan tengahari kimbap 4,000 KRW hari ini\". Tekan butang 💡 di sebelah ruang taip untuk lihat contoh ayat. Guna tab Kalendar / Tempat / Imbas / Rancang / Baki untuk rumuskan bulan, dan ikon ✏️·🗑 pada setiap baris untuk edit atau padam.",
       "recorded": "Disimpan ✓ ({{count}} item)",
       "placeRecognized": "📍 Mengesan \"{{name}}\". Buka entri untuk pilih lokasi tepat."
     },

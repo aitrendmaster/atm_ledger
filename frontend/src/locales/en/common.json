@@ -116,8 +116,8 @@
       "tryAgain": "Please try again."
     },
     "messages": {
-      "welcome": "Hi! 6 months of data is already loaded 📊",
-      "welcomeHint": "Check Review/Plan/Balance/Calendar/Places tabs. Tap a date to see that day, tap a place for Google Maps + photo reviews.",
+      "welcome": "Hi! Let's start your ledger 📒",
+      "welcomeHint": "Just type the way you'd talk — e.g. \"lunch kimbap 4,000 KRW today\". Tap the 💡 button next to the input to see what you can say. Use the Calendar / Places / Review / Plan / Balance tabs to wrap up the month, and the ✏️ · 🗑 icons on each row to edit or delete an entry.",
       "recorded": "Saved ✓ ({{count}} item(s))",
       "placeRecognized": "📍 \"{{name}}\" detected. Open the entry to pick the exact spot."
     },
