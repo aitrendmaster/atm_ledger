@@ -84,19 +84,41 @@ def _usage_from(resp) -> tuple[int, int]:
     return int(getattr(u, "input_tokens", 0) or 0), int(getattr(u, "output_tokens", 0) or 0)
 
 
+# locale 별 parse_expense system prompt.
+# 카테고리 키는 한국어 그대로 유지 (백엔드 ALLOWED_CATEGORIES 가 한국어). 표시 라벨만 프론트 i18n.
+# JSON 응답 포맷 동일. AI 가 사용자 입력 언어를 인식해 description 을 그 언어로 채우게 유도.
+_PARSE_SYSTEM_BY_LOCALE: dict[str, str] = {
+    "ko": "너는 가계부 분류기야. JSON 으로만 답해.",
+    "en": "You are a personal-finance ledger classifier. Respond with JSON only.",
+    "ja": "あなたは家計簿の分類器です。JSON のみで応答してください。",
+    "zh": "你是个人记账分类器。仅以 JSON 回应。",
+    "es": "Eres un clasificador de libro de gastos personal. Responde solo en JSON.",
+    "th": "คุณคือผู้จัดประเภทบันทึกค่าใช้จ่ายส่วนตัว ตอบเป็น JSON เท่านั้น",
+    "vi": "Bạn là bộ phân loại sổ chi tiêu cá nhân. Chỉ trả lời bằng JSON.",
+    "ms": "Anda ialah pengelas lejar kewangan peribadi. Jawab hanya dalam JSON.",
+    "hi": "आप एक व्यक्तिगत व्यय बही वर्गीकारक हैं। केवल JSON में उत्तर दें।",
+}
+
+
 async def parse_expense(
     text: str | None,
     image_b64: str | None,
     media_type: str | None,
     user_id: int | None = None,
+    user_locale: str = "ko",
 ) -> list[dict]:
-    """자유 텍스트/영수증 이미지를 가계부 항목으로 파싱."""
+    """자유 텍스트/영수증 이미지를 가계부 항목으로 파싱.
+
+    user_locale: 응답 description 의 언어 힌트. 카테고리는 ALLOWED_CATEGORIES(한국어) 고정.
+    """
     today = _date.today().isoformat()
-    system = f"""너는 한국어 가계부 분류기야. JSON으로만 답해.
-종류: spent (이미 쓴 지출), planned (예정 지출)
-카테고리: {', '.join(ALLOWED_CATEGORIES)}
-응답: [{{"kind":"spent"|"planned","description":"...","amount":숫자,"category":"...","date":"YYYY-MM-DD","placeName":"상호명 또는 null"}}]
-오늘: {today}. 모호하면 []."""
+    intro = _PARSE_SYSTEM_BY_LOCALE.get(user_locale, _PARSE_SYSTEM_BY_LOCALE["ko"])
+    system = f"""{intro}
+kind: spent (already spent) | planned (will spend)
+category (must be one of these Korean keys): {', '.join(ALLOWED_CATEGORIES)}
+Response format: [{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>"}}]
+The "description" field should be in the user's language (locale: {user_locale}); keep "category" as the Korean key from the list above.
+Today: {today}. If ambiguous, respond []."""
 
     if image_b64 and media_type:
         user_content = [
@@ -152,27 +174,47 @@ async def parse_expense(
         return []
 
 
+# 인사이트 prompt 의 톤 가이드 (locale 별 1~2 문장)
+_INSIGHT_TONE_BY_LOCALE: dict[str, str] = {
+    "ko": "너는 따뜻하고 통찰력 있는 재무 코치야. 한국어 반말로 짧고 임팩트있게.",
+    "en": "You are a warm, insightful personal-finance coach. Use casual English, short and punchy.",
+    "ja": "あなたは温かく洞察力のある家計コーチです。やわらかい日本語で短く印象的に。",
+    "zh": "你是温暖且有洞察力的个人理财教练。用简洁有力的中文回答。",
+    "es": "Eres un coach financiero cálido y perspicaz. Responde en español casual, breve y con impacto.",
+    "th": "คุณคือโค้ชการเงินที่อบอุ่นและมีไหวพริบ ตอบสั้นและกระชับเป็นภาษาไทย",
+    "vi": "Bạn là huấn luyện viên tài chính ấm áp và sâu sắc. Trả lời ngắn gọn bằng tiếng Việt.",
+    "ms": "Anda ialah jurulatih kewangan peribadi yang mesra dan bijaksana. Jawab ringkas dalam bahasa Melayu.",
+    "hi": "आप एक गर्मजोशी भरे और अंतर्दृष्टिपूर्ण वित्तीय कोच हैं। संक्षिप्त हिंदी में उत्तर दें।",
+}
+
+
 async def month_insight(
-    month_key: str, current: dict, previous: dict, user_id: int | None = None
+    month_key: str,
+    current: dict,
+    previous: dict,
+    user_id: int | None = None,
+    user_locale: str = "ko",
+    currency_code: str = "KRW",
 ) -> dict:
-    """월별 인사이트 생성."""
+    """월별 인사이트 생성. locale 별 톤·언어, 사용자 통화로 금액 표시."""
     def _fmt(by_cat: dict) -> str:
-        return ", ".join(f"{k} {v:,}원" for k, v in by_cat.items() if v > 0) or "기록 없음"
+        return ", ".join(f"{k} {v:,} {currency_code}" for k, v in by_cat.items() if v > 0) or "-"
 
-    prompt = f"""너는 따뜻하고 통찰력 있는 재무 코치야. 한국어 반말로 짧고 임팩트있게.
+    tone = _INSIGHT_TONE_BY_LOCALE.get(user_locale, _INSIGHT_TONE_BY_LOCALE["ko"])
+    prompt = f"""{tone}
 
-[이번 달: {month_key}]
-총: {current.get('total', 0):,}원
+[This month: {month_key}]
+Total: {current.get('total', 0):,} {currency_code}
 {_fmt(current.get('byCategory', {}))}
 
-[지난 달]
-총: {previous.get('total', 0):,}원
+[Last month]
+Total: {previous.get('total', 0):,} {currency_code}
 {_fmt(previous.get('byCategory', {}))}
 
-JSON만:
-{{"summary":"한두 문장","praise":"잘한 점","concern":"주의할 점","suggestion":"다음달 행동 제안"}}"""
+Respond JSON only (write all 4 string values in the user's language — locale {user_locale}):
+{{"summary":"1-2 sentence overview","praise":"what went well","concern":"what to watch","suggestion":"next month's action"}}"""
 
-    fallback = {"summary": "인사이트를 가져오지 못했어.", "praise": "", "concern": "", "suggestion": ""}
+    fallback = {"summary": "", "praise": "", "concern": "", "suggestion": ""}
     in_tok, out_tok = 0, 0
     try:
         client = _client()

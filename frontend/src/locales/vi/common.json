@@ -2,27 +2,17 @@
   "app": { "name": "Sổ chi tiêu Moa AI" },
   "lang": { "label": "Ngôn ngữ" },
   "common": {
-    "or": "hoặc",
-    "cancel": "Huỷ",
-    "save": "Lưu",
-    "loading": "Đang tải…",
-    "back": "Quay lại",
-    "retry": "Vui lòng thử lại sau ít phút."
+    "or": "hoặc", "cancel": "Huỷ", "save": "Lưu", "loading": "Đang tải…",
+    "back": "Quay lại", "retry": "Vui lòng thử lại sau ít phút.",
+    "home": "Trang chủ", "pricing": "Giá", "refund": "Chính sách hoàn tiền",
+    "edit": "Sửa", "delete": "Xoá", "confirm": "OK"
   },
-  "nav": {
-    "myAccount": "Tài khoản",
-    "faq": "Hỏi đáp",
-    "admin": "Admin",
-    "logout": "Đăng xuất"
-  },
+  "nav": { "myAccount": "Tài khoản", "faq": "Hỏi đáp", "admin": "Admin", "logout": "Đăng xuất" },
   "landing": {
     "badge": "Miễn phí Beta — sổ chi tiêu AI",
-    "headline1": "Ghi như đang chat,",
-    "headline2": "nhìn lại trọn tháng nhẹ tênh.",
+    "headline1": "Ghi như đang chat,", "headline2": "nhìn lại trọn tháng nhẹ tênh.",
     "subtitle": "Một dòng là đủ — \"Starbucks 80k\". AI tự phân loại, ghi số tiền và ngày, mỗi tháng gửi bạn lời khuyên ấm áp về thói quen.",
-    "ctaPrimary": "Bắt đầu miễn phí",
-    "ctaLogin": "Đăng nhập",
-    "ctaApp": "Mở sổ chi tiêu →",
+    "ctaPrimary": "Bắt đầu miễn phí", "ctaLogin": "Đăng nhập", "ctaApp": "Mở sổ chi tiêu →",
     "uspHeading": "Quản lý chi tiêu nhẹ nhàng hơn cả bạn nghĩ.",
     "uspSubtitle": "Mỗi ngày 1 phút, mỗi tháng một góc nhìn mới.",
     "uspChatTitle": "Nhập trong 1 giây",
@@ -36,50 +26,35 @@
     "cta2Heading": "Khác biệt từ tháng đầu tiên.",
     "cta2Subtitle": "30 giây đăng ký. Không cần thẻ. Miễn phí trong Beta.",
     "footerTagline": "Sổ chi tiêu AI ghi bằng cách chat",
-    "footerTerms": "Điều khoản",
-    "footerPrivacy": "Quyền riêng tư"
+    "footerTerms": "Điều khoản", "footerPrivacy": "Quyền riêng tư"
   },
   "login": {
     "subtitle": "Đăng nhập và bắt đầu ghi sổ.",
-    "email": "Email",
-    "password8": "Mật khẩu (từ 8 ký tự)",
-    "submit": "Đăng nhập",
-    "submitBusy": "Đang đăng nhập…",
-    "noAccount": "Chưa có tài khoản?",
-    "signupLink": "Đăng ký",
-    "forgotLink": "Quên mật khẩu?",
-    "failed": "Đăng nhập thất bại"
+    "email": "Email", "password8": "Mật khẩu (từ 8 ký tự)",
+    "submit": "Đăng nhập", "submitBusy": "Đang đăng nhập…",
+    "noAccount": "Chưa có tài khoản?", "signupLink": "Đăng ký",
+    "forgotLink": "Quên mật khẩu?", "failed": "Đăng nhập thất bại"
   },
   "signup": {
-    "title": "Tạo tài khoản",
-    "nickname": "Biệt danh (tuỳ chọn)",
-    "agreeStart": "Tôi đồng ý với ",
-    "agreeTerms": "Điều khoản",
-    "agreeAnd": " và ",
-    "agreePrivacy": "Chính sách bảo mật",
-    "agreeEnd": ".",
+    "title": "Tạo tài khoản", "nickname": "Biệt danh (tuỳ chọn)",
+    "countryLabel": "Quốc gia cư trú",
+    "countryHint": "Ngôn ngữ và tiền tệ tự cài đặt theo quốc gia. Có thể đổi bất cứ lúc nào trong Trang của tôi.",
+    "agreeStart": "Tôi đồng ý với ", "agreeTerms": "Điều khoản",
+    "agreeAnd": " và ", "agreePrivacy": "Chính sách bảo mật", "agreeEnd": ".",
     "agreeRequired": "Vui lòng đồng ý Điều khoản và Chính sách bảo mật.",
-    "submit": "Đăng ký",
-    "submitBusy": "Đang tạo…",
-    "hasAccount": "Đã có tài khoản?",
-    "loginLink": "Đăng nhập",
-    "failed": "Đăng ký thất bại"
+    "submit": "Đăng ký", "submitBusy": "Đang tạo…",
+    "hasAccount": "Đã có tài khoản?", "loginLink": "Đăng nhập", "failed": "Đăng ký thất bại"
   },
   "forgot": {
-    "title": "Đặt lại mật khẩu",
-    "intro": "Nhập email đã đăng ký, chúng tôi sẽ gửi liên kết.",
+    "title": "Đặt lại mật khẩu", "intro": "Nhập email đã đăng ký, chúng tôi sẽ gửi liên kết.",
     "sent": "Nếu email tồn tại, hướng dẫn đã được gửi. Kiểm tra thư rác nếu chưa thấy. Liên kết có hiệu lực 1 giờ.",
-    "submit": "Gửi email đặt lại",
-    "submitBusy": "Đang gửi…",
-    "backLogin": "Quay về đăng nhập",
-    "backLoginLink": "Về trang đăng nhập"
+    "submit": "Gửi email đặt lại", "submitBusy": "Đang gửi…",
+    "backLogin": "Quay về đăng nhập", "backLoginLink": "Về trang đăng nhập"
   },
   "reset": {
-    "title": "Đặt mật khẩu mới",
-    "intro": "Từ 8 ký tự trở lên.",
+    "title": "Đặt mật khẩu mới", "intro": "Từ 8 ký tự trở lên.",
     "newPassword": "Mật khẩu mới",
-    "submit": "Đổi mật khẩu",
-    "submitBusy": "Đang lưu…",
+    "submit": "Đổi mật khẩu", "submitBusy": "Đang lưu…",
     "invalid": "Liên kết không hợp lệ",
     "invalidDesc": "Thiếu mã đặt lại. Hãy dùng lại liên kết trong email.",
     "requestAgain": "Gửi lại email đặt lại",
@@ -90,15 +65,17 @@
   "ledger": {
     "title": "Sổ chi tiêu của tôi",
     "todayHint": "Hôm nay {{date}} · từ từ và đều đặn",
-    "tabs": { "chat": "Trò chuyện", "calendar": "Lịch", "place": "Địa điểm", "reflect": "Nhìn lại", "plan": "Kế hoạch", "balance": "Đối soát" },
+    "tabs": { "chat": "Trò chuyện", "calendar": "Lịch", "place": "Địa điểm", "places": "Địa điểm", "reflect": "Nhìn lại", "plan": "Kế hoạch", "balance": "Đối soát" },
     "stats": {
       "thisMonthFlow": "Tháng này", "budget": "Ngân sách", "freeMoney": "Có thể tiêu",
       "spent": "Đã chi", "upcoming": "Sắp tới", "dailyAvg": "TB ngày",
-      "monthSpent": "Tháng này", "monthUpcoming": "Sắp tới", "won": "₫"
+      "monthSpent": "Tháng này", "monthUpcoming": "Sắp tới", "won": ""
     },
     "input": {
       "placeholder": "Starbucks 80k…", "send": "Gửi",
-      "retry": "Bạn viết lại nhé?", "tryAgain": "Vui lòng thử lại."
+      "retry": "Bạn viết lại nhé?", "tryAgain": "Vui lòng thử lại.",
+      "shortcuts": "Enter để gửi · Shift+Enter để xuống dòng",
+      "guideButton": "Viết thế nào? Xem hướng dẫn"
     },
     "messages": {
       "welcome": "Xin chào! Bắt đầu sổ chi tiêu nào 📒",
@@ -116,17 +93,81 @@
       "useMyLocationGps": "Dùng vị trí của tôi (GPS)", "moreAccurate": "Chính xác hơn (GPS)",
       "viewboxIp": "📍 Quanh {{label}} (±20km)",
       "viewboxGps": "📍 Quanh tôi (GPS, ±20km)",
-      "viewboxNationwide": "🌐 Tìm toàn quốc",
-      "viewboxDenied": "🌐 Tìm toàn quốc (đã từ chối vị trí)",
-      "viewboxUnsupported": "🌐 Tìm toàn quốc (trình duyệt không hỗ trợ)",
+      "viewboxNationwide": "🌐 Tìm toàn cầu",
+      "viewboxDenied": "🌐 Tìm toàn cầu (đã từ chối vị trí)",
+      "viewboxUnsupported": "🌐 Tìm toàn cầu (trình duyệt không hỗ trợ)",
       "noResults": "Không có kết quả. Đổi từ khoá hoặc để trống vị trí.",
-      "againGo": "Sẽ quay lại", "avoid": "Tránh", "normal": "Bình thường", "resetPin": "Chọn lại"
+      "againGo": "Sẽ quay lại", "avoid": "Tránh", "normal": "Bình thường", "resetPin": "Chọn lại",
+      "visitTitle": "Lần ghé thăm & đánh giá",
+      "rating": "{{n}}/5",
+      "addReview": "+ Thêm ghi chú ngắn",
+      "reviewPlaceholder": "Cảm nhận thế nào?",
+      "photo": "Ảnh", "photoUploading": "Đang tải lên…",
+      "photoTotal": "{{count}} ảnh"
     },
     "categories": {
       "식비": "Ăn uống", "카페/간식": "Cà phê & vặt", "쇼핑": "Mua sắm", "교통": "Di chuyển",
       "주거/공과금": "Nhà & tiện ích", "건강/뷰티": "Sức khoẻ & làm đẹp", "여행/이벤트": "Du lịch & sự kiện",
       "경조사/선물": "Quà & nghi lễ", "기타": "Khác"
     },
-    "reflect": { "monthly": "Theo tháng", "annual": "Theo năm" }
-  }
+    "calendar": {
+      "weekday": { "sun": "CN", "mon": "T2", "tue": "T3", "wed": "T4", "thu": "T5", "fri": "T6", "sat": "T7" },
+      "today": "Hôm nay",
+      "noEntries": "Tháng này chưa có ghi chép",
+      "noEntriesDay": "Không có ghi chép trong ngày này",
+      "monthYear": "{{month}}/{{year}}",
+      "planned": "Sắp tới", "dayTotal": "Tổng {{amount}} →",
+      "viewGrid": "Lịch", "viewList": "Danh sách",
+      "openDayMonth": "{{day}}/{{month}}",
+      "spentLine": "Đã chi {{spent}} · Sắp tới {{planned}}"
+    },
+    "reflect": {
+      "monthly": "Theo tháng", "annual": "Theo năm",
+      "noteTitle": "Ghi chú của tôi",
+      "noteHint": "Viết một lời hứa, nó sẽ hiện tự động trong tab Kế hoạch tháng sau",
+      "empty": "Chưa có nhìn lại",
+      "achieved": "Đạt!", "missed": "Chưa đạt",
+      "aiCoachTitle": "Insight từ AI",
+      "aiCoachSubtitle": "Nhìn tháng này một cách khách quan",
+      "aiAnalyzing": "Đang phân tích...", "aiRegenerate": "Tạo lại",
+      "aiStart": "Xem insight", "aiEmpty": "Bấm nút phía trên để bắt đầu",
+      "praise": "Điểm tốt", "concern": "Cần chú ý", "suggestion": "Đề xuất tháng tới",
+      "addToGoal": "Thêm vào lời hứa tháng sau",
+      "monthChange": "So với tháng trước",
+      "monthHeader": "Nhìn lại {{month}}/{{year}}",
+      "monthTotal": "Tổng {{amount}}",
+      "types": {
+        "regret":  { "label": "Tiếc nuối", "placeholder": "vd: tốn quá nhiều cho cà phê" },
+        "praise":  { "label": "Làm tốt",  "placeholder": "vd: dọn dẹp các gói đăng ký" },
+        "goal":    { "label": "Lời hứa",  "placeholder": "vd: cà phê dưới 500k" },
+        "insight": { "label": "Nhận ra", "placeholder": "vd: ăn ngoài nhiều thì cà phê cũng tăng" }
+      }
+    },
+    "balance": {
+      "title": "Bảng cân đối",
+      "income": "Thu nhập", "spent": "Chi tiêu", "planned": "Sắp tới",
+      "saving": "Tiết kiệm", "savingRate": "Tỷ lệ tiết kiệm",
+      "modeCurrent": "Tháng này", "modeNext": "Tháng tới",
+      "healthyTip": "💡 20%+ là tỷ lệ tiết kiệm tốt"
+    },
+    "entryEdit": {
+      "name": "Tên", "amount": "Số tiền", "date": "Ngày", "category": "Phân loại",
+      "save": "Lưu", "cancel": "Huỷ",
+      "namePlaceholder": "vd: cơm trưa kimbap",
+      "defaultName": "(không tên)",
+      "deleteConfirm": "Xoá \"{{name}}\"?"
+    }
+  },
+  "mypage": {
+    "title": "Trang của tôi",
+    "tabs": { "general": "Chung", "billing": "Thanh toán", "privacy": "Riêng tư", "location": "Vị trí", "export": "Xuất dữ liệu" },
+    "region": {
+      "title": "Khu vực / Ngôn ngữ / Tiền tệ",
+      "subtitle": "Đổi tiền tệ hiển thị và ngôn ngữ giao diện. Số liệu đã nhập không thay đổi.",
+      "country": "Quốc gia", "currency": "Tiền tệ", "language": "Ngôn ngữ",
+      "saved": "Đã lưu cài đặt khu vực.",
+      "applyDefaults": "Dùng mặc định của quốc gia đã chọn"
+    }
+  },
+  "appHeader": { "faq": "Hỏi đáp", "myAccount": "Tài khoản", "admin": "Admin", "logout": "Đăng xuất" }
 }

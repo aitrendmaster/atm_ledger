@@ -42,7 +42,10 @@ void i18n
       ms: { common: ms },
       hi: { common: hi },
     },
-    fallbackLng: 'ko',
+    // 현재 언어 → 영어 → 한국어 순으로 폴백. 영어 사용자가 한국어 폴백을 보지 않도록.
+    // 9개 언어 모두 핵심 UI 는 자연 번역돼 있고, 긴 문서(Pricing/Terms/Privacy/Refund) 는
+    // en 만 채우고 나머지 언어는 en 폴백을 의도한다.
+    fallbackLng: ['en', 'ko'],
     defaultNS: 'common',
     ns: ['common'],
     interpolation: { escapeValue: false },

@@ -1,38 +1,66 @@
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 export default function Privacy() {
+  const { t } = useTranslation()
+  const supportEmail = 'master@aitrend.kr'
   return (
-    <div className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-semibold mb-6">개인정보 처리방침</h1>
+    <div className="min-h-screen px-6 py-12 max-w-3xl mx-auto">
+      <h1 className="text-3xl font-semibold mb-6">{t('privacy.title')}</h1>
       <article className="prose prose-sm text-atm-ink space-y-4">
-        <p><strong>※ 본 문서는 초안 템플릿입니다. 정식 출시 전 개인정보보호위원회 표준 양식을 참고하여 작성·검토하세요.</strong></p>
+        <p>{t('privacy.intro')}</p>
 
-        <h2 className="font-semibold mt-6">1. 수집하는 개인정보 항목</h2>
+        <h2 className="font-semibold mt-6">{t('privacy.s1Title')}</h2>
         <ul className="list-disc pl-5">
-          <li>필수: 이메일, 비밀번호(해시), 닉네임(선택)</li>
-          <li>서비스 이용 중 생성: 지출 기록, 장소·사진·후기, 회고 텍스트</li>
-          <li>자동 수집: 접속 IP, 브라우저 정보, 쿠키, Google Analytics 트래픽 통계(쿠키 기반, 개인 식별 정보 없음)</li>
+          <li>{t('privacy.s1Required')}</li>
+          <li>{t('privacy.s1Generated')}</li>
+          <li>{t('privacy.s1Auto')}</li>
         </ul>
 
-        <h2 className="font-semibold mt-6">2. 이용 목적</h2>
+        <h2 className="font-semibold mt-6">{t('privacy.s2Title')}</h2>
         <ul className="list-disc pl-5">
-          <li>서비스 제공 및 회원 식별</li>
-          <li>AI 분류·인사이트 생성 (Anthropic Claude API에 익명화된 통계 형태로 전송)</li>
-          <li>장애 대응, 통계 분석</li>
+          <li>{t('privacy.s2a')}</li>
+          <li>{t('privacy.s2b')}</li>
+          <li>{t('privacy.s2c')}</li>
         </ul>
 
-        <h2 className="font-semibold mt-6">3. 보유 기간</h2>
-        <p>회원 탈퇴 시 즉시 파기. 단, 관련 법령에 의한 보존 의무가 있는 경우 해당 기간 동안 보관.</p>
+        <h2 className="font-semibold mt-6">{t('privacy.s3Title')}</h2>
+        <p>{t('privacy.s3Body')}</p>
 
-        <h2 className="font-semibold mt-6">4. 제3자 제공</h2>
-        <p>원칙적으로 제공하지 않습니다. 단, AI 처리 목적으로 Anthropic(미국)에 일부 텍스트가 전송될 수 있으며, 이는 미국 데이터센터에 일시 보관 후 폐기됩니다.</p>
+        <h2 className="font-semibold mt-6">{t('privacy.s4Title')}</h2>
+        <ul className="list-disc pl-5">
+          <li>{t('privacy.s4Anthropic')}</li>
+          <li>{t('privacy.s4Toss')}</li>
+          <li>{t('privacy.s4Paddle')}</li>
+          <li>{t('privacy.s4R2')}</li>
+          <li>{t('privacy.s4Ga')}</li>
+        </ul>
 
-        <h2 className="font-semibold mt-6">5. 이용자 권리</h2>
-        <p>회원은 언제든지 본인 정보 열람·수정·삭제·탈퇴를 요청할 수 있습니다.</p>
+        <h2 className="font-semibold mt-6">{t('privacy.s5Title')}</h2>
+        <p>{t('privacy.s5Body')}</p>
 
-        <h2 className="font-semibold mt-6">6. 개인정보 보호책임자</h2>
-        <p>이메일: master@aitrend.kr</p>
+        <h2 className="font-semibold mt-6">{t('privacy.s6Title')}</h2>
+        <p>{t('privacy.s6Body')}</p>
 
-        <p className="text-xs text-atm-muted mt-8">시행일: 2026-05-17 (초안)</p>
+        <h2 className="font-semibold mt-6">{t('privacy.s7Title')}</h2>
+        <p>{t('privacy.s7Body')}</p>
+
+        <h2 className="font-semibold mt-6">{t('privacy.s8Title')}</h2>
+        <p>
+          {t('privacy.s8Body')}{' '}
+          <a className="underline" href={`mailto:${supportEmail}`}>{supportEmail}</a>
+        </p>
+
+        <p className="text-xs text-atm-muted mt-8">{t('privacy.effective')}</p>
       </article>
+
+      <footer className="mt-12 pt-6 border-t border-stone-200 text-xs text-atm-muted flex flex-wrap gap-4">
+        <Link to="/" className="hover:text-atm-ink">{t('common.home')}</Link>
+        <Link to="/pricing" className="hover:text-atm-ink">{t('common.pricing')}</Link>
+        <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
+        <Link to="/refund" className="hover:text-atm-ink">{t('common.refund')}</Link>
+        <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
+      </footer>
     </div>
   )
 }

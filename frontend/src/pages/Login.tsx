@@ -61,6 +61,17 @@ export default function Login() {
           </Link>
         </div>
         <GoogleSignInButton />
+        <div className="pt-2 border-t border-stone-100 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-atm-muted justify-center">
+          <Link to="/pricing" className="hover:text-atm-ink">{t('common.pricing')}</Link>
+          <span>·</span>
+          <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
+          <span>·</span>
+          <Link to="/privacy" className="hover:text-atm-ink">{t('landing.footerPrivacy')}</Link>
+          <span>·</span>
+          <Link to="/refund" className="hover:text-atm-ink">{t('common.refund')}</Link>
+          <span>·</span>
+          <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
+        </div>
       </form>
     </div>
   )

@@ -2,27 +2,17 @@
   "app": { "name": "Moa AI 记账本" },
   "lang": { "label": "语言" },
   "common": {
-    "or": "或",
-    "cancel": "取消",
-    "save": "保存",
-    "loading": "加载中…",
-    "back": "返回",
-    "retry": "请稍后再试。"
+    "or": "或", "cancel": "取消", "save": "保存", "loading": "加载中…",
+    "back": "返回", "retry": "请稍后再试。",
+    "home": "首页", "pricing": "价格", "refund": "退款政策",
+    "edit": "编辑", "delete": "删除", "confirm": "确定"
   },
-  "nav": {
-    "myAccount": "我的账户",
-    "faq": "常见问题",
-    "admin": "Admin",
-    "logout": "退出登录"
-  },
+  "nav": { "myAccount": "我的账户", "faq": "常见问题", "admin": "Admin", "logout": "退出登录" },
   "landing": {
     "badge": "公测免费 — AI 记账",
-    "headline1": "像聊天一样记录,",
-    "headline2": "每月轻松复盘。",
+    "headline1": "像聊天一样记录,", "headline2": "每月轻松复盘。",
     "subtitle": "一句话就够了 —「星巴克 30 元」。AI 自动整理类别、金额和日期,每月给你温暖的复盘建议。",
-    "ctaPrimary": "免费开始",
-    "ctaLogin": "登录",
-    "ctaApp": "打开记账 →",
+    "ctaPrimary": "免费开始", "ctaLogin": "登录", "ctaApp": "打开记账 →",
     "uspHeading": "记账可以这么轻松。",
     "uspSubtitle": "每天一分钟,重新理解你的一个月。",
     "uspChatTitle": "一秒输入",
@@ -36,50 +26,34 @@
     "cta2Heading": "从这个月起,感觉就会不一样。",
     "cta2Subtitle": "30 秒注册。无需信用卡。公测期免费。",
     "footerTagline": "用聊天记录的 AI 记账本",
-    "footerTerms": "服务条款",
-    "footerPrivacy": "隐私政策"
+    "footerTerms": "服务条款", "footerPrivacy": "隐私政策"
   },
   "login": {
     "subtitle": "登录开始记账。",
-    "email": "邮箱",
-    "password8": "密码 (8 位以上)",
-    "submit": "登录",
-    "submitBusy": "登录中…",
-    "noAccount": "还没有账户?",
-    "signupLink": "注册",
-    "forgotLink": "忘记密码?",
-    "failed": "登录失败"
+    "email": "邮箱", "password8": "密码 (8 位以上)",
+    "submit": "登录", "submitBusy": "登录中…",
+    "noAccount": "还没有账户?", "signupLink": "注册",
+    "forgotLink": "忘记密码?", "failed": "登录失败"
   },
   "signup": {
-    "title": "创建账户",
-    "nickname": "昵称 (可选)",
-    "agreeStart": "我已阅读并同意",
-    "agreeTerms": "服务条款",
-    "agreeAnd": " 与 ",
-    "agreePrivacy": "隐私政策",
-    "agreeEnd": "。",
+    "title": "创建账户", "nickname": "昵称 (可选)",
+    "countryLabel": "居住国家",
+    "countryHint": "将根据所选国家自动设置语言与货币,可随时在「我的页面」修改。",
+    "agreeStart": "我已阅读并同意", "agreeTerms": "服务条款",
+    "agreeAnd": " 与 ", "agreePrivacy": "隐私政策", "agreeEnd": "。",
     "agreeRequired": "请先同意服务条款与隐私政策。",
-    "submit": "注册",
-    "submitBusy": "创建中…",
-    "hasAccount": "已有账户?",
-    "loginLink": "登录",
-    "failed": "注册失败"
+    "submit": "注册", "submitBusy": "创建中…",
+    "hasAccount": "已有账户?", "loginLink": "登录", "failed": "注册失败"
   },
   "forgot": {
-    "title": "重置密码",
-    "intro": "输入注册邮箱,我们将向您发送重置链接。",
+    "title": "重置密码", "intro": "输入注册邮箱,我们将向您发送重置链接。",
     "sent": "若该邮箱已注册,我们已发送重置说明。若未收到请查看垃圾邮件。链接有效期 1 小时。",
-    "submit": "发送重置邮件",
-    "submitBusy": "发送中…",
-    "backLogin": "返回登录",
-    "backLoginLink": "返回登录页"
+    "submit": "发送重置邮件", "submitBusy": "发送中…",
+    "backLogin": "返回登录", "backLoginLink": "返回登录页"
   },
   "reset": {
-    "title": "设置新密码",
-    "intro": "请输入 8 位以上的新密码。",
-    "newPassword": "新密码",
-    "submit": "修改密码",
-    "submitBusy": "保存中…",
+    "title": "设置新密码", "intro": "请输入 8 位以上的新密码。",
+    "newPassword": "新密码", "submit": "修改密码", "submitBusy": "保存中…",
     "invalid": "无效链接",
     "invalidDesc": "缺少重置令牌。请重新使用邮件中的链接。",
     "requestAgain": "重新发送重置邮件",
@@ -90,15 +64,17 @@
   "ledger": {
     "title": "我的记账本",
     "todayHint": "今天是 {{date}} · 慢慢来,坚持下去",
-    "tabs": { "chat": "聊天", "calendar": "日历", "place": "地点", "reflect": "复盘", "plan": "计划", "balance": "对账" },
+    "tabs": { "chat": "聊天", "calendar": "日历", "place": "地点", "places": "地点", "reflect": "复盘", "plan": "计划", "balance": "对账" },
     "stats": {
       "thisMonthFlow": "本月情况", "budget": "预算", "freeMoney": "可自由支配",
       "spent": "已花", "upcoming": "待支出", "dailyAvg": "日均",
-      "monthSpent": "本月", "monthUpcoming": "待支出", "won": "元"
+      "monthSpent": "本月", "monthUpcoming": "待支出", "won": ""
     },
     "input": {
       "placeholder": "星巴克 30…", "send": "发送",
-      "retry": "可以重写一下吗?", "tryAgain": "请再试一次。"
+      "retry": "可以重写一下吗?", "tryAgain": "请再试一次。",
+      "shortcuts": "Enter 发送 · Shift+Enter 换行",
+      "guideButton": "怎么写?查看示例"
     },
     "messages": {
       "welcome": "你好!一起开始记账吧 📒",
@@ -116,17 +92,76 @@
       "useMyLocationGps": "使用我的位置 (GPS)", "moreAccurate": "更精确 (GPS)",
       "viewboxIp": "📍 {{label}} 附近 (±20km)",
       "viewboxGps": "📍 我的位置附近 (GPS, ±20km)",
-      "viewboxNationwide": "🌐 全国搜索",
-      "viewboxDenied": "🌐 全国搜索 (位置权限被拒)",
-      "viewboxUnsupported": "🌐 全国搜索 (浏览器不支持)",
+      "viewboxNationwide": "🌐 全局搜索",
+      "viewboxDenied": "🌐 全局搜索 (位置权限被拒)",
+      "viewboxUnsupported": "🌐 全局搜索 (浏览器不支持)",
       "noResults": "没有结果。可换关键词或保留位置为空。",
-      "againGo": "还想去", "avoid": "不去了", "normal": "一般", "resetPin": "重新选位置"
+      "againGo": "还想去", "avoid": "不去了", "normal": "一般", "resetPin": "重新选位置",
+      "visitTitle": "到访记录 & 评论",
+      "rating": "{{n}} 分",
+      "addReview": "+ 添加一句点评",
+      "reviewPlaceholder": "这里怎么样?",
+      "photo": "照片", "photoUploading": "上传中…",
+      "photoTotal": "共 {{count}} 张照片"
     },
     "categories": {
       "식비": "餐饮", "카페/간식": "咖啡·零食", "쇼핑": "购物", "교통": "交通",
       "주거/공과금": "居家·水电", "건강/뷰티": "健康·美容", "여행/이벤트": "旅行·活动",
       "경조사/선물": "礼仪·礼物", "기타": "其他"
     },
-    "reflect": { "monthly": "月度复盘", "annual": "年度复盘" }
-  }
+    "calendar": {
+      "weekday": { "sun": "日", "mon": "一", "tue": "二", "wed": "三", "thu": "四", "fri": "五", "sat": "六" },
+      "today": "今天",
+      "noEntries": "本月暂无记录", "noEntriesDay": "这天没有记录",
+      "monthYear": "{{year}}年 {{month}}月", "planned": "待支出",
+      "dayTotal": "合计 {{amount}} →",
+      "viewGrid": "日历", "viewList": "列表",
+      "openDayMonth": "{{month}}月{{day}}日",
+      "spentLine": "已花 {{spent}} · 待支出 {{planned}}"
+    },
+    "reflect": {
+      "monthly": "月度复盘", "annual": "年度复盘",
+      "noteTitle": "我的复盘笔记",
+      "noteHint": "写下承诺,会自动出现在下月计划标签",
+      "empty": "还没有复盘记录", "achieved": "达成!", "missed": "未达成",
+      "aiCoachTitle": "AI 教练洞察", "aiCoachSubtitle": "客观回看一个月",
+      "aiAnalyzing": "分析中...", "aiRegenerate": "重新生成",
+      "aiStart": "查看洞察", "aiEmpty": "点击上方按钮开始分析",
+      "praise": "亮点", "concern": "需注意", "suggestion": "下月建议",
+      "addToGoal": "加入下月承诺", "monthChange": "对比上月",
+      "monthHeader": "{{year}}年 {{month}}月 复盘",
+      "monthTotal": "合计 {{amount}}",
+      "types": {
+        "regret":  { "label": "遗憾", "placeholder": "例如:咖啡花得太多" },
+        "praise":  { "label": "亮点", "placeholder": "例如:整理了订阅" },
+        "goal":    { "label": "下月承诺", "placeholder": "例如:咖啡控制在 200 以内" },
+        "insight": { "label": "心得", "placeholder": "例如:外食越多咖啡也越多" }
+      }
+    },
+    "balance": {
+      "title": "对账表",
+      "income": "收入", "spent": "支出", "planned": "待支出", "saving": "结余", "savingRate": "储蓄率",
+      "modeCurrent": "本月", "modeNext": "下月",
+      "healthyTip": "💡 20% 以上是健康的储蓄率"
+    },
+    "entryEdit": {
+      "name": "名称", "amount": "金额", "date": "日期", "category": "分类",
+      "save": "保存", "cancel": "取消",
+      "namePlaceholder": "例如:午餐紫菜包饭",
+      "defaultName": "(未命名)",
+      "deleteConfirm": "要删除「{{name}}」吗?"
+    }
+  },
+  "mypage": {
+    "title": "我的页面",
+    "tabs": { "general": "一般", "billing": "支付", "privacy": "隐私", "location": "位置", "export": "数据导出" },
+    "region": {
+      "title": "地区 / 语言 / 货币",
+      "subtitle": "更改记账显示的货币和界面语言。已有数据不会变。",
+      "country": "国家", "currency": "货币", "language": "语言",
+      "saved": "地区设置已保存。",
+      "applyDefaults": "应用所选国家的默认值"
+    }
+  },
+  "appHeader": { "faq": "常见问题", "myAccount": "我的账户", "admin": "Admin", "logout": "退出" }
 }

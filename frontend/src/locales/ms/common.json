@@ -2,27 +2,17 @@
   "app": { "name": "Buku Belanja Moa AI" },
   "lang": { "label": "Bahasa" },
   "common": {
-    "or": "atau",
-    "cancel": "Batal",
-    "save": "Simpan",
-    "loading": "Memuatkan…",
-    "back": "Kembali",
-    "retry": "Sila cuba semula sebentar lagi."
+    "or": "atau", "cancel": "Batal", "save": "Simpan", "loading": "Memuatkan…",
+    "back": "Kembali", "retry": "Sila cuba semula sebentar lagi.",
+    "home": "Utama", "pricing": "Harga", "refund": "Dasar Bayaran Balik",
+    "edit": "Edit", "delete": "Padam", "confirm": "OK"
   },
-  "nav": {
-    "myAccount": "Akaun saya",
-    "faq": "Soalan lazim",
-    "admin": "Admin",
-    "logout": "Log keluar"
-  },
+  "nav": { "myAccount": "Akaun saya", "faq": "Soalan lazim", "admin": "Admin", "logout": "Log keluar" },
   "landing": {
     "badge": "Beta percuma — buku belanja AI",
-    "headline1": "Catat seperti berbual,",
-    "headline2": "imbas kembali setiap bulan.",
+    "headline1": "Catat seperti berbual,", "headline2": "imbas kembali setiap bulan.",
     "subtitle": "Satu baris cukup — \"Starbucks 20\". AI mengatur kategori, jumlah dan tarikh, dan setiap bulan beri panduan hangat tentang tabiat anda.",
-    "ctaPrimary": "Mula percuma",
-    "ctaLogin": "Log masuk",
-    "ctaApp": "Buka buku belanja →",
+    "ctaPrimary": "Mula percuma", "ctaLogin": "Log masuk", "ctaApp": "Buka buku belanja →",
     "uspHeading": "Pengurusan belanja boleh jadi mudah.",
     "uspSubtitle": "Seminit sehari, pandangan baru sebulan.",
     "uspChatTitle": "Taip dalam sesaat",
@@ -36,50 +26,35 @@
     "cta2Heading": "Perbezaan terasa dari bulan pertama.",
     "cta2Subtitle": "30 saat untuk daftar. Tanpa kad kredit. Percuma semasa Beta.",
     "footerTagline": "Buku belanja AI berasaskan sembang",
-    "footerTerms": "Terma",
-    "footerPrivacy": "Privasi"
+    "footerTerms": "Terma", "footerPrivacy": "Privasi"
   },
   "login": {
     "subtitle": "Log masuk dan mula merekod.",
-    "email": "E-mel",
-    "password8": "Kata laluan (8 aksara ke atas)",
-    "submit": "Log masuk",
-    "submitBusy": "Sedang log masuk…",
-    "noAccount": "Belum ada akaun?",
-    "signupLink": "Daftar",
-    "forgotLink": "Terlupa kata laluan?",
-    "failed": "Log masuk gagal"
+    "email": "E-mel", "password8": "Kata laluan (8 aksara ke atas)",
+    "submit": "Log masuk", "submitBusy": "Sedang log masuk…",
+    "noAccount": "Belum ada akaun?", "signupLink": "Daftar",
+    "forgotLink": "Terlupa kata laluan?", "failed": "Log masuk gagal"
   },
   "signup": {
-    "title": "Cipta akaun",
-    "nickname": "Nama paparan (pilihan)",
-    "agreeStart": "Saya bersetuju dengan ",
-    "agreeTerms": "Terma",
-    "agreeAnd": " dan ",
-    "agreePrivacy": "Dasar Privasi",
-    "agreeEnd": ".",
+    "title": "Cipta akaun", "nickname": "Nama paparan (pilihan)",
+    "countryLabel": "Negara kediaman",
+    "countryHint": "Bahasa dan mata wang akan ditetapkan berdasarkan negara. Tukar bila-bila di Halaman Saya.",
+    "agreeStart": "Saya bersetuju dengan ", "agreeTerms": "Terma",
+    "agreeAnd": " dan ", "agreePrivacy": "Dasar Privasi", "agreeEnd": ".",
     "agreeRequired": "Sila persetujui Terma dan Dasar Privasi.",
-    "submit": "Daftar",
-    "submitBusy": "Mencipta…",
-    "hasAccount": "Sudah ada akaun?",
-    "loginLink": "Log masuk",
-    "failed": "Pendaftaran gagal"
+    "submit": "Daftar", "submitBusy": "Mencipta…",
+    "hasAccount": "Sudah ada akaun?", "loginLink": "Log masuk", "failed": "Pendaftaran gagal"
   },
   "forgot": {
-    "title": "Tetapkan semula kata laluan",
-    "intro": "Masukkan e-mel pendaftaran, kami akan hantar pautan.",
+    "title": "Tetapkan semula kata laluan", "intro": "Masukkan e-mel pendaftaran, kami akan hantar pautan.",
     "sent": "Jika e-mel ini berdaftar, kami telah menghantar arahan. Semak folder spam jika tiada. Pautan sah 1 jam.",
-    "submit": "Hantar e-mel",
-    "submitBusy": "Menghantar…",
-    "backLogin": "Kembali ke log masuk",
-    "backLoginLink": "Kembali ke log masuk"
+    "submit": "Hantar e-mel", "submitBusy": "Menghantar…",
+    "backLogin": "Kembali ke log masuk", "backLoginLink": "Kembali ke log masuk"
   },
   "reset": {
-    "title": "Tetapkan kata laluan baru",
-    "intro": "Minimum 8 aksara.",
+    "title": "Tetapkan kata laluan baru", "intro": "Minimum 8 aksara.",
     "newPassword": "Kata laluan baru",
-    "submit": "Tukar kata laluan",
-    "submitBusy": "Menyimpan…",
+    "submit": "Tukar kata laluan", "submitBusy": "Menyimpan…",
     "invalid": "Pautan tidak sah",
     "invalidDesc": "Token tetapan tiada. Sila gunakan pautan dari e-mel sekali lagi.",
     "requestAgain": "Hantar semula e-mel tetap semula",
@@ -90,15 +65,17 @@
   "ledger": {
     "title": "Buku belanja saya",
     "todayHint": "Hari ini {{date}} · perlahan dan konsisten",
-    "tabs": { "chat": "Sembang", "calendar": "Kalendar", "place": "Tempat", "reflect": "Imbas", "plan": "Rancang", "balance": "Baki" },
+    "tabs": { "chat": "Sembang", "calendar": "Kalendar", "place": "Tempat", "places": "Tempat", "reflect": "Imbas", "plan": "Rancang", "balance": "Baki" },
     "stats": {
       "thisMonthFlow": "Bulan ini", "budget": "Belanjawan", "freeMoney": "Boleh dibelanjakan",
       "spent": "Telah belanja", "upcoming": "Akan datang", "dailyAvg": "Purata harian",
-      "monthSpent": "Bulan ini", "monthUpcoming": "Akan datang", "won": "RM"
+      "monthSpent": "Bulan ini", "monthUpcoming": "Akan datang", "won": ""
     },
     "input": {
       "placeholder": "Starbucks 20…", "send": "Hantar",
-      "retry": "Boleh tulis semula?", "tryAgain": "Sila cuba lagi."
+      "retry": "Boleh tulis semula?", "tryAgain": "Sila cuba lagi.",
+      "shortcuts": "Enter hantar · Shift+Enter baris baru",
+      "guideButton": "Bagaimana menulis? Lihat panduan"
     },
     "messages": {
       "welcome": "Hai! Jom mula rekod belanja 📒",
@@ -116,17 +93,81 @@
       "useMyLocationGps": "Guna lokasi saya (GPS)", "moreAccurate": "Lebih tepat (GPS)",
       "viewboxIp": "📍 Sekitar {{label}} (±20km)",
       "viewboxGps": "📍 Sekitar saya (GPS, ±20km)",
-      "viewboxNationwide": "🌐 Carian seluruh negara",
-      "viewboxDenied": "🌐 Carian seluruh negara (lokasi ditolak)",
-      "viewboxUnsupported": "🌐 Carian seluruh negara (tidak disokong)",
+      "viewboxNationwide": "🌐 Carian global",
+      "viewboxDenied": "🌐 Carian global (lokasi ditolak)",
+      "viewboxUnsupported": "🌐 Carian global (tidak disokong)",
       "noResults": "Tiada hasil. Cuba kata lain atau biarkan kosong.",
-      "againGo": "Akan kembali", "avoid": "Elak", "normal": "Biasa", "resetPin": "Pilih semula"
+      "againGo": "Akan kembali", "avoid": "Elak", "normal": "Biasa", "resetPin": "Pilih semula",
+      "visitTitle": "Lawatan & ulasan",
+      "rating": "{{n}}/5",
+      "addReview": "+ Tambah ulasan ringkas",
+      "reviewPlaceholder": "Bagaimana tempatnya?",
+      "photo": "Foto", "photoUploading": "Memuat naik…",
+      "photoTotal": "{{count}} foto"
     },
     "categories": {
       "식비": "Makanan", "카페/간식": "Kafe & snek", "쇼핑": "Membeli-belah", "교통": "Pengangkutan",
       "주거/공과금": "Rumah & utiliti", "건강/뷰티": "Kesihatan & kecantikan", "여행/이벤트": "Pelancongan & acara",
       "경조사/선물": "Majlis & hadiah", "기타": "Lain-lain"
     },
-    "reflect": { "monthly": "Bulanan", "annual": "Tahunan" }
-  }
+    "calendar": {
+      "weekday": { "sun": "Ahd", "mon": "Isn", "tue": "Sel", "wed": "Rab", "thu": "Kha", "fri": "Jum", "sat": "Sab" },
+      "today": "Hari ini",
+      "noEntries": "Belum ada rekod bulan ini",
+      "noEntriesDay": "Tiada rekod pada hari ini",
+      "monthYear": "{{month}}/{{year}}",
+      "planned": "Akan datang", "dayTotal": "Jumlah {{amount}} →",
+      "viewGrid": "Grid", "viewList": "Senarai",
+      "openDayMonth": "{{day}}/{{month}}",
+      "spentLine": "Telah belanja {{spent}} · Akan datang {{planned}}"
+    },
+    "reflect": {
+      "monthly": "Bulanan", "annual": "Tahunan",
+      "noteTitle": "Nota imbas saya",
+      "noteHint": "Tulis janji, akan muncul automatik di tab Rancang bulan depan",
+      "empty": "Belum ada imbas kembali",
+      "achieved": "Tercapai!", "missed": "Tidak capai",
+      "aiCoachTitle": "Pandangan jurulatih AI",
+      "aiCoachSubtitle": "Imbas semula bulan secara objektif",
+      "aiAnalyzing": "Menganalisis...", "aiRegenerate": "Jana semula",
+      "aiStart": "Lihat pandangan", "aiEmpty": "Tekan butang di atas untuk mula",
+      "praise": "Yang baik", "concern": "Yang perlu jaga", "suggestion": "Cadangan bulan depan",
+      "addToGoal": "Tambah ke janji bulan depan",
+      "monthChange": "Berbanding bulan lepas",
+      "monthHeader": "Imbas {{month}}/{{year}}",
+      "monthTotal": "Jumlah {{amount}}",
+      "types": {
+        "regret":  { "label": "Kekesalan", "placeholder": "cth: terlalu banyak untuk kopi" },
+        "praise":  { "label": "Kejayaan",  "placeholder": "cth: kemas langganan" },
+        "goal":    { "label": "Janji",     "placeholder": "cth: kopi bawah RM200" },
+        "insight": { "label": "Sedaran",   "placeholder": "cth: makan luar buat kopi naik" }
+      }
+    },
+    "balance": {
+      "title": "Penyata baki",
+      "income": "Pendapatan", "spent": "Perbelanjaan", "planned": "Akan datang",
+      "saving": "Simpanan", "savingRate": "Kadar simpanan",
+      "modeCurrent": "Bulan ini", "modeNext": "Bulan depan",
+      "healthyTip": "💡 20%+ adalah kadar simpanan sihat"
+    },
+    "entryEdit": {
+      "name": "Nama", "amount": "Jumlah", "date": "Tarikh", "category": "Kategori",
+      "save": "Simpan", "cancel": "Batal",
+      "namePlaceholder": "cth: makan tengah hari kimbap",
+      "defaultName": "(tanpa nama)",
+      "deleteConfirm": "Padam \"{{name}}\"?"
+    }
+  },
+  "mypage": {
+    "title": "Halaman saya",
+    "tabs": { "general": "Umum", "billing": "Pembayaran", "privacy": "Privasi", "location": "Lokasi", "export": "Eksport data" },
+    "region": {
+      "title": "Wilayah / Bahasa / Mata wang",
+      "subtitle": "Tukar mata wang paparan dan bahasa antara muka. Nombor sedia ada kekal sama.",
+      "country": "Negara", "currency": "Mata wang", "language": "Bahasa",
+      "saved": "Tetapan wilayah disimpan.",
+      "applyDefaults": "Guna lalai negara yang dipilih"
+    }
+  },
+  "appHeader": { "faq": "Soalan", "myAccount": "Akaun", "admin": "Admin", "logout": "Keluar" }
 }

@@ -1,8 +1,9 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk'
+import { useTranslation } from 'react-i18next'
 import {
   ArrowLeft,
   CreditCard,
@@ -19,6 +20,13 @@ import {
 import { authApi, meApi } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
 import AppHeader from '../components/AppHeader'
+import i18n, { SUPPORTED_LOCALES } from '../i18n'
+import {
+  COUNTRY_LIST,
+  SUPPORTED_CURRENCIES,
+  countryDefaults,
+} from '../constants/countries'
+import { formatCurrency } from '../utils/currency'
 
 type Tab = 'general' | 'billing' | 'privacy' | 'location' | 'export'
 
@@ -30,9 +38,10 @@ const TABS: { key: Tab; label: string; icon: typeof UserIcon }[] = [
   { key: 'export', label: '데이터 내보내기', icon: Download },
 ]
 
-const won = (n: number) => `${n.toLocaleString('ko-KR')}원`
+// 사용자 통화 기반 포맷. user.currency_code 가 없으면 KRW 폴백.
+const wonFor = (n: number, code?: string) => formatCurrency(n, code || 'KRW')
 const fmtDate = (s: string | null | undefined) =>
-  s ? new Date(s).toLocaleDateString('ko-KR') : '—'
+  s ? new Date(s).toLocaleDateString() : '—'
 
 export default function MyPage() {
   const { user, signout, refresh } = useAuth()
@@ -127,6 +136,7 @@ function GeneralTab({
   refresh: () => Promise<void>
   queryClient: ReturnType<typeof useQueryClient>
 }) {
+  const { t } = useTranslation()
   const [fullName, setFullName] = useState('')
   const [displayName, setDisplayName] = useState('')
   const [monthlyIncome, setMonthlyIncome] = useState(0)
@@ -239,7 +249,7 @@ function GeneralTab({
               onChange={(e) => setMonthlyIncome(Number(e.target.value) || 0)}
               className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
             />
-            <span className="text-[10px] text-atm-muted">{won(monthlyIncome)}</span>
+            <span className="text-[10px] text-atm-muted">{wonFor(monthlyIncome, user.currency_code)}</span>
           </label>
           <label className="block">
             <span className="text-xs text-atm-muted">월 예산 (원)</span>
@@ -250,7 +260,7 @@ function GeneralTab({
               onChange={(e) => setMonthlyBudget(Number(e.target.value) || 0)}
               className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-atm-accent"
             />
-            <span className="text-[10px] text-atm-muted">{won(monthlyBudget)}</span>
+            <span className="text-[10px] text-atm-muted">{wonFor(monthlyBudget, user.currency_code)}</span>
           </label>
         </div>
         <button
@@ -261,6 +271,8 @@ function GeneralTab({
           {profileBusy ? '저장 중…' : '프로필 저장'}
         </button>
       </form>
+
+      <RegionSection user={user} refresh={refresh} />
 
       <form
         onSubmit={changePw}
@@ -918,5 +930,127 @@ function DangerZone({ email, onDeleted }: { email: string; onDeleted: () => void
         <Trash2 size={13} /> 탈퇴
       </button>
     </div>
+  )
+}
+
+// =================== 지역화 (국가 / 통화 / 언어) ===================
+
+function RegionSection({
+  user,
+  refresh,
+}: {
+  user: any
+  refresh: () => Promise<void>
+}) {
+  const { t, i18n: i18nInst } = useTranslation()
+  const [country, setCountry] = useState<string>(user.country_code || 'KR')
+  const [currency, setCurrency] = useState<string>(user.currency_code || 'KRW')
+  const [locale, setLocale] = useState<string>(user.locale || 'ko')
+  const [busy, setBusy] = useState(false)
+
+  useEffect(() => {
+    setCountry(user.country_code || 'KR')
+    setCurrency(user.currency_code || 'KRW')
+    setLocale(user.locale || 'ko')
+  }, [user.country_code, user.currency_code, user.locale])
+
+  const useKoreanLabel = i18nInst.language?.startsWith('ko')
+  const countryOptions = useMemo(
+    () =>
+      [...COUNTRY_LIST]
+        .map((c) => ({ code: c.code, label: useKoreanLabel ? c.nameKo : c.nameEn }))
+        .sort((a, b) => a.label.localeCompare(b.label, useKoreanLabel ? 'ko' : 'en')),
+    [useKoreanLabel],
+  )
+
+  const applyDefaults = () => {
+    const d = countryDefaults(country)
+    setCurrency(d.currency_code)
+    setLocale(d.locale)
+  }
+
+  const save = async (e: FormEvent) => {
+    e.preventDefault()
+    setBusy(true)
+    try {
+      await authApi.updateMe({
+        country_code: country,
+        currency_code: currency,
+        locale,
+      })
+      await refresh()
+      if (i18n.language !== locale) await i18n.changeLanguage(locale)
+      toast.success(t('mypage.region.saved'))
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || 'Save failed')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <form
+      onSubmit={save}
+      className="bg-white border border-stone-200 rounded-2xl p-5 space-y-3"
+    >
+      <h2 className="text-sm font-semibold text-atm-muted uppercase tracking-wide flex items-center gap-2">
+        <Globe2 size={14} /> {t('mypage.region.title')}
+      </h2>
+      <p className="text-xs text-atm-muted">{t('mypage.region.subtitle')}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <label className="block">
+          <span className="text-xs text-atm-muted">{t('mypage.region.country')}</span>
+          <select
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm bg-white focus:outline-none focus:border-atm-accent"
+          >
+            {countryOptions.map((c) => (
+              <option key={c.code} value={c.code}>{c.label} ({c.code})</option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          <span className="text-xs text-atm-muted">{t('mypage.region.currency')}</span>
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm bg-white focus:outline-none focus:border-atm-accent"
+          >
+            {[...SUPPORTED_CURRENCIES].sort().map((cur) => (
+              <option key={cur} value={cur}>{cur}</option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          <span className="text-xs text-atm-muted">{t('mypage.region.language')}</span>
+          <select
+            value={locale}
+            onChange={(e) => setLocale(e.target.value)}
+            className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm bg-white focus:outline-none focus:border-atm-accent"
+          >
+            {SUPPORTED_LOCALES.map((l) => (
+              <option key={l.code} value={l.code}>{l.name}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          type="submit"
+          disabled={busy}
+          className="px-4 py-2 bg-atm-accent text-white rounded-lg text-sm disabled:opacity-50"
+        >
+          {busy ? '...' : t('common.save')}
+        </button>
+        <button
+          type="button"
+          onClick={applyDefaults}
+          className="px-3 py-2 border border-stone-200 text-atm-muted rounded-lg text-xs hover:bg-stone-50"
+        >
+          {t('mypage.region.applyDefaults')}
+        </button>
+      </div>
+    </form>
   )
 }

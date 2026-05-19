@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut } from 'lucide-react';
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { absolutizePhotoUrl } from '../services/ledgerMappers';
+import { currencySymbol, formatCurrency } from '../utils/currency';
 import { useAuth } from '../hooks/useAuth';
 import {
   useEntries, usePlanned, useReflections,
@@ -28,6 +29,11 @@ const CATEGORIES = {
 export default function ChatLedger() {
   const { t } = useTranslation();
   const { user } = useAuth();
+  // 사용자 통화. 신규 사용자는 가입 시 country_code 로부터 자동 설정됨. 기본 KRW.
+  const currency = user?.currency_code || 'KRW';
+  const cur = currencySymbol(currency);
+  // 금액 + 통화 심볼 ("10,000원" 또는 "$10,000")
+  const fmtAmt = (n) => formatCurrency(Number(n) || 0, currency);
 
   // ===== 서버 영속 상태 (TanStack Query) =====
   const { data: entries = [] } = useEntries();
@@ -463,7 +469,7 @@ export default function ChatLedger() {
     setEditingDayItem(null);
   };
   const removeDayItem = (item, kind) => {
-    if (!window.confirm(`"${item.description}" 항목을 삭제할까?`)) return;
+    if (!window.confirm(t('ledger.entryEdit.deleteConfirm', { name: item.description }))) return;
     if (kind === 'planned') {
       deletePlanned(item.id);
     } else {
@@ -482,10 +488,10 @@ export default function ChatLedger() {
   const deleteReflection = (id) => deleteReflectionMut.mutate(id);
 
   const REFLECT_TYPES = {
-    regret: { label: '아쉬운 점', icon: TrendingDown, color: '#E07856', bg: '#FDF0EA', placeholder: '예: 카페에 너무 많이 썼어' },
-    praise: { label: '잘한 점', icon: ThumbsUp, color: '#6B8E6B', bg: '#E8EEE6', placeholder: '예: 구독 정리 잘했음' },
-    goal: { label: '다음달 약속', icon: Target, color: '#8B5A8C', bg: '#F0E6F1', placeholder: '예: 카페 5만원 이하로 줄이기' },
-    insight: { label: '깨달음', icon: Lightbulb, color: '#A0633C', bg: '#F5E9DD', placeholder: '예: 외식 많을수록 카페도 늘어' },
+    regret: { label: t('ledger.reflect.types.regret.label'),   icon: TrendingDown, color: '#E07856', bg: '#FDF0EA', placeholder: t('ledger.reflect.types.regret.placeholder') },
+    praise: { label: t('ledger.reflect.types.praise.label'),   icon: ThumbsUp,     color: '#6B8E6B', bg: '#E8EEE6', placeholder: t('ledger.reflect.types.praise.placeholder') },
+    goal:   { label: t('ledger.reflect.types.goal.label'),     icon: Target,       color: '#8B5A8C', bg: '#F0E6F1', placeholder: t('ledger.reflect.types.goal.placeholder') },
+    insight:{ label: t('ledger.reflect.types.insight.label'),  icon: Lightbulb,    color: '#A0633C', bg: '#F5E9DD', placeholder: t('ledger.reflect.types.insight.placeholder') },
   };
 
   const monthReflections = reflections.filter(r => r.month === selectedMonth);
@@ -662,12 +668,12 @@ export default function ChatLedger() {
               </div>
               <div className="text-xs opacity-60 mb-1 flex items-center gap-1"><Wallet size={11} /> 자유롭게 쓸 수 있는 돈</div>
               <div className="text-4xl font-bold" style={{ color: trulyFree < 0 ? '#FFB18C' : '#FFFDF8' }}>
-                {Math.max(0, trulyFree).toLocaleString()}<span className="text-xl opacity-60 ml-1">원</span>
+                {Math.max(0, trulyFree).toLocaleString()}<span className="text-xl opacity-60 ml-1">{cur}</span>
               </div>
               {showBudgetEdit && (
                 <div className="my-3 space-y-2">
                   <div className="flex items-center gap-2 p-2 rounded-xl" style={{ backgroundColor: 'rgba(255,253,248,0.1)' }}>
-                    <span className="text-xs opacity-60 w-10">수입</span>
+                    <span className="text-xs opacity-60 w-10">{t('ledger.balance.income')}</span>
                     <input
                       type="number"
                       value={incomeDraft}
@@ -679,10 +685,10 @@ export default function ChatLedger() {
                       className="flex-1 bg-transparent outline-none text-sm"
                       style={{ color: '#FFFDF8' }}
                     />
-                    <span className="text-xs opacity-60">원</span>
+                    <span className="text-xs opacity-60">{cur}</span>
                   </div>
                   <div className="flex items-center gap-2 p-2 rounded-xl" style={{ backgroundColor: 'rgba(255,253,248,0.1)' }}>
-                    <span className="text-xs opacity-60 w-10">예산</span>
+                    <span className="text-xs opacity-60 w-10">{t('ledger.stats.budget')}</span>
                     <input
                       type="number"
                       value={budgetDraft}
@@ -694,16 +700,16 @@ export default function ChatLedger() {
                       className="flex-1 bg-transparent outline-none text-sm"
                       style={{ color: '#FFFDF8' }}
                     />
-                    <span className="text-xs opacity-60">원</span>
+                    <span className="text-xs opacity-60">{cur}</span>
                   </div>
                 </div>
               )}
               <div className="mt-5 space-y-2 text-xs">
-                <div className="flex justify-between opacity-80"><span>예산</span><span className="tabular-nums">{budget.toLocaleString()}원</span></div>
-                <div className="flex justify-between opacity-80"><span>사용</span><span className="tabular-nums">- {monthTotal.toLocaleString()}원</span></div>
+                <div className="flex justify-between opacity-80"><span>{t('ledger.stats.budget')}</span><span className="tabular-nums">{budget.toLocaleString()} {cur}</span></div>
+                <div className="flex justify-between opacity-80"><span>{t('ledger.stats.spent')}</span><span className="tabular-nums">- {monthTotal.toLocaleString()} {cur}</span></div>
                 <div className="flex justify-between opacity-80">
-                  <span className="flex items-center gap-1"><Clock size={10} /> 예정 ({upcomingThisMonth.length})</span>
-                  <span className="tabular-nums" style={{ color: '#FFB18C' }}>- {upcomingTotal.toLocaleString()}원</span>
+                  <span className="flex items-center gap-1"><Clock size={10} /> {t('ledger.stats.upcoming')} ({upcomingThisMonth.length})</span>
+                  <span className="tabular-nums" style={{ color: '#FFB18C' }}>- {upcomingTotal.toLocaleString()} {cur}</span>
                 </div>
               </div>
               <div className="mt-4 h-3 rounded-full overflow-hidden flex" style={{ backgroundColor: 'rgba(255,253,248,0.15)' }}>
@@ -715,11 +721,11 @@ export default function ChatLedger() {
             {/* 탭 — 5개 */}
             <div className="flex gap-1 p-1 rounded-2xl overflow-x-auto" style={{ backgroundColor: '#EDE6D8' }}>
               {[
-                { id: 'calendar', label: '캘린더', icon: Calendar },
-                { id: 'places', label: '장소', icon: MapPin },
-                { id: 'reflect', label: '회고', icon: PenLine },
-                { id: 'plan', label: '계획', icon: Compass },
-                { id: 'balance', label: '대차표', icon: BarChart3 },
+                { id: 'calendar', icon: Calendar },
+                { id: 'places',   icon: MapPin },
+                { id: 'reflect',  icon: PenLine },
+                { id: 'plan',     icon: Compass },
+                { id: 'balance',  icon: BarChart3 },
               ].map(tab => (
                 <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                   className="flex-1 py-2 px-1 rounded-xl text-[11px] lg:text-xs font-medium transition-all whitespace-nowrap flex items-center justify-center gap-1"
@@ -729,7 +735,7 @@ export default function ChatLedger() {
                     boxShadow: activeTab === tab.id ? '0 1px 2px rgba(44, 36, 24, 0.06)' : 'none',
                   }}>
                   <tab.icon size={11} />
-                  {tab.label}
+                  {t(`ledger.tabs.${tab.id}`)}
                 </button>
               ))}
             </div>
@@ -846,7 +852,7 @@ export default function ChatLedger() {
                                 <span className="text-xs" style={{ color: dt.getDay() === 0 ? '#E07856' : dt.getDay() === 6 ? '#5B7C99' : '#7A7567' }}>{dayOfWeek}</span>
                                 {isToday && <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: '#F5E9DD', color: '#A0633C' }}>오늘</span>}
                               </div>
-                              <span className="text-xs tabular-nums" style={{ color: '#7A7567' }}>합 {dayTotal.toLocaleString()}원 →</span>
+                              <span className="text-xs tabular-nums" style={{ color: '#7A7567' }}>합 {dayTotal.toLocaleString()} {cur} →</span>
                             </button>
                             <div className="space-y-1">
                               {items.map(item => {
@@ -877,7 +883,7 @@ export default function ChatLedger() {
                                       </div>
                                     </div>
                                     <span className="text-xs font-semibold tabular-nums" style={{ color: isPlanned ? '#A0633C' : '#2C2418' }}>
-                                      {item.amount.toLocaleString()}원
+                                      {item.amount.toLocaleString()} {cur}
                                     </span>
                                   </button>
                                 );
@@ -928,7 +934,7 @@ export default function ChatLedger() {
                               {p.mood === 'avoid' && <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: '#FDF0EA', color: '#E07856' }}>안 갈래</span>}
                             </div>
                             <div className="text-xs mt-0.5 flex items-center gap-2" style={{ color: '#7A7567' }}>
-                              <span>{p.visitCount}회 · {p.totalSpent.toLocaleString()}원</span>
+                              <span>{p.visitCount}회 · {p.totalSpent.toLocaleString()} {cur}</span>
                               {p.avgRating > 0 && <span className="flex items-center gap-0.5"><Star size={10} fill="#E0A856" stroke="#E0A856" />{p.avgRating.toFixed(1)}</span>}
                             </div>
                           </div>
@@ -967,7 +973,7 @@ export default function ChatLedger() {
                           {selectedMonth.split('-')[0]}년 {parseInt(selectedMonth.split('-')[1])}월 회고
                         </div>
                         <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>
-                          총 {getMonthData(selectedMonth).total.toLocaleString()}원
+                          총 {getMonthData(selectedMonth).total.toLocaleString()} {cur}
                         </div>
                       </div>
                       <button onClick={() => {
@@ -1048,11 +1054,11 @@ export default function ChatLedger() {
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-baseline">
-                                  <span className="text-sm font-medium" style={{ color: '#2C2418' }}>{c.category}</span>
-                                  <span className="text-sm tabular-nums" style={{ color: '#2C2418' }}>{c.current.toLocaleString()}원</span>
+                                  <span className="text-sm font-medium" style={{ color: '#2C2418' }}>{t(`ledger.categories.${c.category}`, c.category)}</span>
+                                  <span className="text-sm tabular-nums" style={{ color: '#2C2418' }}>{c.current.toLocaleString()} {cur}</span>
                                 </div>
                                 <div className="flex items-center gap-2 mt-0.5">
-                                  <span className="text-[10px]" style={{ color: '#7A7567' }}>지난달 {c.prev.toLocaleString()}원</span>
+                                  <span className="text-[10px]" style={{ color: '#7A7567' }}>지난달 {c.prev.toLocaleString()} {cur}</span>
                                   {c.pct !== null && Math.abs(c.pct) >= 5 && (
                                     <span className="text-[10px] px-1.5 py-0.5 rounded-full flex items-center gap-0.5" style={{
                                       backgroundColor: isIncrease ? '#FDF0EA' : '#E8EEE6',
@@ -1140,7 +1146,7 @@ export default function ChatLedger() {
                     <div className="rounded-3xl p-6" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
                       <h3 className="text-sm font-medium mb-1" style={{ color: '#2C2418' }}>지난 12개월 한눈에</h3>
                       <p className="text-xs mb-4" style={{ color: '#7A7567' }}>
-                        총 {annualData.yearTotal.toLocaleString()}원 · 월평균 {annualData.yearAvg.toLocaleString()}원
+                        총 {annualData.yearTotal.toLocaleString()} {cur} · 월평균 {annualData.yearAvg.toLocaleString()} {cur}
                       </p>
                       <div className="flex items-end gap-1 h-32 mb-3">
                         {annualData.months.map((m, i) => {
@@ -1167,12 +1173,12 @@ export default function ChatLedger() {
                               <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FDF0EA' }}>
                                 <div className="text-[10px]" style={{ color: '#E07856' }}>제일 많이 쓴 달</div>
                                 <div className="text-base font-bold mt-0.5" style={{ color: '#2C2418' }}>{max.year}년 {max.month}월</div>
-                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{max.total.toLocaleString()}원</div>
+                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{max.total.toLocaleString()} {cur}</div>
                               </div>
                               <div className="p-3 rounded-2xl" style={{ backgroundColor: '#E8EEE6' }}>
                                 <div className="text-[10px]" style={{ color: '#6B8E6B' }}>가장 절약한 달</div>
                                 <div className="text-base font-bold mt-0.5" style={{ color: '#2C2418' }}>{min.year}년 {min.month}월</div>
-                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{min.total.toLocaleString()}원</div>
+                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{min.total.toLocaleString()} {cur}</div>
                               </div>
                             </>
                           );
@@ -1195,10 +1201,10 @@ export default function ChatLedger() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-baseline">
                                   <div className="flex items-center gap-1.5">
-                                    <span className="text-sm font-medium" style={{ color: '#2C2418' }}>{cat}</span>
-                                    <span className="text-[10px]" style={{ color: '#7A7567' }}>월평균 {monthly.toLocaleString()}원</span>
+                                    <span className="text-sm font-medium" style={{ color: '#2C2418' }}>{t(`ledger.categories.${cat}`, cat)}</span>
+                                    <span className="text-[10px]" style={{ color: '#7A7567' }}>{monthly.toLocaleString()} {cur}</span>
                                   </div>
-                                  <span className="text-sm font-medium tabular-nums" style={{ color: '#2C2418' }}>{total.toLocaleString()}원</span>
+                                  <span className="text-sm font-medium tabular-nums" style={{ color: '#2C2418' }}>{total.toLocaleString()} {cur}</span>
                                 </div>
                                 <div className="h-1.5 rounded-full overflow-hidden mt-1" style={{ backgroundColor: '#F5F1EA' }}>
                                   <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: CATEGORIES[cat].color }} />
@@ -1252,21 +1258,21 @@ export default function ChatLedger() {
                     <div className="p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
                       <div className="text-[10px]" style={{ color: '#7A7567' }}>현재 사용</div>
                       <div className="text-lg font-bold tabular-nums" style={{ color: '#2C2418' }}>
-                        {(planMode === 'current' ? balanceSheet.totalSpent : 0).toLocaleString()}<span className="text-xs opacity-60">원</span>
+                        {(planMode === 'current' ? balanceSheet.totalSpent : 0).toLocaleString()}<span className="text-xs opacity-60">{cur}</span>
                       </div>
                     </div>
                     <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FFF8EC' }}>
                       <div className="text-[10px]" style={{ color: '#A0633C' }}>예정</div>
                       <div className="text-lg font-bold tabular-nums" style={{ color: '#A0633C' }}>
-                        {balanceSheet.totalPlanned.toLocaleString()}<span className="text-xs opacity-60">원</span>
+                        {balanceSheet.totalPlanned.toLocaleString()}<span className="text-xs opacity-60">{cur}</span>
                       </div>
                     </div>
                   </div>
                   <div className="p-4 rounded-2xl" style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
                     <div className="text-[10px] opacity-60 mb-1">총 예상 지출</div>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-2xl font-bold">{balanceSheet.totalProjected.toLocaleString()}<span className="text-sm opacity-60">원</span></span>
-                      <span className="text-xs opacity-60">/ 예산 {budget.toLocaleString()}원</span>
+                      <span className="text-2xl font-bold">{balanceSheet.totalProjected.toLocaleString()}<span className="text-sm opacity-60">{cur}</span></span>
+                      <span className="text-xs opacity-60">/ 예산 {budget.toLocaleString()} {cur}</span>
                     </div>
                     <div className="h-2 rounded-full overflow-hidden mt-2" style={{ backgroundColor: 'rgba(255,253,248,0.15)' }}>
                       <div className="h-full rounded-full" style={{
@@ -1276,7 +1282,7 @@ export default function ChatLedger() {
                     </div>
                     {balanceSheet.totalProjected > budget && (
                       <div className="text-[10px] mt-2 flex items-center gap-1" style={{ color: '#FFB18C' }}>
-                        <AlertCircle size={10} /> {(balanceSheet.totalProjected - budget).toLocaleString()}원 초과 예상
+                        <AlertCircle size={10} /> {(balanceSheet.totalProjected - budget).toLocaleString()} {cur} 초과 예상
                       </div>
                     )}
                   </div>
@@ -1316,7 +1322,7 @@ export default function ChatLedger() {
                   <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: '#6B8E6B', borderColor: '#E8EEE6' }}>📈 수입</div>
                   <div className="flex justify-between py-2 px-3 rounded-xl" style={{ backgroundColor: '#E8EEE6' }}>
                     <span className="text-sm" style={{ color: '#2C2418' }}>월급</span>
-                    <span className="text-sm font-semibold tabular-nums" style={{ color: '#6B8E6B' }}>+ {income.toLocaleString()}원</span>
+                    <span className="text-sm font-semibold tabular-nums" style={{ color: '#6B8E6B' }}>+ {income.toLocaleString()} {cur}</span>
                   </div>
                 </div>
 
@@ -1327,15 +1333,15 @@ export default function ChatLedger() {
                       const Icon = CATEGORIES[cat].icon;
                       return (
                         <div key={cat} className="flex justify-between py-1.5 px-3 rounded-xl items-center" style={{ backgroundColor: '#FAF7F0' }}>
-                          <div className="flex items-center gap-2"><Icon size={12} style={{ color: CATEGORIES[cat].color }} /><span className="text-sm" style={{ color: '#2C2418' }}>{cat}</span></div>
-                          <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {amount.toLocaleString()}원</span>
+                          <div className="flex items-center gap-2"><Icon size={12} style={{ color: CATEGORIES[cat].color }} /><span className="text-sm" style={{ color: '#2C2418' }}>{t(`ledger.categories.${cat}`, cat)}</span></div>
+                          <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {amount.toLocaleString()} {cur}</span>
                         </div>
                       );
                     })}
                   </div>
                   <div className="flex justify-between mt-2 py-2 px-3 rounded-xl font-medium" style={{ backgroundColor: '#FDF0EA' }}>
                     <span className="text-sm" style={{ color: '#2C2418' }}>지출 소계</span>
-                    <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {thisMonthData.total.toLocaleString()}원</span>
+                    <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {thisMonthData.total.toLocaleString()} {cur}</span>
                   </div>
                 </div>
 
@@ -1344,7 +1350,7 @@ export default function ChatLedger() {
                     <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: '#A0633C', borderColor: '#F5E9DD' }}>⏰ 예정된 지출</div>
                     <div className="flex justify-between py-2 px-3 rounded-xl" style={{ backgroundColor: '#FFF8EC' }}>
                       <span className="text-sm" style={{ color: '#2C2418' }}>이번 달 예정 ({upcomingThisMonth.length}건)</span>
-                      <span className="text-sm tabular-nums" style={{ color: '#A0633C' }}>- {upcomingTotal.toLocaleString()}원</span>
+                      <span className="text-sm tabular-nums" style={{ color: '#A0633C' }}>- {upcomingTotal.toLocaleString()} {cur}</span>
                     </div>
                   </div>
                 )}
@@ -1353,7 +1359,7 @@ export default function ChatLedger() {
                   <div className="text-xs font-medium mb-2" style={{ color: '#2C2418' }}>= 순익 (수입 - 지출 - 예정)</div>
                   <div className="p-4 rounded-2xl text-center" style={{ backgroundColor: (income - monthTotal - upcomingTotal) > 0 ? '#E8EEE6' : '#FDF0EA' }}>
                     <div className="text-3xl font-bold tabular-nums" style={{ color: (income - monthTotal - upcomingTotal) > 0 ? '#6B8E6B' : '#E07856' }}>
-                      {(income - monthTotal - upcomingTotal).toLocaleString()}<span className="text-base opacity-60 ml-1">원</span>
+                      {(income - monthTotal - upcomingTotal).toLocaleString()}<span className="text-base opacity-60 ml-1">{cur}</span>
                     </div>
                     <div className="text-xs mt-1" style={{ color: '#7A7567' }}>
                       {(income - monthTotal - upcomingTotal) > 0 ? '저축 가능 금액' : '추가 수입이 필요해'}
@@ -1393,7 +1399,7 @@ export default function ChatLedger() {
                       {selectedDate.date && new Date(selectedDate.date).getMonth() + 1}월 {selectedDate.day}일
                     </h3>
                     <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>
-                      사용 {selectedDate.totalSpent.toLocaleString()}원 · 예정 {selectedDate.totalPlanned.toLocaleString()}원
+                      사용 {selectedDate.totalSpent.toLocaleString()} {cur} · 예정 {selectedDate.totalPlanned.toLocaleString()} {cur}
                     </div>
                   </div>
                   <button onClick={() => setSelectedDateStr(null)} className="p-2 -mr-2"><X size={20} style={{ color: '#7A7567' }} /></button>
@@ -1417,6 +1423,8 @@ export default function ChatLedger() {
                             onChange={(next) => setEditingDayItem({ ...editingDayItem, draft: next })}
                             onCancel={cancelEditDayItem}
                             onSave={saveEditDayItem}
+                            t={t}
+                            cur={cur}
                           />
                         );
                       }
@@ -1430,9 +1438,9 @@ export default function ChatLedger() {
                               <span className="text-sm font-medium truncate" style={{ color: '#2C2418' }}>{p.description}</span>
                               <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: '#F0E0B8', color: '#A0633C' }}>예정</span>
                             </div>
-                            <div className="text-xs" style={{ color: '#7A7567' }}>{p.category}</div>
+                            <div className="text-xs" style={{ color: '#7A7567' }}>{t(`ledger.categories.${p.category}`, p.category)}</div>
                           </div>
-                          <span className="text-sm font-semibold tabular-nums" style={{ color: '#A0633C' }}>{p.amount.toLocaleString()}원</span>
+                          <span className="text-sm font-semibold tabular-nums" style={{ color: '#A0633C' }}>{p.amount.toLocaleString()} {cur}</span>
                           <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity">
                             <button onClick={() => startEditDayItem(p, 'planned')} title="수정"
                               className="p-1.5 rounded-lg hover:bg-white">
@@ -1459,6 +1467,8 @@ export default function ChatLedger() {
                             onChange={(next) => setEditingDayItem({ ...editingDayItem, draft: next })}
                             onCancel={cancelEditDayItem}
                             onSave={saveEditDayItem}
+                            t={t}
+                            cur={cur}
                           />
                         );
                       }
@@ -1489,7 +1499,7 @@ export default function ChatLedger() {
                                   </span>
                                 )}
                               </div>
-                              <div className="text-xs" style={{ color: '#7A7567' }}>{e.category}{e.place && ` · ${e.place.name}`}</div>
+                              <div className="text-xs" style={{ color: '#7A7567' }}>{t(`ledger.categories.${e.category}`, e.category)}{e.place && ` · ${e.place.name}`}</div>
                               {e.review && <div className="handwritten text-sm mt-1" style={{ color: '#2C2418' }}>"{e.review}"</div>}
                               {e.photos?.length > 0 && (
                                 <div className="flex gap-1 mt-2">
@@ -1500,7 +1510,7 @@ export default function ChatLedger() {
                               )}
                             </div>
                           </button>
-                          <span className="text-sm font-semibold tabular-nums" style={{ color: '#2C2418' }}>{e.amount.toLocaleString()}원</span>
+                          <span className="text-sm font-semibold tabular-nums" style={{ color: '#2C2418' }}>{e.amount.toLocaleString()} {cur}</span>
                           <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity">
                             <button onClick={() => startEditDayItem(e, 'spent')} title="수정"
                               className="p-1.5 rounded-lg hover:bg-white">
@@ -1540,7 +1550,7 @@ export default function ChatLedger() {
                     <div className="flex items-center gap-2 mt-1 text-xs flex-wrap" style={{ color: '#7A7567' }}>
                       <span>{selectedPlace.visitCount}회 방문</span>
                       <span>·</span>
-                      <span>총 {selectedPlace.totalSpent.toLocaleString()}원</span>
+                      <span>총 {selectedPlace.totalSpent.toLocaleString()} {cur}</span>
                       {selectedPlace.avgRating > 0 && (<><span>·</span><span className="flex items-center gap-0.5"><Star size={11} fill="#E0A856" stroke="#E0A856" />{selectedPlace.avgRating.toFixed(1)}</span></>)}
                     </div>
                   </div>
@@ -1686,11 +1696,11 @@ export default function ChatLedger() {
 
                   <div className="flex items-center justify-between text-[11px] mb-2" style={{ color: '#7A7567' }}>
                     <span>
-                      {geoStatus === 'granted' && userGeo && '📍 내 위치 주변 (GPS, ±20km)'}
-                      {geoStatus === 'ip' && userGeo && `📍 ${geoLabel || 'IP 기준'} 주변 (±20km)`}
-                      {geoStatus === 'denied' && '🌐 전체 한국 검색 (위치 권한 거부됨)'}
-                      {geoStatus === 'unsupported' && '🌐 전체 한국 검색 (브라우저 미지원)'}
-                      {(geoStatus === 'idle' || geoStatus === 'requesting') && '🌐 전체 한국 검색'}
+                      {geoStatus === 'granted' && userGeo && t('ledger.place.viewboxGps')}
+                      {geoStatus === 'ip' && userGeo && t('ledger.place.viewboxIp', { label: geoLabel || 'IP' })}
+                      {geoStatus === 'denied' && t('ledger.place.viewboxDenied')}
+                      {geoStatus === 'unsupported' && t('ledger.place.viewboxUnsupported')}
+                      {(geoStatus === 'idle' || geoStatus === 'requesting') && t('ledger.place.viewboxNationwide')}
                     </span>
                     {(geoStatus === 'idle' || geoStatus === 'ip' || geoStatus === 'denied') && (
                       <button
@@ -1768,7 +1778,7 @@ export default function ChatLedger() {
                   <div key={v.id} className="p-3 rounded-2xl" style={{ backgroundColor: '#FAF7F0' }}>
                     <div className="flex justify-between items-baseline mb-2">
                       <div className="text-xs" style={{ color: '#7A7567' }}>{v.date}</div>
-                      <div className="text-sm font-semibold tabular-nums" style={{ color: '#2C2418' }}>{v.amount.toLocaleString()}원</div>
+                      <div className="text-sm font-semibold tabular-nums" style={{ color: '#2C2418' }}>{v.amount.toLocaleString()} {cur}</div>
                     </div>
 
                     {/* 별점 */}
@@ -2001,23 +2011,23 @@ function InputGuideModal({ onClose }) {
   );
 }
 
-function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave }) {
+function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave, t, cur }) {
   const set = (patch) => onChange({ ...draft, ...patch });
   return (
     <div className="p-3 rounded-2xl space-y-2" style={{ backgroundColor: bg, border: '1px solid #E8E2D5' }}>
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>이름</span>
+        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.name')}</span>
         <input
           autoFocus
           value={draft.description}
           onChange={(e) => set({ description: e.target.value })}
           className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none"
           style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
-          placeholder="예: 점심 김밥"
+          placeholder={t('ledger.entryEdit.namePlaceholder')}
         />
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>금액</span>
+        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.amount')}</span>
         <input
           type="number"
           inputMode="numeric"
@@ -2026,10 +2036,10 @@ function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave }) {
           className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none tabular-nums"
           style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
         />
-        <span className="text-xs" style={{ color: '#7A7567' }}>원</span>
+        <span className="text-xs" style={{ color: '#7A7567' }}>{cur}</span>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>날짜</span>
+        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.date')}</span>
         <input
           type="date"
           value={draft.date}
@@ -2039,7 +2049,7 @@ function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave }) {
         />
       </div>
       <div className="flex items-start gap-2">
-        <span className="text-[10px] font-medium pt-1.5" style={{ color: '#7A7567' }}>분류</span>
+        <span className="text-[10px] font-medium pt-1.5" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.category')}</span>
         <div className="flex-1 flex flex-wrap gap-1">
           {Object.keys(categories).map((cat) => {
             const active = draft.category === cat;
@@ -2055,7 +2065,7 @@ function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave }) {
                   border: `1px solid ${active ? info.color : '#E8E2D5'}`,
                 }}
               >
-                {cat}
+                {t(`ledger.categories.${cat}`, cat)}
               </button>
             );
           })}
@@ -2065,12 +2075,12 @@ function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave }) {
         <button onClick={onCancel}
           className="px-3 py-1.5 rounded-lg text-xs font-medium"
           style={{ backgroundColor: 'white', color: '#7A7567', border: '1px solid #E8E2D5' }}>
-          취소
+          {t('ledger.entryEdit.cancel')}
         </button>
         <button onClick={onSave}
           className="px-3 py-1.5 rounded-lg text-xs font-medium"
           style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
-          저장
+          {t('ledger.entryEdit.save')}
         </button>
       </div>
     </div>

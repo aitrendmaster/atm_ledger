@@ -48,6 +48,9 @@ def _user_out(u: User) -> UserOut:
         display_name=u.display_name,
         monthly_income=u.monthly_income,
         monthly_budget=u.monthly_budget,
+        country_code=u.country_code or "KR",
+        currency_code=u.currency_code or "KRW",
+        locale=u.locale or "ko",
         is_admin=is_admin(u),
     )
 

@@ -2,27 +2,17 @@
   "app": { "name": "Moa AI Libro de gastos" },
   "lang": { "label": "Idioma" },
   "common": {
-    "or": "o",
-    "cancel": "Cancelar",
-    "save": "Guardar",
-    "loading": "Cargando…",
-    "back": "Volver",
-    "retry": "Por favor, inténtalo de nuevo en un momento."
+    "or": "o", "cancel": "Cancelar", "save": "Guardar", "loading": "Cargando…",
+    "back": "Volver", "retry": "Por favor, inténtalo de nuevo en un momento.",
+    "home": "Inicio", "pricing": "Precios", "refund": "Política de reembolso",
+    "edit": "Editar", "delete": "Eliminar", "confirm": "Aceptar"
   },
-  "nav": {
-    "myAccount": "Mi cuenta",
-    "faq": "FAQ",
-    "admin": "Admin",
-    "logout": "Cerrar sesión"
-  },
+  "nav": { "myAccount": "Mi cuenta", "faq": "FAQ", "admin": "Admin", "logout": "Cerrar sesión" },
   "landing": {
     "badge": "Beta gratis — libro IA",
-    "headline1": "Anota como en un chat,",
-    "headline2": "y mira tu mes con claridad.",
+    "headline1": "Anota como en un chat,", "headline2": "y mira tu mes con claridad.",
     "subtitle": "Una línea basta — \"Starbucks 6 €\". La IA clasifica categoría, monto y fecha, y cada mes te devuelve un consejo cálido sobre tus hábitos.",
-    "ctaPrimary": "Empezar gratis",
-    "ctaLogin": "Iniciar sesión",
-    "ctaApp": "Abrir mi libro →",
+    "ctaPrimary": "Empezar gratis", "ctaLogin": "Iniciar sesión", "ctaApp": "Abrir mi libro →",
     "uspHeading": "Las finanzas no tienen que ser un Excel.",
     "uspSubtitle": "Un minuto al día, una visión nueva del mes.",
     "uspChatTitle": "Anota en un segundo",
@@ -36,50 +26,36 @@
     "cta2Heading": "Desde el primer mes notarás la diferencia.",
     "cta2Subtitle": "30 segundos para registrarte. Sin tarjeta. Gratis en beta.",
     "footerTagline": "Tu libro de gastos por chat con IA",
-    "footerTerms": "Términos",
-    "footerPrivacy": "Privacidad"
+    "footerTerms": "Términos", "footerPrivacy": "Privacidad"
   },
   "login": {
     "subtitle": "Inicia sesión y empieza tu libro.",
-    "email": "Correo",
-    "password8": "Contraseña (8+ caracteres)",
-    "submit": "Iniciar sesión",
-    "submitBusy": "Iniciando…",
-    "noAccount": "¿Aún no tienes cuenta?",
-    "signupLink": "Regístrate",
-    "forgotLink": "¿Olvidaste tu contraseña?",
-    "failed": "No se pudo iniciar sesión"
+    "email": "Correo", "password8": "Contraseña (8+ caracteres)",
+    "submit": "Iniciar sesión", "submitBusy": "Iniciando…",
+    "noAccount": "¿Aún no tienes cuenta?", "signupLink": "Regístrate",
+    "forgotLink": "¿Olvidaste tu contraseña?", "failed": "No se pudo iniciar sesión"
   },
   "signup": {
-    "title": "Crear cuenta",
-    "nickname": "Apodo (opcional)",
-    "agreeStart": "Acepto los ",
-    "agreeTerms": "Términos",
-    "agreeAnd": " y la ",
-    "agreePrivacy": "Política de privacidad",
-    "agreeEnd": ".",
+    "title": "Crear cuenta", "nickname": "Apodo (opcional)",
+    "countryLabel": "País de residencia",
+    "countryHint": "Idioma y moneda se ajustan automáticamente. Puedes cambiarlos en Mi Página.",
+    "agreeStart": "Acepto los ", "agreeTerms": "Términos",
+    "agreeAnd": " y la ", "agreePrivacy": "Política de privacidad", "agreeEnd": ".",
     "agreeRequired": "Por favor, acepta los Términos y la Política de privacidad.",
-    "submit": "Registrarme",
-    "submitBusy": "Creando…",
-    "hasAccount": "¿Ya tienes cuenta?",
-    "loginLink": "Iniciar sesión",
-    "failed": "Registro fallido"
+    "submit": "Registrarme", "submitBusy": "Creando…",
+    "hasAccount": "¿Ya tienes cuenta?", "loginLink": "Iniciar sesión", "failed": "Registro fallido"
   },
   "forgot": {
     "title": "Recuperar contraseña",
     "intro": "Escribe el correo con el que te registraste y te enviaremos un enlace.",
     "sent": "Si ese correo está registrado, hemos enviado las instrucciones. Revisa el spam si no aparece. El enlace dura 1 hora.",
-    "submit": "Enviar correo",
-    "submitBusy": "Enviando…",
-    "backLogin": "Volver al inicio de sesión",
-    "backLoginLink": "Volver al inicio de sesión"
+    "submit": "Enviar correo", "submitBusy": "Enviando…",
+    "backLogin": "Volver al inicio de sesión", "backLoginLink": "Volver al inicio de sesión"
   },
   "reset": {
-    "title": "Nueva contraseña",
-    "intro": "Usa 8 caracteres o más.",
+    "title": "Nueva contraseña", "intro": "Usa 8 caracteres o más.",
     "newPassword": "Nueva contraseña",
-    "submit": "Cambiar contraseña",
-    "submitBusy": "Guardando…",
+    "submit": "Cambiar contraseña", "submitBusy": "Guardando…",
     "invalid": "Enlace inválido",
     "invalidDesc": "Falta el token. Usa otra vez el enlace del correo.",
     "requestAgain": "Reenviar correo de recuperación",
@@ -90,15 +66,17 @@
   "ledger": {
     "title": "Mi libro de gastos",
     "todayHint": "Hoy es {{date}} · despacio y firme",
-    "tabs": { "chat": "Chat", "calendar": "Calendario", "place": "Lugares", "reflect": "Reflexión", "plan": "Plan", "balance": "Balance" },
+    "tabs": { "chat": "Chat", "calendar": "Calendario", "place": "Lugares", "places": "Lugares", "reflect": "Reflexión", "plan": "Plan", "balance": "Balance" },
     "stats": {
       "thisMonthFlow": "Este mes", "budget": "Presupuesto", "freeMoney": "Disponible",
       "spent": "Gastado", "upcoming": "Pendiente", "dailyAvg": "Promedio diario",
-      "monthSpent": "Este mes", "monthUpcoming": "Pendiente", "won": "€"
+      "monthSpent": "Este mes", "monthUpcoming": "Pendiente", "won": ""
     },
     "input": {
-      "placeholder": "Starbucks 6 €…", "send": "Enviar",
-      "retry": "¿Lo escribes de nuevo?", "tryAgain": "Inténtalo otra vez."
+      "placeholder": "Starbucks 6…", "send": "Enviar",
+      "retry": "¿Lo escribes de nuevo?", "tryAgain": "Inténtalo otra vez.",
+      "shortcuts": "Enter para enviar · Shift+Enter para salto de línea",
+      "guideButton": "¿Cómo escribir? Ver guía"
     },
     "messages": {
       "welcome": "¡Hola! Empecemos tu cuaderno de gastos 📒",
@@ -116,17 +94,81 @@
       "useMyLocationGps": "Usar mi ubicación (GPS)", "moreAccurate": "Más preciso (GPS)",
       "viewboxIp": "📍 Cerca de {{label}} (±20km)",
       "viewboxGps": "📍 Cerca de mí (GPS, ±20km)",
-      "viewboxNationwide": "🌐 Búsqueda nacional",
-      "viewboxDenied": "🌐 Búsqueda nacional (permiso denegado)",
-      "viewboxUnsupported": "🌐 Búsqueda nacional (no compatible)",
+      "viewboxNationwide": "🌐 Búsqueda global",
+      "viewboxDenied": "🌐 Búsqueda global (permiso denegado)",
+      "viewboxUnsupported": "🌐 Búsqueda global (no compatible)",
       "noResults": "Sin resultados. Prueba otras palabras o deja el lugar vacío.",
-      "againGo": "Volvería", "avoid": "Evitar", "normal": "Normal", "resetPin": "Elegir otra vez"
+      "againGo": "Volvería", "avoid": "Evitar", "normal": "Normal", "resetPin": "Elegir otra vez",
+      "visitTitle": "Visitas y reseñas",
+      "rating": "{{n}}/5",
+      "addReview": "+ Añadir una nota",
+      "reviewPlaceholder": "¿Qué tal?",
+      "photo": "Foto", "photoUploading": "Subiendo…",
+      "photoTotal": "{{count}} foto(s)"
     },
     "categories": {
       "식비": "Comida", "카페/간식": "Café y snacks", "쇼핑": "Compras", "교통": "Transporte",
       "주거/공과금": "Hogar y servicios", "건강/뷰티": "Salud y belleza", "여행/이벤트": "Viajes y eventos",
       "경조사/선물": "Regalos y ceremonias", "기타": "Otros"
     },
-    "reflect": { "monthly": "Mensual", "annual": "Anual" }
-  }
+    "calendar": {
+      "weekday": { "sun": "Dom", "mon": "Lun", "tue": "Mar", "wed": "Mié", "thu": "Jue", "fri": "Vie", "sat": "Sáb" },
+      "today": "Hoy",
+      "noEntries": "Aún no hay registros este mes",
+      "noEntriesDay": "No hay registros este día",
+      "monthYear": "{{month}} {{year}}",
+      "planned": "Previsto", "dayTotal": "Total {{amount}} →",
+      "viewGrid": "Cuadrícula", "viewList": "Lista",
+      "openDayMonth": "{{day}}/{{month}}",
+      "spentLine": "Gastado {{spent}} · Previsto {{planned}}"
+    },
+    "reflect": {
+      "monthly": "Mensual", "annual": "Anual",
+      "noteTitle": "Mis notas",
+      "noteHint": "Escribe una promesa y aparecerá automáticamente en el plan del mes siguiente",
+      "empty": "Aún no hay reflexiones",
+      "achieved": "¡Logrado!", "missed": "No alcanzado",
+      "aiCoachTitle": "Insight del coach IA",
+      "aiCoachSubtitle": "Una mirada objetiva al mes",
+      "aiAnalyzing": "Analizando...", "aiRegenerate": "Regenerar",
+      "aiStart": "Ver insight", "aiEmpty": "Pulsa el botón de arriba para empezar",
+      "praise": "Lo bueno", "concern": "A vigilar", "suggestion": "El mes que viene",
+      "addToGoal": "Añadir a la promesa del próximo mes",
+      "monthChange": "Comparado con el mes anterior",
+      "monthHeader": "Reflexión de {{month}} {{year}}",
+      "monthTotal": "Total {{amount}}",
+      "types": {
+        "regret":  { "label": "Arrepentimiento", "placeholder": "ej. gasté demasiado en café" },
+        "praise":  { "label": "Acierto",        "placeholder": "ej. limpié suscripciones" },
+        "goal":    { "label": "Promesa",        "placeholder": "ej. café por debajo de 50 €" },
+        "insight": { "label": "Aprendizaje",    "placeholder": "ej. comer fuera aumenta el café" }
+      }
+    },
+    "balance": {
+      "title": "Hoja de balance",
+      "income": "Ingresos", "spent": "Gastos", "planned": "Previstos",
+      "saving": "Ahorro", "savingRate": "Tasa de ahorro",
+      "modeCurrent": "Este mes", "modeNext": "Próximo mes",
+      "healthyTip": "💡 20% o más es una tasa de ahorro saludable"
+    },
+    "entryEdit": {
+      "name": "Nombre", "amount": "Importe", "date": "Fecha", "category": "Categoría",
+      "save": "Guardar", "cancel": "Cancelar",
+      "namePlaceholder": "ej. almuerzo kimbap",
+      "defaultName": "(sin nombre)",
+      "deleteConfirm": "¿Eliminar \"{{name}}\"?"
+    }
+  },
+  "mypage": {
+    "title": "Mi página",
+    "tabs": { "general": "General", "billing": "Pagos", "privacy": "Privacidad", "location": "Ubicación", "export": "Exportar" },
+    "region": {
+      "title": "Región / Idioma / Moneda",
+      "subtitle": "Cambia la moneda mostrada y el idioma de la interfaz. Los números existentes no se modifican.",
+      "country": "País", "currency": "Moneda", "language": "Idioma",
+      "saved": "Ajustes regionales guardados.",
+      "applyDefaults": "Aplicar valores predeterminados del país"
+    }
+  },
+  "appHeader": { "faq": "FAQ", "myAccount": "Mi cuenta", "admin": "Admin", "logout": "Salir" }
 }

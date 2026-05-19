@@ -9,6 +9,12 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..config import get_settings
+from ..constants.countries import (
+    country_defaults,
+    normalize_country,
+    normalize_currency,
+    normalize_locale,
+)
 from ..database import get_db
 from ..deps import get_current_user, is_admin
 from ..models.password_reset_token import PasswordResetToken
@@ -37,6 +43,9 @@ def _user_out(u: User) -> UserOut:
         display_name=u.display_name,
         monthly_income=u.monthly_income,
         monthly_budget=u.monthly_budget,
+        country_code=u.country_code or "KR",
+        currency_code=u.currency_code or "KRW",
+        locale=u.locale or "ko",
         is_admin=is_admin(u),
         subscription_tier=u.subscription_tier or "free",
         subscription_expires_at=u.subscription_expires_at,
@@ -69,11 +78,19 @@ async def signup(body: SignupRequest, db: AsyncSession = Depends(get_db)):
         res = await db.execute(select(User).where(User.email == body.email.lower()))
         if res.scalar_one_or_none():
             raise HTTPException(status_code=409, detail="이미 가입된 이메일입니다.")
+        # 지역화 기본값: country 만 지정되면 currency/locale 자동 도출. 셋 다 미지정이면 KR/KRW/ko.
+        defaults = country_defaults(body.country_code)
+        country = normalize_country(body.country_code or defaults["country_code"])
+        currency = normalize_currency(body.currency_code or defaults["currency_code"])
+        locale = normalize_locale(body.locale or defaults["locale"])
         user = User(
             email=body.email.lower(),
             password_hash=hash_password(body.password),
             display_name=body.display_name,
             auth_provider="password",
+            country_code=country,
+            currency_code=currency,
+            locale=locale,
         )
         db.add(user)
         await db.commit()
@@ -133,6 +150,12 @@ async def update_me(
         user.monthly_budget = body.monthly_budget
     if body.allow_location_metadata is not None:
         user.allow_location_metadata = body.allow_location_metadata
+    if body.country_code is not None:
+        user.country_code = normalize_country(body.country_code)
+    if body.currency_code is not None:
+        user.currency_code = normalize_currency(body.currency_code)
+    if body.locale is not None:
+        user.locale = normalize_locale(body.locale)
     await db.commit()
     await db.refresh(user)
     return _user_out(user)

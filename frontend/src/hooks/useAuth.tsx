@@ -1,11 +1,17 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
-import { authApi, tokenStore, User } from '../services/api'
+import i18n from '../i18n'
+import { authApi, SignupExtras, tokenStore, User } from '../services/api'
 
 interface AuthCtx {
   user: User | null
   loading: boolean
   signin: (email: string, password: string) => Promise<void>
-  signup: (email: string, password: string, displayName?: string) => Promise<void>
+  signup: (
+    email: string,
+    password: string,
+    displayName?: string,
+    extras?: SignupExtras,
+  ) => Promise<void>
   signinWithGoogle: (idToken: string) => Promise<void>
   signout: () => void
   refresh: () => Promise<void>
@@ -26,6 +32,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const r = await authApi.me()
       setUser(r.data)
+      // 백엔드에 저장된 locale 을 UI 에 즉시 적용 (다른 기기에서 변경된 경우 동기화)
+      if (r.data.locale && i18n.language !== r.data.locale) {
+        try { await i18n.changeLanguage(r.data.locale) } catch { /* 폴백 무시 */ }
+      }
     } catch {
       tokenStore.clear()
       setUser(null)
@@ -46,8 +56,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       tokenStore.set(r.data.access_token, r.data.refresh_token)
       await loadMe()
     },
-    async signup(email, password, displayName) {
-      const r = await authApi.signup(email, password, displayName)
+    async signup(email, password, displayName, extras) {
+      const r = await authApi.signup(email, password, displayName, extras)
       tokenStore.set(r.data.access_token, r.data.refresh_token)
       await loadMe()
     },

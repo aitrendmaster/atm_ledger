@@ -2,27 +2,17 @@
   "app": { "name": "Moa AI खाताबही" },
   "lang": { "label": "भाषा" },
   "common": {
-    "or": "या",
-    "cancel": "रद्द करें",
-    "save": "सहेजें",
-    "loading": "लोड हो रहा है…",
-    "back": "वापस",
-    "retry": "कृपया थोड़ी देर बाद फिर कोशिश करें।"
+    "or": "या", "cancel": "रद्द करें", "save": "सहेजें", "loading": "लोड हो रहा है…",
+    "back": "वापस", "retry": "कृपया थोड़ी देर बाद फिर कोशिश करें।",
+    "home": "होम", "pricing": "मूल्य निर्धारण", "refund": "रिफ़ंड नीति",
+    "edit": "संपादित", "delete": "हटाएँ", "confirm": "ठीक"
   },
-  "nav": {
-    "myAccount": "मेरा खाता",
-    "faq": "FAQ",
-    "admin": "Admin",
-    "logout": "लॉग आउट"
-  },
+  "nav": { "myAccount": "मेरा खाता", "faq": "FAQ", "admin": "Admin", "logout": "लॉग आउट" },
   "landing": {
     "badge": "बीटा मुफ़्त — AI खाताबही",
-    "headline1": "चैट की तरह लिखो,",
-    "headline2": "हर महीने पीछे मुड़कर देखो।",
+    "headline1": "चैट की तरह लिखो,", "headline2": "हर महीने पीछे मुड़कर देखो।",
     "subtitle": "एक लाइन ही काफ़ी — \"Starbucks 300\". AI श्रेणी, राशि और तारीख खुद चुनता है, और हर महीने आदतों पर एक गर्मजोशी भरा सुझाव देता है।",
-    "ctaPrimary": "मुफ़्त शुरू करें",
-    "ctaLogin": "लॉग इन",
-    "ctaApp": "खाताबही खोलें →",
+    "ctaPrimary": "मुफ़्त शुरू करें", "ctaLogin": "लॉग इन", "ctaApp": "खाताबही खोलें →",
     "uspHeading": "खर्च ट्रैक करना इतना आसान भी हो सकता है।",
     "uspSubtitle": "दिन में 1 मिनट, महीने को नई नज़र से देखो।",
     "uspChatTitle": "1 सेकंड में लिखो",
@@ -36,50 +26,35 @@
     "cta2Heading": "पहले महीने से ही फ़र्क दिखेगा।",
     "cta2Subtitle": "30 सेकंड में साइन-अप। कोई कार्ड नहीं। बीटा में मुफ़्त।",
     "footerTagline": "चैट से लिखी जाने वाली AI खाताबही",
-    "footerTerms": "नियम",
-    "footerPrivacy": "गोपनीयता"
+    "footerTerms": "नियम", "footerPrivacy": "गोपनीयता"
   },
   "login": {
     "subtitle": "लॉग इन करके खाताबही शुरू करें।",
-    "email": "ईमेल",
-    "password8": "पासवर्ड (8+ अक्षर)",
-    "submit": "लॉग इन",
-    "submitBusy": "लॉग इन हो रहे हैं…",
-    "noAccount": "खाता नहीं है?",
-    "signupLink": "साइन अप",
-    "forgotLink": "पासवर्ड भूल गए?",
-    "failed": "लॉग इन नहीं हो सका"
+    "email": "ईमेल", "password8": "पासवर्ड (8+ अक्षर)",
+    "submit": "लॉग इन", "submitBusy": "लॉग इन हो रहे हैं…",
+    "noAccount": "खाता नहीं है?", "signupLink": "साइन अप",
+    "forgotLink": "पासवर्ड भूल गए?", "failed": "लॉग इन नहीं हो सका"
   },
   "signup": {
-    "title": "खाता बनाएं",
-    "nickname": "उपनाम (वैकल्पिक)",
-    "agreeStart": "मैं ",
-    "agreeTerms": "नियम",
-    "agreeAnd": " और ",
-    "agreePrivacy": "गोपनीयता नीति",
-    "agreeEnd": " से सहमत हूँ।",
+    "title": "खाता बनाएं", "nickname": "उपनाम (वैकल्पिक)",
+    "countryLabel": "निवास का देश",
+    "countryHint": "भाषा और मुद्रा देश के अनुसार स्वचालित होगी। मेरा पेज में कभी भी बदला जा सकता है।",
+    "agreeStart": "मैं ", "agreeTerms": "नियम",
+    "agreeAnd": " और ", "agreePrivacy": "गोपनीयता नीति", "agreeEnd": " से सहमत हूँ।",
     "agreeRequired": "कृपया नियम और गोपनीयता नीति से सहमत हों।",
-    "submit": "साइन अप",
-    "submitBusy": "बना रहे हैं…",
-    "hasAccount": "पहले से खाता है?",
-    "loginLink": "लॉग इन",
-    "failed": "साइन अप विफल"
+    "submit": "साइन अप", "submitBusy": "बना रहे हैं…",
+    "hasAccount": "पहले से खाता है?", "loginLink": "लॉग इन", "failed": "साइन अप विफल"
   },
   "forgot": {
-    "title": "पासवर्ड रीसेट",
-    "intro": "अपना पंजीकृत ईमेल दर्ज करें — हम लिंक भेजेंगे।",
+    "title": "पासवर्ड रीसेट", "intro": "अपना पंजीकृत ईमेल दर्ज करें — हम लिंक भेजेंगे।",
     "sent": "अगर वह ईमेल पंजीकृत है, तो हमने निर्देश भेज दिए हैं। न दिखे तो स्पैम देखें। लिंक 1 घंटे तक मान्य है।",
-    "submit": "रीसेट ईमेल भेजें",
-    "submitBusy": "भेज रहे हैं…",
-    "backLogin": "लॉग इन पेज पर",
-    "backLoginLink": "लॉग इन पर वापस"
+    "submit": "रीसेट ईमेल भेजें", "submitBusy": "भेज रहे हैं…",
+    "backLogin": "लॉग इन पेज पर", "backLoginLink": "लॉग इन पर वापस"
   },
   "reset": {
-    "title": "नया पासवर्ड सेट करें",
-    "intro": "कम से कम 8 अक्षर।",
+    "title": "नया पासवर्ड सेट करें", "intro": "कम से कम 8 अक्षर।",
     "newPassword": "नया पासवर्ड",
-    "submit": "पासवर्ड बदलें",
-    "submitBusy": "सहेज रहे हैं…",
+    "submit": "पासवर्ड बदलें", "submitBusy": "सहेज रहे हैं…",
     "invalid": "अमान्य लिंक",
     "invalidDesc": "टोकन नहीं है। ईमेल का लिंक फिर से इस्तेमाल करें।",
     "requestAgain": "रीसेट ईमेल दोबारा भेजें",
@@ -90,15 +65,17 @@
   "ledger": {
     "title": "मेरी खाताबही",
     "todayHint": "आज {{date}} · धीरे-धीरे, नियमित",
-    "tabs": { "chat": "चैट", "calendar": "कैलेंडर", "place": "स्थान", "reflect": "समीक्षा", "plan": "योजना", "balance": "बैलेंस" },
+    "tabs": { "chat": "चैट", "calendar": "कैलेंडर", "place": "स्थान", "places": "स्थान", "reflect": "समीक्षा", "plan": "योजना", "balance": "बैलेंस" },
     "stats": {
       "thisMonthFlow": "इस महीने", "budget": "बजट", "freeMoney": "खर्च करने योग्य",
       "spent": "खर्च", "upcoming": "आगामी", "dailyAvg": "दैनिक औसत",
-      "monthSpent": "इस महीने", "monthUpcoming": "आगामी", "won": "₹"
+      "monthSpent": "इस महीने", "monthUpcoming": "आगामी", "won": ""
     },
     "input": {
       "placeholder": "स्टारबक्स 300…", "send": "भेजें",
-      "retry": "क्या फिर से लिखेंगे?", "tryAgain": "कृपया दोबारा कोशिश करें।"
+      "retry": "क्या फिर से लिखेंगे?", "tryAgain": "कृपया दोबारा कोशिश करें।",
+      "shortcuts": "Enter भेजें · Shift+Enter नई लाइन",
+      "guideButton": "कैसे लिखें? गाइड देखें"
     },
     "messages": {
       "welcome": "नमस्ते! अपना खाता-बही शुरू करें 📒",
@@ -116,17 +93,81 @@
       "useMyLocationGps": "मेरा स्थान उपयोग करें (GPS)", "moreAccurate": "अधिक सटीक (GPS)",
       "viewboxIp": "📍 {{label}} के पास (±20km)",
       "viewboxGps": "📍 मेरे आसपास (GPS, ±20km)",
-      "viewboxNationwide": "🌐 देशव्यापी खोज",
-      "viewboxDenied": "🌐 देशव्यापी खोज (स्थान अनुमति अस्वीकृत)",
-      "viewboxUnsupported": "🌐 देशव्यापी खोज (ब्राउज़र समर्थन नहीं)",
+      "viewboxNationwide": "🌐 वैश्विक खोज",
+      "viewboxDenied": "🌐 वैश्विक खोज (स्थान अनुमति अस्वीकृत)",
+      "viewboxUnsupported": "🌐 वैश्विक खोज (ब्राउज़र समर्थन नहीं)",
       "noResults": "कोई परिणाम नहीं। दूसरे शब्द आज़माएँ या स्थान खाली छोड़ें।",
-      "againGo": "फिर जाऊँगा", "avoid": "नहीं जाऊँगा", "normal": "सामान्य", "resetPin": "फिर से चुनें"
+      "againGo": "फिर जाऊँगा", "avoid": "नहीं जाऊँगा", "normal": "सामान्य", "resetPin": "फिर से चुनें",
+      "visitTitle": "यात्राएँ और समीक्षाएँ",
+      "rating": "{{n}}/5",
+      "addReview": "+ एक छोटी टिप्पणी जोड़ें",
+      "reviewPlaceholder": "कैसा रहा?",
+      "photo": "फ़ोटो", "photoUploading": "अपलोड हो रहा…",
+      "photoTotal": "{{count}} फ़ोटो"
     },
     "categories": {
       "식비": "भोजन", "카페/간식": "कैफ़े और स्नैक्स", "쇼핑": "ख़रीदारी", "교통": "परिवहन",
       "주거/공과금": "घर और बिल", "건강/뷰티": "स्वास्थ्य और सौंदर्य", "여행/이벤트": "यात्रा और आयोजन",
       "경조사/선물": "उपहार और संस्कार", "기타": "अन्य"
     },
-    "reflect": { "monthly": "मासिक", "annual": "वार्षिक" }
-  }
+    "calendar": {
+      "weekday": { "sun": "रवि", "mon": "सोम", "tue": "मंगल", "wed": "बुध", "thu": "गुरु", "fri": "शुक्र", "sat": "शनि" },
+      "today": "आज",
+      "noEntries": "इस महीने अभी कोई रिकॉर्ड नहीं",
+      "noEntriesDay": "इस दिन कोई रिकॉर्ड नहीं",
+      "monthYear": "{{month}}/{{year}}",
+      "planned": "आगामी", "dayTotal": "कुल {{amount}} →",
+      "viewGrid": "ग्रिड", "viewList": "सूची",
+      "openDayMonth": "{{day}}/{{month}}",
+      "spentLine": "खर्च {{spent}} · आगामी {{planned}}"
+    },
+    "reflect": {
+      "monthly": "मासिक", "annual": "वार्षिक",
+      "noteTitle": "मेरी समीक्षा नोट्स",
+      "noteHint": "वादा लिखो — अगले महीने की योजना टैब में अपने आप दिख जाएगा",
+      "empty": "अभी कोई समीक्षा नहीं",
+      "achieved": "पूरा हुआ!", "missed": "अधूरा",
+      "aiCoachTitle": "AI कोच की अंतर्दृष्टि",
+      "aiCoachSubtitle": "महीने पर निष्पक्ष नज़र",
+      "aiAnalyzing": "विश्लेषण हो रहा है...", "aiRegenerate": "फिर से बनाएँ",
+      "aiStart": "अंतर्दृष्टि देखें", "aiEmpty": "शुरू करने के लिए ऊपर वाला बटन दबाएँ",
+      "praise": "अच्छा बिंदु", "concern": "ध्यान देने वाला", "suggestion": "अगले महीने का सुझाव",
+      "addToGoal": "अगले महीने के वादे में जोड़ें",
+      "monthChange": "पिछले महीने से तुलना",
+      "monthHeader": "{{month}}/{{year}} की समीक्षा",
+      "monthTotal": "कुल {{amount}}",
+      "types": {
+        "regret":  { "label": "अफ़सोस", "placeholder": "उदा. कॉफ़ी पर बहुत खर्च हुआ" },
+        "praise":  { "label": "उपलब्धि", "placeholder": "उदा. सब्सक्रिप्शन साफ़ किए" },
+        "goal":    { "label": "वादा",   "placeholder": "उदा. कॉफ़ी ₹500 से कम रखें" },
+        "insight": { "label": "सीख",    "placeholder": "उदा. बाहर खाना ज़्यादा तो कॉफ़ी भी" }
+      }
+    },
+    "balance": {
+      "title": "बैलेंस शीट",
+      "income": "आय", "spent": "खर्च", "planned": "आगामी",
+      "saving": "बचत", "savingRate": "बचत दर",
+      "modeCurrent": "इस महीने", "modeNext": "अगला महीना",
+      "healthyTip": "💡 20%+ स्वस्थ बचत दर है"
+    },
+    "entryEdit": {
+      "name": "नाम", "amount": "राशि", "date": "तारीख़", "category": "श्रेणी",
+      "save": "सहेजें", "cancel": "रद्द",
+      "namePlaceholder": "उदा. दोपहर का खाना किम्बैप",
+      "defaultName": "(बिना नाम)",
+      "deleteConfirm": "\"{{name}}\" हटाएँ?"
+    }
+  },
+  "mypage": {
+    "title": "मेरा पेज",
+    "tabs": { "general": "सामान्य", "billing": "भुगतान", "privacy": "गोपनीयता", "location": "स्थान", "export": "डेटा निर्यात" },
+    "region": {
+      "title": "क्षेत्र / भाषा / मुद्रा",
+      "subtitle": "प्रदर्शन मुद्रा और UI भाषा बदलें। मौजूदा अंक नहीं बदलते।",
+      "country": "देश", "currency": "मुद्रा", "language": "भाषा",
+      "saved": "क्षेत्र सेटिंग्स सहेजी गईं।",
+      "applyDefaults": "चयनित देश के डिफ़ॉल्ट लागू करें"
+    }
+  },
+  "appHeader": { "faq": "FAQ", "myAccount": "खाता", "admin": "Admin", "logout": "लॉग आउट" }
 }

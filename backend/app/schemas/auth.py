@@ -7,6 +7,10 @@ class SignupRequest(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
     display_name: str | None = Field(default=None, max_length=80)
+    # 지역화 — 미지정 시 백엔드가 'KR/KRW/ko' 기본값 적용 (countries.country_defaults 사용)
+    country_code: str | None = Field(default=None, max_length=2)
+    currency_code: str | None = Field(default=None, max_length=3)
+    locale: str | None = Field(default=None, max_length=10)
 
 
 class LoginRequest(BaseModel):
@@ -31,6 +35,9 @@ class UserOut(BaseModel):
     display_name: str | None
     monthly_income: int
     monthly_budget: int
+    country_code: str = "KR"
+    currency_code: str = "KRW"
+    locale: str = "ko"
     is_admin: bool = False
     subscription_tier: str = "free"
     subscription_expires_at: datetime | None = None
@@ -49,6 +56,9 @@ class UpdateProfileRequest(BaseModel):
     monthly_income: int | None = Field(default=None, ge=0)
     monthly_budget: int | None = Field(default=None, ge=0)
     allow_location_metadata: bool | None = None
+    country_code: str | None = Field(default=None, max_length=2)
+    currency_code: str | None = Field(default=None, max_length=3)
+    locale: str | None = Field(default=None, max_length=10)
 
 
 class ChangePasswordRequest(BaseModel):

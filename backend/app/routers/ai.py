@@ -21,6 +21,7 @@ async def parse(body: ParseRequest, user: User = Depends(get_current_user)):
         body.image.data if body.image else None,
         body.image.media_type if body.image else None,
         user_id=user.id,
+        user_locale=user.locale or "ko",
     )
     return ParseResponse(items=[ParsedItem(**i) for i in items])
 
@@ -41,5 +42,12 @@ async def insight_from_stats(
     month = payload.get("month", "")
     current = payload.get("current", {"total": 0, "byCategory": {}})
     previous = payload.get("previous", {"total": 0, "byCategory": {}})
-    out = await ai_service.month_insight(month, current, previous, user_id=user.id)
+    out = await ai_service.month_insight(
+        month,
+        current,
+        previous,
+        user_id=user.id,
+        user_locale=user.locale or "ko",
+        currency_code=user.currency_code or "KRW",
+    )
     return InsightResponse(**out)

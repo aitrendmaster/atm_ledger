@@ -74,6 +74,10 @@ export interface User {
   display_name: string | null
   monthly_income: number
   monthly_budget: number
+  // 지역화 (백엔드 기본값 KR/KRW/ko)
+  country_code: string
+  currency_code: string
+  locale: string
   is_admin?: boolean
   subscription_tier?: 'free' | 'paid'
   subscription_expires_at?: string | null
@@ -81,6 +85,12 @@ export interface User {
   last_geo_city?: string | null
   last_geo_region?: string | null
   last_geo_country?: string | null
+}
+
+export interface SignupExtras {
+  country_code?: string
+  currency_code?: string
+  locale?: string
 }
 
 export interface GeoResult {
@@ -308,8 +318,8 @@ export interface SimpleResult {
 
 // ===== Auth =====
 export const authApi = {
-  signup: (email: string, password: string, display_name?: string) =>
-    api.post<TokenPair>('/auth/signup', { email, password, display_name }),
+  signup: (email: string, password: string, display_name?: string, extras?: SignupExtras) =>
+    api.post<TokenPair>('/auth/signup', { email, password, display_name, ...(extras || {}) }),
   login: (email: string, password: string) =>
     api.post<TokenPair>('/auth/login', { email, password }),
   me: () => api.get<User>('/auth/me'),
@@ -317,7 +327,14 @@ export const authApi = {
     patch: Partial<
       Pick<
         User,
-        'full_name' | 'display_name' | 'monthly_income' | 'monthly_budget' | 'allow_location_metadata'
+        | 'full_name'
+        | 'display_name'
+        | 'monthly_income'
+        | 'monthly_budget'
+        | 'allow_location_metadata'
+        | 'country_code'
+        | 'currency_code'
+        | 'locale'
       >
     >,
   ) => api.patch<User>('/auth/me', patch),

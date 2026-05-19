@@ -7,14 +7,15 @@
     "save": "保存",
     "loading": "読み込み中…",
     "back": "戻る",
-    "retry": "しばらくしてから再度お試しください。"
+    "retry": "しばらくしてから再度お試しください。",
+    "home": "ホーム",
+    "pricing": "料金",
+    "refund": "返金ポリシー",
+    "edit": "編集",
+    "delete": "削除",
+    "confirm": "OK"
   },
-  "nav": {
-    "myAccount": "アカウント",
-    "faq": "FAQ",
-    "admin": "Admin",
-    "logout": "ログアウト"
-  },
+  "nav": { "myAccount": "アカウント", "faq": "FAQ", "admin": "Admin", "logout": "ログアウト" },
   "landing": {
     "badge": "ベータ無料 — AI 家計簿",
     "headline1": "チャットのように記録し、",
@@ -41,45 +42,35 @@
   },
   "login": {
     "subtitle": "ログインして家計簿を始めましょう。",
-    "email": "メール",
-    "password8": "パスワード (8文字以上)",
-    "submit": "ログイン",
-    "submitBusy": "ログイン中…",
-    "noAccount": "アカウントがありませんか?",
-    "signupLink": "登録",
-    "forgotLink": "パスワードをお忘れですか?",
-    "failed": "ログイン失敗"
+    "email": "メール", "password8": "パスワード (8文字以上)",
+    "submit": "ログイン", "submitBusy": "ログイン中…",
+    "noAccount": "アカウントがありませんか?", "signupLink": "登録",
+    "forgotLink": "パスワードをお忘れですか?", "failed": "ログイン失敗"
   },
   "signup": {
     "title": "アカウント作成",
     "nickname": "ニックネーム (任意)",
-    "agreeStart": "",
-    "agreeTerms": "利用規約",
-    "agreeAnd": " と ",
-    "agreePrivacy": "プライバシーポリシー",
-    "agreeEnd": " に同意します。",
+    "countryLabel": "お住まいの国",
+    "countryHint": "選んだ国に合わせて言語と通貨を自動設定します。マイページでいつでも変更できます。",
+    "agreeStart": "", "agreeTerms": "利用規約", "agreeAnd": " と ",
+    "agreePrivacy": "プライバシーポリシー", "agreeEnd": " に同意します。",
     "agreeRequired": "利用規約とプライバシーポリシーに同意してください。",
-    "submit": "登録する",
-    "submitBusy": "作成中…",
+    "submit": "登録する", "submitBusy": "作成中…",
     "hasAccount": "既にアカウントをお持ちですか?",
-    "loginLink": "ログイン",
-    "failed": "登録失敗"
+    "loginLink": "ログイン", "failed": "登録失敗"
   },
   "forgot": {
     "title": "パスワード再設定",
     "intro": "登録したメールを入力すると再設定リンクを送ります。",
     "sent": "そのメールが登録済みなら、再設定のご案内を送信しました。届かない場合は迷惑メールをご確認ください。リンクは 1 時間有効です。",
-    "submit": "再設定メールを送る",
-    "submitBusy": "送信中…",
-    "backLogin": "ログイン画面へ",
-    "backLoginLink": "ログインに戻る"
+    "submit": "再設定メールを送る", "submitBusy": "送信中…",
+    "backLogin": "ログイン画面へ", "backLoginLink": "ログインに戻る"
   },
   "reset": {
     "title": "新しいパスワード設定",
     "intro": "8 文字以上で入力してください。",
     "newPassword": "新しいパスワード",
-    "submit": "パスワード変更",
-    "submitBusy": "保存中…",
+    "submit": "パスワード変更", "submitBusy": "保存中…",
     "invalid": "無効なリンク",
     "invalidDesc": "再設定トークンが見つかりません。メール内のリンクを再度使用してください。",
     "requestAgain": "再設定メールをもう一度送る",
@@ -90,15 +81,17 @@
   "ledger": {
     "title": "私の家計簿",
     "todayHint": "今日は {{date}} · ゆっくり、こつこつ",
-    "tabs": { "chat": "チャット", "calendar": "カレンダー", "place": "場所", "reflect": "振り返り", "plan": "予定", "balance": "残高" },
+    "tabs": { "chat": "チャット", "calendar": "カレンダー", "place": "場所", "places": "場所", "reflect": "振り返り", "plan": "予定", "balance": "残高" },
     "stats": {
       "thisMonthFlow": "今月の流れ", "budget": "予算", "freeMoney": "自由に使えるお金",
       "spent": "使った", "upcoming": "予定", "dailyAvg": "1日平均",
-      "monthSpent": "今月", "monthUpcoming": "予定", "won": "円"
+      "monthSpent": "今月", "monthUpcoming": "予定", "won": ""
     },
     "input": {
-      "placeholder": "スタバ 650円…", "send": "送信",
-      "retry": "もう一度書いてくれる?", "tryAgain": "もう一度試してね。"
+      "placeholder": "スタバ 650…", "send": "送信",
+      "retry": "もう一度書いてくれる?", "tryAgain": "もう一度試してね。",
+      "shortcuts": "Enter で送信 · Shift+Enter で改行",
+      "guideButton": "どんな書き方ができる?ガイドを見る"
     },
     "messages": {
       "welcome": "こんにちは!家計簿を始めましょう 📒",
@@ -116,17 +109,83 @@
       "useMyLocationGps": "現在地を使う (GPS)", "moreAccurate": "より正確に (GPS)",
       "viewboxIp": "📍 {{label}} 周辺 (±20km)",
       "viewboxGps": "📍 現在地周辺 (GPS, ±20km)",
-      "viewboxNationwide": "🌐 全国検索",
-      "viewboxDenied": "🌐 全国検索 (位置情報拒否)",
-      "viewboxUnsupported": "🌐 全国検索 (ブラウザ非対応)",
+      "viewboxNationwide": "🌐 全体検索",
+      "viewboxDenied": "🌐 全体検索 (位置情報拒否)",
+      "viewboxUnsupported": "🌐 全体検索 (ブラウザ非対応)",
       "noResults": "結果なし。別のキーワードで検索するか、場所を空にしても OK です。",
-      "againGo": "また行く", "avoid": "行かない", "normal": "普通", "resetPin": "ピンを再設定"
+      "againGo": "また行く", "avoid": "行かない", "normal": "普通", "resetPin": "ピンを再設定",
+      "visitTitle": "訪問記録 & レビュー",
+      "rating": "{{n}}点",
+      "addReview": "+ 一言レビューを追加",
+      "reviewPlaceholder": "どうだった?",
+      "photo": "写真",
+      "photoUploading": "アップロード中…",
+      "photoTotal": "写真 {{count}}枚"
     },
     "categories": {
       "식비": "食費", "카페/간식": "カフェ・おやつ", "쇼핑": "ショッピング", "교통": "交通",
       "주거/공과금": "住居・光熱費", "건강/뷰티": "健康・美容", "여행/이벤트": "旅行・イベント",
       "경조사/선물": "冠婚葬祭・贈り物", "기타": "その他"
     },
-    "reflect": { "monthly": "月間振り返り", "annual": "年間振り返り" }
-  }
+    "calendar": {
+      "weekday": { "sun": "日", "mon": "月", "tue": "火", "wed": "水", "thu": "木", "fri": "金", "sat": "土" },
+      "today": "今日",
+      "noEntries": "今月はまだ記録がありません",
+      "noEntriesDay": "この日は記録なし",
+      "monthYear": "{{year}}年 {{month}}月",
+      "planned": "予定",
+      "dayTotal": "計 {{amount}} →",
+      "viewGrid": "カレンダー",
+      "viewList": "リスト",
+      "openDayMonth": "{{month}}月 {{day}}日",
+      "spentLine": "使用 {{spent}} · 予定 {{planned}}"
+    },
+    "reflect": {
+      "monthly": "月間振り返り", "annual": "年間振り返り",
+      "noteTitle": "私の振り返りノート",
+      "noteHint": "約束を書くと来月の予定タブに自動的に表示されます",
+      "empty": "まだ振り返りがありません",
+      "achieved": "達成!", "missed": "未達",
+      "aiCoachTitle": "AI コーチの洞察",
+      "aiCoachSubtitle": "客観的に1か月を振り返る",
+      "aiAnalyzing": "分析中...", "aiRegenerate": "再生成",
+      "aiStart": "洞察を見る", "aiEmpty": "上のボタンを押して分析開始",
+      "praise": "良かった点", "concern": "注意点", "suggestion": "来月の提案",
+      "addToGoal": "来月の約束に追加",
+      "monthChange": "前月比",
+      "monthHeader": "{{year}}年 {{month}}月の振り返り",
+      "monthTotal": "合計 {{amount}}",
+      "types": {
+        "regret":  { "label": "反省点", "placeholder": "例: カフェに使いすぎた" },
+        "praise":  { "label": "良かった点", "placeholder": "例: サブスクを整理した" },
+        "goal":    { "label": "来月の約束", "placeholder": "例: カフェを月 5,000 円以下に" },
+        "insight": { "label": "気づき", "placeholder": "例: 外食が多いとカフェも増える" }
+      }
+    },
+    "balance": {
+      "title": "残高表",
+      "income": "収入", "spent": "支出", "planned": "予定", "saving": "貯金", "savingRate": "貯蓄率",
+      "modeCurrent": "今月", "modeNext": "来月",
+      "healthyTip": "💡 20% 以上が健全な貯蓄率"
+    },
+    "entryEdit": {
+      "name": "名前", "amount": "金額", "date": "日付", "category": "分類",
+      "save": "保存", "cancel": "キャンセル",
+      "namePlaceholder": "例: ランチ おにぎり",
+      "defaultName": "(無名)",
+      "deleteConfirm": "「{{name}}」を削除しますか?"
+    }
+  },
+  "mypage": {
+    "title": "マイページ",
+    "tabs": { "general": "一般", "billing": "決済", "privacy": "プライバシー", "location": "位置", "export": "エクスポート" },
+    "region": {
+      "title": "地域 / 言語 / 通貨",
+      "subtitle": "記録画面の通貨単位と UI 言語を変更します。既存の入力数値は変わりません。",
+      "country": "国", "currency": "通貨", "language": "言語",
+      "saved": "地域設定を保存しました。",
+      "applyDefaults": "選択した国の既定値を適用"
+    }
+  },
+  "appHeader": { "faq": "FAQ", "myAccount": "アカウント", "admin": "Admin", "logout": "ログアウト" }
 }

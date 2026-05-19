@@ -18,6 +18,16 @@ class User(Base):
     provider_sub: Mapped[str | None] = mapped_column(String(255), nullable=True, index=True)
     monthly_income: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     monthly_budget: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    # 지역화 (사용자 명시 선택값 — last_geo_country 는 IP 추정값이라 별개)
+    country_code: Mapped[str] = mapped_column(
+        String(2), default="KR", nullable=False, server_default="KR"
+    )
+    currency_code: Mapped[str] = mapped_column(
+        String(3), default="KRW", nullable=False, server_default="KRW"
+    )
+    locale: Mapped[str] = mapped_column(
+        String(10), default="ko", nullable=False, server_default="ko"
+    )
     # 구독: free | paid (PR-J2 에서 실 결제 게이트웨이 연결). free 만료 = 가입 후 30일.
     subscription_tier: Mapped[str] = mapped_column(
         String(16), default="free", nullable=False, server_default="free"
