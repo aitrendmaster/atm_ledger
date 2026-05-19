@@ -1,8 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut } from 'lucide-react';
 import { aiApi, geocodeApi, meApi } from '../services/api';
+import { absolutizePhotoUrl } from '../services/ledgerMappers';
 import { useAuth } from '../hooks/useAuth';
+import {
+  useEntries, usePlanned, useReflections,
+  useCreateEntry, useUpdateEntry, useDeleteEntry,
+  useUploadEntryPhoto, useRemoveEntryPhoto,
+  useCreatePlanned, useUpdatePlanned, useDeletePlanned,
+  useCreateReflection, useDeleteReflection,
+  useUpdateProfile,
+} from '../hooks/useLedgerData';
 
 const CATEGORIES = {
   '식비': { icon: Utensils, color: '#E07856', bg: '#FDF0EA' },
@@ -16,23 +25,40 @@ const CATEGORIES = {
   '기타': { icon: Sparkles, color: '#7A7567', bg: '#EFECE6' },
 };
 
-// 신규 가입 사용자는 빈 가계부로 시작한다. 데모용 더미 데이터는 더 이상 주입하지 않는다.
-const SEED_ENTRIES = [];
-const SEED_REFLECTIONS = [];
-const SEED_PLANNED = [];
-
-const DEFAULT_INCOME = 0;
-
 export default function ChatLedger() {
   const { t } = useTranslation();
+  const { user } = useAuth();
+
+  // ===== 서버 영속 상태 (TanStack Query) =====
+  const { data: entries = [] } = useEntries();
+  const { data: planned = [] } = usePlanned();
+  const { data: reflections = [] } = useReflections();
+
+  // ===== Mutations =====
+  const createEntry = useCreateEntry();
+  const updateEntryMut = useUpdateEntry();
+  const deleteEntryMut = useDeleteEntry();
+  const uploadPhotoMut = useUploadEntryPhoto();
+  const removePhotoMut = useRemoveEntryPhoto();
+  const createPlannedMut = useCreatePlanned();
+  const updatePlannedMut = useUpdatePlanned();
+  const deletePlannedMut = useDeletePlanned();
+  const createReflectionMut = useCreateReflection();
+  const deleteReflectionMut = useDeleteReflection();
+  const updateProfile = useUpdateProfile();
+
+  // ===== income / budget — 백엔드 user 프로파일이 source of truth =====
+  // 입력 중에는 로컬 미러로 즉시 반영하고 onBlur 시 서버 저장.
+  const [incomeDraft, setIncomeDraft] = useState(() => user?.monthly_income ?? 0);
+  const [budgetDraft, setBudgetDraft] = useState(() => user?.monthly_budget ?? 0);
+  useEffect(() => { if (user) setIncomeDraft(user.monthly_income ?? 0); }, [user?.monthly_income]);
+  useEffect(() => { if (user) setBudgetDraft(user.monthly_budget ?? 0); }, [user?.monthly_budget]);
+  const income = incomeDraft;
+  const budget = budgetDraft;
+
   const [messages, setMessages] = useState([
     { role: 'assistant', text: `${t('ledger.messages.welcome')}\n\n${t('ledger.messages.welcomeHint')}`, time: new Date() },
   ]);
-  const [entries, setEntries] = useState(SEED_ENTRIES);
-  const [planned, setPlanned] = useState(SEED_PLANNED);
-  const [reflections, setReflections] = useState(SEED_REFLECTIONS);
-  const [income, setIncome] = useState(DEFAULT_INCOME);
-  const [budget, setBudget] = useState(0);
   const [showBudgetEdit, setShowBudgetEdit] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,13 +74,13 @@ export default function ChatLedger() {
   const [aiInsight, setAiInsight] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
 
-  // 캘린더 상태
+  // 캘린더 상태 — selectedDateStr 만 보관, 실제 day 데이터는 calendarDays 에서 도출 (server state invalidate 시 자동 동기화)
   const [calMonth, setCalMonth] = useState(new Date());
   const [calViewMode, setCalViewMode] = useState('grid');
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDateStr, setSelectedDateStr] = useState(null);
 
-  // 장소 상태
-  const [selectedPlace, setSelectedPlace] = useState(null);
+  // 장소 상태 — selectedPlaceName 만 보관, 실제 place 데이터는 placesMap 에서 도출
+  const [selectedPlaceName, setSelectedPlaceName] = useState(null);
   const [editingEntry, setEditingEntry] = useState(null);
   const [photoUploadEntry, setPhotoUploadEntry] = useState(null);
 
@@ -167,8 +193,8 @@ export default function ChatLedger() {
     });
   };
 
-  // 장소별 그룹핑
-  const placesMap = (() => {
+  // 장소별 그룹핑 — entries 가 invalidate 되면 자동 재계산.
+  const placesMap = useMemo(() => {
     const map = new Map();
     entries.filter(e => e.place).forEach(e => {
       const key = e.place.name;
@@ -177,6 +203,10 @@ export default function ChatLedger() {
         visits: [], totalSpent: 0, category: e.category,
       });
       const p = map.get(key);
+      // 최신 좌표가 채워진 visit 가 있다면 그걸 그룹 좌표로 승격 (입력 순서 무관)
+      if (p.lat == null && e.place.lat != null) p.lat = e.place.lat;
+      if (p.lng == null && e.place.lng != null) p.lng = e.place.lng;
+      if (!p.address && e.place.address) p.address = e.place.address;
       p.visits.push(e);
       p.totalSpent += e.amount;
     });
@@ -188,7 +218,13 @@ export default function ChatLedger() {
       allPhotos: p.visits.flatMap(v => v.photos || []),
       mood: p.visits[0].mood,
     })).sort((a, b) => b.totalSpent - a.totalSpent);
-  })();
+  }, [entries]);
+
+  // selectedPlace 는 placesMap 에서 매 렌더 도출. server state 가 바뀌면 자동 갱신.
+  const selectedPlace = useMemo(
+    () => (selectedPlaceName ? placesMap.find(p => p.name === selectedPlaceName) || null : null),
+    [placesMap, selectedPlaceName],
+  );
 
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
@@ -198,29 +234,16 @@ export default function ChatLedger() {
     reader.readAsDataURL(file);
   };
 
-  const handlePhotoUpload = (e, entryId) => {
+  const handlePhotoUpload = async (e, entryId) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const photoUrl = reader.result;
-      setEntries(prev => prev.map(en => en.id === entryId
-        ? { ...en, photos: [...(en.photos || []), photoUrl] }
-        : en
-      ));
+    try {
+      await uploadPhotoMut.mutateAsync({ entryId, file });
+    } finally {
       setPhotoUploadEntry(null);
-      // 모달에 표시된 장소 데이터 갱신
-      if (selectedPlace) {
-        const updated = entries.map(en => en.id === entryId ? { ...en, photos: [...(en.photos || []), photoUrl] } : en);
-        const visits = updated.filter(en => en.place?.name === selectedPlace.name);
-        setSelectedPlace({
-          ...selectedPlace,
-          visits,
-          allPhotos: visits.flatMap(v => v.photos || []),
-        });
-      }
-    };
-    reader.readAsDataURL(file);
+      // 같은 input 으로 같은 파일을 다시 골라도 onChange 가 다시 트리거되도록
+      if (e.target) e.target.value = '';
+    }
   };
 
   const parseWithClaude = async (userText, imageData) => {
@@ -336,34 +359,60 @@ export default function ChatLedger() {
       if (!parsed || parsed.length === 0) {
         setMessages(prev => [...prev, { role: 'assistant', text: t('ledger.input.retry'), time: new Date() }]);
       } else {
-        // 자동 지오코딩 제거. 임의 좌표(다른 시·구) 핀이 찍히는 문제를 차단한다.
         // place_name 만 저장하고 좌표는 null. 사용자가 장소 상세 모달에서 직접 검색·선택.
-        const newSpent = parsed.filter(p => p.kind === 'spent').map((p, i) => ({
-          id: Date.now() + i,
-          description: p.description,
-          amount: p.amount,
-          category: CATEGORIES[p.category] ? p.category : '기타',
-          date: p.date,
-          place: p.placeName
-            ? { name: p.placeName, lat: null, lng: null, address: null }
-            : null,
-          rating: null, review: null, mood: null, photos: [],
-        }));
-        const newPlanned = parsed.filter(p => p.kind === 'planned').map((p, i) => ({
-          id: 'u' + Date.now() + i, description: p.description, amount: p.amount,
-          category: CATEGORIES[p.category] ? p.category : '기타', date: p.date, type: 'event',
-        }));
-        if (newSpent.length > 0) setEntries(prev => [...prev, ...newSpent]);
-        if (newPlanned.length > 0) setPlanned(prev => [...prev, ...newPlanned]);
-        const namedPlace = newSpent.find(e => e.place?.name);
+        const spentItems = parsed.filter(p => p.kind === 'spent');
+        const plannedItems = parsed.filter(p => p.kind === 'planned');
+
+        const createdSpent = [];
+        for (const p of spentItems) {
+          try {
+            const created = await createEntry.mutateAsync({
+              description: p.description,
+              amount: p.amount,
+              category: CATEGORIES[p.category] ? p.category : '기타',
+              date: p.date,
+              place: p.placeName
+                ? { name: p.placeName, lat: null, lng: null, address: null }
+                : null,
+            });
+            createdSpent.push(created);
+          } catch {
+            /* toast 는 useCreateEntry onError 가 처리 */
+          }
+        }
+        let createdPlannedCount = 0;
+        for (const p of plannedItems) {
+          try {
+            await createPlannedMut.mutateAsync({
+              description: p.description,
+              amount: p.amount,
+              category: CATEGORIES[p.category] ? p.category : '기타',
+              date: p.date,
+              type: 'event',
+            });
+            createdPlannedCount += 1;
+          } catch {
+            /* toast 는 useCreatePlanned onError 가 처리 */
+          }
+        }
+        const namedPlace = createdSpent.find(e => e.place);
         const placeHint = namedPlace
           ? '\n' + t('ledger.messages.placeRecognized', { name: namedPlace.place.name })
           : '';
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          text: t('ledger.messages.recorded', { count: newSpent.length + newPlanned.length }) + placeHint,
-          time: new Date(),
-        }]);
+        const totalSaved = createdSpent.length + createdPlannedCount;
+        if (totalSaved > 0) {
+          setMessages(prev => [...prev, {
+            role: 'assistant',
+            text: t('ledger.messages.recorded', { count: totalSaved }) + placeHint,
+            time: new Date(),
+          }]);
+        } else {
+          setMessages(prev => [...prev, {
+            role: 'assistant',
+            text: t('ledger.input.tryAgain'),
+            time: new Date(),
+          }]);
+        }
       }
     } catch (err) {
       setMessages(prev => [...prev, { role: 'assistant', text: t('ledger.input.tryAgain'), time: new Date() }]);
@@ -372,33 +421,15 @@ export default function ChatLedger() {
     }
   };
 
-  const deleteEntry = (id) => setEntries(prev => prev.filter(e => e.id !== id));
-  const updateEntry = (id, updates) => {
-    setEntries(prev => prev.map(e => e.id === id ? { ...e, ...updates } : e));
-    if (selectedPlace) {
-      const visits = entries.map(e => e.id === id ? { ...e, ...updates } : e).filter(e => e.place?.name === selectedPlace.name);
-      setSelectedPlace({
-        ...selectedPlace,
-        visits,
-        avgRating: visits.filter(v => v.rating).length > 0
-          ? visits.filter(v => v.rating).reduce((s, v) => s + v.rating, 0) / visits.filter(v => v.rating).length : 0,
-        allPhotos: visits.flatMap(v => v.photos || []),
-      });
-    }
-  };
+  const deleteEntry = (id) => deleteEntryMut.mutate(id);
+  const updateEntry = (id, updates) => updateEntryMut.mutate({ id, patch: updates });
 
-  const removePhoto = (entryId, photoIdx) => {
-    setEntries(prev => prev.map(e => e.id === entryId
-      ? { ...e, photos: e.photos.filter((_, i) => i !== photoIdx) }
-      : e
-    ));
-  };
+  // photoId 기반. UI 호출처에서는 photoMeta[idx].id 를 전달.
+  const removePhoto = (entryId, photoId) => removePhotoMut.mutate({ entryId, photoId });
 
-  // 예정(planned) 항목 수정/삭제
-  const updatePlanned = (id, updates) => {
-    setPlanned(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
-  };
-  const deletePlanned = (id) => setPlanned(prev => prev.filter(p => p.id !== id));
+  // 예정(planned) 항목 수정/삭제 — 백엔드 mutate
+  const updatePlanned = (id, updates) => updatePlannedMut.mutate({ id, patch: updates });
+  const deletePlanned = (id) => deletePlannedMut.mutate(id);
 
   // 캘린더 일자 모달 안에서 사용. 항목을 편집 모드로 전환한다.
   const startEditDayItem = (item, kind) => {
@@ -428,19 +459,7 @@ export default function ChatLedger() {
     } else {
       updateEntry(id, cleaned);
     }
-    // selectedDate 모달이 열려 있다면 화면도 동기화
-    if (selectedDate) {
-      const refreshedDay = {
-        ...selectedDate,
-        spent: selectedDate.spent.map(e => e.id === id && kind === 'spent' ? { ...e, ...cleaned } : e)
-          .filter(e => e.date === selectedDate.date),
-        planned: selectedDate.planned.map(p => p.id === id && kind === 'planned' ? { ...p, ...cleaned } : p)
-          .filter(p => p.date === selectedDate.date),
-      };
-      refreshedDay.totalSpent = refreshedDay.spent.reduce((s, e) => s + e.amount, 0);
-      refreshedDay.totalPlanned = refreshedDay.planned.reduce((s, p) => s + p.amount, 0);
-      setSelectedDate(refreshedDay);
-    }
+    // server state invalidate 가 calendarDays → selectedDate 도 자동 재계산해줌
     setEditingDayItem(null);
   };
   const removeDayItem = (item, kind) => {
@@ -450,27 +469,17 @@ export default function ChatLedger() {
     } else {
       deleteEntry(item.id);
     }
-    if (selectedDate) {
-      const refreshedDay = {
-        ...selectedDate,
-        spent: kind === 'spent' ? selectedDate.spent.filter(e => e.id !== item.id) : selectedDate.spent,
-        planned: kind === 'planned' ? selectedDate.planned.filter(p => p.id !== item.id) : selectedDate.planned,
-      };
-      refreshedDay.totalSpent = refreshedDay.spent.reduce((s, e) => s + e.amount, 0);
-      refreshedDay.totalPlanned = refreshedDay.planned.reduce((s, p) => s + p.amount, 0);
-      setSelectedDate(refreshedDay);
-    }
     if (editingDayItem?.id === item.id) setEditingDayItem(null);
   };
 
   const addReflection = (month, type, text) => {
     if (!text.trim()) return;
-    setReflections(prev => [...prev, {
-      id: 'r' + Date.now(), month, type, text, createdAt: new Date().toISOString(),
-    }]);
-    setNewReflection({ type: 'regret', text: '' });
+    createReflectionMut.mutate(
+      { month, type, text: text.trim() },
+      { onSuccess: () => setNewReflection({ type: 'regret', text: '' }) },
+    );
   };
-  const deleteReflection = (id) => setReflections(prev => prev.filter(r => r.id !== id));
+  const deleteReflection = (id) => deleteReflectionMut.mutate(id);
 
   const REFLECT_TYPES = {
     regret: { label: '아쉬운 점', icon: TrendingDown, color: '#E07856', bg: '#FDF0EA', placeholder: '예: 카페에 너무 많이 썼어' },
@@ -483,8 +492,8 @@ export default function ChatLedger() {
   const monthGoals = evaluateGoals(selectedMonth);
   const lastMonthGoals = evaluateGoals(lastMonth);
 
-  // 캘린더 데이터
-  const getCalendarDays = () => {
+  // 캘린더 데이터 — entries/planned/calMonth 가 바뀌면 자동 재계산.
+  const calendarDays = useMemo(() => {
     const y = calMonth.getFullYear(), m = calMonth.getMonth();
     const lastDay = new Date(y, m + 1, 0);
     const startDow = new Date(y, m, 1).getDay();
@@ -508,9 +517,14 @@ export default function ChatLedger() {
     }
     while (days.length % 7 !== 0) days.push({ day: 0, otherMonth: true });
     return days;
-  };
+  }, [entries, planned, calMonth, todayStr]);
 
-  const calendarDays = getCalendarDays();
+  // selectedDate 는 selectedDateStr 키만 보관하고 calendarDays 에서 매 렌더 도출.
+  // entries/planned 가 invalidate 되면 day 합계까지 자동 동기화.
+  const selectedDate = useMemo(
+    () => (selectedDateStr ? calendarDays.find(d => d.date === selectedDateStr) || null : null),
+    [calendarDays, selectedDateStr],
+  );
   const calMonthStr = `${calMonth.getFullYear()}-${String(calMonth.getMonth() + 1).padStart(2, '0')}`;
   const calMonthEntries = entries.filter(e => e.date.startsWith(calMonthStr));
   const calMonthSpent = calMonthEntries.reduce((s, e) => s + e.amount, 0);
@@ -654,12 +668,32 @@ export default function ChatLedger() {
                 <div className="my-3 space-y-2">
                   <div className="flex items-center gap-2 p-2 rounded-xl" style={{ backgroundColor: 'rgba(255,253,248,0.1)' }}>
                     <span className="text-xs opacity-60 w-10">수입</span>
-                    <input type="number" value={income} onChange={(e) => setIncome(Number(e.target.value) || 0)} className="flex-1 bg-transparent outline-none text-sm" style={{ color: '#FFFDF8' }} />
+                    <input
+                      type="number"
+                      value={incomeDraft}
+                      onChange={(e) => setIncomeDraft(Number(e.target.value) || 0)}
+                      onBlur={() => {
+                        const n = Math.max(0, Number(incomeDraft) || 0);
+                        if (n !== (user?.monthly_income ?? 0)) updateProfile.mutate({ monthly_income: n });
+                      }}
+                      className="flex-1 bg-transparent outline-none text-sm"
+                      style={{ color: '#FFFDF8' }}
+                    />
                     <span className="text-xs opacity-60">원</span>
                   </div>
                   <div className="flex items-center gap-2 p-2 rounded-xl" style={{ backgroundColor: 'rgba(255,253,248,0.1)' }}>
                     <span className="text-xs opacity-60 w-10">예산</span>
-                    <input type="number" value={budget} onChange={(e) => setBudget(Number(e.target.value) || 0)} className="flex-1 bg-transparent outline-none text-sm" style={{ color: '#FFFDF8' }} />
+                    <input
+                      type="number"
+                      value={budgetDraft}
+                      onChange={(e) => setBudgetDraft(Number(e.target.value) || 0)}
+                      onBlur={() => {
+                        const n = Math.max(0, Number(budgetDraft) || 0);
+                        if (n !== (user?.monthly_budget ?? 0)) updateProfile.mutate({ monthly_budget: n });
+                      }}
+                      className="flex-1 bg-transparent outline-none text-sm"
+                      style={{ color: '#FFFDF8' }}
+                    />
                     <span className="text-xs opacity-60">원</span>
                   </div>
                 </div>
@@ -761,7 +795,7 @@ export default function ChatLedger() {
                         if (d.otherMonth) return <div key={i} className="aspect-square" />;
                         const hasActivity = d.spent.length > 0 || d.planned.length > 0;
                         return (
-                          <button key={i} onClick={() => setSelectedDate(d)}
+                          <button key={i} onClick={() => setSelectedDateStr(d.date)}
                             className="aspect-square relative rounded-lg p-1 flex flex-col text-left transition-all hover:scale-105"
                             style={{
                               backgroundColor: d.isToday ? '#F5E9DD' : hasActivity ? '#FAF7F0' : 'transparent',
@@ -806,10 +840,7 @@ export default function ChatLedger() {
                         const isToday = date === todayStr;
                         return (
                           <div key={date}>
-                            <button onClick={() => {
-                              const dayData = calendarDays.find(d => d.date === date);
-                              if (dayData) setSelectedDate(dayData);
-                            }} className="w-full flex items-baseline justify-between mb-1.5 px-1 hover:opacity-80">
+                            <button onClick={() => setSelectedDateStr(date)} className="w-full flex items-baseline justify-between mb-1.5 px-1 hover:opacity-80">
                               <div className="flex items-baseline gap-1.5">
                                 <span className="text-base font-bold" style={{ color: isToday ? '#A0633C' : '#2C2418' }}>{dt.getDate()}</span>
                                 <span className="text-xs" style={{ color: dt.getDay() === 0 ? '#E07856' : dt.getDay() === 6 ? '#5B7C99' : '#7A7567' }}>{dayOfWeek}</span>
@@ -825,10 +856,7 @@ export default function ChatLedger() {
                                   <button
                                     key={item.id}
                                     onClick={() => {
-                                      if (item.place) {
-                                        const place = placesMap.find(p => p.name === item.place.name);
-                                        if (place) setSelectedPlace(place);
-                                      }
+                                      if (item.place) setSelectedPlaceName(item.place.name);
                                     }}
                                     className="w-full flex items-center gap-2.5 py-2 px-3 rounded-xl text-left hover:opacity-80"
                                     style={{ backgroundColor: isPlanned ? '#FFF8EC' : '#FAF7F0' }}>
@@ -875,14 +903,14 @@ export default function ChatLedger() {
                     {placesMap.length}곳 · 핀이나 카드를 누르면 구글지도, 사진, 리뷰까지 보여
                   </p>
 
-                  {placesMap.length > 0 && <SimpleMap places={placesMap} onPinClick={setSelectedPlace} CATEGORIES={CATEGORIES} />}
+                  {placesMap.length > 0 && <SimpleMap places={placesMap} onPinClick={(p) => setSelectedPlaceName(p.name)} CATEGORIES={CATEGORIES} />}
 
                   <div className="mt-4 space-y-2 max-h-96 overflow-y-auto">
                     <div className="text-xs font-medium" style={{ color: '#7A7567' }}>자주 간 곳</div>
                     {placesMap.map(p => {
                       const Icon = CATEGORIES[p.category]?.icon || Sparkles;
                       return (
-                        <button key={p.name} onClick={() => setSelectedPlace(p)}
+                        <button key={p.name} onClick={() => setSelectedPlaceName(p.name)}
                           className="w-full flex items-center gap-3 p-3 rounded-2xl text-left hover:bg-stone-50 transition-colors"
                           style={{ backgroundColor: '#FAF7F0' }}>
                           <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[p.category]?.bg }}>
@@ -1355,7 +1383,7 @@ export default function ChatLedger() {
         {/* === 캘린더 날짜 상세 모달 === */}
         {selectedDate && (
           <div className="fixed inset-0 z-50 flex items-end lg:items-center justify-center p-0 lg:p-4"
-            style={{ backgroundColor: 'rgba(44, 36, 24, 0.5)' }} onClick={() => setSelectedDate(null)}>
+            style={{ backgroundColor: 'rgba(44, 36, 24, 0.5)' }} onClick={() => setSelectedDateStr(null)}>
             <div className="w-full lg:max-w-md rounded-t-3xl lg:rounded-3xl overflow-hidden max-h-[85vh] flex flex-col"
               style={{ backgroundColor: '#FFFDF8' }} onClick={(e) => e.stopPropagation()}>
               <div className="p-5 border-b" style={{ borderColor: '#E8E2D5' }}>
@@ -1368,7 +1396,7 @@ export default function ChatLedger() {
                       사용 {selectedDate.totalSpent.toLocaleString()}원 · 예정 {selectedDate.totalPlanned.toLocaleString()}원
                     </div>
                   </div>
-                  <button onClick={() => setSelectedDate(null)} className="p-2 -mr-2"><X size={20} style={{ color: '#7A7567' }} /></button>
+                  <button onClick={() => setSelectedDateStr(null)} className="p-2 -mr-2"><X size={20} style={{ color: '#7A7567' }} /></button>
                 </div>
               </div>
               <div className="flex-1 overflow-y-auto p-5 space-y-2">
@@ -1440,10 +1468,7 @@ export default function ChatLedger() {
                           style={{ backgroundColor: '#FAF7F0' }}>
                           <button
                             onClick={() => {
-                              if (e.place) {
-                                const place = placesMap.find(p => p.name === e.place.name);
-                                if (place) { setSelectedDate(null); setSelectedPlace(place); }
-                              }
+                              if (e.place) { setSelectedDateStr(null); setSelectedPlaceName(e.place.name); }
                             }}
                             className="flex items-start gap-3 flex-1 min-w-0 text-left hover:opacity-80">
                             <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[e.category]?.bg }}>
@@ -1500,7 +1525,7 @@ export default function ChatLedger() {
         {selectedPlace && (
           <div className="fixed inset-0 z-50 flex items-end lg:items-center justify-center p-0 lg:p-4"
             style={{ backgroundColor: 'rgba(44, 36, 24, 0.5)' }}
-            onClick={() => { setSelectedPlace(null); setEditingEntry(null); }}>
+            onClick={() => { setSelectedPlaceName(null); setEditingEntry(null); }}>
             <div className="w-full lg:max-w-2xl rounded-t-3xl lg:rounded-3xl overflow-hidden max-h-[90vh] flex flex-col"
               style={{ backgroundColor: '#FFFDF8' }} onClick={(e) => e.stopPropagation()}>
 
@@ -1519,7 +1544,7 @@ export default function ChatLedger() {
                       {selectedPlace.avgRating > 0 && (<><span>·</span><span className="flex items-center gap-0.5"><Star size={11} fill="#E0A856" stroke="#E0A856" />{selectedPlace.avgRating.toFixed(1)}</span></>)}
                     </div>
                   </div>
-                  <button onClick={() => { setSelectedPlace(null); setEditingEntry(null); }} className="p-2 -mr-2">
+                  <button onClick={() => { setSelectedPlaceName(null); setEditingEntry(null); }} className="p-2 -mr-2">
                     <X size={20} style={{ color: '#7A7567' }} />
                   </button>
                 </div>
@@ -1562,8 +1587,8 @@ export default function ChatLedger() {
                     return (
                       <button key={m.id}
                         onClick={() => {
+                          // 같은 장소의 모든 방문 entry 에 mood 일괄 적용. invalidate 가 placesMap → selectedPlace 동기화.
                           selectedPlace.visits.forEach(v => updateEntry(v.id, { mood: m.id }));
-                          setSelectedPlace({ ...selectedPlace, mood: m.id });
                         }}
                         className="flex-1 py-2 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-medium transition-all"
                         style={{
@@ -1592,14 +1617,13 @@ export default function ChatLedger() {
                   <button
                     type="button"
                     onClick={() => {
-                      // 위치 다시 지정: 좌표 초기화 + 검색 UI 노출
+                      // 위치 다시 지정: 좌표 초기화 + 검색 UI 노출. 같은 장소 entry 들 좌표 일괄 null.
                       const targetName = selectedPlace.name;
-                      setEntries(prev => prev.map(e =>
-                        e.place?.name === targetName
-                          ? { ...e, place: { ...e.place, lat: null, lng: null, address: null } }
-                          : e
-                      ));
-                      setSelectedPlace({ ...selectedPlace, lat: null, lng: null, address: null });
+                      selectedPlace.visits.forEach(v => {
+                        updateEntry(v.id, {
+                          place: { name: targetName, lat: null, lng: null, address: null },
+                        });
+                      });
                       setPlaceSearchQuery(targetName);
                       setPlaceSearchResults([]);
                       setPlaceSearchedOnce(false);
@@ -1694,17 +1718,11 @@ export default function ChatLedger() {
                           type="button"
                           onClick={() => {
                             const targetName = selectedPlace.name;
-                            // 같은 place.name 을 가진 모든 entry 의 좌표 일괄 업데이트
-                            setEntries(prev => prev.map(e =>
-                              e.place?.name === targetName
-                                ? { ...e, place: { name: targetName, lat: r.lat, lng: r.lng, address: r.address } }
-                                : e
-                            ));
-                            setSelectedPlace({
-                              ...selectedPlace,
-                              lat: r.lat,
-                              lng: r.lng,
-                              address: r.address,
+                            // 같은 place.name 의 모든 visit entry 좌표 일괄 업데이트. invalidate 가 placesMap → selectedPlace 동기화.
+                            selectedPlace.visits.forEach(v => {
+                              updateEntry(v.id, {
+                                place: { name: targetName, lat: r.lat, lng: r.lng, address: r.address },
+                              });
                             });
                             setPlaceSearchResults([]);
                             setPlaceSearchQuery('');
@@ -1780,12 +1798,12 @@ export default function ChatLedger() {
                       </button>
                     )}
 
-                    {/* 사진 */}
+                    {/* 사진 — 백엔드 photoMeta 가 진실원본. v.photos 는 표시용 URL 배열. */}
                     <div className="flex gap-1.5 flex-wrap items-center">
-                      {v.photos && v.photos.map((ph, idx) => (
-                        <div key={idx} className="relative group">
-                          <img src={ph} alt="" className="w-16 h-16 rounded-lg object-cover" />
-                          <button onClick={() => removePhoto(v.id, idx)}
+                      {v.photoMeta && v.photoMeta.map((meta, idx) => (
+                        <div key={meta.id} className="relative group">
+                          <img src={v.photos[idx]} alt="" className="w-16 h-16 rounded-lg object-cover" />
+                          <button onClick={() => removePhoto(v.id, meta.id)}
                             className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                             style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
                             <X size={10} />
@@ -1793,11 +1811,12 @@ export default function ChatLedger() {
                         </div>
                       ))}
                       <button onClick={() => { setPhotoUploadEntry(v.id); photoInputRef.current?.click(); }}
+                        disabled={uploadPhotoMut.isPending}
                         className="w-16 h-16 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: 'white', border: '1px dashed #D4CDC0', color: '#7A7567' }}>
+                        style={{ backgroundColor: 'white', border: '1px dashed #D4CDC0', color: '#7A7567', opacity: uploadPhotoMut.isPending ? 0.5 : 1 }}>
                         <div className="flex flex-col items-center gap-0.5">
                           <Upload size={14} />
-                          <span className="text-[9px]">사진</span>
+                          <span className="text-[9px]">{uploadPhotoMut.isPending ? '업로드중…' : '사진'}</span>
                         </div>
                       </button>
                     </div>
