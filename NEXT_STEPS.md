@@ -65,7 +65,7 @@
    ENV=production
    DATABASE_URL=${{Postgres.DATABASE_URL}}
    JWT_SECRET=<openssl rand -hex 32 결과를 새로 발급해 사용 — 로컬 .env 의 시크릿 재사용 금지>
-   ANTHROPIC_API_KEY=sk-ant-api03-TvYy...A6Ww-Rw393AAA   (현재 .env 에 있는 값 그대로)
+   ANTHROPIC_API_KEY=<현재 backend/.env 의 ANTHROPIC_API_KEY 값을 복사>    (실제 키는 git 에 커밋 금지)
    CORS_ORIGINS=https://<Vercel 도메인 추후 추가>
    FRONTEND_BASE_URL=https://<Vercel 도메인>
    STORAGE_BACKEND=local
@@ -98,8 +98,8 @@
 
 | 키 | 출처 파일 | 값 일부 | 비고 |
 |------|----------|---------|------|
-| `ANTHROPIC_API_KEY` | `c:\Users\okiro\OneDrive\문서\New solution\backend\.env` (Adora AI 프로젝트의 `.env` 라인 2) | `sk-ant-api03-TvYy…A6Ww-Rw393AAA` | Adora AI와 동일 키 사용. 프로덕션 출시 후엔 별도 키 발급해 분리 권장 (사용량·과금·롤링 정책 분리). |
-| `JWT_SECRET` | 신규 생성 (`python -c "import secrets; print(secrets.token_hex(32))"`) | `3125c50933c62…68a0` | 로컬용. **프로덕션(Railway)에는 반드시 새로 발급한 별도 시크릿 사용.** |
+| `ANTHROPIC_API_KEY` | `atm-ledger/backend/.env` (gitignored) | `sk-ant-...` (값은 .env 파일 참조 — git 커밋 금지) | 별도 키 발급 권장 (Adora AI 와 분리해 사용량·과금 관리). |
+| `JWT_SECRET` | `atm-ledger/backend/.env` (gitignored) | `<64자 hex — openssl rand -hex 32 결과>` | 로컬용. **프로덕션(Railway)에는 반드시 새로 발급한 별도 시크릿 사용.** |
 | `OPENAI_API_KEY` | 미사용 | — | Moa AI 가계부는 Claude만 사용 (이미지 픽스가 없음). |
 | `GOOGLE_*`, `KAKAO_*` | 비워둠 | — | v1.5에서 소셜 로그인 추가 시 발급. |
 | `R2_*` | 비워둠 | — | v1+ 사진 영구 저장 시 발급. v1 출시까지는 `STORAGE_BACKEND=local` 로 충분. |
