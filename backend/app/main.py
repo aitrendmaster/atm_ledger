@@ -145,3 +145,22 @@ app.include_router(admin.router)
 @app.get("/health")
 async def health():
     return {"status": "ok", "env": settings.env}
+
+
+@app.get("/health/diag")
+async def health_diag():
+    s = settings
+    return {
+        "env": s.env,
+        "database_dialect": engine.dialect.name,
+        "cors_origins_count": len(s.cors_origins_list),
+        "cors_includes_moa": "https://moa.atm.ai.kr" in s.cors_origins_list,
+        "jwt_secret_set": bool(s.jwt_secret) and s.jwt_secret != "change-me",
+        "frontend_base_url": s.frontend_base_url,
+        "resend_configured": bool(s.resend_api_key),
+        "resend_from": s.resend_from,
+        "google_oauth_configured": bool(s.google_client_id),
+        "admin_emails_count": len(s.admin_email_set),
+        "beta_free_mode": s.beta_free_mode,
+        "storage_backend": s.storage_backend,
+    }
