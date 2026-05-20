@@ -16,14 +16,17 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 
 @router.post("/parse", response_model=ParseResponse)
 async def parse(body: ParseRequest, user: User = Depends(get_current_user)):
-    items = await ai_service.parse_expense(
+    result = await ai_service.parse_expense(
         body.text,
         body.image.data if body.image else None,
         body.image.media_type if body.image else None,
         user_id=user.id,
         user_locale=user.locale or "ko",
     )
-    return ParseResponse(items=[ParsedItem(**i) for i in items])
+    return ParseResponse(
+        items=[ParsedItem(**i) for i in result.get("items", [])],
+        follow_up=result.get("follow_up"),
+    )
 
 
 @router.post("/insight", response_model=InsightResponse)

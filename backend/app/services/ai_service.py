@@ -135,43 +135,80 @@ async def parse_expense(
     media_type: str | None,
     user_id: int | None = None,
     user_locale: str = "ko",
-) -> list[dict]:
+) -> dict:
     """자유 텍스트/영수증 이미지를 가계부 항목으로 파싱.
 
-    user_locale: 응답 description 의 언어 힌트. 카테고리는 ALLOWED_CATEGORIES(한국어) 고정.
+    반환 형태: {"items": [...], "follow_up": "..." | None}
+    - items: 정상 파싱된 가계부 항목들 (zero or more)
+    - follow_up: 의도는 파악됐지만 필수 정보가 누락된 경우 사용자에게 보여줄
+      자연어 안내 메시지 (사용자 locale). 항목과 함께 반환될 수도 있음
+      (예: 일부 행은 정상 + 나머지는 모호 — 사용자에게 보완 요청).
     """
     today = _date.today().isoformat()
     intro = _PARSE_SYSTEM_BY_LOCALE.get(user_locale, _PARSE_SYSTEM_BY_LOCALE["ko"])
     system = f"""{intro}
 
+# Output schema (ALWAYS respond with this exact JSON object — never a bare array)
+
+{{
+  "items": [<ParsedItem>, ...],
+  "follow_up": "<message in user's language>" | null
+}}
+
+A ParsedItem is:
+{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>","recurrence":"none"|"monthly"|"weekly"|"yearly","recurrence_day":<int or null>}}
+
+# Field rules
+
 kind: "spent" (already paid) | "planned" (future / upcoming).
 **DEFAULT kind="spent"** when the user just describes a purchase without an explicit future signal.
-- spent triggers (KEEP "spent"): hôm nay / 오늘 / today / now / 방금 / just / 어제 / yesterday /
-  영수증 / receipt / paid / bought / 샀어 / 썼어 / 마트 / mua / past tense / receipt image / amounts
-  the user simply states without a date qualifier.
-- planned triggers (USE "planned"): 내일 / 다음달 / next / will / sẽ / 예정 / upcoming / 계획 /
-  future-dated mentions ("16일에 ...", "다음달 5일") / 매월·매주·매년 (recurring).
+- spent triggers: hôm nay / 오늘 / today / now / 방금 / just / 어제 / yesterday /
+  영수증 / receipt / paid / bought / 샀어 / 썼어 / 마트 / mua / past tense / receipt image.
+- planned triggers: 내일 / 다음달 / next / will / sẽ / 예정 / upcoming / 계획 /
+  future-dated mentions / 매월·매주·매년 (recurring).
 - For pure receipt images, ALWAYS kind="spent".
 
-amount: integer in user's currency. Strip thousand separators (".", ",", spaces). "13.000" or "13,000" → 13000.
-amount must be positive; if you cannot parse it, skip the item.
+amount: integer in user's currency. Strip thousand separators (".", ",", spaces).
+"13.000" or "13,000" → 13000. amount must be positive; otherwise skip the item.
 
 category (must be one of these Korean keys): {', '.join(ALLOWED_CATEGORIES)}
-- "이자 / 대출 / 월부금 / 카드값 / loan interest / monthly payment" → "금융/대출"
+- "이자 / 대출 / 월부금 / 카드값 / loan interest / monthly payment / 주담대" → "금융/대출"
 
 recurrence: "none" | "monthly" | "weekly" | "yearly". Default "none".
 - "매월/매달/every month" with day → recurrence="monthly", recurrence_day=<day of month 1-31>
 - "매주/every week" with weekday → recurrence="weekly", recurrence_day=<0=Mon..6=Sun>
-- "매년/every year" → recurrence="yearly", recurrence_day=null (date 의 MM-DD 사용)
-- one-off → recurrence="none", recurrence_day=null
+- "매년/every year" → recurrence="yearly", recurrence_day=null
+- IMPORTANT: when the user says "매월" once in a comma-separated list and then lists
+  multiple "N일 ... amount" entries, APPLY recurrence="monthly" to ALL items in that list,
+  with each item taking its own recurrence_day from the date number.
+- For comma-separated lists with shared kind="planned"/"지출 예정" and multiple "N일 ...",
+  prefer recurrence="monthly" over one-off (planned recurring expense pattern).
 
-date: YYYY-MM-DD. Default = today ({today}) when not specified.
-For recurring items, date = first occurrence (e.g. "매월 16일" with today={today} → date is the closest upcoming 16th, recurrence="monthly", recurrence_day=16).
+date: YYYY-MM-DD. Default = today ({today}). For recurring items, date = first occurrence
+(closest upcoming N-th day from today).
 
-Response format:
-[{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>","recurrence":"none"|"monthly"|"weekly"|"yearly","recurrence_day":<int or null>}}]
+# Follow-up rule (CRITICAL UX)
 
-The "description" field should be in the user's language (locale: {user_locale}); keep "category" as the Korean key from the list above. If the input is empty or cannot be understood as a transaction, respond []."""
+When the user's input strongly implies a **recurring expense** (multiple amounts, "매월",
+"지출 예정", regular financial transactions like loan/rent) but you cannot confidently
+parse it OR critical info is missing, RETURN:
+- items=[] (or items=[partial successes])
+- follow_up=<a short, friendly natural-language message in the user's language ({user_locale})
+  that:
+    1. Confirms you understood it as a recurring expense.
+    2. Asks for the missing information.
+    3. Shows ONE concrete example of how to write it correctly (use the user's currency).
+
+Required information checklist for a recurring expense:
+  • 금액 (amount)
+  • 반복 주기 (recurrence: monthly/weekly/yearly)
+  • 반복일 (recurrence_day: 1-31 for monthly, 0-6 for weekly)
+  • 카테고리 (one of ALLOWED_CATEGORIES; 금융/대출 for loan interest)
+  • 시작일 (start date, optional → defaults to today)
+  • 종료일 (optional → null = open-ended)
+
+When info IS sufficient, parse normally with items=[...], follow_up=null.
+When NOT a transaction at all (greeting, question, etc.), return items=[], follow_up=null."""
 
     if image_b64 and media_type:
         user_content = [
@@ -186,21 +223,31 @@ The "description" field should be in the user's language (locale: {user_locale})
         client = _client()
         resp = client.messages.create(
             model=MODEL_PARSE,
-            max_tokens=1000,
+            max_tokens=1500,
             system=system,
             messages=[{"role": "user", "content": user_content}],
         )
         in_tok, out_tok = _usage_from(resp)
-        text_block = next((b.text for b in resp.content if b.type == "text"), "[]")
-        raw = json.loads(_strip_fence(text_block) or "[]")
-        if not isinstance(raw, list):
-            await _record_usage(
-                user_id=user_id, kind="parse", model=MODEL_PARSE,
-                input_tokens=in_tok, output_tokens=out_tok,
-            )
-            return []
+        text_block = next((b.text for b in resp.content if b.type == "text"), "{}")
+        raw_resp = json.loads(_strip_fence(text_block) or "{}")
+
+        # 하위 호환: 옛 prompt 시절 응답이 bare list 일 수도 있음.
+        if isinstance(raw_resp, list):
+            raw_items = raw_resp
+            follow_up = None
+        elif isinstance(raw_resp, dict):
+            raw_items = raw_resp.get("items") or []
+            follow_up = raw_resp.get("follow_up") or None
+            if not isinstance(raw_items, list):
+                raw_items = []
+        else:
+            raw_items = []
+            follow_up = None
+
         normalized = []
-        for item in raw:
+        for item in raw_items:
+            if not isinstance(item, dict):
+                continue
             cat = item.get("category")
             if cat not in ALLOWED_CATEGORIES:
                 item["category"] = "기타"
@@ -214,7 +261,6 @@ The "description" field should be in the user's language (locale: {user_locale})
                 rec_day = None
             amt = _to_int_amount(item.get("amount"))
             if amt <= 0:
-                # AI가 amount를 파싱 못한 항목은 저장 단계로 보내지 않음.
                 continue
             normalized.append({
                 "kind": "planned" if item.get("kind") == "planned" else "spent",
@@ -226,11 +272,17 @@ The "description" field should be in the user's language (locale: {user_locale})
                 "recurrence": rec,
                 "recurrence_day": rec_day,
             })
+
+        # follow_up 정규화: 비어있는 문자열 → None
+        if follow_up is not None:
+            fu = str(follow_up).strip()
+            follow_up = fu[:1200] if fu else None
+
         await _record_usage(
             user_id=user_id, kind="parse", model=MODEL_PARSE,
             input_tokens=in_tok, output_tokens=out_tok,
         )
-        return normalized
+        return {"items": normalized, "follow_up": follow_up}
     except Exception as e:
         logger.warning(f"parse_expense 실패: {e}")
         await _record_usage(
@@ -238,7 +290,7 @@ The "description" field should be in the user's language (locale: {user_locale})
             input_tokens=in_tok, output_tokens=out_tok,
             status="error", error=str(e),
         )
-        return []
+        return {"items": [], "follow_up": None}
 
 
 # 인사이트 prompt 의 톤 가이드 (locale 별 1~2 문장)

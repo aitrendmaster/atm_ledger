@@ -260,14 +260,17 @@ export default function ChatLedger() {
       : { text: userText };
     const res = await aiApi.parse(body);
     // backend는 placeName 대신 place_name 으로 응답. UI 호환 위해 매핑.
-    return (res.data.items || []).map(it => ({
+    const items = (res.data.items || []).map(it => ({
       kind: it.kind,
       description: it.description,
       amount: it.amount,
       category: it.category,
       date: it.date,
       placeName: it.place_name,
+      recurrence: it.recurrence || 'none',
+      recurrence_day: it.recurrence_day ?? null,
     }));
+    return { items, followUp: res.data.follow_up || null };
   };
 
   // 사용자 위치 (Geolocation API). 첫 검색 시 권한 요청. 거부 시 null 로 남아 전국 검색.
@@ -362,9 +365,12 @@ export default function ChatLedger() {
     const cur = input, curImg = pendingImage;
     setInput(''); setPendingImage(null); setLoading(true);
     try {
-      const parsed = await parseWithClaude(cur, curImg);
-      if (!parsed || parsed.length === 0) {
+      const { items: parsed, followUp } = await parseWithClaude(cur, curImg);
+      if ((!parsed || parsed.length === 0) && !followUp) {
         setMessages(prev => [...prev, { role: 'assistant', text: t('ledger.input.retry'), time: new Date() }]);
+      } else if ((!parsed || parsed.length === 0) && followUp) {
+        // AI 가 의도는 파악했지만 정보 부족 — follow-up 안내만 표시.
+        setMessages(prev => [...prev, { role: 'assistant', text: followUp, time: new Date() }]);
       } else {
         // place_name 만 저장하고 좌표는 null. 사용자가 장소 상세 모달에서 직접 검색·선택.
         const spentItems = parsed.filter(p => p.kind === 'spent');
@@ -419,11 +425,15 @@ export default function ChatLedger() {
           : '';
         const totalSaved = createdSpent.length + createdPlannedCount;
         if (totalSaved > 0) {
+          const tailFollowUp = followUp ? '\n\n' + followUp : '';
           setMessages(prev => [...prev, {
             role: 'assistant',
-            text: t('ledger.messages.recorded', { count: totalSaved }) + placeHint + recurringHint,
+            text: t('ledger.messages.recorded', { count: totalSaved }) + placeHint + recurringHint + tailFollowUp,
             time: new Date(),
           }]);
+        } else if (followUp) {
+          // 항목 저장 실패 + 의도 파악 → follow-up 안내만.
+          setMessages(prev => [...prev, { role: 'assistant', text: followUp, time: new Date() }]);
         } else {
           setMessages(prev => [...prev, {
             role: 'assistant',

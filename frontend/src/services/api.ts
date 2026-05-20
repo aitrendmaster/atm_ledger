@@ -426,9 +426,14 @@ export interface ParseInput {
   text?: string
   image?: { data: string; media_type: string }
 }
+export interface ParseApiResponse {
+  items: ParsedItem[]
+  /** AI 가 의도는 파악했지만 정보 부족 시 사용자에게 안내할 follow-up (locale-aware). */
+  follow_up?: string | null
+}
 export const aiApi = {
   parse: (body: ParseInput) =>
-    api.post<{ items: ParsedItem[] }>('/ai/parse', body),
+    api.post<ParseApiResponse>('/ai/parse', body),
   insight: (month: string, current: any, previous: any) =>
     api.post<{ summary: string; praise: string; concern: string; suggestion: string }>(
       '/ai/insight-from-stats',

@@ -24,6 +24,10 @@ class ParsedItem(BaseModel):
 
 class ParseResponse(BaseModel):
     items: list[ParsedItem]
+    # AI가 사용자 입력에서 의도를 파악했지만 누락된 필드가 있어 추가 정보를
+    # 요청해야 할 때 채우는 자연어 follow-up 메시지 (사용자 locale).
+    # frontend 가 받으면 assistant 채팅 메시지로 표시. null 이면 일반 입력으로 간주.
+    follow_up: str | None = None
 
 
 class InsightRequest(BaseModel):
