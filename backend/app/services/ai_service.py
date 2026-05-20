@@ -4,6 +4,7 @@
 가격은 모델별 PRICING_MC_PER_TOKEN 에 정의 — millicent 단위(1/1000 cent)로 저장.
 """
 import json
+import re
 from datetime import date as _date
 
 import anthropic
@@ -79,6 +80,32 @@ def _strip_fence(text: str) -> str:
     return text.replace("```json", "").replace("```", "").strip()
 
 
+def _to_int_amount(v) -> int:
+    """Locale-tolerant amount parser.
+
+    Accepts int/float/string. Strips common thousand separators (",", ".", spaces, NBSP)
+    so values like "13.000" (vi-VN, ko-KR shorthand) or "13,000" (en-US) become 13000.
+    Returns 0 if unparseable.
+    """
+    if v is None:
+        return 0
+    if isinstance(v, bool):
+        return 0
+    if isinstance(v, (int, float)):
+        return int(v)
+    s = str(v).strip()
+    if not s:
+        return 0
+    # Keep digits and a leading '-' only. Removes "13.000", "13,000", "13 000", "13,000.50", "₫"
+    cleaned = re.sub(r"[^0-9-]", "", s)
+    if not cleaned or cleaned == "-":
+        return 0
+    try:
+        return int(cleaned)
+    except ValueError:
+        return 0
+
+
 def _usage_from(resp) -> tuple[int, int]:
     u = getattr(resp, "usage", None)
     if not u:
@@ -116,17 +143,35 @@ async def parse_expense(
     today = _date.today().isoformat()
     intro = _PARSE_SYSTEM_BY_LOCALE.get(user_locale, _PARSE_SYSTEM_BY_LOCALE["ko"])
     system = f"""{intro}
-kind: spent (already spent) | planned (will spend)
+
+kind: "spent" (already paid) | "planned" (future / upcoming).
+**DEFAULT kind="spent"** when the user just describes a purchase without an explicit future signal.
+- spent triggers (KEEP "spent"): hôm nay / 오늘 / today / now / 방금 / just / 어제 / yesterday /
+  영수증 / receipt / paid / bought / 샀어 / 썼어 / 마트 / mua / past tense / receipt image / amounts
+  the user simply states without a date qualifier.
+- planned triggers (USE "planned"): 내일 / 다음달 / next / will / sẽ / 예정 / upcoming / 계획 /
+  future-dated mentions ("16일에 ...", "다음달 5일") / 매월·매주·매년 (recurring).
+- For pure receipt images, ALWAYS kind="spent".
+
+amount: integer in user's currency. Strip thousand separators (".", ",", spaces). "13.000" or "13,000" → 13000.
+amount must be positive; if you cannot parse it, skip the item.
+
 category (must be one of these Korean keys): {', '.join(ALLOWED_CATEGORIES)}
-recurrence: "none" | "monthly" | "weekly" | "yearly"
+- "이자 / 대출 / 월부금 / 카드값 / loan interest / monthly payment" → "금융/대출"
+
+recurrence: "none" | "monthly" | "weekly" | "yearly". Default "none".
 - "매월/매달/every month" with day → recurrence="monthly", recurrence_day=<day of month 1-31>
 - "매주/every week" with weekday → recurrence="weekly", recurrence_day=<0=Mon..6=Sun>
 - "매년/every year" → recurrence="yearly", recurrence_day=null (date 의 MM-DD 사용)
 - one-off → recurrence="none", recurrence_day=null
-Response format: [{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>","recurrence":"none"|"monthly"|"weekly"|"yearly","recurrence_day":<int or null>}}]
-The "description" field should be in the user's language (locale: {user_locale}); keep "category" as the Korean key from the list above.
-For recurring items, "date" = first occurrence date (e.g. "매월 16일" today=2026-05-20 → date="2026-06-16", recurrence="monthly", recurrence_day=16).
-Today: {today}. If ambiguous, respond []."""
+
+date: YYYY-MM-DD. Default = today ({today}) when not specified.
+For recurring items, date = first occurrence (e.g. "매월 16일" with today={today} → date is the closest upcoming 16th, recurrence="monthly", recurrence_day=16).
+
+Response format:
+[{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>","recurrence":"none"|"monthly"|"weekly"|"yearly","recurrence_day":<int or null>}}]
+
+The "description" field should be in the user's language (locale: {user_locale}); keep "category" as the Korean key from the list above. If the input is empty or cannot be understood as a transaction, respond []."""
 
     if image_b64 and media_type:
         user_content = [
@@ -167,10 +212,14 @@ Today: {today}. If ambiguous, respond []."""
                 rec_day = int(rec_day_raw) if rec_day_raw is not None else None
             except (TypeError, ValueError):
                 rec_day = None
+            amt = _to_int_amount(item.get("amount"))
+            if amt <= 0:
+                # AI가 amount를 파싱 못한 항목은 저장 단계로 보내지 않음.
+                continue
             normalized.append({
                 "kind": "planned" if item.get("kind") == "planned" else "spent",
                 "description": str(item.get("description", "")).strip()[:255],
-                "amount": int(item.get("amount", 0)),
+                "amount": amt,
                 "category": item["category"],
                 "date": str(item.get("date") or today),
                 "place_name": item.get("placeName") or None,
