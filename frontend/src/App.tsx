@@ -14,6 +14,7 @@ import FaqPage from './pages/FaqPage'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import MyPage from './pages/MyPage'
+import OutageModal from './components/OutageModal'
 
 function Protected({ children }: { children: JSX.Element }) {
   const { user, loading } = useAuth()
@@ -25,6 +26,8 @@ function Protected({ children }: { children: JSX.Element }) {
 export default function App() {
   useGaPageView()
   return (
+    <>
+    <OutageModal />
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
@@ -41,5 +44,6 @@ export default function App() {
       <Route path="/admin" element={<Protected><Admin /></Protected>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   )
 }
