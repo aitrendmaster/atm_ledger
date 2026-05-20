@@ -108,7 +108,7 @@
     "categories": {
       "식비": "Makanan", "카페/간식": "Kafe & snek", "쇼핑": "Membeli-belah", "교통": "Pengangkutan",
       "주거/공과금": "Rumah & utiliti", "건강/뷰티": "Kesihatan & kecantikan", "여행/이벤트": "Pelancongan & acara",
-      "경조사/선물": "Majlis & hadiah", "기타": "Lain-lain"
+      "경조사/선물": "Majlis & hadiah", "금융/대출": "Kewangan & pinjaman", "기타": "Lain-lain"
     },
     "calendar": {
       "weekday": { "sun": "Ahd", "mon": "Isn", "tue": "Sel", "wed": "Rab", "thu": "Kha", "fri": "Jum", "sat": "Sab" },

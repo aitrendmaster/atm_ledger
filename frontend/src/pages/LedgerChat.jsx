@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut } from 'lucide-react';
+import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut, Banknote } from 'lucide-react';
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { absolutizePhotoUrl } from '../services/ledgerMappers';
 import { currencySymbol, formatCurrency } from '../utils/currency';
@@ -23,6 +23,7 @@ const CATEGORIES = {
   '건강/뷰티': { icon: Heart, color: '#C7657B', bg: '#F8E5E9' },
   '여행/이벤트': { icon: Plane, color: '#5B7C99', bg: '#E5ECF2' },
   '경조사/선물': { icon: Gift, color: '#C7657B', bg: '#F8E5E9' },
+  '금융/대출': { icon: Banknote, color: '#4A5B7A', bg: '#E4E8EE' },
   '기타': { icon: Sparkles, color: '#7A7567', bg: '#EFECE6' },
 };
 
@@ -387,16 +388,21 @@ export default function ChatLedger() {
           }
         }
         let createdPlannedCount = 0;
+        let createdRecurringCount = 0;
         for (const p of plannedItems) {
           try {
+            const rec = p.recurrence || 'none';
             await createPlannedMut.mutateAsync({
               description: p.description,
               amount: p.amount,
               category: CATEGORIES[p.category] ? p.category : '기타',
               date: p.date,
               type: 'event',
+              recurrence: rec,
+              recurrence_day: p.recurrence_day ?? null,
             });
             createdPlannedCount += 1;
+            if (rec !== 'none') createdRecurringCount += 1;
           } catch {
             /* toast 는 useCreatePlanned onError 가 처리 */
           }
@@ -405,11 +411,17 @@ export default function ChatLedger() {
         const placeHint = namedPlace
           ? '\n' + t('ledger.messages.placeRecognized', { name: namedPlace.place.name })
           : '';
+        const recurringHint = createdRecurringCount > 0
+          ? '\n' + t('ledger.messages.recurringRecorded', {
+              count: createdRecurringCount,
+              defaultValue: `🔁 ${createdRecurringCount}건은 반복 지출로 등록했어요. [반복 지출 관리] 페이지에서 수정·삭제할 수 있어요.`,
+            })
+          : '';
         const totalSaved = createdSpent.length + createdPlannedCount;
         if (totalSaved > 0) {
           setMessages(prev => [...prev, {
             role: 'assistant',
-            text: t('ledger.messages.recorded', { count: totalSaved }) + placeHint,
+            text: t('ledger.messages.recorded', { count: totalSaved }) + placeHint + recurringHint,
             time: new Date(),
           }]);
         } else {

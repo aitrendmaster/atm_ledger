@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { HelpCircle, LogOut, ShieldCheck, User as UserIcon } from 'lucide-react'
+import { HelpCircle, LogOut, RefreshCw, ShieldCheck, User as UserIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../hooks/useAuth'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -39,6 +39,13 @@ export default function AppHeader({
               <HelpCircle size={14} /> <span className="hidden sm:inline">FAQ</span>
             </Link>
           )}
+          <Link
+            to="/recurring"
+            title={t('appHeader.recurring', { defaultValue: '반복 지출' })}
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200 rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+          >
+            <RefreshCw size={14} /> <span className="hidden sm:inline">{t('appHeader.recurring', { defaultValue: '반복 지출' })}</span>
+          </Link>
           <Link
             to="/me"
             title={t('appHeader.myAccount')}

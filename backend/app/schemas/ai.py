@@ -18,6 +18,8 @@ class ParsedItem(BaseModel):
     category: str
     date: str
     place_name: str | None = None
+    recurrence: str = "none"  # none | monthly | weekly | yearly
+    recurrence_day: int | None = None  # monthly: 1-31, weekly: 0-6 (Mon=0)
 
 
 class ParseResponse(BaseModel):

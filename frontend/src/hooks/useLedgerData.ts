@@ -50,6 +50,17 @@ export function usePlanned() {
   })
 }
 
+/**
+ * 반복 지출 관리 페이지용 — 반복 규칙 마스터만 (recurrence!='none').
+ */
+export function usePlannedRules() {
+  return useQuery<Planned[]>({
+    queryKey: ['planned', 'rules'],
+    queryFn: async () => (await plannedApi.list({ includeRules: true })).data,
+    enabled: !!tokenStore.access,
+  })
+}
+
 export function useReflections() {
   return useQuery<Reflection[]>({
     queryKey: REFLECTIONS_KEY,
@@ -208,18 +219,42 @@ export interface CreatePlannedInput {
   date: string
   type?: string
   note?: string | null
+  recurrence?: 'none' | 'monthly' | 'weekly' | 'yearly'
+  recurrence_day?: number | null
+  recurrence_until?: string | null
 }
 
 export function useCreatePlanned() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async (input: CreatePlannedInput) => {
-      const r = await plannedApi.create({ type: 'event', ...input })
+      const r = await plannedApi.create({ type: 'event', recurrence: 'none', ...input })
       return r.data
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: PLANNED_KEY }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: PLANNED_KEY })
+      qc.invalidateQueries({ queryKey: ['planned', 'rules'] })
+    },
     onError: (err: any) =>
       toast.error('예정 저장 실패: ' + (err?.response?.data?.detail || '다시 시도')),
+  })
+}
+
+export function useCreatePlannedBatch() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (rows: CreatePlannedInput[]) => {
+      const r = await plannedApi.createBatch(
+        rows.map((row) => ({ type: 'event', recurrence: 'none', ...row })),
+      )
+      return r.data
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: PLANNED_KEY })
+      qc.invalidateQueries({ queryKey: ['planned', 'rules'] })
+    },
+    onError: (err: any) =>
+      toast.error('일괄 저장 실패: ' + (err?.response?.data?.detail || '다시 시도')),
   })
 }
 
@@ -242,7 +277,10 @@ export function useUpdatePlanned() {
       if (ctx?.prev) qc.setQueryData(PLANNED_KEY, ctx.prev)
       toast.error('수정 실패 — 되돌렸어')
     },
-    onSettled: () => qc.invalidateQueries({ queryKey: PLANNED_KEY }),
+    onSettled: () => {
+      qc.invalidateQueries({ queryKey: PLANNED_KEY })
+      qc.invalidateQueries({ queryKey: ['planned', 'rules'] })
+    },
   })
 }
 
@@ -263,7 +301,10 @@ export function useDeletePlanned() {
       if (ctx?.prev) qc.setQueryData(PLANNED_KEY, ctx.prev)
       toast.error('삭제 실패 — 되돌렸어')
     },
-    onSettled: () => qc.invalidateQueries({ queryKey: PLANNED_KEY }),
+    onSettled: () => {
+      qc.invalidateQueries({ queryKey: PLANNED_KEY })
+      qc.invalidateQueries({ queryKey: ['planned', 'rules'] })
+    },
   })
 }
 

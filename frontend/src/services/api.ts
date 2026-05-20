@@ -285,6 +285,8 @@ export interface Entry {
   photos: EntryPhoto[]
 }
 
+export type Recurrence = 'none' | 'monthly' | 'weekly' | 'yearly'
+
 export interface Planned {
   id: number
   description: string
@@ -293,6 +295,11 @@ export interface Planned {
   date: string
   type: string
   note: string | null
+  recurrence: Recurrence
+  recurrence_day: number | null
+  recurrence_until: string | null
+  /** true 면 backend 가 반복 규칙으로부터 동적 생성한 가상 occurrence (DB row 아님). 클릭 시 원본 규칙 편집으로 안내. */
+  is_recurring_instance?: boolean
 }
 
 export interface Reflection {
@@ -309,6 +316,8 @@ export interface ParsedItem {
   category: string
   date: string
   place_name: string | null
+  recurrence?: Recurrence
+  recurrence_day?: number | null
 }
 
 export interface SimpleResult {
@@ -386,8 +395,19 @@ export const entriesApi = {
 
 // ===== Planned =====
 export const plannedApi = {
-  list: () => api.get<Planned[]>('/planned'),
+  /**
+   * @param month YYYY-MM. 지정 시 그 달의 일회성 + 모든 반복 occurrence (가상) 반환.
+   * @param includeRules true 면 반복 규칙 마스터 (recurrence!='none') 만 반환 — 반복 지출 관리 페이지용.
+   */
+  list: (params?: { month?: string; includeRules?: boolean }) =>
+    api.get<Planned[]>('/planned', {
+      params: {
+        month: params?.month,
+        include_rules: params?.includeRules ? 1 : undefined,
+      },
+    }),
   create: (body: Partial<Planned>) => api.post<Planned>('/planned', body),
+  createBatch: (rows: Partial<Planned>[]) => api.post<Planned[]>('/planned/batch', rows),
   update: (id: number, patch: Partial<Planned>) => api.patch<Planned>(`/planned/${id}`, patch),
   remove: (id: number) => api.delete(`/planned/${id}`),
 }

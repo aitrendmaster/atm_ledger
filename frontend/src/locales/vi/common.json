@@ -108,7 +108,7 @@
     "categories": {
       "식비": "Ăn uống", "카페/간식": "Cà phê & vặt", "쇼핑": "Mua sắm", "교통": "Di chuyển",
       "주거/공과금": "Nhà & tiện ích", "건강/뷰티": "Sức khoẻ & làm đẹp", "여행/이벤트": "Du lịch & sự kiện",
-      "경조사/선물": "Quà & nghi lễ", "기타": "Khác"
+      "경조사/선물": "Quà & nghi lễ", "금융/대출": "Tài chính & khoản vay", "기타": "Khác"
     },
     "calendar": {
       "weekday": { "sun": "CN", "mon": "T2", "tue": "T3", "wed": "T4", "thu": "T5", "fri": "T6", "sat": "T7" },

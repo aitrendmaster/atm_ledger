@@ -21,8 +21,10 @@ MODEL_INSIGHT = "claude-haiku-4-5-20251001"
 
 ALLOWED_CATEGORIES = {
     "식비", "카페/간식", "쇼핑", "교통", "주거/공과금",
-    "건강/뷰티", "여행/이벤트", "경조사/선물", "기타",
+    "건강/뷰티", "여행/이벤트", "경조사/선물", "금융/대출", "기타",
 }
+
+ALLOWED_RECURRENCE = {"none", "monthly", "weekly", "yearly"}
 
 # Claude Haiku 4.5 (2025-10-01): input $1/MTok, output $5/MTok
 # millicent per token: input 0.0001 / output 0.0005
@@ -116,8 +118,14 @@ async def parse_expense(
     system = f"""{intro}
 kind: spent (already spent) | planned (will spend)
 category (must be one of these Korean keys): {', '.join(ALLOWED_CATEGORIES)}
-Response format: [{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>"}}]
+recurrence: "none" | "monthly" | "weekly" | "yearly"
+- "매월/매달/every month" with day → recurrence="monthly", recurrence_day=<day of month 1-31>
+- "매주/every week" with weekday → recurrence="weekly", recurrence_day=<0=Mon..6=Sun>
+- "매년/every year" → recurrence="yearly", recurrence_day=null (date 의 MM-DD 사용)
+- one-off → recurrence="none", recurrence_day=null
+Response format: [{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>","recurrence":"none"|"monthly"|"weekly"|"yearly","recurrence_day":<int or null>}}]
 The "description" field should be in the user's language (locale: {user_locale}); keep "category" as the Korean key from the list above.
+For recurring items, "date" = first occurrence date (e.g. "매월 16일" today=2026-05-20 → date="2026-06-16", recurrence="monthly", recurrence_day=16).
 Today: {today}. If ambiguous, respond []."""
 
     if image_b64 and media_type:
@@ -151,6 +159,14 @@ Today: {today}. If ambiguous, respond []."""
             cat = item.get("category")
             if cat not in ALLOWED_CATEGORIES:
                 item["category"] = "기타"
+            rec = item.get("recurrence") or "none"
+            if rec not in ALLOWED_RECURRENCE:
+                rec = "none"
+            rec_day_raw = item.get("recurrence_day")
+            try:
+                rec_day = int(rec_day_raw) if rec_day_raw is not None else None
+            except (TypeError, ValueError):
+                rec_day = None
             normalized.append({
                 "kind": "planned" if item.get("kind") == "planned" else "spent",
                 "description": str(item.get("description", "")).strip()[:255],
@@ -158,6 +174,8 @@ Today: {today}. If ambiguous, respond []."""
                 "category": item["category"],
                 "date": str(item.get("date") or today),
                 "place_name": item.get("placeName") or None,
+                "recurrence": rec,
+                "recurrence_day": rec_day,
             })
         await _record_usage(
             user_id=user_id, kind="parse", model=MODEL_PARSE,

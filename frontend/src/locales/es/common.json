@@ -109,7 +109,7 @@
     "categories": {
       "식비": "Comida", "카페/간식": "Café y snacks", "쇼핑": "Compras", "교통": "Transporte",
       "주거/공과금": "Hogar y servicios", "건강/뷰티": "Salud y belleza", "여행/이벤트": "Viajes y eventos",
-      "경조사/선물": "Regalos y ceremonias", "기타": "Otros"
+      "경조사/선물": "Regalos y ceremonias", "금융/대출": "Finanzas y préstamos", "기타": "Otros"
     },
     "calendar": {
       "weekday": { "sun": "Dom", "mon": "Lun", "tue": "Mar", "wed": "Mié", "thu": "Jue", "fri": "Vie", "sat": "Sáb" },
