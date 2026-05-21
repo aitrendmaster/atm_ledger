@@ -34,6 +34,10 @@ class Settings(BaseSettings):
     google_client_secret: str = ""
     google_redirect_uri: str = ""
 
+    # Google Maps Platform — 백엔드 전용 서버 키 (Geocoding API).
+    # 미설정 시 Nominatim 으로 자동 fallback. Render IP 제한 권장.
+    google_maps_server_key: str = ""
+
     kakao_rest_api_key: str = ""
     kakao_redirect_uri: str = ""
 
