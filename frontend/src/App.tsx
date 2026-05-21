@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 import { useGaPageView } from './hooks/useGaPageView'
+import BottomTabBar from './components/BottomTabBar'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Ledger from './pages/Ledger'
@@ -44,6 +45,9 @@ export default function App() {
       <Route path="/admin" element={<Protected><Admin /></Protected>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    {/* 모바일 하단 탭바 — 로그인 사용자에게만 노출 (BottomTabBar 내부 가드).
+        md 이상에서는 컴포넌트가 자동 숨김. */}
+    <BottomTabBar />
     </>
   )
 }
