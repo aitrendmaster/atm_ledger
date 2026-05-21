@@ -1,15 +1,20 @@
 """예정 지출 / 반복 지출 라우터.
 
-반복 규칙 (recurrence!='none') 은 한 행으로 DB 에 저장하고, ?month=YYYY-MM 으로 조회 시
-backend 가 그 달의 가상 occurrence (is_recurring_instance=True) 를 자동 생성해서 반환한다.
+반복 규칙 (recurrence!='none') 은 한 행으로 DB 에 저장하고, 조회 시 backend 가 occurrence
+(is_recurring_instance=True) 를 자동 생성해서 반환한다.
 
-가상 occurrence 의 id 는 음수 (원본 row id 의 -base) 로 부여 — 프론트가 "원본인지 가상인지"
-구분 가능. 가상 occurrence 의 수정/삭제는 원본 row 를 통해야 함.
+- `?month=YYYY-MM`: 그 달의 occurrence 만
+- 파라미터 없음: 시작일 ~ 종료일 (또는 today+60개월 fallback) 사이 모든 월 expand
+- `?include_rules=1`: 반복 규칙 마스터만 (반복지출 관리 페이지용)
+
+가상 occurrence 는 원본 row 의 id 를 그대로 가지며 `is_recurring_instance=True` 로 표시.
+수정/삭제는 원본 row 를 통해야 함.
 """
 from calendar import monthrange
 from datetime import date
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from loguru import logger
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -17,7 +22,17 @@ from ..database import get_db
 from ..deps import get_current_user
 from ..models.planned import Planned
 from ..models.user import User
-from ..schemas.planned import PlannedCreate, PlannedOut, PlannedUpdate
+from ..schemas.planned import (
+    PlannedCreate,
+    PlannedOut,
+    PlannedUpdate,
+    validate_recurrence_state,
+)
+
+# 종료일이 없는 레거시 행 안전망 — 무한 expansion 방지.
+_LEGACY_FALLBACK_MONTHS = 60
+# 한 규칙당 최대 occurrence 수 (이상 데이터 방어; 정상 종료일 범위에서는 발생 안 함)
+_HARD_CAP_PER_RULE = 600
 
 router = APIRouter(prefix="/planned", tags=["planned"])
 
@@ -95,6 +110,55 @@ def _expand_recurring(p: Planned, year: int, month: int) -> list[dict]:
     return out
 
 
+def _expand_recurring_range(p: Planned) -> list[dict]:
+    """반복 규칙 p 를 시작일 ~ 종료일 (또는 fallback) 사이 모든 월에 걸쳐 전개.
+
+    종료일이 없는 레거시 행은 today + _LEGACY_FALLBACK_MONTHS 까지 (안전망).
+    한 규칙당 _HARD_CAP_PER_RULE 개 초과 시 잘라내고 로깅.
+    """
+    if p.recurrence == "none":
+        return []
+    try:
+        start = date.fromisoformat(p.date)
+    except ValueError:
+        return []
+
+    end: date
+    if p.recurrence_until:
+        try:
+            end = date.fromisoformat(p.recurrence_until)
+        except ValueError:
+            return []
+    else:
+        today = date.today()
+        # today 와 start 중 더 늦은 쪽 기준으로 + N개월 (시작이 미래면 시작 기준)
+        anchor = today if today > start else start
+        fallback_year = anchor.year + (anchor.month - 1 + _LEGACY_FALLBACK_MONTHS) // 12
+        fallback_month = (anchor.month - 1 + _LEGACY_FALLBACK_MONTHS) % 12 + 1
+        end = date(fallback_year, fallback_month, monthrange(fallback_year, fallback_month)[1])
+
+    if end < start:
+        return []
+
+    out: list[dict] = []
+    year, month = start.year, start.month
+    while (year, month) <= (end.year, end.month):
+        out.extend(_expand_recurring(p, year, month))
+        if len(out) >= _HARD_CAP_PER_RULE:
+            logger.warning(
+                f"planned rule id={p.id} expansion exceeded hard cap "
+                f"({_HARD_CAP_PER_RULE}); truncating."
+            )
+            return out[:_HARD_CAP_PER_RULE]
+        # 다음 달
+        if month == 12:
+            year += 1
+            month = 1
+        else:
+            month += 1
+    return out
+
+
 @router.get("", response_model=list[PlannedOut])
 async def list_planned(
     month: str | None = Query(default=None, pattern=r"^\d{4}-\d{2}$"),
@@ -104,8 +168,9 @@ async def list_planned(
 ):
     """예정 지출 목록.
 
-    - 기본: 모든 행 반환 (legacy 호환). 반복 행도 원본 1개씩만.
-    - `?month=YYYY-MM`: 그 달에 해당하는 일회성 + 모든 반복 occurrence (가상) 반환.
+    - 기본 (파라미터 없음): 일회성 행 + 반복 규칙의 시작일~종료일 사이 모든 occurrence 를
+      전개해서 반환. 캘린더가 한 번에 모든 월을 표시할 수 있도록.
+    - `?month=YYYY-MM`: 그 달에 해당하는 일회성 + 반복 occurrence (가상) 만 반환.
     - `?include_rules=1`: 반복 규칙 마스터 (recurrence!='none') 만 반환. RecurringExpenses 페이지용.
     """
     res = await db.execute(
@@ -117,7 +182,15 @@ async def list_planned(
         return [_to_out(p) for p in rows if p.recurrence != "none"]
 
     if not month:
-        return [_to_out(p) for p in rows]
+        # 자동 expansion 모드 — 일회성은 그대로, 반복은 시작일~종료일 모든 occurrence
+        out: list[dict] = []
+        for p in rows:
+            if p.recurrence == "none":
+                out.append(_to_out(p))
+            else:
+                out.extend(_expand_recurring_range(p))
+        out.sort(key=lambda x: x["date"])
+        return out
 
     year, mon = int(month[:4]), int(month[5:7])
     month_prefix = month  # "YYYY-MM"
@@ -175,8 +248,18 @@ async def update_planned(
     p = res.scalar_one_or_none()
     if not p:
         raise HTTPException(status_code=404, detail="not found")
-    for k, v in body.model_dump(exclude_unset=True).items():
+    patch = body.model_dump(exclude_unset=True)
+    for k, v in patch.items():
         setattr(p, k, v)
+    # recurrence 가 'none' 으로 변경되면 종료일 의미 없음 — null 로 정리
+    if p.recurrence == "none":
+        p.recurrence_until = None
+        p.recurrence_day = None
+    # merged state 검증 (PATCH 는 부분 업데이트이므로 schema 단에서는 검증 불가)
+    try:
+        validate_recurrence_state(p.recurrence, p.recurrence_until, p.date)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
     await db.commit()
     await db.refresh(p)
     return _to_out(p)

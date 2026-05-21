@@ -129,6 +129,21 @@ _PARSE_SYSTEM_BY_LOCALE: dict[str, str] = {
 }
 
 
+# 반복 지출인데 종료일이 누락된 경우, AI 가 follow_up 을 만들지 못했을 때의 fallback 메시지.
+# 9개 locale 모두 동일 패턴: 의도 확인 + 종료일 질문 + ISO/duration 예시.
+_MISSING_END_FOLLOWUP: dict[str, str] = {
+    "ko": "반복 지출로 인식했어요. 언제까지 계속될까요? 예: 2027-12-31 / 24개월 / 5년간",
+    "en": "Got it as a recurring expense. When should it end? e.g., 2027-12-31 / 24 months / 5 years",
+    "ja": "繰り返し支出として認識しました。いつまで続きますか？ 例: 2027-12-31 / 24ヶ月 / 5年間",
+    "zh": "已识别为重复支出。持续到什么时候？例如: 2027-12-31 / 24个月 / 5年",
+    "es": "Lo entendí como un gasto recurrente. ¿Hasta cuándo continuará? ej. 2027-12-31 / 24 meses / 5 años",
+    "th": "เข้าใจว่าเป็นค่าใช้จ่ายประจำ จะสิ้นสุดเมื่อใด? เช่น 2027-12-31 / 24 เดือน / 5 ปี",
+    "vi": "Đã nhận là chi tiêu định kỳ. Kéo dài đến khi nào? vd: 2027-12-31 / 24 tháng / 5 năm",
+    "ms": "Difahami sebagai perbelanjaan berulang. Bilakah ia akan berakhir? cth: 2027-12-31 / 24 bulan / 5 tahun",
+    "hi": "इसे आवर्ती खर्च के रूप में समझा है। यह कब तक चलेगा? उदा: 2027-12-31 / 24 महीने / 5 साल",
+}
+
+
 async def parse_expense(
     text: str | None,
     image_b64: str | None,
@@ -156,7 +171,7 @@ async def parse_expense(
 }}
 
 A ParsedItem is:
-{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>","recurrence":"none"|"monthly"|"weekly"|"yearly","recurrence_day":<int or null>}}
+{{"kind":"spent"|"planned","description":"...","amount":<number>,"category":"<Korean key>","date":"YYYY-MM-DD","placeName":"<name or null>","recurrence":"none"|"monthly"|"weekly"|"yearly","recurrence_day":<int or null>,"recurrence_until":"YYYY-MM-DD"|null}}
 
 # Field rules
 
@@ -187,16 +202,33 @@ recurrence: "none" | "monthly" | "weekly" | "yearly". Default "none".
 date: YYYY-MM-DD. Default = today ({today}). For recurring items, date = first occurrence
 (closest upcoming N-th day from today).
 
+# recurrence_until — REQUIRED for any recurring item
+
+For ANY item with recurrence != "none", `recurrence_until` is **MANDATORY** as ISO date
+"YYYY-MM-DD". Parse natural-language end markers in the user's language:
+- "8월 말까지", "until end of August" → last day of August in the appropriate year
+- "내년까지", "until next year" → 12-31 of next year
+- "24개월", "24 months", "for 2 years" → start_date + that duration (last day)
+- "5년간", "for 5 years" → start_date + 5 years (last day)
+- "2027-06-30" or any explicit ISO date → use as-is
+
+If the user did NOT mention any end marker AND the item is recurring, DO NOT guess.
+Instead return items WITHOUT that recurring item (drop it) and emit a follow_up below.
+Set recurrence_until=null only for one-off items (recurrence="none").
+
 # Follow-up rule (CRITICAL UX)
 
 When the user's input strongly implies a **recurring expense** (multiple amounts, "매월",
 "지출 예정", regular financial transactions like loan/rent) but you cannot confidently
-parse it OR critical info is missing, RETURN:
-- items=[] (or items=[partial successes])
+parse it OR critical info is missing — **including a missing recurrence_until** — RETURN:
+- items=[] (or items=[partial successes for non-recurring rows])
 - follow_up=<a short, friendly natural-language message in the user's language ({user_locale})
   that:
     1. Confirms you understood it as a recurring expense.
-    2. Asks for the missing information.
+    2. Asks for the missing information. If the missing info is the end date, ask:
+       "When should this recurring expense end? Examples: 2027-12-31 / 24 months / 5 years"
+       — translated naturally to {user_locale}. Always include at least one ISO-date example
+       and one duration-phrasing example.
     3. Shows ONE concrete example of how to write it correctly (use the user's currency).
 
 Required information checklist for a recurring expense:
@@ -205,7 +237,7 @@ Required information checklist for a recurring expense:
   • 반복일 (recurrence_day: 1-31 for monthly, 0-6 for weekly)
   • 카테고리 (one of ALLOWED_CATEGORIES; 금융/대출 for loan interest)
   • 시작일 (start date, optional → defaults to today)
-  • 종료일 (optional → null = open-ended)
+  • **종료일 (recurrence_until) — REQUIRED, ISO YYYY-MM-DD**
 
 When info IS sufficient, parse normally with items=[...], follow_up=null.
 When NOT a transaction at all (greeting, question, etc.), return items=[], follow_up=null."""
@@ -245,6 +277,7 @@ When NOT a transaction at all (greeting, question, etc.), return items=[], follo
             follow_up = None
 
         normalized = []
+        dropped_for_missing_end = 0
         for item in raw_items:
             if not isinstance(item, dict):
                 continue
@@ -259,8 +292,17 @@ When NOT a transaction at all (greeting, question, etc.), return items=[], follo
                 rec_day = int(rec_day_raw) if rec_day_raw is not None else None
             except (TypeError, ValueError):
                 rec_day = None
+            # recurrence_until: ISO YYYY-MM-DD 만 인정
+            rec_until_raw = item.get("recurrence_until")
+            rec_until: str | None = None
+            if rec_until_raw and re.match(r"^\d{4}-\d{2}-\d{2}$", str(rec_until_raw)):
+                rec_until = str(rec_until_raw)
             amt = _to_int_amount(item.get("amount"))
             if amt <= 0:
+                continue
+            # 반복인데 종료일 없으면 drop — follow_up 으로 사용자에게 질문
+            if rec != "none" and not rec_until:
+                dropped_for_missing_end += 1
                 continue
             normalized.append({
                 "kind": "planned" if item.get("kind") == "planned" else "spent",
@@ -271,7 +313,15 @@ When NOT a transaction at all (greeting, question, etc.), return items=[], follo
                 "place_name": item.get("placeName") or None,
                 "recurrence": rec,
                 "recurrence_day": rec_day,
+                "recurrence_until": rec_until,
             })
+
+        # 반복인데 종료일 빠진 item 을 drop 했고, AI 가 follow_up 도 안 만들었으면
+        # locale 기본 follow_up 으로 채움 (이중 안전망).
+        if dropped_for_missing_end > 0 and not follow_up:
+            follow_up = _MISSING_END_FOLLOWUP.get(
+                user_locale, _MISSING_END_FOLLOWUP["en"]
+            )
 
         # follow_up 정규화: 비어있는 문자열 → None
         if follow_up is not None:

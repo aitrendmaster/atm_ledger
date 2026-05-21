@@ -20,6 +20,7 @@ class ParsedItem(BaseModel):
     place_name: str | None = None
     recurrence: str = "none"  # none | monthly | weekly | yearly
     recurrence_day: int | None = None  # monthly: 1-31, weekly: 0-6 (Mon=0)
+    recurrence_until: str | None = None  # YYYY-MM-DD, 반복 항목은 필수 (서비스에서 강제)
 
 
 class ParseResponse(BaseModel):
