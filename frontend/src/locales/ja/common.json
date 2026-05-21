@@ -83,7 +83,7 @@
     "todayHint": "今日は {{date}} · ゆっくり、こつこつ",
     "tabs": { "chat": "チャット", "calendar": "カレンダー", "place": "場所", "places": "場所", "reflect": "振り返り", "plan": "予定", "balance": "残高" },
     "stats": {
-      "thisMonthFlow": "今月の流れ", "budget": "予算", "freeMoney": "自由に使えるお金",
+      "thisMonthFlow": "今月の流れ", "budget": "予算", "freeMoney": "自由に使えるお金", "setBudgetHint": "予算または収入を設定すると表示されます →",
       "spent": "使った", "upcoming": "予定", "dailyAvg": "1日平均",
       "monthSpent": "今月", "monthUpcoming": "予定", "won": ""
     },
@@ -97,7 +97,9 @@
       "welcome": "こんにちは!家計簿を始めましょう 📒",
       "welcomeHint": "話すように書いてOK。例:「今日 昼ごはん おにぎり 400円」。入力欄横の💡ボタンで何が書けるかガイドが見られます。カレンダー / 場所 / 振り返り / 予定 / 残高 タブで1か月を整理。各項目の✏️·🗑アイコンで個別に編集・削除できます。",
       "recorded": "記録しました ✓ ({{count}}件)",
-      "placeRecognized": "📍 「{{name}}」 を認識。項目を開いて正確な場所を選んでね。"
+      "placeRecognized": "📍 「{{name}}」 を認識。項目を開いて正確な場所を選んでね。",
+      "recurringRecorded": "🔁 {{count}}件は繰り返し支出として登録しました。[繰り返し支出管理] で編集・削除できます。",
+      "askRecurrenceEnd": "🔁 繰り返し支出として認識しました。いつまで続きますか? 例: 2027-12-31 / 24ヶ月 / 5年間"
     },
     "place": {
       "title": "支出マップ", "intro": "{{count}}か所 · ピンまたはカードを押すと地図・写真・レビュー",
@@ -114,6 +116,10 @@
       "viewboxUnsupported": "🌐 全体検索 (ブラウザ非対応)",
       "noResults": "結果なし。別のキーワードで検索するか、場所を空にしても OK です。",
       "againGo": "また行く", "avoid": "行かない", "normal": "普通", "resetPin": "ピンを再設定",
+      "openInGoogleMaps": "Google Maps で開く",
+      "mapsUnavailable": "地図機能は一時的に利用できません。",
+      "tapMapToPickLocation": "地図をタップして正確な位置を選択",
+      "savePickedLocation": "この位置で保存",
       "visitTitle": "訪問記録 & レビュー",
       "rating": "{{n}}点",
       "addReview": "+ 一言レビューを追加",
@@ -240,5 +246,43 @@
       "applyDefaults": "選択した国の既定値を適用"
     }
   },
-  "appHeader": { "faq": "FAQ", "myAccount": "アカウント", "admin": "Admin", "logout": "ログアウト" }
+  "appHeader": { "faq": "FAQ", "myAccount": "アカウント", "admin": "Admin", "logout": "ログアウト", "recurring": "繰り返し支出", "menu": "メニュー", "close": "閉じる" },
+  "bottomNav": { "home": "ホーム", "calendar": "カレンダー", "recurring": "繰返し", "me": "マイ", "label": "メインナビゲーション" },
+  "recurring": {
+    "title": "繰り返し支出の管理",
+    "backToLedger": "家計簿へ",
+    "helpText": "毎月・毎週・毎年の繰り返し支出を一度登録すれば、カレンダーに自動表示されます。例: 毎月16日のローン利息、毎週月曜の昼食会費。",
+    "existing": "登録済みの繰り返し支出",
+    "loading": "読み込み中…",
+    "empty": "まだ登録された繰り返し支出がありません。下の + 行追加から始めましょう。",
+    "newRows": "新規追加",
+    "addRow": "行を追加",
+    "saveAll": "一括保存",
+    "saveAllWithCount": "一括保存 ({{count}})",
+    "unsavedChanges": "{{count}}件 未保存",
+    "revertAll": "元に戻す",
+    "saving": "保存中…",
+    "emptyDraft": "追加された行がありません",
+    "savedCount": "{{count}}件 登録完了",
+    "confirmDelete": "この繰り返しルールを削除しますか? 将来の発生分もすべて消えます。",
+    "delete": "削除",
+    "fromStartDate": "開始日の月/日",
+    "placeholders": { "description": "例: 16日 ローン利息" },
+    "headers": { "description": "説明", "amount": "金額", "category": "カテゴリ", "recurrence": "頻度", "day": "繰返し日", "startDate": "開始日", "until": "終了日 (必須)" },
+    "frequency": { "none": "なし (1回)", "monthly": "毎月", "weekly": "毎週", "yearly": "毎年" },
+    "weekday": { "mon": "月", "tue": "火", "wed": "水", "thu": "木", "fri": "金", "sat": "土", "sun": "日" },
+    "validation": {
+      "descriptionRequired": "説明を入力してください",
+      "amountRequired": "金額を入力してください",
+      "categoryInvalid": "カテゴリが不正です",
+      "startDateInvalid": "開始日が不正です (YYYY-MM-DD)",
+      "monthlyDay": "毎月: 1〜31日を選んでください",
+      "weeklyDay": "毎週: 曜日を選んでください",
+      "endDateRequired": "終了日を入力してください (繰り返し支出は必須)",
+      "endDateInvalid": "終了日の形式が不正です (YYYY-MM-DD)",
+      "endDateAfterStart": "終了日は開始日以降にしてください",
+      "missingEndDateTitle": "{{count}}件の繰り返し支出に終了日がありません。",
+      "missingEndDateBody": "終了日がないとカレンダーに正しく表示されません。下にハイライト表示された行の「終了日」を埋めてください。"
+    }
+  }
 }

@@ -67,7 +67,7 @@
     "todayHint": "Hari ini {{date}} · perlahan dan konsisten",
     "tabs": { "chat": "Sembang", "calendar": "Kalendar", "place": "Tempat", "places": "Tempat", "reflect": "Imbas", "plan": "Rancang", "balance": "Baki" },
     "stats": {
-      "thisMonthFlow": "Bulan ini", "budget": "Belanjawan", "freeMoney": "Boleh dibelanjakan",
+      "thisMonthFlow": "Bulan ini", "budget": "Belanjawan", "freeMoney": "Boleh dibelanjakan", "setBudgetHint": "Tetapkan belanjawan atau pendapatan untuk paparan →",
       "spent": "Telah belanja", "upcoming": "Akan datang", "dailyAvg": "Purata harian",
       "monthSpent": "Bulan ini", "monthUpcoming": "Akan datang", "won": ""
     },
@@ -81,7 +81,9 @@
       "welcome": "Hai! Jom mula rekod belanja 📒",
       "welcomeHint": "Taip macam bercakap je, contohnya \"makan tengahari kimbap 4,000 KRW hari ini\". Tekan butang 💡 di sebelah ruang taip untuk lihat contoh ayat. Guna tab Kalendar / Tempat / Imbas / Rancang / Baki untuk rumuskan bulan, dan ikon ✏️·🗑 pada setiap baris untuk edit atau padam.",
       "recorded": "Disimpan ✓ ({{count}} item)",
-      "placeRecognized": "📍 Mengesan \"{{name}}\". Buka entri untuk pilih lokasi tepat."
+      "placeRecognized": "📍 Mengesan \"{{name}}\". Buka entri untuk pilih lokasi tepat.",
+      "recurringRecorded": "🔁 {{count}} item didaftar sebagai perbelanjaan berulang. Edit/padam di halaman [Perbelanjaan berulang].",
+      "askRecurrenceEnd": "🔁 Difahami sebagai perbelanjaan berulang. Bilakah ia akan berakhir? cth: 2027-12-31 / 24 bulan / 5 tahun"
     },
     "place": {
       "title": "Peta perbelanjaan", "intro": "{{count}} tempat · tekan pin atau kad untuk peta, foto, ulasan",
@@ -98,6 +100,10 @@
       "viewboxUnsupported": "🌐 Carian global (tidak disokong)",
       "noResults": "Tiada hasil. Cuba kata lain atau biarkan kosong.",
       "againGo": "Akan kembali", "avoid": "Elak", "normal": "Biasa", "resetPin": "Pilih semula",
+      "openInGoogleMaps": "Buka di Google Maps",
+      "mapsUnavailable": "Peta tidak tersedia buat sementara waktu.",
+      "tapMapToPickLocation": "Ketuk peta untuk pilih lokasi tepat",
+      "savePickedLocation": "Simpan lokasi ini",
       "visitTitle": "Lawatan & ulasan",
       "rating": "{{n}}/5",
       "addReview": "+ Tambah ulasan ringkas",
@@ -222,5 +228,43 @@
       "applyDefaults": "Guna lalai negara yang dipilih"
     }
   },
-  "appHeader": { "faq": "Soalan", "myAccount": "Akaun", "admin": "Admin", "logout": "Keluar" }
+  "appHeader": { "faq": "Soalan", "myAccount": "Akaun", "admin": "Admin", "logout": "Keluar", "recurring": "Berulang", "menu": "Menu", "close": "Tutup" },
+  "bottomNav": { "home": "Utama", "calendar": "Kalendar", "recurring": "Berulang", "me": "Saya", "label": "Navigasi utama" },
+  "recurring": {
+    "title": "Perbelanjaan berulang",
+    "backToLedger": "Kembali ke lejar",
+    "helpText": "Daftarkan sekali perbelanjaan yang berulang setiap bulan/minggu/tahun, ia akan muncul automatik dalam kalendar. Cth: faedah pinjaman 16hb setiap bulan, yuran makan tengahari Isnin mingguan.",
+    "existing": "Peraturan disimpan",
+    "loading": "Memuatkan…",
+    "empty": "Belum ada perbelanjaan berulang. Tekan + Tambah baris untuk mula.",
+    "newRows": "Tambah baru",
+    "addRow": "Tambah baris",
+    "saveAll": "Simpan semua",
+    "saveAllWithCount": "Simpan semua ({{count}})",
+    "unsavedChanges": "{{count}} belum disimpan",
+    "revertAll": "Buat asal",
+    "saving": "Menyimpan…",
+    "emptyDraft": "Tiada baris ditambah",
+    "savedCount": "{{count}} disimpan",
+    "confirmDelete": "Padam peraturan ini? Semua kejadian akan datang juga hilang.",
+    "delete": "Padam",
+    "fromStartDate": "Bulan/hari tarikh mula",
+    "placeholders": { "description": "cth: Faedah 16hb" },
+    "headers": { "description": "Penerangan", "amount": "Jumlah", "category": "Kategori", "recurrence": "Kekerapan", "day": "Hari", "startDate": "Tarikh mula", "until": "Tarikh akhir (wajib)" },
+    "frequency": { "none": "Tiada (sekali)", "monthly": "Bulanan", "weekly": "Mingguan", "yearly": "Tahunan" },
+    "weekday": { "mon": "Isn", "tue": "Sel", "wed": "Rab", "thu": "Kha", "fri": "Jum", "sat": "Sab", "sun": "Ahd" },
+    "validation": {
+      "descriptionRequired": "Sila tambah penerangan",
+      "amountRequired": "Sila tambah jumlah",
+      "categoryInvalid": "Kategori tidak sah",
+      "startDateInvalid": "Tarikh mula tidak sah (YYYY-MM-DD)",
+      "monthlyDay": "Bulanan: pilih hari 1–31",
+      "weeklyDay": "Mingguan: pilih hari minggu",
+      "endDateRequired": "Sila tetapkan tarikh akhir (wajib untuk berulang)",
+      "endDateInvalid": "Format tarikh akhir tidak sah (YYYY-MM-DD)",
+      "endDateAfterStart": "Tarikh akhir mestilah pada atau selepas tarikh mula",
+      "missingEndDateTitle": "{{count}} perbelanjaan berulang tiada tarikh akhir.",
+      "missingEndDateBody": "Tanpa tarikh akhir, kalendar tidak boleh paparkan dengan betul. Isi lajur \"Tarikh akhir\" pada baris yang ditandakan."
+    }
+  }
 }

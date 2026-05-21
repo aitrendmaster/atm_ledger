@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut, Banknote } from 'lucide-react';
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { absolutizePhotoUrl } from '../services/ledgerMappers';
+import GoogleMap from '../components/GoogleMap';
 import { currencySymbol, formatCurrency } from '../utils/currency';
 import { useAuth } from '../hooks/useAuth';
 import {
@@ -145,7 +146,10 @@ export default function ChatLedger() {
   const upcomingThisMonth = planned.filter(p => p.date >= todayStr && p.date.startsWith(thisMonth));
   const upcomingNextMonth = planned.filter(p => p.date.startsWith(nextMonth));
   const upcomingTotal = upcomingThisMonth.reduce((s, p) => s + p.amount, 0);
-  const trulyFree = budget - monthTotal - upcomingTotal;
+  // budget 이 설정 안 됐으면 income 으로 fallback (사용자가 "자유롭게 쓸 수 있는 돈" 을
+  // 항상 0 으로 보고 혼란스러워하는 케이스 방지). 둘 다 0 이면 자연스럽게 음수.
+  const trulyFreeBase = budget > 0 ? budget : income;
+  const trulyFree = trulyFreeBase - monthTotal - upcomingTotal;
 
   const annualData = (() => {
     const months = [];
@@ -269,6 +273,7 @@ export default function ChatLedger() {
       placeName: it.place_name,
       recurrence: it.recurrence || 'none',
       recurrence_day: it.recurrence_day ?? null,
+      recurrence_until: it.recurrence_until ?? null,
     }));
     return { items, followUp: res.data.follow_up || null };
   };
@@ -395,9 +400,15 @@ export default function ChatLedger() {
         }
         let createdPlannedCount = 0;
         let createdRecurringCount = 0;
+        let droppedMissingEnd = 0;
         for (const p of plannedItems) {
+          const rec = p.recurrence || 'none';
+          // 반복 항목인데 종료일이 없으면 클라이언트도 한번 더 차단 (백엔드 이미 drop 함)
+          if (rec !== 'none' && !p.recurrence_until) {
+            droppedMissingEnd += 1;
+            continue;
+          }
           try {
-            const rec = p.recurrence || 'none';
             await createPlannedMut.mutateAsync({
               description: p.description,
               amount: p.amount,
@@ -406,6 +417,7 @@ export default function ChatLedger() {
               type: 'event',
               recurrence: rec,
               recurrence_day: p.recurrence_day ?? null,
+              recurrence_until: p.recurrence_until ?? null,
             });
             createdPlannedCount += 1;
             if (rec !== 'none') createdRecurringCount += 1;
@@ -423,9 +435,20 @@ export default function ChatLedger() {
               defaultValue: `🔁 ${createdRecurringCount}건은 반복 지출로 등록했어요. [반복 지출 관리] 페이지에서 수정·삭제할 수 있어요.`,
             })
           : '';
+        // 클라이언트에서 종료일 누락으로 drop 된 반복 항목이 있고 백엔드 follow_up 도 없을 때
+        // i18n key 기반 자체 follow-up 으로 보강.
+        const missingEndFollowUp =
+          droppedMissingEnd > 0 && !followUp
+            ? t('ledger.messages.askRecurrenceEnd', {
+                defaultValue:
+                  '🔁 반복 지출로 인식했어요. 언제까지 계속될까요? (예: 2027-12-31 / 24개월 / 5년간)',
+              })
+            : '';
         const totalSaved = createdSpent.length + createdPlannedCount;
         if (totalSaved > 0) {
-          const tailFollowUp = followUp ? '\n\n' + followUp : '';
+          const tailFollowUp = followUp
+            ? '\n\n' + followUp
+            : (missingEndFollowUp ? '\n\n' + missingEndFollowUp : '');
           setMessages(prev => [...prev, {
             role: 'assistant',
             text: t('ledger.messages.recorded', { count: totalSaved }) + placeHint + recurringHint + tailFollowUp,
@@ -434,6 +457,9 @@ export default function ChatLedger() {
         } else if (followUp) {
           // 항목 저장 실패 + 의도 파악 → follow-up 안내만.
           setMessages(prev => [...prev, { role: 'assistant', text: followUp, time: new Date() }]);
+        } else if (missingEndFollowUp) {
+          // 모든 항목이 종료일 누락으로 drop 된 경우.
+          setMessages(prev => [...prev, { role: 'assistant', text: missingEndFollowUp, time: new Date() }]);
         } else {
           setMessages(prev => [...prev, {
             role: 'assistant',
@@ -603,13 +629,14 @@ export default function ChatLedger() {
         ::-webkit-scrollbar-thumb { background: #D4CDC0; border-radius: 3px; }
       `}</style>
 
-      <div className="max-w-7xl mx-auto p-4 lg:p-8">
-        <header className="mb-6 lg:mb-8">
-          <div className="flex items-baseline gap-3">
-            <h1 className="text-3xl lg:text-4xl font-bold" style={{ color: '#2C2418' }}>{t('ledger.title')}</h1>
-            <span className="handwritten text-2xl lg:text-3xl" style={{ color: '#A0633C' }}>{t('ledger.monthSuffix', { month: now.getMonth() + 1 })}</span>
+      {/* 모바일 sticky bar + 데스크탑 우상단 버튼들 — 헤더가 자체 렌더링 (md:hidden / hidden md:flex) */}
+      <div className="max-w-7xl mx-auto px-4 pb-20 md:pb-8 pt-3 md:pt-8 lg:p-8 lg:pb-8">
+        <header className="mb-4 md:mb-6 lg:mb-8">
+          <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold" style={{ color: '#2C2418' }}>{t('ledger.title')}</h1>
+            <span className="handwritten text-lg md:text-2xl lg:text-3xl" style={{ color: '#A0633C' }}>{t('ledger.monthSuffix', { month: now.getMonth() + 1 })}</span>
           </div>
-          <p className="text-sm mt-1" style={{ color: '#7A7567' }}>{t('ledger.todayTagline', { month: now.getMonth() + 1, day: now.getDate() })}</p>
+          <p className="text-xs md:text-sm mt-1" style={{ color: '#7A7567' }}>{t('ledger.todayTagline', { month: now.getMonth() + 1, day: now.getDate() })}</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
@@ -689,9 +716,20 @@ export default function ChatLedger() {
                 </button>
               </div>
               <div className="text-xs opacity-60 mb-1 flex items-center gap-1"><Wallet size={11} /> {t('ledger.stats.freeMoney')}</div>
-              <div className="text-4xl font-bold" style={{ color: trulyFree < 0 ? '#FFB18C' : '#FFFDF8' }}>
-                {Math.max(0, trulyFree).toLocaleString()}<span className="text-xl opacity-60 ml-1">{cur}</span>
-              </div>
+              {trulyFreeBase > 0 ? (
+                <div className="text-4xl font-bold" style={{ color: trulyFree < 0 ? '#FFB18C' : '#FFFDF8' }}>
+                  {trulyFree.toLocaleString()}<span className="text-xl opacity-60 ml-1">{cur}</span>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setShowBudgetEdit(true)}
+                  className="text-sm opacity-80 hover:opacity-100 underline text-left"
+                  style={{ color: '#FFB18C' }}
+                >
+                  {t('ledger.stats.setBudgetHint', { defaultValue: '예산 또는 수입을 설정하면 표시돼요 →' })}
+                </button>
+              )}
               {showBudgetEdit && (
                 <div className="my-3 space-y-2">
                   <div className="flex items-center gap-2 p-2 rounded-xl" style={{ backgroundColor: 'rgba(255,253,248,0.1)' }}>
@@ -947,7 +985,18 @@ export default function ChatLedger() {
                     {t('ledger.place.intro', { count: placesMap.length })}
                   </p>
 
-                  {placesMap.length > 0 && <SimpleMap places={placesMap} onPinClick={(p) => setSelectedPlaceName(p.name)} CATEGORIES={CATEGORIES} t={t} />}
+                  {placesMap.length > 0 && (() => {
+                    const pinned = placesMap.filter(p => typeof p.lat === 'number' && typeof p.lng === 'number');
+                    if (pinned.length === 0) {
+                      return (
+                        <div className="rounded-2xl p-6 text-xs text-center" style={{ backgroundColor: '#F0EBE0', color: '#7A7567' }}>
+                          {t('ledger.place.emptyPins')}
+                        </div>
+                      );
+                    }
+                    const mapPlaces = pinned.map(p => ({ ...p, color: CATEGORIES[p.category]?.color || '#7A7567' }));
+                    return <GoogleMap places={mapPlaces} onPinClick={(p) => setSelectedPlaceName(p.name)} userGeo={userGeo} height={280} />;
+                  })()}
 
                   <div className="mt-4 space-y-2 max-h-96 overflow-y-auto">
                     <div className="text-xs font-medium" style={{ color: '#7A7567' }}>{t('ledger.place.frequent')}</div>
@@ -1600,29 +1649,17 @@ export default function ChatLedger() {
                   </button>
                 </div>
 
-                {/* 외부 지도 열기 — 좌표 있으면 좌표 기반, 없으면 이름 검색 fallback */}
-                <div className="flex gap-2 mt-3">
+                {/* 외부 지도 열기 — Google Maps 만 유지 (카카오/네이버 제거, 모든 locale 동일 UX) */}
+                <div className="mt-3">
                   <a href={
                     typeof selectedPlace.lat === 'number' && typeof selectedPlace.lng === 'number'
                       ? `https://www.google.com/maps/search/?api=1&query=${selectedPlace.lat},${selectedPlace.lng}&query_place_id=${encodeURIComponent(selectedPlace.name)}`
                       : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedPlace.name)}`
                   }
                     target="_blank" rel="noopener noreferrer"
-                    className="flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs font-medium"
+                    className="w-full py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs font-medium"
                     style={{ backgroundColor: '#E5ECF2', color: '#5B7C99' }}>
-                    <ExternalLink size={11} /> {t('ledger.placeModal.openGoogle')}
-                  </a>
-                  <a href={`https://map.kakao.com/link/search/${encodeURIComponent(selectedPlace.name)}`}
-                    target="_blank" rel="noopener noreferrer"
-                    className="flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs font-medium"
-                    style={{ backgroundColor: '#FFF8EC', color: '#A0633C' }}>
-                    <ExternalLink size={11} /> {t('ledger.placeModal.openKakao')}
-                  </a>
-                  <a href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedPlace.name)}`}
-                    target="_blank" rel="noopener noreferrer"
-                    className="flex-1 py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs font-medium"
-                    style={{ backgroundColor: '#E8EEE6', color: '#6B8E6B' }}>
-                    <ExternalLink size={11} /> {t('ledger.placeModal.openNaver')}
+                    <ExternalLink size={11} /> {t('ledger.place.openInGoogleMaps', { defaultValue: 'Google Maps 에서 열기' })}
                   </a>
                 </div>
 
@@ -1654,16 +1691,18 @@ export default function ChatLedger() {
                 </div>
               </div>
 
-              {/* 위치 패널 — 좌표 있으면 임베드 지도, 없으면 위치 지정 검색 UI */}
+              {/* 위치 패널 — 좌표 있으면 인터랙티브 Google Maps 임베드, 없으면 위치 지정 검색 UI */}
               {typeof selectedPlace.lat === 'number' && typeof selectedPlace.lng === 'number' ? (
-                <div className="flex-shrink-0 relative" style={{ height: '180px' }}>
-                  <iframe
-                    title={selectedPlace.name}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    src={`https://maps.google.com/maps?q=${selectedPlace.lat},${selectedPlace.lng}&z=16&output=embed`}
-                    loading="lazy"
+                <div className="flex-shrink-0 relative" style={{ height: '200px' }}>
+                  <GoogleMap
+                    places={[{
+                      name: selectedPlace.name,
+                      lat: selectedPlace.lat,
+                      lng: selectedPlace.lng,
+                      color: CATEGORIES[selectedPlace.category]?.color || '#A0633C',
+                    }]}
+                    height={200}
+                    rounded={false}
                   />
                   <button
                     type="button"
@@ -1679,7 +1718,7 @@ export default function ChatLedger() {
                       setPlaceSearchResults([]);
                       setPlaceSearchedOnce(false);
                     }}
-                    className="absolute top-2 right-2 px-2.5 py-1 rounded-full text-[11px] font-medium"
+                    className="absolute top-2 right-2 px-2.5 py-1 rounded-full text-[11px] font-medium z-10"
                     style={{ backgroundColor: 'rgba(255,253,248,0.95)', color: '#A0633C', border: '1px solid #E8E2D5' }}
                   >
                     {t('ledger.place.resetPin')}

@@ -66,7 +66,7 @@
     "todayHint": "今天是 {{date}} · 慢慢来,坚持下去",
     "tabs": { "chat": "聊天", "calendar": "日历", "place": "地点", "places": "地点", "reflect": "复盘", "plan": "计划", "balance": "对账" },
     "stats": {
-      "thisMonthFlow": "本月情况", "budget": "预算", "freeMoney": "可自由支配",
+      "thisMonthFlow": "本月情况", "budget": "预算", "freeMoney": "可自由支配", "setBudgetHint": "设定预算或收入即可显示 →",
       "spent": "已花", "upcoming": "待支出", "dailyAvg": "日均",
       "monthSpent": "本月", "monthUpcoming": "待支出", "won": ""
     },
@@ -80,7 +80,9 @@
       "welcome": "你好!一起开始记账吧 📒",
       "welcomeHint": "像聊天一样写就行,例如「今天 午餐 紫菜包饭 4000韩元」。点击输入框旁的💡按钮查看可输入示例。日历 / 地点 / 复盘 / 计划 / 对账 标签可整理一个月,每条旁的 ✏️·🗑 图标可单独编辑或删除。",
       "recorded": "已记录 ✓ ({{count}} 条)",
-      "placeRecognized": "📍 已识别「{{name}}」。点击该条目选择准确位置。"
+      "placeRecognized": "📍 已识别「{{name}}」。点击该条目选择准确位置。",
+      "recurringRecorded": "🔁 {{count}}条已注册为重复支出。可在[重复支出管理]页面编辑或删除。",
+      "askRecurrenceEnd": "🔁 已识别为重复支出。持续到什么时候?例如: 2027-12-31 / 24个月 / 5年"
     },
     "place": {
       "title": "我的支出地图", "intro": "{{count}} 处 · 点钉或卡片查看地图、照片、评论",
@@ -97,6 +99,10 @@
       "viewboxUnsupported": "🌐 全局搜索 (浏览器不支持)",
       "noResults": "没有结果。可换关键词或保留位置为空。",
       "againGo": "还想去", "avoid": "不去了", "normal": "一般", "resetPin": "重新选位置",
+      "openInGoogleMaps": "在 Google 地图打开",
+      "mapsUnavailable": "地图功能暂时不可用。",
+      "tapMapToPickLocation": "点击地图选择确切位置",
+      "savePickedLocation": "保存此位置",
       "visitTitle": "到访记录 & 评论",
       "rating": "{{n}} 分",
       "addReview": "+ 添加一句点评",
@@ -216,5 +222,43 @@
       "applyDefaults": "应用所选国家的默认值"
     }
   },
-  "appHeader": { "faq": "常见问题", "myAccount": "我的账户", "admin": "Admin", "logout": "退出" }
+  "appHeader": { "faq": "常见问题", "myAccount": "我的账户", "admin": "Admin", "logout": "退出", "recurring": "重复支出", "menu": "菜单", "close": "关闭" },
+  "bottomNav": { "home": "主页", "calendar": "日历", "recurring": "重复", "me": "我", "label": "主导航" },
+  "recurring": {
+    "title": "重复支出管理",
+    "backToLedger": "返回记账",
+    "helpText": "每月/每周/每年自动重复的支出只需登记一次,日历会自动显示。例: 每月16日利息、每周一午餐会费。",
+    "existing": "已登记的重复支出",
+    "loading": "加载中…",
+    "empty": "还没有重复支出。点击下方 + 新增行 开始。",
+    "newRows": "新增",
+    "addRow": "新增行",
+    "saveAll": "批量保存",
+    "saveAllWithCount": "批量保存 ({{count}})",
+    "unsavedChanges": "{{count}} 项未保存",
+    "revertAll": "撤销",
+    "saving": "保存中…",
+    "emptyDraft": "没有可保存的行",
+    "savedCount": "已保存 {{count}} 条",
+    "confirmDelete": "删除此重复规则?所有未来发生项也会消失。",
+    "delete": "删除",
+    "fromStartDate": "开始日的月/日",
+    "placeholders": { "description": "例: 16日 贷款利息" },
+    "headers": { "description": "描述", "amount": "金额", "category": "类别", "recurrence": "频率", "day": "重复日", "startDate": "开始日", "until": "结束日 (必填)" },
+    "frequency": { "none": "无 (一次性)", "monthly": "每月", "weekly": "每周", "yearly": "每年" },
+    "weekday": { "mon": "一", "tue": "二", "wed": "三", "thu": "四", "fri": "五", "sat": "六", "sun": "日" },
+    "validation": {
+      "descriptionRequired": "请输入描述",
+      "amountRequired": "请输入金额",
+      "categoryInvalid": "类别无效",
+      "startDateInvalid": "开始日无效 (YYYY-MM-DD)",
+      "monthlyDay": "每月: 请选择 1〜31 日",
+      "weeklyDay": "每周: 请选择星期",
+      "endDateRequired": "请输入结束日 (重复支出必填)",
+      "endDateInvalid": "结束日格式无效 (YYYY-MM-DD)",
+      "endDateAfterStart": "结束日应在开始日之后",
+      "missingEndDateTitle": "{{count}} 条重复支出缺少结束日。",
+      "missingEndDateBody": "没有结束日,日历无法正确显示。请在高亮显示的行中填写「结束日」。"
+    }
+  }
 }

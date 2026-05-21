@@ -67,7 +67,7 @@
     "todayHint": "Hôm nay {{date}} · từ từ và đều đặn",
     "tabs": { "chat": "Trò chuyện", "calendar": "Lịch", "place": "Địa điểm", "places": "Địa điểm", "reflect": "Nhìn lại", "plan": "Kế hoạch", "balance": "Đối soát" },
     "stats": {
-      "thisMonthFlow": "Tháng này", "budget": "Ngân sách", "freeMoney": "Có thể tiêu",
+      "thisMonthFlow": "Tháng này", "budget": "Ngân sách", "freeMoney": "Có thể tiêu", "setBudgetHint": "Đặt ngân sách hoặc thu nhập để hiển thị →",
       "spent": "Đã chi", "upcoming": "Sắp tới", "dailyAvg": "TB ngày",
       "monthSpent": "Tháng này", "monthUpcoming": "Sắp tới", "won": ""
     },
@@ -81,7 +81,9 @@
       "welcome": "Xin chào! Bắt đầu sổ chi tiêu nào 📒",
       "welcomeHint": "Cứ viết như đang nói, ví dụ \"trưa nay kimbap 4.000 KRW\". Bấm nút 💡 cạnh ô nhập để xem có thể viết gì. Dùng các tab Lịch / Địa điểm / Nhìn lại / Kế hoạch / Đối soát để tổng kết tháng, và biểu tượng ✏️·🗑 ở mỗi mục để sửa hoặc xóa.",
       "recorded": "Đã lưu ✓ ({{count}} mục)",
-      "placeRecognized": "📍 Nhận diện \"{{name}}\". Mở mục để chọn vị trí chính xác."
+      "placeRecognized": "📍 Nhận diện \"{{name}}\". Mở mục để chọn vị trí chính xác.",
+      "recurringRecorded": "🔁 Đã lưu {{count}} mục là chi tiêu định kỳ. Có thể chỉnh sửa/xóa ở trang [Chi tiêu định kỳ].",
+      "askRecurrenceEnd": "🔁 Hiểu là chi tiêu định kỳ. Kéo dài đến khi nào? vd: 2027-12-31 / 24 tháng / 5 năm"
     },
     "place": {
       "title": "Bản đồ chi tiêu", "intro": "{{count}} địa điểm · chạm pin hoặc thẻ để xem bản đồ, ảnh, đánh giá",
@@ -98,6 +100,10 @@
       "viewboxUnsupported": "🌐 Tìm toàn cầu (trình duyệt không hỗ trợ)",
       "noResults": "Không có kết quả. Đổi từ khoá hoặc để trống vị trí.",
       "againGo": "Sẽ quay lại", "avoid": "Tránh", "normal": "Bình thường", "resetPin": "Chọn lại",
+      "openInGoogleMaps": "Mở trong Google Maps",
+      "mapsUnavailable": "Bản đồ tạm thời không khả dụng.",
+      "tapMapToPickLocation": "Nhấn bản đồ để chọn vị trí chính xác",
+      "savePickedLocation": "Lưu vị trí này",
       "visitTitle": "Lần ghé thăm & đánh giá",
       "rating": "{{n}}/5",
       "addReview": "+ Thêm ghi chú ngắn",
@@ -222,5 +228,43 @@
       "applyDefaults": "Dùng mặc định của quốc gia đã chọn"
     }
   },
-  "appHeader": { "faq": "Hỏi đáp", "myAccount": "Tài khoản", "admin": "Admin", "logout": "Đăng xuất" }
+  "appHeader": { "faq": "Hỏi đáp", "myAccount": "Tài khoản", "admin": "Admin", "logout": "Đăng xuất", "recurring": "Định kỳ", "menu": "Menu", "close": "Đóng" },
+  "bottomNav": { "home": "Trang chủ", "calendar": "Lịch", "recurring": "Định kỳ", "me": "Tôi", "label": "Điều hướng chính" },
+  "recurring": {
+    "title": "Quản lý chi tiêu định kỳ",
+    "backToLedger": "Về sổ chi tiêu",
+    "helpText": "Đăng ký một chi tiêu lặp lại hàng tháng/tuần/năm một lần, lịch sẽ tự động hiển thị. Vd: lãi vay ngày 16 hàng tháng, phí ăn trưa thứ Hai hàng tuần.",
+    "existing": "Quy tắc đã lưu",
+    "loading": "Đang tải…",
+    "empty": "Chưa có chi tiêu định kỳ. Nhấn + Thêm hàng để bắt đầu.",
+    "newRows": "Thêm mới",
+    "addRow": "Thêm hàng",
+    "saveAll": "Lưu tất cả",
+    "saveAllWithCount": "Lưu tất cả ({{count}})",
+    "unsavedChanges": "{{count}} chưa lưu",
+    "revertAll": "Hoàn tác",
+    "saving": "Đang lưu…",
+    "emptyDraft": "Chưa có hàng nào",
+    "savedCount": "Đã lưu {{count}} mục",
+    "confirmDelete": "Xóa quy tắc này? Mọi lần xuất hiện trong tương lai cũng biến mất.",
+    "delete": "Xóa",
+    "fromStartDate": "Tháng/ngày của ngày bắt đầu",
+    "placeholders": { "description": "vd: Lãi vay ngày 16" },
+    "headers": { "description": "Mô tả", "amount": "Số tiền", "category": "Danh mục", "recurrence": "Tần suất", "day": "Ngày lặp", "startDate": "Ngày bắt đầu", "until": "Ngày kết thúc (bắt buộc)" },
+    "frequency": { "none": "Không (một lần)", "monthly": "Hàng tháng", "weekly": "Hàng tuần", "yearly": "Hàng năm" },
+    "weekday": { "mon": "T2", "tue": "T3", "wed": "T4", "thu": "T5", "fri": "T6", "sat": "T7", "sun": "CN" },
+    "validation": {
+      "descriptionRequired": "Vui lòng nhập mô tả",
+      "amountRequired": "Vui lòng nhập số tiền",
+      "categoryInvalid": "Danh mục không hợp lệ",
+      "startDateInvalid": "Ngày bắt đầu không hợp lệ (YYYY-MM-DD)",
+      "monthlyDay": "Hàng tháng: chọn ngày 1–31",
+      "weeklyDay": "Hàng tuần: chọn thứ trong tuần",
+      "endDateRequired": "Vui lòng đặt ngày kết thúc (bắt buộc cho định kỳ)",
+      "endDateInvalid": "Định dạng ngày kết thúc không hợp lệ (YYYY-MM-DD)",
+      "endDateAfterStart": "Ngày kết thúc phải sau hoặc bằng ngày bắt đầu",
+      "missingEndDateTitle": "{{count}} chi tiêu định kỳ thiếu ngày kết thúc.",
+      "missingEndDateBody": "Nếu không có ngày kết thúc, lịch không thể hiển thị chính xác. Vui lòng điền cột \"Ngày kết thúc\" ở các hàng được đánh dấu."
+    }
+  }
 }

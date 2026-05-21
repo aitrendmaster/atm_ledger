@@ -105,18 +105,28 @@ function rowToInput(r: RowDraft): CreatePlannedInput {
   }
 }
 
-function validateRow(r: RowDraft): string | null {
-  if (!r.description.trim()) return '설명을 입력해줘'
-  if (!r.amount || r.amount <= 0) return '금액을 입력해줘'
-  if (!CATEGORIES.includes(r.category)) return '카테고리가 잘못됨'
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date)) return '시작일이 잘못됨 (YYYY-MM-DD)'
+function validateRow(r: RowDraft, t: (k: string, opts?: any) => string): string | null {
+  if (!r.description.trim()) return t('recurring.validation.descriptionRequired', { defaultValue: '설명을 입력해줘' })
+  if (!r.amount || r.amount <= 0) return t('recurring.validation.amountRequired', { defaultValue: '금액을 입력해줘' })
+  if (!CATEGORIES.includes(r.category)) return t('recurring.validation.categoryInvalid', { defaultValue: '카테고리가 잘못됨' })
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date)) return t('recurring.validation.startDateInvalid', { defaultValue: '시작일이 잘못됨 (YYYY-MM-DD)' })
   if (r.recurrence === 'monthly') {
-    if (r.recurrence_day == null || r.recurrence_day < 1 || r.recurrence_day > 31) return '매월 반복은 1~31일 사이'
+    if (r.recurrence_day == null || r.recurrence_day < 1 || r.recurrence_day > 31)
+      return t('recurring.validation.monthlyDay', { defaultValue: '매월 반복은 1~31일 사이' })
   }
   if (r.recurrence === 'weekly') {
-    if (r.recurrence_day == null || r.recurrence_day < 0 || r.recurrence_day > 6) return '매주 반복은 요일을 선택'
+    if (r.recurrence_day == null || r.recurrence_day < 0 || r.recurrence_day > 6)
+      return t('recurring.validation.weeklyDay', { defaultValue: '매주 반복은 요일을 선택' })
   }
-  if (r.recurrence_until && !/^\d{4}-\d{2}-\d{2}$/.test(r.recurrence_until)) return '종료일 형식이 잘못됨'
+  // 반복 항목이면 종료일 필수 + 시작일 이후
+  if (r.recurrence !== 'none') {
+    if (!r.recurrence_until)
+      return t('recurring.validation.endDateRequired', { defaultValue: '종료일을 입력해줘 (반복 지출은 종료일이 반드시 필요해)' })
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(r.recurrence_until))
+      return t('recurring.validation.endDateInvalid', { defaultValue: '종료일 형식이 잘못됨' })
+    if (r.recurrence_until < r.date)
+      return t('recurring.validation.endDateAfterStart', { defaultValue: '종료일은 시작일 이후여야 해' })
+  }
   return null
 }
 
@@ -131,10 +141,22 @@ export default function RecurringExpenses() {
   const update = useUpdatePlanned()
   const remove = useDeletePlanned()
 
-  // 기존 규칙은 그대로, 신규 빈 행만 로컬 상태에 보관 (저장 시 batch).
+  // 신규 draft 행
   const [drafts, setDrafts] = useState<RowDraft[]>([])
+  // 기존 행의 미저장 변경사항 누적 — id 별 부분 패치.
+  // 사용자가 셀을 수정해도 즉시 PATCH 보내지 않고 여기에 모았다가, [일괄 저장] 버튼으로 일괄 commit.
+  const [pendingPatches, setPendingPatches] = useState<Record<number, Partial<RowDraft>>>({})
 
-  const existingRows = useMemo(() => rules.map(planToRow), [rules])
+  const existingRowsRaw = useMemo(() => rules.map(planToRow), [rules])
+
+  // 표시용: pendingPatches 가 있는 행은 변경된 값이 미리 보이도록 머지
+  const existingRows = useMemo(
+    () =>
+      existingRowsRaw.map((r) =>
+        r.id != null && pendingPatches[r.id] ? { ...r, ...pendingPatches[r.id] } : r,
+      ),
+    [existingRowsRaw, pendingPatches],
+  )
 
   const addRow = () => setDrafts((d) => [...d, emptyRow()])
 
@@ -146,37 +168,113 @@ export default function RecurringExpenses() {
     setDrafts((d) => d.filter((_, i) => i !== idx))
   }
 
-  const saveAllDrafts = async () => {
-    if (drafts.length === 0) {
-      toast.error('추가된 행이 없어')
+  /** 기존 행을 셀 단위로 수정 — 즉시 서버 PATCH 하지 않고 pendingPatches 에 누적. */
+  const stashExistingPatch = (id: number, patch: Partial<RowDraft>) => {
+    const cleaned: Partial<RowDraft> = { ...patch }
+    // recurrence='none' 으로 변경되면 종료일/요일은 자동 정리
+    if (cleaned.recurrence === 'none') {
+      cleaned.recurrence_until = null
+      cleaned.recurrence_day = null
+    }
+    setPendingPatches((prev) => ({
+      ...prev,
+      [id]: { ...(prev[id] || {}), ...cleaned },
+    }))
+  }
+
+  const pendingCount = Object.keys(pendingPatches).length
+  const totalToSave = drafts.length + pendingCount
+
+  const saveAll = async () => {
+    if (totalToSave === 0) {
+      toast.error(t('recurring.emptyDraft', { defaultValue: '저장할 변경사항이 없어' }))
       return
     }
+
+    // 1) 신규 drafts 검증
     for (const r of drafts) {
-      const err = validateRow(r)
+      const err = validateRow(r, t)
       if (err) {
         toast.error(err)
         return
       }
     }
-    await createBatch.mutateAsync(drafts.map(rowToInput))
-    toast.success(`${drafts.length}건 등록 완료`)
-    setDrafts([])
+    // 2) 기존 행 + pendingPatches merged state 검증
+    for (const id of Object.keys(pendingPatches).map(Number)) {
+      const base = existingRowsRaw.find((r) => r.id === id)
+      if (!base) continue
+      const merged: RowDraft = { ...base, ...pendingPatches[id] }
+      const err = validateRow(merged, t)
+      if (err) {
+        toast.error(err)
+        return
+      }
+    }
+
+    // 3) 일괄 등록 (drafts) + 개별 PATCH (pendingPatches) 병렬 실행
+    try {
+      const ops: Promise<unknown>[] = []
+      if (drafts.length > 0) {
+        ops.push(createBatch.mutateAsync(drafts.map(rowToInput)))
+      }
+      for (const idStr of Object.keys(pendingPatches)) {
+        const id = Number(idStr)
+        const p = pendingPatches[id]
+        const apiPatch: Partial<Planned> = {
+          description: p.description,
+          amount: p.amount,
+          category: p.category,
+          date: p.date,
+          recurrence: p.recurrence,
+          recurrence_day: p.recurrence_day,
+          recurrence_until: p.recurrence_until,
+          note: p.note,
+        }
+        // 보내지 않을 키 (undefined) 는 useUpdatePlanned 가 mapping 단에서 제거하거나
+        // 그대로 보내도 백엔드 PlannedUpdate 가 None 으로 받음 → patch.model_dump(exclude_unset=True)
+        // 가 제대로 동작하려면 undefined 인 키는 명시적으로 빼야 한다.
+        for (const k of Object.keys(apiPatch) as (keyof Planned)[]) {
+          if (apiPatch[k] === undefined) delete apiPatch[k]
+        }
+        ops.push(update.mutateAsync({ id, patch: apiPatch }))
+      }
+      await Promise.all(ops)
+      toast.success(
+        t('recurring.savedCount', {
+          count: totalToSave,
+          defaultValue: `${totalToSave}건 저장 완료`,
+        }),
+      )
+      setDrafts([])
+      setPendingPatches({})
+    } catch (e) {
+      // 개별 mutation 의 onError 에서 toast 처리됨. 여기서는 일괄저장이 부분 실패한 경우를 위해 보조 메시지.
+      toast.error(t('common.retry', { defaultValue: '잠시 후 다시 시도해 주세요.' }))
+    }
   }
 
-  /** 기존 행의 inline 변경 — onBlur 또는 명시 저장. */
-  const commitExistingPatch = (id: number, patch: Partial<RowDraft>) => {
-    const apiPatch: Partial<Planned> = {
-      description: patch.description,
-      amount: patch.amount,
-      category: patch.category,
-      date: patch.date,
-      recurrence: patch.recurrence,
-      recurrence_day: patch.recurrence_day,
-      recurrence_until: patch.recurrence_until,
-      note: patch.note,
-    }
-    update.mutate({ id, patch: apiPatch })
+  const revertPending = (id: number) => {
+    setPendingPatches((prev) => {
+      const next = { ...prev }
+      delete next[id]
+      return next
+    })
   }
+
+  // 레거시 경고: 종료일 없는 반복 규칙
+  const legacyMissingEnd = useMemo(
+    () => existingRows.filter((r) => r.recurrence !== 'none' && !r.recurrence_until),
+    [existingRows],
+  )
+
+  // 레거시 행이 상단에 오도록 정렬한 표시용 목록
+  const sortedExistingRows = useMemo(() => {
+    const legacyIds = new Set(legacyMissingEnd.map((r) => r.id))
+    return [
+      ...existingRows.filter((r) => legacyIds.has(r.id)),
+      ...existingRows.filter((r) => !legacyIds.has(r.id)),
+    ]
+  }, [existingRows, legacyMissingEnd])
 
   return (
     <div className="min-h-screen" style={{ background: '#F8F5EF' }}>
@@ -201,11 +299,51 @@ export default function RecurringExpenses() {
           })}
         </div>
 
+        {/* 레거시 경고: 종료일 없는 반복 규칙 */}
+        {legacyMissingEnd.length > 0 && (
+          <div className="rounded-2xl bg-red-50 border border-red-200 p-4 mb-6 text-sm text-red-900 flex items-start gap-2">
+            <span aria-hidden className="text-base leading-none">⚠️</span>
+            <div>
+              <div className="font-semibold mb-1">
+                {t('recurring.validation.missingEndDateTitle', {
+                  count: legacyMissingEnd.length,
+                  defaultValue: `${legacyMissingEnd.length}건의 반복 지출에 종료일이 없어요.`,
+                })}
+              </div>
+              <div className="opacity-90">
+                {t('recurring.validation.missingEndDateBody', {
+                  defaultValue:
+                    '종료일이 없으면 캘린더에 정확히 표시되지 않아요. 아래 표시된 행의 "종료일" 칸을 채워주세요.',
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* 기존 규칙 */}
         <section className="mb-8">
-          <h2 className="text-sm font-semibold mb-3" style={{ color: '#7A7567' }}>
-            {t('recurring.existing', { defaultValue: '등록된 반복 지출' })} ({existingRows.length})
-          </h2>
+          <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
+            <h2 className="text-sm font-semibold" style={{ color: '#7A7567' }}>
+              {t('recurring.existing', { defaultValue: '등록된 반복 지출' })} ({existingRowsRaw.length})
+            </h2>
+            {pendingCount > 0 && (
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                  {t('recurring.unsavedChanges', {
+                    count: pendingCount,
+                    defaultValue: `${pendingCount}건 미저장 변경`,
+                  })}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setPendingPatches({})}
+                  className="px-2 py-0.5 text-atm-muted hover:text-atm-ink underline"
+                >
+                  {t('recurring.revertAll', { defaultValue: '되돌리기' })}
+                </button>
+              </div>
+            )}
+          </div>
           {isLoading ? (
             <div className="text-sm text-atm-muted">{t('recurring.loading', { defaultValue: '불러오는 중…' })}</div>
           ) : existingRows.length === 0 ? (
@@ -215,10 +353,12 @@ export default function RecurringExpenses() {
           ) : (
             <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
               <Table
-                rows={existingRows}
-                onPatch={(id, patch) => commitExistingPatch(id!, patch)}
+                rows={sortedExistingRows}
+                onPatch={(id, patch) => stashExistingPatch(id!, patch)}
                 onRemove={(id) => {
                   if (window.confirm(t('recurring.confirmDelete', { defaultValue: '이 반복 규칙을 삭제할까? 이미 표시된 미래 occurrence 도 모두 사라져.' }))) {
+                    // 삭제는 즉시 처리 (일괄저장과 별개 — 사용자 의도가 명확)
+                    if (id != null) revertPending(id)
                     remove.mutate(id!)
                   }
                 }}
@@ -226,6 +366,8 @@ export default function RecurringExpenses() {
                 curSym={curSym}
                 cur={cur}
                 editable
+                missingEndIds={new Set(legacyMissingEnd.map((r) => r.id!))}
+                dirtyIds={new Set(Object.keys(pendingPatches).map(Number))}
               />
             </div>
           )}
@@ -247,14 +389,19 @@ export default function RecurringExpenses() {
               </button>
               <button
                 type="button"
-                onClick={saveAllDrafts}
-                disabled={drafts.length === 0 || createBatch.isPending}
+                onClick={saveAll}
+                disabled={totalToSave === 0 || createBatch.isPending || update.isPending}
                 className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-white disabled:opacity-50"
                 style={{ background: '#A0633C' }}
               >
-                <Save size={14} /> {createBatch.isPending
+                <Save size={14} /> {createBatch.isPending || update.isPending
                   ? t('recurring.saving', { defaultValue: '저장 중…' })
-                  : t('recurring.saveAll', { defaultValue: '일괄 저장' })}
+                  : totalToSave > 0
+                    ? t('recurring.saveAllWithCount', {
+                        count: totalToSave,
+                        defaultValue: `일괄 저장 (${totalToSave})`,
+                      })
+                    : t('recurring.saveAll', { defaultValue: '일괄 저장' })}
               </button>
             </div>
           </div>
@@ -293,9 +440,13 @@ interface TableProps {
   cur: string
   editable?: boolean
   isDraft?: boolean
+  /** 종료일 없는 (레거시) 반복 규칙 id 들 — 행 배경을 red 로 강조 */
+  missingEndIds?: Set<number>
+  /** 미저장 변경사항이 있는 기존 행 id 들 — 행 배경을 amber 로 강조 */
+  dirtyIds?: Set<number>
 }
 
-function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDraft = false }: TableProps) {
+function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDraft = false, missingEndIds, dirtyIds }: TableProps) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
@@ -312,8 +463,16 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
           </tr>
         </thead>
         <tbody>
-          {rows.map((r, idx) => (
-            <tr key={r.id ?? `draft-${idx}`} className="border-t border-stone-100">
+          {rows.map((r, idx) => {
+            const isMissingEnd = r.id != null && missingEndIds?.has(r.id)
+            const isDirty = r.id != null && dirtyIds?.has(r.id)
+            // missingEnd 우선 (가장 위험), 그 다음 dirty (저장 대기)
+            const rowBg = isMissingEnd ? 'bg-red-50' : isDirty ? 'bg-amber-50' : ''
+            return (
+            <tr
+              key={r.id ?? `draft-${idx}`}
+              className={`border-t border-stone-100 ${rowBg}`}
+            >
               <td className="px-3 py-2">
                 <input
                   className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
@@ -455,7 +614,7 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
                 </button>
               </td>
             </tr>
-          ))}
+          )})}
         </tbody>
       </table>
     </div>

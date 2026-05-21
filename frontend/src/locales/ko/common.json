@@ -123,6 +123,7 @@
       "thisMonthFlow": "이번 달 흐름",
       "budget": "예산",
       "freeMoney": "자유롭게 쓸 수 있는 돈",
+      "setBudgetHint": "예산 또는 수입을 설정하면 표시돼요 →",
       "spent": "사용",
       "upcoming": "예정",
       "dailyAvg": "일평균",
@@ -142,7 +143,9 @@
       "welcome": "안녕! 가계부를 시작해볼까? 📒",
       "welcomeHint": "평소에 말하듯 적으면 돼. 예를 들어 \"오늘 점심 김밥 4천원\" 같이 보내봐. 입력창 옆 💡 버튼을 누르면 어떤 말이 가능한지 가이드를 볼 수 있어. 캘린더 / 장소 / 회고 / 계획 / 대차표 탭에서 한 달을 정리할 수도 있고, 각 항목 옆 ✏️·🗑 아이콘으로 개별 수정·삭제도 가능해.",
       "recorded": "기록했어 ✓ ({{count}}건)",
-      "placeRecognized": "📍 \"{{name}}\" 장소가 인식됐어. 정확한 위치는 항목을 눌러 직접 골라줘."
+      "placeRecognized": "📍 \"{{name}}\" 장소가 인식됐어. 정확한 위치는 항목을 눌러 직접 골라줘.",
+      "recurringRecorded": "🔁 {{count}}건은 반복 지출로 등록했어요. [반복 지출 관리] 페이지에서 수정·삭제할 수 있어요.",
+      "askRecurrenceEnd": "🔁 반복 지출로 인식했어요. 언제까지 계속될까요? 예: 2027-12-31 / 24개월 / 5년간"
     },
     "place": {
       "title": "나의 지출 지도",
@@ -166,6 +169,10 @@
       "avoid": "안 갈래",
       "normal": "보통",
       "resetPin": "위치 다시 지정",
+      "openInGoogleMaps": "Google Maps 에서 열기",
+      "mapsUnavailable": "지도 기능을 일시 사용할 수 없어요.",
+      "tapMapToPickLocation": "지도를 눌러 정확한 위치 선택",
+      "savePickedLocation": "이 위치로 저장",
       "visitTitle": "방문 기록 & 후기",
       "rating": "{{n}}점",
       "addReview": "+ 한줄평 남기기",
@@ -374,7 +381,67 @@
     "faq": "FAQ",
     "myAccount": "내 계정",
     "admin": "Admin",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "recurring": "반복 지출",
+    "menu": "메뉴",
+    "close": "닫기"
+  },
+  "bottomNav": {
+    "home": "홈",
+    "calendar": "캘린더",
+    "recurring": "반복",
+    "me": "MY",
+    "label": "주 네비게이션"
+  },
+  "recurring": {
+    "title": "반복 지출 관리",
+    "backToLedger": "가계부로",
+    "helpText": "매월/매주/매년 자동으로 반복되는 지출을 한 번만 등록하면 캘린더에 자동으로 표시돼. 예시: 매월 16일 이자, 매주 월요일 점심 모임 회비 등.",
+    "existing": "등록된 반복 지출",
+    "loading": "불러오는 중…",
+    "empty": "아직 등록된 반복 지출이 없어. 아래 + 추가 버튼으로 시작해봐.",
+    "newRows": "새로 추가",
+    "addRow": "행 추가",
+    "saveAll": "일괄 저장",
+    "saveAllWithCount": "일괄 저장 ({{count}})",
+    "unsavedChanges": "{{count}}건 미저장 변경",
+    "revertAll": "되돌리기",
+    "saving": "저장 중…",
+    "emptyDraft": "추가된 행이 없어",
+    "savedCount": "{{count}}건 등록 완료",
+    "confirmDelete": "이 반복 규칙을 삭제할까? 이미 표시된 미래 occurrence 도 모두 사라져.",
+    "delete": "삭제",
+    "fromStartDate": "시작일의 월/일",
+    "placeholders": { "description": "예: 16일 대출 이자" },
+    "headers": {
+      "description": "설명",
+      "amount": "금액",
+      "category": "카테고리",
+      "recurrence": "반복 주기",
+      "day": "반복 일",
+      "startDate": "시작일",
+      "until": "종료일 (필수)"
+    },
+    "frequency": {
+      "none": "없음 (1회성)",
+      "monthly": "매월",
+      "weekly": "매주",
+      "yearly": "매년"
+    },
+    "weekday": { "mon": "월", "tue": "화", "wed": "수", "thu": "목", "fri": "금", "sat": "토", "sun": "일" },
+    "validation": {
+      "descriptionRequired": "설명을 입력해줘",
+      "amountRequired": "금액을 입력해줘",
+      "categoryInvalid": "카테고리가 잘못됨",
+      "startDateInvalid": "시작일이 잘못됨 (YYYY-MM-DD)",
+      "monthlyDay": "매월 반복은 1~31일 사이",
+      "weeklyDay": "매주 반복은 요일을 선택",
+      "endDateRequired": "종료일을 입력해줘 (반복 지출은 종료일이 반드시 필요해)",
+      "endDateInvalid": "종료일 형식이 잘못됨 (YYYY-MM-DD)",
+      "endDateAfterStart": "종료일은 시작일 이후여야 해",
+      "missingEndDateTitle": "{{count}}건의 반복 지출에 종료일이 없어요.",
+      "missingEndDateBody": "종료일이 없으면 캘린더에 정확히 표시되지 않아요. 아래 표시된 행의 \"종료일\" 칸을 채워주세요."
+    }
   },
   "pricing": {
     "title": "Moa AI 가계부 가격",

@@ -123,6 +123,7 @@
       "thisMonthFlow": "This month",
       "budget": "Budget",
       "freeMoney": "Free to spend",
+      "setBudgetHint": "Set a budget or income to see this →",
       "spent": "Spent",
       "upcoming": "Upcoming",
       "dailyAvg": "Daily avg",
@@ -142,7 +143,9 @@
       "welcome": "Hi! Let's start your ledger 📒",
       "welcomeHint": "Just type the way you'd talk — e.g. \"lunch kimbap 4 today\". Tap the 💡 button next to the input to see what you can say. Use the Calendar / Places / Review / Plan / Balance tabs to wrap up the month, and the ✏️·🗑 icons on each row to edit or delete an entry.",
       "recorded": "Saved ✓ ({{count}} item(s))",
-      "placeRecognized": "📍 \"{{name}}\" detected. Open the entry to pick the exact spot."
+      "placeRecognized": "📍 \"{{name}}\" detected. Open the entry to pick the exact spot.",
+      "recurringRecorded": "🔁 {{count}} saved as recurring. Edit or delete them on the [Recurring expenses] page.",
+      "askRecurrenceEnd": "🔁 Got it as a recurring expense. When should it end? e.g., 2027-12-31 / 24 months / 5 years"
     },
     "place": {
       "title": "My spending map",
@@ -166,6 +169,10 @@
       "avoid": "Won't return",
       "normal": "OK",
       "resetPin": "Reset location",
+      "openInGoogleMaps": "Open in Google Maps",
+      "mapsUnavailable": "Map is temporarily unavailable.",
+      "tapMapToPickLocation": "Tap the map to pick the exact location",
+      "savePickedLocation": "Save this location",
       "visitTitle": "Visits & reviews",
       "rating": "{{n}}/5",
       "addReview": "+ Add a quick note",
@@ -374,7 +381,62 @@
     "faq": "FAQ",
     "myAccount": "Account",
     "admin": "Admin",
-    "logout": "Log out"
+    "logout": "Log out",
+    "recurring": "Recurring",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "bottomNav": {
+    "home": "Home",
+    "calendar": "Calendar",
+    "recurring": "Recurring",
+    "me": "Me",
+    "label": "Primary navigation"
+  },
+  "recurring": {
+    "title": "Recurring expenses",
+    "backToLedger": "Back to ledger",
+    "helpText": "Register a recurring expense once (monthly/weekly/yearly) and it shows up on the calendar automatically. E.g., loan interest on the 16th, weekly Monday lunch club fees.",
+    "existing": "Saved recurring rules",
+    "loading": "Loading…",
+    "empty": "No recurring expenses yet. Use + Add row below to start.",
+    "newRows": "New rows",
+    "addRow": "Add row",
+    "saveAll": "Save all",
+    "saveAllWithCount": "Save all ({{count}})",
+    "unsavedChanges": "{{count}} unsaved",
+    "revertAll": "Revert",
+    "saving": "Saving…",
+    "emptyDraft": "No rows added",
+    "savedCount": "{{count}} saved",
+    "confirmDelete": "Delete this rule? All future occurrences disappear too.",
+    "delete": "Delete",
+    "fromStartDate": "From start date M/D",
+    "placeholders": { "description": "e.g. 16th loan interest" },
+    "headers": {
+      "description": "Description",
+      "amount": "Amount",
+      "category": "Category",
+      "recurrence": "Frequency",
+      "day": "Day",
+      "startDate": "Start date",
+      "until": "End date (required)"
+    },
+    "frequency": { "none": "None (one-off)", "monthly": "Monthly", "weekly": "Weekly", "yearly": "Yearly" },
+    "weekday": { "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri", "sat": "Sat", "sun": "Sun" },
+    "validation": {
+      "descriptionRequired": "Please add a description",
+      "amountRequired": "Please add an amount",
+      "categoryInvalid": "Invalid category",
+      "startDateInvalid": "Invalid start date (YYYY-MM-DD)",
+      "monthlyDay": "Monthly: pick a day 1–31",
+      "weeklyDay": "Weekly: pick a weekday",
+      "endDateRequired": "Please set an end date (required for recurring)",
+      "endDateInvalid": "Invalid end date format (YYYY-MM-DD)",
+      "endDateAfterStart": "End date must be on or after start date",
+      "missingEndDateTitle": "{{count}} recurring expense(s) missing an end date.",
+      "missingEndDateBody": "Without an end date the calendar can't display them correctly. Fill in the \"End date\" column on the highlighted rows."
+    }
   },
   "pricing": {
     "title": "Moa AI Ledger Pricing",

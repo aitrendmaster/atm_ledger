@@ -68,7 +68,7 @@
     "todayHint": "Hoy es {{date}} · despacio y firme",
     "tabs": { "chat": "Chat", "calendar": "Calendario", "place": "Lugares", "places": "Lugares", "reflect": "Reflexión", "plan": "Plan", "balance": "Balance" },
     "stats": {
-      "thisMonthFlow": "Este mes", "budget": "Presupuesto", "freeMoney": "Disponible",
+      "thisMonthFlow": "Este mes", "budget": "Presupuesto", "freeMoney": "Disponible", "setBudgetHint": "Define un presupuesto o ingreso para ver esto →",
       "spent": "Gastado", "upcoming": "Pendiente", "dailyAvg": "Promedio diario",
       "monthSpent": "Este mes", "monthUpcoming": "Pendiente", "won": ""
     },
@@ -82,7 +82,9 @@
       "welcome": "¡Hola! Empecemos tu cuaderno de gastos 📒",
       "welcomeHint": "Escribe como hablas — por ejemplo \"almuerzo kimbap 4.000 KRW hoy\". Toca el botón 💡 junto al campo para ver qué puedes escribir. Usa las pestañas Calendario / Lugares / Reflexión / Plan / Balance para cerrar el mes, y los iconos ✏️·🗑 de cada fila para editar o borrar.",
       "recorded": "Guardado ✓ ({{count}} elemento(s))",
-      "placeRecognized": "📍 Detectado \"{{name}}\". Abre el registro para elegir la ubicación exacta."
+      "placeRecognized": "📍 Detectado \"{{name}}\". Abre el registro para elegir la ubicación exacta.",
+      "recurringRecorded": "🔁 {{count}} registrado(s) como gasto recurrente. Edita o elimina en [Gastos recurrentes].",
+      "askRecurrenceEnd": "🔁 Entendido como gasto recurrente. ¿Hasta cuándo continuará? ej. 2027-12-31 / 24 meses / 5 años"
     },
     "place": {
       "title": "Tu mapa de gastos", "intro": "{{count}} sitio(s) · toca un pin o tarjeta para ver mapa, fotos y reseñas",
@@ -99,6 +101,10 @@
       "viewboxUnsupported": "🌐 Búsqueda global (no compatible)",
       "noResults": "Sin resultados. Prueba otras palabras o deja el lugar vacío.",
       "againGo": "Volvería", "avoid": "Evitar", "normal": "Normal", "resetPin": "Elegir otra vez",
+      "openInGoogleMaps": "Abrir en Google Maps",
+      "mapsUnavailable": "El mapa no está disponible temporalmente.",
+      "tapMapToPickLocation": "Toca el mapa para elegir la ubicación exacta",
+      "savePickedLocation": "Guardar esta ubicación",
       "visitTitle": "Visitas y reseñas",
       "rating": "{{n}}/5",
       "addReview": "+ Añadir una nota",
@@ -223,5 +229,43 @@
       "applyDefaults": "Aplicar valores predeterminados del país"
     }
   },
-  "appHeader": { "faq": "FAQ", "myAccount": "Mi cuenta", "admin": "Admin", "logout": "Salir" }
+  "appHeader": { "faq": "FAQ", "myAccount": "Mi cuenta", "admin": "Admin", "logout": "Salir", "recurring": "Recurrentes", "menu": "Menú", "close": "Cerrar" },
+  "bottomNav": { "home": "Inicio", "calendar": "Calendario", "recurring": "Recurr.", "me": "Yo", "label": "Navegación principal" },
+  "recurring": {
+    "title": "Gastos recurrentes",
+    "backToLedger": "Volver al libro",
+    "helpText": "Registra una vez un gasto que se repite cada mes/semana/año y aparecerá automáticamente en el calendario. Ej.: intereses del 16 de cada mes, almuerzo semanal del lunes.",
+    "existing": "Reglas guardadas",
+    "loading": "Cargando…",
+    "empty": "Aún no hay gastos recurrentes. Usa + Añadir fila para empezar.",
+    "newRows": "Nuevas filas",
+    "addRow": "Añadir fila",
+    "saveAll": "Guardar todo",
+    "saveAllWithCount": "Guardar todo ({{count}})",
+    "unsavedChanges": "{{count}} sin guardar",
+    "revertAll": "Revertir",
+    "saving": "Guardando…",
+    "emptyDraft": "No hay filas añadidas",
+    "savedCount": "{{count}} guardado(s)",
+    "confirmDelete": "¿Eliminar esta regla? Todas las ocurrencias futuras también desaparecerán.",
+    "delete": "Eliminar",
+    "fromStartDate": "Mes/día de inicio",
+    "placeholders": { "description": "ej. Intereses día 16" },
+    "headers": { "description": "Descripción", "amount": "Importe", "category": "Categoría", "recurrence": "Frecuencia", "day": "Día", "startDate": "Fecha de inicio", "until": "Fecha de fin (obligatoria)" },
+    "frequency": { "none": "Ninguna (única vez)", "monthly": "Mensual", "weekly": "Semanal", "yearly": "Anual" },
+    "weekday": { "mon": "Lun", "tue": "Mar", "wed": "Mié", "thu": "Jue", "fri": "Vie", "sat": "Sáb", "sun": "Dom" },
+    "validation": {
+      "descriptionRequired": "Añade una descripción",
+      "amountRequired": "Añade un importe",
+      "categoryInvalid": "Categoría no válida",
+      "startDateInvalid": "Fecha de inicio no válida (YYYY-MM-DD)",
+      "monthlyDay": "Mensual: elige día 1–31",
+      "weeklyDay": "Semanal: elige día de la semana",
+      "endDateRequired": "Indica una fecha de fin (obligatoria para recurrentes)",
+      "endDateInvalid": "Formato de fecha de fin no válido (YYYY-MM-DD)",
+      "endDateAfterStart": "La fecha de fin debe ser igual o posterior a la de inicio",
+      "missingEndDateTitle": "{{count}} gasto(s) recurrente(s) sin fecha de fin.",
+      "missingEndDateBody": "Sin fecha de fin, el calendario no puede mostrarlos correctamente. Rellena la columna \"Fecha de fin\" en las filas resaltadas."
+    }
+  }
 }

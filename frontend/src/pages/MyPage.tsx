@@ -1026,7 +1026,13 @@ function RegionSection({
           <span className="text-xs text-atm-muted">{t('mypage.region.language')}</span>
           <select
             value={locale}
-            onChange={(e) => setLocale(e.target.value)}
+            onChange={(e) => {
+              const next = e.target.value
+              setLocale(next)
+              // 즉시 UI 미리보기 — 저장은 별도 Save 버튼에서 PATCH /auth/me 로 영속.
+              // (구 AppHeader 의 LanguageSwitcher 즉시 전환 UX 보존)
+              if (i18n.language !== next) i18n.changeLanguage(next)
+            }}
             className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm bg-white focus:outline-none focus:border-atm-accent"
           >
             {SUPPORTED_LOCALES.map((l) => (
