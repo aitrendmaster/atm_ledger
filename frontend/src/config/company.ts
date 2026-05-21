@@ -15,9 +15,9 @@ export const COMPANY = {
   ceo: '오유진',
   businessRegistrationNumber: '396-21-02113',
   mailOrderRegistrationNumber: '2025-부천소사-0174',
-  /** 사업장 도로명 주소 — 추후 사업자등록증 기준으로 교체 */
-  addressKo: '경기도 부천시 (정확한 도로명 주소 등재 예정)',
-  addressEn: 'Bucheon-si, Gyeonggi-do, Republic of Korea (full address pending)',
+  /** 사업장 도로명 주소 (사업자등록증 기준) */
+  addressKo: '경기도 부천시 소사로 257길 6층 C14',
+  addressEn: 'C14, 6F, 257-gil Sosa-ro, Bucheon-si, Gyeonggi-do, Republic of Korea',
   supportEmail: 'master@aitrend.kr',
   privacyOfficerName: '오유진',
   privacyOfficerEmail: 'master@aitrend.kr',
