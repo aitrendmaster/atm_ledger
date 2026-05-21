@@ -43,7 +43,165 @@
     "cta2Subtitle": "Signup in 30 seconds. No credit card. Free during beta.",
     "footerTagline": "Chat your money. Get insight.",
     "footerTerms": "Terms",
-    "footerPrivacy": "Privacy"
+    "footerPrivacy": "Privacy",
+    "hero": {
+      "badge": "Free beta · AI ledger",
+      "headline1": "This time,",
+      "headline2": "the ledger that sticks.",
+      "subtitle": "No spreadsheets. No receipts. Just type \"latte $5\" and Moa sorts it out, then walks you through your month with you.",
+      "ctaPrimary": "Start for free",
+      "ctaLogin": "Log in",
+      "ctaApp": "Open ledger →",
+      "trust1": "30-sec signup",
+      "trust2": "No card",
+      "trust3": "Free beta"
+    },
+    "problem": {
+      "label": "Why Moa",
+      "title": "Why does everyone give up on budgeting?",
+      "subtitle": "Most apps quit on you the same way — too many taps, no insight, no rhythm.",
+      "card1": {
+        "quote": "Pick a category, type the amount, set the date — three taps for every coffee. I lasted one week.",
+        "meta": "27, office worker · last app: 1 week"
+      },
+      "card2": {
+        "quote": "At month-end I just see a wall of numbers. No idea what to actually do next month.",
+        "meta": "33, freelancer · spreadsheet"
+      },
+      "card3": {
+        "quote": "I log everything, but a month later it's gone. I've never once actually looked back.",
+        "meta": "29, parent · 3 budgeting apps tried"
+      }
+    },
+    "feature1": {
+      "label": "Feature 01 · Chat input",
+      "title": "Stop tapping categories. Just type.",
+      "desc": "Throw a sentence at Moa the way you already think it. AI breaks out the category, amount, date and place.",
+      "point1": "Natural language like \"lunch $9\" works",
+      "point2": "Upload a receipt — auto-parsed",
+      "point3": "One tap to fix if it gets it wrong",
+      "demoUser": "Latte at Starbucks, $5.20",
+      "demoAi": "Logged! You've spent $32 on cafés this month — a bit above usual :)",
+      "demoPlaceholder": "Tell me what you spent today…",
+      "tagCafe": "Café",
+      "tagAmount": "$5.20",
+      "tagPlace": "Starbucks"
+    },
+    "feature2": {
+      "label": "Feature 02 · Calendar",
+      "title": "Actual + upcoming on one screen.",
+      "desc": "Rent, subscriptions, anything recurring — already reflected. See exactly what's left until payday.",
+      "point1": "Actual and upcoming color-coded",
+      "point2": "Auto-calculated balance to next pay date",
+      "point3": "Recurring entries auto-fill the calendar",
+      "month": "November",
+      "upcoming1": "Rent",
+      "amount1": "$1,400",
+      "upcoming2": "Netflix",
+      "amount2": "$15.49",
+      "upcoming3": "Insurance",
+      "amount3": "$48"
+    },
+    "feature3": {
+      "label": "Feature 03 · Day detail",
+      "title": "A day, sorted clearly.",
+      "desc": "See a day broken out by category, place and note. Where your money leaks becomes obvious.",
+      "point1": "9 fixed categories — café, food, transit and more",
+      "point2": "Auto place detection with rating & notes",
+      "point3": "Attach photos for receipts or items",
+      "dateLabel": "Mon, Nov 17",
+      "total": "$28.40"
+    },
+    "feature4": {
+      "label": "Feature 04 · Places",
+      "title": "Map your favorites. Skip the rest.",
+      "desc": "Rate and comment on places you visit — your next ledger uses that automatically. Frequent spots, all in one view.",
+      "point1": "Google Maps — pins and photos",
+      "point2": "\"Return / Skip\" tags from your ratings",
+      "point3": "Auto-summed visits and totals"
+    },
+    "feature5": {
+      "label": "Feature 05 · AI coaching",
+      "title": "A warm AI coach, every month.",
+      "desc": "Log wins, regrets and next-month pledges. Moa compares with last month and replies in a friend's voice.",
+      "point1": "Auto-compares monthly totals & categories",
+      "point2": "A \"you're doing great\" tone, not nagging",
+      "point3": "One concrete action to try next month",
+      "messageTitle": "Moa doesn't judge.",
+      "messageSub": "It closes the month the way a friend would — \"thanks for logging this month too.\"",
+      "monthLabel": "October recap",
+      "total": "$1,284.50",
+      "strength": "Café spend dropped 18% vs. last month. Nice work!",
+      "weakness": "Food was 32% above usual — more eating out.",
+      "advice": "Try a weekly home-cooking day. About $120 in savings."
+    },
+    "feature6": {
+      "label": "Feature 06 · Balance",
+      "title": "Income − spend − savings = what's actually yours.",
+      "desc": "Set aside fixed costs and savings first. What's left is what you can truly spend.",
+      "point1": "Income, spend and savings in one table",
+      "point2": "One-line \"free to spend\" summary",
+      "point3": "Auto carry-over each month",
+      "monthLabel": "November balance",
+      "income": "$3,200",
+      "spent": "$1,840",
+      "saved": "$600",
+      "free": "$760"
+    },
+    "feature7": {
+      "label": "Feature 07 · Recurring",
+      "title": "Set once. Done until the end date.",
+      "desc": "Rent, subscriptions, insurance — register them once and they fill your calendar all the way to the end date.",
+      "point1": "Weekly, monthly, yearly cycles",
+      "point2": "Auto-fills calendar to the end date",
+      "point3": "Batch save edits in one go",
+      "row1": { "name": "Rent", "amount": "$1,400", "cycle": "25th monthly", "next": "Nov 25" },
+      "row2": { "name": "Netflix", "amount": "$15.49", "cycle": "28th monthly", "next": "Nov 28" },
+      "row3": { "name": "Insurance", "amount": "$48", "cycle": "30th monthly", "next": "Nov 30" },
+      "row4": { "name": "Gym", "amount": "$95", "cycle": "5th monthly", "next": "Dec 5" }
+    },
+    "compare": {
+      "label": "Compare",
+      "title": "What makes Moa different?",
+      "subtitle": "Side by side with typical budgeting apps and spreadsheets.",
+      "colFeature": "Feature",
+      "colOther": "Typical app",
+      "colExcel": "Spreadsheet",
+      "row1": "One-line chat entry",
+      "row2": "Auto category tagging",
+      "row3": "Monthly AI coaching",
+      "row4": "Upcoming + calendar",
+      "row5": "Auto place & reviews",
+      "row6": "Recurring to end date",
+      "row7": "9 languages out of the box",
+      "row8": "Excel export"
+    },
+    "target": {
+      "label": "For you",
+      "title": "People who love Moa.",
+      "persona1": {
+        "emoji": "💼",
+        "name": "The Nth-try budgeter",
+        "desc": "You've tried 3+ apps and quit each in a week. Easy input is what makes you stick."
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "Early-career earner",
+        "desc": "Your paycheck shows up and vanishes. The AI coach makes sense of your month."
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "Living or traveling abroad",
+        "desc": "Multiple currencies and languages. Moa speaks 9 — log naturally either way."
+      }
+    },
+    "cta2": {
+      "title": "Start before this month ends.",
+      "subtitle": "30-second signup, no card on file, free during beta.",
+      "trust1": "30-sec signup",
+      "trust2": "No card",
+      "trust3": "Free beta"
+    }
   },
   "login": {
     "subtitle": "Log in and start your ledger.",

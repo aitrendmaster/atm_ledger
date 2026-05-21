@@ -26,7 +26,165 @@
     "cta2Heading": "Perbezaan terasa dari bulan pertama.",
     "cta2Subtitle": "30 saat untuk daftar. Tanpa kad kredit. Percuma semasa Beta.",
     "footerTagline": "Buku belanja AI berasaskan sembang",
-    "footerTerms": "Terma", "footerPrivacy": "Privasi"
+    "footerTerms": "Terma", "footerPrivacy": "Privasi",
+    "hero": {
+      "badge": "Beta percuma · buku belanja AI",
+      "headline1": "Kali ini,",
+      "headline2": "buku belanja yang tahan.",
+      "subtitle": "Tanpa spreadsheet, tanpa resit. Taip \"kopi RM12\" — Moa susun sendiri, kemudian imbas balik bulan bersama anda.",
+      "ctaPrimary": "Mula percuma",
+      "ctaLogin": "Log masuk",
+      "ctaApp": "Buka buku →",
+      "trust1": "Daftar 30 saat",
+      "trust2": "Tiada kad",
+      "trust3": "Beta percuma"
+    },
+    "problem": {
+      "label": "Why Moa",
+      "title": "Mengapa ramai berhenti rekod belanja?",
+      "subtitle": "Sebabnya hampir sama — terlalu banyak ketuk, tiada insight, kehilangan rentak.",
+      "card1": {
+        "quote": "Pilih kategori, taip jumlah, pilih tarikh… tiga ketuk untuk satu kopi. Seminggu saya berhenti.",
+        "meta": "27, pekerja pejabat · app lepas 1 minggu"
+      },
+      "card2": {
+        "quote": "Hujung bulan cuma dinding nombor. Saya tak tahu apa nak buat bulan depan.",
+        "meta": "33, freelance · Excel"
+      },
+      "card3": {
+        "quote": "Saya rekod semua, tapi sebulan kemudian terus lupa. Tak pernah betul-betul tinjau semula.",
+        "meta": "29, ibu · cuba 3 app"
+      }
+    },
+    "feature1": {
+      "label": "Feature 01 · Sembang",
+      "title": "Lupakan kategori. Taip sahaja.",
+      "desc": "Lemparkan ayat seperti anda fikir. AI pisahkan kategori, jumlah, tarikh dan tempat.",
+      "point1": "Bahasa biasa seperti \"makan tengahari RM18\"",
+      "point2": "Muat naik resit — AI baca sendiri",
+      "point3": "Salah? Satu ketuk untuk ubah",
+      "demoUser": "Starbucks KLCC RM18",
+      "demoAi": "Tersimpan! Bulan ini anda dah RM82 di kafe — sikit lebih dari biasa :)",
+      "demoPlaceholder": "Cerita apa anda belanja hari ni…",
+      "tagCafe": "Kafe",
+      "tagAmount": "RM18",
+      "tagPlace": "KLCC"
+    },
+    "feature2": {
+      "label": "Feature 02 · Kalendar",
+      "title": "Sebenar + akan datang, satu skrin.",
+      "desc": "Sewa, langganan — sudah ditolak. Anda nampak betul berapa baki sampai gaji seterusnya.",
+      "point1": "Sebenar dan akan datang dibezakan warna",
+      "point2": "Auto kira baki sehingga bayaran seterusnya",
+      "point3": "Belanja berulang isi kalendar hingga tarikh tamat",
+      "month": "November",
+      "upcoming1": "Sewa rumah",
+      "amount1": "RM1,500",
+      "upcoming2": "Netflix",
+      "amount2": "RM55",
+      "upcoming3": "Insurans kesihatan",
+      "amount3": "RM180"
+    },
+    "feature3": {
+      "label": "Feature 03 · Perincian harian",
+      "title": "Satu hari, kemas.",
+      "desc": "Lihat hari mengikut kategori, tempat dan nota. Wang bocor di mana, jelas terus.",
+      "point1": "9 kategori tetap — kafe, makan, transit, dll.",
+      "point2": "Tempat auto-kesan + bintang dan nota",
+      "point3": "Lampirkan foto resit atau barang",
+      "dateLabel": "Isn, 17 Nov",
+      "total": "RM82.40"
+    },
+    "feature4": {
+      "label": "Feature 04 · Tempat",
+      "title": "Tempat untuk pergi & elak, di peta.",
+      "desc": "Beri bintang dan komen tempat yang dilawati — buku seterusnya rujuk auto. Tempat kerap, satu pandangan.",
+      "point1": "Google Maps — pin dan foto",
+      "point2": "\"Pergi lagi / Elak\" daripada bintang",
+      "point3": "Kira sendiri jumlah lawatan dan belanja"
+    },
+    "feature5": {
+      "label": "Feature 05 · Coach AI",
+      "title": "Setiap bulan, ada coach AI mesra.",
+      "desc": "Catat baik, kurang baik dan janji bulan depan. Moa AI bandingkan dengan bulan lalu dan balas seperti kawan.",
+      "point1": "Auto banding total dan kategori bulanan",
+      "point2": "Nada \"anda hebat\", bukan herdik",
+      "point3": "Satu tindakan konkrit untuk bulan depan",
+      "messageTitle": "Moa tidak menilai.",
+      "messageSub": "Tutup bulan seperti kawan — \"terima kasih sebab rekod bulan ni juga\".",
+      "monthLabel": "Imbas balik Oktober",
+      "total": "RM3,210",
+      "strength": "Belanja kafe turun 18% berbanding bulan lalu. Syabas!",
+      "weakness": "Belanja makan 32% lebih dari biasa — banyak makan luar.",
+      "advice": "Cuba satu hari masak rumah seminggu? Boleh jimat sekitar RM300 sebulan."
+    },
+    "feature6": {
+      "label": "Feature 06 · Kunci kira-kira",
+      "title": "Pendapatan − belanja − simpanan = wang sebenar untuk dibelanja.",
+      "desc": "Asingkan tetapan dan simpanan dahulu. Bakinya barulah wang yang anda boleh belanja sebenarnya.",
+      "point1": "Pendapatan, belanja, simpanan dalam satu jadual",
+      "point2": "Satu baris ringkas \"bebas belanja\"",
+      "point3": "Auto bawa baki ke bulan baru",
+      "monthLabel": "Kunci kira-kira November",
+      "income": "RM8,200",
+      "spent": "RM4,840",
+      "saved": "RM1,500",
+      "free": "RM1,860"
+    },
+    "feature7": {
+      "label": "Feature 07 · Berulang",
+      "title": "Set sekali. Auto sampai tarikh tamat.",
+      "desc": "Sewa, langganan, insurans — set sekali dan isi kalendar sampai tarikh tamat.",
+      "point1": "Kitaran mingguan / bulanan / tahunan",
+      "point2": "Auto isi kalendar sampai tarikh tamat",
+      "point3": "Sunting dan simpan pukal sekaligus",
+      "row1": { "name": "Sewa", "amount": "RM1,500", "cycle": "Tiap 25hb", "next": "25/11" },
+      "row2": { "name": "Netflix", "amount": "RM55", "cycle": "Tiap 28hb", "next": "28/11" },
+      "row3": { "name": "Insurans", "amount": "RM180", "cycle": "Tiap 30hb", "next": "30/11" },
+      "row4": { "name": "Gimnasium", "amount": "RM120", "cycle": "Tiap 5hb", "next": "05/12" }
+    },
+    "compare": {
+      "label": "Perbandingan",
+      "title": "Apa yang berbeza tentang Moa?",
+      "subtitle": "Sebelah app belanja biasa dan Excel.",
+      "colFeature": "Ciri",
+      "colOther": "App biasa",
+      "colExcel": "Excel",
+      "row1": "Input sembang satu baris",
+      "row2": "Auto kategori",
+      "row3": "Coach AI bulanan",
+      "row4": "Akan datang + kalendar",
+      "row5": "Auto urus tempat & ulasan",
+      "row6": "Berulang hingga tarikh tamat",
+      "row7": "9 bahasa sedia",
+      "row8": "Eksport Excel"
+    },
+    "target": {
+      "label": "Untuk anda",
+      "title": "Mereka yang gemar Moa.",
+      "persona1": {
+        "emoji": "💼",
+        "name": "Cuba ke-N kali",
+        "desc": "Sudah cuba 3+ app, setiap kali berhenti dalam seminggu. Input mudah baru tahan."
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "Mula kerjaya",
+        "desc": "Gaji masuk lalu hilang entah ke mana. Coach AI bantu kemas sebulan."
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "Hidup atau jalan ke luar negara",
+        "desc": "Banyak mata wang dan bahasa. Moa sokong 9 bahasa — rekod selesa."
+      }
+    },
+    "cta2": {
+      "title": "Mula sebelum bulan ni tamat.",
+      "subtitle": "Daftar 30 saat, tanpa kad, percuma sepanjang beta.",
+      "trust1": "Daftar 30 saat",
+      "trust2": "Tiada kad",
+      "trust3": "Beta percuma"
+    }
   },
   "login": {
     "subtitle": "Log masuk dan mula merekod.",

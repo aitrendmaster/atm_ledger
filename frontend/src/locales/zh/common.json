@@ -26,7 +26,165 @@
     "cta2Heading": "从这个月起,感觉就会不一样。",
     "cta2Subtitle": "30 秒注册。无需信用卡。公测期免费。",
     "footerTagline": "用聊天记录的 AI 记账本",
-    "footerTerms": "服务条款", "footerPrivacy": "隐私政策"
+    "footerTerms": "服务条款", "footerPrivacy": "隐私政策",
+    "hero": {
+      "badge": "公测免费 · AI 记账",
+      "headline1": "这一次,",
+      "headline2": "真能坚持下来的记账。",
+      "subtitle": "不用 Excel、不用收据。一句「拿铁 35 元」扔进来,Moa 帮你整理,陪你回顾一整月。",
+      "ctaPrimary": "免费开始",
+      "ctaLogin": "登录",
+      "ctaApp": "打开记账本 →",
+      "trust1": "30 秒注册",
+      "trust2": "无需信用卡",
+      "trust3": "公测免费"
+    },
+    "problem": {
+      "label": "Why Moa",
+      "title": "为什么大家都坚持不下来?",
+      "subtitle": "几乎都是相同的原因 — 操作多、看不出意义、节奏断了。",
+      "card1": {
+        "quote": "选分类、填金额、选日期…一杯咖啡要点三下,一周就放弃了。",
+        "meta": "27 岁 上班族 · 上一个 1 周"
+      },
+      "card2": {
+        "quote": "月末只看到一堆数字,下个月到底要怎么调整,看完还是不知道。",
+        "meta": "33 岁 自由职业 · Excel"
+      },
+      "card3": {
+        "quote": "记是记了,过一个月就忘了。从来没有真正回顾过。",
+        "meta": "29 岁 家庭主妇 · 试过 3 个 App"
+      }
+    },
+    "feature1": {
+      "label": "Feature 01 · 聊天输入",
+      "title": "不用点分类。写就行。",
+      "desc": "把脑子里的那句话直接扔进来。AI 会拆出分类、金额、日期、地点。",
+      "point1": "「午饭 39 元」这样的自然语句都行",
+      "point2": "拍张收据照片就能自动识别",
+      "point3": "分错了?点一下就改",
+      "demoUser": "星巴克 国贸 35 元",
+      "demoAi": "记好了!本月咖啡花了 324 元,有点偏高哦 :)",
+      "demoPlaceholder": "今天花了什么,告诉我吧…",
+      "tagCafe": "咖啡",
+      "tagAmount": "35 元",
+      "tagPlace": "国贸"
+    },
+    "feature2": {
+      "label": "Feature 02 · 日历",
+      "title": "实际 + 预定,一屏看完。",
+      "desc": "房租、订阅等预定支出已经预先反映。算清楚到下个发薪日前到底还剩多少。",
+      "point1": "实际与预定支出用颜色区分",
+      "point2": "自动算到下个支付日的余额",
+      "point3": "重复支出自动填到结束日",
+      "month": "11 月",
+      "upcoming1": "房租",
+      "amount1": "3,800 元",
+      "upcoming2": "Netflix",
+      "amount2": "78 元",
+      "upcoming3": "重疾险",
+      "amount3": "260 元"
+    },
+    "feature3": {
+      "label": "Feature 03 · 当日明细",
+      "title": "一天的开销,清清楚楚。",
+      "desc": "按分类、地点、备注呈现一天的支出。漏在哪儿,一眼就看见。",
+      "point1": "咖啡、餐饮、交通等 9 个固定分类",
+      "point2": "自动识别地点 + 评分和备注",
+      "point3": "附上收据或物品的照片",
+      "dateLabel": "11 月 17 日 (周一)",
+      "total": "284 元"
+    },
+    "feature4": {
+      "label": "Feature 04 · 地点",
+      "title": "想去的、不想去的,地图上分清楚。",
+      "desc": "为去过的地方打分、留言,下次的记账会自动参考。常去的店一目了然。",
+      "point1": "Google 地图 — 图钉与照片",
+      "point2": "评分自动归类「还会再来」「不去了」",
+      "point3": "自动累计访问次数与总支出"
+    },
+    "feature5": {
+      "label": "Feature 05 · AI 复盘",
+      "title": "每个月,温柔的 AI 教练陪你。",
+      "desc": "记下亮点、遗憾和下月的小约定,Moa AI 对比上个月,用朋友的口吻回你一句。",
+      "point1": "自动比较月度总额与分类变化",
+      "point2": "不是唠叨,是「你做得很好」的口吻",
+      "point3": "推荐一件下个月可以试的小事",
+      "messageTitle": "Moa 不评判你。",
+      "messageSub": "「这个月也记下来,谢谢呀」— 用一句朋友的话,结束一个月。",
+      "monthLabel": "10 月复盘",
+      "total": "6,420 元",
+      "strength": "咖啡花费比上月少了 18%,做得真好!",
+      "weakness": "餐饮比平时多了 32%,外食有点多哦。",
+      "advice": "每周做一次「家做饭日」如何?一个月大约能省 600 元。"
+    },
+    "feature6": {
+      "label": "Feature 06 · 收支表",
+      "title": "收入 − 支出 − 储蓄 = 真正能花的钱。",
+      "desc": "先扣掉固定支出和储蓄,剩下的才是真正自由的钱。",
+      "point1": "收入、支出、储蓄一张表",
+      "point2": "「可自由支配」一行总结",
+      "point3": "新月份自动结转",
+      "monthLabel": "11 月 收支",
+      "income": "16,000 元",
+      "spent": "9,200 元",
+      "saved": "3,000 元",
+      "free": "3,800 元"
+    },
+    "feature7": {
+      "label": "Feature 07 · 重复支出",
+      "title": "登记一次,直到结束日全自动。",
+      "desc": "房租、订阅、保险等重复支出,登记后就一直自动填到结束日。",
+      "point1": "支持周/月/年的循环",
+      "point2": "自动把日历填到结束日",
+      "point3": "修改后一键批量保存",
+      "row1": { "name": "房租", "amount": "3,800 元", "cycle": "每月 25 日", "next": "11/25" },
+      "row2": { "name": "Netflix", "amount": "78 元", "cycle": "每月 28 日", "next": "11/28" },
+      "row3": { "name": "重疾险", "amount": "260 元", "cycle": "每月 30 日", "next": "11/30" },
+      "row4": { "name": "健身房", "amount": "480 元", "cycle": "每月 5 日", "next": "12/05" }
+    },
+    "compare": {
+      "label": "Compare",
+      "title": "Moa 哪里不一样?",
+      "subtitle": "和常见记账 App、Excel 并排比一比。",
+      "colFeature": "功能",
+      "colOther": "普通记账",
+      "colExcel": "Excel",
+      "row1": "一句话聊天录入",
+      "row2": "自动归类",
+      "row3": "每月 AI 复盘",
+      "row4": "预定支出 + 日历",
+      "row5": "地点与评价自动整理",
+      "row6": "重复支出到结束日",
+      "row7": "9 种语言开箱即用",
+      "row8": "导出 Excel"
+    },
+    "target": {
+      "label": "For You",
+      "title": "这些人喜欢 Moa。",
+      "persona1": {
+        "emoji": "💼",
+        "name": "第 N 次挑战",
+        "desc": "试过 3 个以上 App,每次都在一周内放弃。输入轻松才能坚持。"
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "刚步入社会",
+        "desc": "工资到账后总不知道花去哪了。AI 教练帮你梳理一整月。"
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "海外居住或旅行",
+        "desc": "在多种货币和语言之间切换。Moa 支持 9 种语言,自然记录。"
+      }
+    },
+    "cta2": {
+      "title": "在这个月结束之前开始吧。",
+      "subtitle": "30 秒注册,无需信用卡,公测期免费。",
+      "trust1": "30 秒注册",
+      "trust2": "无需信用卡",
+      "trust3": "公测免费"
+    }
   },
   "login": {
     "subtitle": "登录开始记账。",

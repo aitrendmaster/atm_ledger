@@ -26,7 +26,165 @@
     "cta2Heading": "Khác biệt từ tháng đầu tiên.",
     "cta2Subtitle": "30 giây đăng ký. Không cần thẻ. Miễn phí trong Beta.",
     "footerTagline": "Sổ chi tiêu AI ghi bằng cách chat",
-    "footerTerms": "Điều khoản", "footerPrivacy": "Quyền riêng tư"
+    "footerTerms": "Điều khoản", "footerPrivacy": "Quyền riêng tư",
+    "hero": {
+      "badge": "Beta miễn phí · sổ chi tiêu AI",
+      "headline1": "Lần này",
+      "headline2": "sẽ ghi đến cùng.",
+      "subtitle": "Không Excel, không hoá đơn. Gõ \"cà phê 50.000đ\" là xong — Moa tự sắp xếp và cùng bạn nhìn lại cả tháng.",
+      "ctaPrimary": "Bắt đầu miễn phí",
+      "ctaLogin": "Đăng nhập",
+      "ctaApp": "Mở sổ chi tiêu →",
+      "trust1": "Đăng ký 30 giây",
+      "trust2": "Không cần thẻ",
+      "trust3": "Beta miễn phí"
+    },
+    "problem": {
+      "label": "Vì sao Moa",
+      "title": "Vì sao ai cũng bỏ ngang sổ chi tiêu?",
+      "subtitle": "Thường là một lý do — quá nhiều thao tác, không có insight, mất nhịp.",
+      "card1": {
+        "quote": "Chọn danh mục, gõ số tiền, chọn ngày… ba lần chạm cho mỗi ly cà phê. Một tuần là bỏ.",
+        "meta": "27, nhân viên VP · app trước 1 tuần"
+      },
+      "card2": {
+        "quote": "Cuối tháng chỉ thấy một bức tường con số. Tháng sau phải làm gì khác thì chịu.",
+        "meta": "33, freelance · Excel"
+      },
+      "card3": {
+        "quote": "Ghi đủ hết, nhưng qua tháng là quên. Chưa từng thật sự nhìn lại.",
+        "meta": "29, nội trợ · thử 3 app"
+      }
+    },
+    "feature1": {
+      "label": "Feature 01 · Chat",
+      "title": "Bỏ qua danh mục. Cứ gõ thôi.",
+      "desc": "Quẳng câu bạn đang nghĩ vào. AI tách danh mục, số tiền, ngày và địa điểm hộ bạn.",
+      "point1": "Câu tự nhiên kiểu \"cơm trưa 50k\" là được",
+      "point2": "Up ảnh hoá đơn — AI đọc luôn",
+      "point3": "Sai? Một chạm là sửa",
+      "demoUser": "Starbucks Lê Lợi 65.000đ",
+      "demoAi": "Đã ghi! Tháng này bạn tiêu cà phê 324.000đ — hơi nhiều hơn bình thường nhé :)",
+      "demoPlaceholder": "Hôm nay bạn tiêu gì kể tớ nghe…",
+      "tagCafe": "Cà phê",
+      "tagAmount": "65.000đ",
+      "tagPlace": "Lê Lợi"
+    },
+    "feature2": {
+      "label": "Feature 02 · Lịch",
+      "title": "Thực tế + sắp tới, một màn hình.",
+      "desc": "Tiền nhà, gói đăng ký — đã tính sẵn. Bạn thấy rõ đến ngày lương còn lại bao nhiêu.",
+      "point1": "Thực tế và sắp tới phân biệt bằng màu",
+      "point2": "Tự tính số dư đến kỳ trả tiếp theo",
+      "point3": "Khoản lặp tự điền lịch đến ngày kết thúc",
+      "month": "Tháng 11",
+      "upcoming1": "Tiền nhà",
+      "amount1": "6.000.000đ",
+      "upcoming2": "Netflix",
+      "amount2": "260.000đ",
+      "upcoming3": "Bảo hiểm sức khỏe",
+      "amount3": "420.000đ"
+    },
+    "feature3": {
+      "label": "Feature 03 · Chi tiết ngày",
+      "title": "Một ngày, gọn gàng.",
+      "desc": "Xem một ngày theo danh mục, địa điểm và ghi chú. Rò tiền chỗ nào, nhìn là thấy.",
+      "point1": "9 danh mục cố định — cà phê, ăn uống, đi lại…",
+      "point2": "Tự nhận địa điểm + sao và ghi chú",
+      "point3": "Đính kèm ảnh hoá đơn hoặc món đồ",
+      "dateLabel": "Thứ Hai, 17/11",
+      "total": "284.000đ"
+    },
+    "feature4": {
+      "label": "Feature 04 · Địa điểm",
+      "title": "Nơi nên quay lại, nơi không, sắp xếp trên bản đồ.",
+      "desc": "Đánh giá và nhận xét chỗ đã đi — lần sau Moa nhớ giùm. Quán quen, gom hết về một góc.",
+      "point1": "Liên kết Google Maps — ghim và ảnh",
+      "point2": "Tự gán \"quay lại / bỏ qua\" theo sao",
+      "point3": "Tự cộng số lần đến và tổng chi"
+    },
+    "feature5": {
+      "label": "Feature 05 · Coach AI",
+      "title": "Mỗi tháng, có coach AI dịu dàng.",
+      "desc": "Ghi điểm tốt, điểm tiếc và lời hứa tháng sau. Moa AI so với tháng trước và trả lời bạn như một người bạn.",
+      "point1": "Tự so sánh tổng và danh mục theo tháng",
+      "point2": "Giọng \"bạn đang làm tốt\", không cằn nhằn",
+      "point3": "Một hành động cụ thể cho tháng sau",
+      "messageTitle": "Moa không phán xét.",
+      "messageSub": "Khép tháng như một người bạn — \"cảm ơn vì tháng này cũng ghi nhé\".",
+      "monthLabel": "Tổng kết tháng 10",
+      "total": "12.845.000đ",
+      "strength": "Cà phê giảm 18% so với tháng trước. Giỏi lắm!",
+      "weakness": "Ăn uống cao hơn bình thường 32% — ăn ngoài nhiều hơn.",
+      "advice": "Thử mỗi tuần một ngày tự nấu nhé? Một tháng tiết kiệm khoảng 1.200.000đ."
+    },
+    "feature6": {
+      "label": "Feature 06 · Bảng cân đối",
+      "title": "Thu − chi − tiết kiệm = tiền thực dùng.",
+      "desc": "Trừ trước khoản cố định và tiết kiệm. Còn lại mới thật sự là tiền bạn được tiêu.",
+      "point1": "Thu, chi, tiết kiệm gom trong một bảng",
+      "point2": "Một dòng tóm tắt \"tự do tiêu\"",
+      "point3": "Sang tháng tự chuyển số dư",
+      "monthLabel": "Cân đối tháng 11",
+      "income": "32.000.000đ",
+      "spent": "18.400.000đ",
+      "saved": "6.000.000đ",
+      "free": "7.600.000đ"
+    },
+    "feature7": {
+      "label": "Feature 07 · Khoản lặp",
+      "title": "Cài một lần. Chạy tới ngày kết thúc.",
+      "desc": "Tiền nhà, gói đăng ký, bảo hiểm — cài một lần là tự điền vào lịch đến ngày kết thúc.",
+      "point1": "Chu kỳ tuần/tháng/năm",
+      "point2": "Tự điền lịch đến ngày kết thúc",
+      "point3": "Sửa rồi lưu hàng loạt một lúc",
+      "row1": { "name": "Tiền nhà", "amount": "6.000.000đ", "cycle": "Ngày 25 hằng tháng", "next": "25/11" },
+      "row2": { "name": "Netflix", "amount": "260.000đ", "cycle": "Ngày 28 hằng tháng", "next": "28/11" },
+      "row3": { "name": "Bảo hiểm", "amount": "420.000đ", "cycle": "Ngày 30 hằng tháng", "next": "30/11" },
+      "row4": { "name": "Phòng gym", "amount": "850.000đ", "cycle": "Ngày 5 hằng tháng", "next": "05/12" }
+    },
+    "compare": {
+      "label": "So sánh",
+      "title": "Moa khác gì?",
+      "subtitle": "Đặt cạnh app sổ chi tiêu thường và Excel.",
+      "colFeature": "Tính năng",
+      "colOther": "App thường",
+      "colExcel": "Excel",
+      "row1": "Nhập một dòng kiểu chat",
+      "row2": "Tự gắn danh mục",
+      "row3": "Coach AI hàng tháng",
+      "row4": "Khoản sắp tới + lịch",
+      "row5": "Tự sắp xếp địa điểm & đánh giá",
+      "row6": "Khoản lặp đến ngày kết thúc",
+      "row7": "9 ngôn ngữ sẵn dùng",
+      "row8": "Xuất Excel"
+    },
+    "target": {
+      "label": "Dành cho bạn",
+      "title": "Những người yêu Moa.",
+      "persona1": {
+        "emoji": "💼",
+        "name": "Người thử lần thứ N",
+        "desc": "Đã thử 3+ app, mỗi lần bỏ trong một tuần. Phải nhập dễ mới ghi nổi."
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "Mới đi làm",
+        "desc": "Lương vào rồi bay đi đâu không rõ. Coach AI tóm cả tháng giúp bạn."
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "Sống hoặc đi nước ngoài",
+        "desc": "Nhiều tiền tệ và ngôn ngữ. Moa nói 9 thứ tiếng — ghi tự nhiên."
+      }
+    },
+    "cta2": {
+      "title": "Bắt đầu trước khi hết tháng này.",
+      "subtitle": "Đăng ký 30 giây, không cần thẻ, miễn phí trong giai đoạn beta.",
+      "trust1": "Đăng ký 30 giây",
+      "trust2": "Không cần thẻ",
+      "trust3": "Beta miễn phí"
+    }
   },
   "login": {
     "subtitle": "Đăng nhập và bắt đầu ghi sổ.",

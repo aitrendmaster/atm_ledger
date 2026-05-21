@@ -26,7 +26,165 @@
     "cta2Heading": "Desde el primer mes notarás la diferencia.",
     "cta2Subtitle": "30 segundos para registrarte. Sin tarjeta. Gratis en beta.",
     "footerTagline": "Tu libro de gastos por chat con IA",
-    "footerTerms": "Términos", "footerPrivacy": "Privacidad"
+    "footerTerms": "Términos", "footerPrivacy": "Privacidad",
+    "hero": {
+      "badge": "Beta gratis · libro de gastos con IA",
+      "headline1": "Esta vez sí,",
+      "headline2": "un libro de gastos que dura.",
+      "subtitle": "Sin hojas de cálculo ni recibos. Escribe \"café 5€\" y Moa lo organiza, y luego repasa el mes contigo.",
+      "ctaPrimary": "Empezar gratis",
+      "ctaLogin": "Iniciar sesión",
+      "ctaApp": "Abrir el libro →",
+      "trust1": "Registro 30 s",
+      "trust2": "Sin tarjeta",
+      "trust3": "Beta gratis"
+    },
+    "problem": {
+      "label": "Por qué Moa",
+      "title": "¿Por qué casi nadie aguanta un libro de gastos?",
+      "subtitle": "Casi siempre por lo mismo — demasiados toques, ningún insight, sin ritmo.",
+      "card1": {
+        "quote": "Elegir categoría, escribir cantidad, fecha… tres toques por cada café. Duré una semana.",
+        "meta": "27, oficinista · última app 1 semana"
+      },
+      "card2": {
+        "quote": "A fin de mes solo veo números. No tengo idea de qué hacer distinto el mes que viene.",
+        "meta": "33, freelance · Excel"
+      },
+      "card3": {
+        "quote": "Apunto todo, pero en un mes lo olvido. Nunca he hecho una verdadera revisión.",
+        "meta": "29, mamá · probó 3 apps"
+      }
+    },
+    "feature1": {
+      "label": "Feature 01 · Chat",
+      "title": "Olvida las categorías. Solo escribe.",
+      "desc": "Lanza la frase tal como la piensas. La IA separa categoría, importe, fecha y lugar.",
+      "point1": "\"Almuerzo 9€\" funciona como lenguaje natural",
+      "point2": "Sube un recibo y lo lee solo",
+      "point3": "¿Mal clasificado? Un toque y listo",
+      "demoUser": "Latte en Starbucks, 5,20 €",
+      "demoAi": "¡Anotado! Llevas 32 € en cafés este mes — un poco más de lo habitual :)",
+      "demoPlaceholder": "Cuéntame en qué gastaste hoy…",
+      "tagCafe": "Café",
+      "tagAmount": "5,20 €",
+      "tagPlace": "Starbucks"
+    },
+    "feature2": {
+      "label": "Feature 02 · Calendario",
+      "title": "Real y por venir, en una sola vista.",
+      "desc": "El alquiler, las suscripciones, lo recurrente — ya reflejado. Sabes lo que queda hasta el día de pago.",
+      "point1": "Real y previsto con colores distintos",
+      "point2": "Saldo automático hasta el próximo cobro",
+      "point3": "Lo recurrente llena el calendario solo",
+      "month": "Noviembre",
+      "upcoming1": "Alquiler",
+      "amount1": "1.200 €",
+      "upcoming2": "Netflix",
+      "amount2": "13,49 €",
+      "upcoming3": "Seguro",
+      "amount3": "45 €"
+    },
+    "feature3": {
+      "label": "Feature 03 · Día a día",
+      "title": "Un día, bien ordenado.",
+      "desc": "Cada día por categoría, lugar y nota. Dónde se te va el dinero se ve a simple vista.",
+      "point1": "9 categorías fijas — café, comida, transporte…",
+      "point2": "Lugar detectado solo, con nota y valoración",
+      "point3": "Adjunta fotos del recibo o el artículo",
+      "dateLabel": "Lun, 17 nov",
+      "total": "28,40 €"
+    },
+    "feature4": {
+      "label": "Feature 04 · Lugares",
+      "title": "Tus favoritos en el mapa.",
+      "desc": "Puntúa y comenta los sitios donde vas — el próximo mes Moa los recuerda. Tus habituales, todos a la vista.",
+      "point1": "Google Maps — pines y fotos",
+      "point2": "\"Volver / Saltar\" según tu valoración",
+      "point3": "Visitas y gasto total automáticos"
+    },
+    "feature5": {
+      "label": "Feature 05 · Coach IA",
+      "title": "Cada mes, un coach IA amable.",
+      "desc": "Anota lo bueno, lo regular y tu compromiso. Moa compara con el mes pasado y te responde como un amigo.",
+      "point1": "Compara totales y categorías del mes",
+      "point2": "Tono de \"vas bien\", nada de regañar",
+      "point3": "Una acción concreta para el mes que viene",
+      "messageTitle": "Moa no juzga.",
+      "messageSub": "Cierra el mes como un amigo — \"gracias por anotar este mes también\".",
+      "monthLabel": "Octubre — repaso",
+      "total": "1.284,50 €",
+      "strength": "Gastaste un 18 % menos en cafés que el mes pasado. ¡Muy bien!",
+      "weakness": "Comida un 32 % por encima de lo normal — más restaurantes.",
+      "advice": "Prueba un día a la semana de comida en casa. Ahorra unos 120 €."
+    },
+    "feature6": {
+      "label": "Feature 06 · Balance",
+      "title": "Ingresos − gasto − ahorro = lo que te queda.",
+      "desc": "Aparta primero lo fijo y el ahorro. Lo que sobra es lo que de verdad puedes gastar.",
+      "point1": "Ingresos, gasto y ahorro en una tabla",
+      "point2": "Una línea con \"libre para gastar\"",
+      "point3": "Arrastre automático mes a mes",
+      "monthLabel": "Balance de noviembre",
+      "income": "3.200 €",
+      "spent": "1.840 €",
+      "saved": "600 €",
+      "free": "760 €"
+    },
+    "feature7": {
+      "label": "Feature 07 · Recurrentes",
+      "title": "Configura una vez. Listo hasta el final.",
+      "desc": "Alquiler, suscripciones, seguros — los registras y llenan el calendario hasta la fecha de fin.",
+      "point1": "Ciclos semanales, mensuales y anuales",
+      "point2": "Rellena el calendario hasta la fecha de fin",
+      "point3": "Guarda los cambios todos a la vez",
+      "row1": { "name": "Alquiler", "amount": "1.200 €", "cycle": "Día 25 cada mes", "next": "25/11" },
+      "row2": { "name": "Netflix", "amount": "13,49 €", "cycle": "Día 28 cada mes", "next": "28/11" },
+      "row3": { "name": "Seguro", "amount": "45 €", "cycle": "Día 30 cada mes", "next": "30/11" },
+      "row4": { "name": "Gimnasio", "amount": "39 €", "cycle": "Día 5 cada mes", "next": "05/12" }
+    },
+    "compare": {
+      "label": "Comparativa",
+      "title": "¿Qué hace distinto a Moa?",
+      "subtitle": "Al lado de apps típicas y de Excel.",
+      "colFeature": "Funcionalidad",
+      "colOther": "App típica",
+      "colExcel": "Excel",
+      "row1": "Entrada por chat de una línea",
+      "row2": "Categoría automática",
+      "row3": "Coach IA mensual",
+      "row4": "Próximos + calendario",
+      "row5": "Lugares y reseñas auto",
+      "row6": "Recurrentes hasta fecha fin",
+      "row7": "9 idiomas listos",
+      "row8": "Exportar a Excel"
+    },
+    "target": {
+      "label": "Para ti",
+      "title": "Quienes adoran Moa.",
+      "persona1": {
+        "emoji": "💼",
+        "name": "El que lo intenta otra vez",
+        "desc": "Has probado 3+ apps y duraste una semana en cada una. La clave: que escribir sea fácil."
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "Primer sueldo",
+        "desc": "El sueldo llega y desaparece. El coach IA te ordena el mes."
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "Vives o viajas fuera",
+        "desc": "Varias monedas e idiomas. Moa habla 9 — anota como te salga."
+      }
+    },
+    "cta2": {
+      "title": "Empieza antes de que se acabe el mes.",
+      "subtitle": "Registro en 30 segundos, sin tarjeta, gratis en beta.",
+      "trust1": "Registro 30 s",
+      "trust2": "Sin tarjeta",
+      "trust3": "Beta gratis"
+    }
   },
   "login": {
     "subtitle": "Inicia sesión y empieza tu libro.",
