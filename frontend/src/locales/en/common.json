@@ -44,6 +44,10 @@
     "footerTagline": "Chat your money. Get insight.",
     "footerTerms": "Terms",
     "footerPrivacy": "Privacy",
+    "bizCeo": "CEO",
+    "bizNo": "Business Reg.",
+    "bizMailOrder": "Mail-order",
+    "bizAddress": "Address",
     "hero": {
       "badge": "Free beta · AI ledger",
       "headline1": "This time,",
@@ -598,117 +602,207 @@
   },
   "pricing": {
     "title": "Moa AI Ledger Pricing",
-    "subtitle": "All features are free during the beta period.",
-    "betaTitle": "🎁 Free during beta",
-    "betaDesc": "All features are free until general availability. No payment is required to try the full ledger today.",
+    "subtitle": "Core features stay free. Go deeper with Premium.",
+    "betaTitle": "Beta users — 50% off for the first 12 months",
+    "betaDesc": "If you signed up during beta, you get 50% off Premium for your first 12 months once paid plans launch. $1.49 / month or $10.99 / year.",
     "freePlan": "Free",
     "freePrice": "$0",
-    "freeDesc": "30-day free trial. Full ledger features included.",
+    "freePriceNote": "Free forever, no card required",
+    "freeDesc": "30 AI inputs / month + full ledger basics (calendar, categories, places, monthly view). Ad-free.",
     "freeCta": "Start free",
-    "paidPlan": "Plus (after launch)",
+    "paidPlan": "Premium",
     "paidBadge": "Recommended",
-    "paidPriceKrw": "₩5,400 / month",
-    "paidPriceNote": "≈ US$3.99 · prices may vary by country / currency",
-    "paidDesc": "Recurring billing starts after trial. Cancel anytime.",
-    "paidCta": "Start trial",
-    "featuresTitle": "What's included",
-    "features": {
-      "aiClassify": "AI auto-categorize (text & receipts)",
-      "receiptOcr": "Receipt photo OCR",
-      "multilang": "9 languages + multi-country currency",
-      "excelExport": "Monthly / yearly Excel export",
-      "unlimited": "Unlimited entries & reviews",
-      "reflectInsight": "Monthly AI review coaching",
-      "placesMap": "Place pins, photos and notes",
-      "reminder": "Upcoming expense reminders"
+    "paidPriceMonthly": "$2.99",
+    "perMonth": "/ month",
+    "paidPriceYearlyNote": "or $21.99 / year (25% off) · prices auto-converted by country",
+    "paidDesc": "Unlimited AI + monthly AI review coach + receipt OCR + data export. Get the full Moa experience.",
+    "paidCta": "Go Premium",
+    "compareTitle": "Free vs Premium",
+    "compareFeature": "Feature",
+    "compare": {
+      "aiInput": { "feature": "AI chat input", "free": "30 / month", "paid": "Unlimited" },
+      "adFree": { "feature": "Ad-free", "free": "✓", "paid": "✓" },
+      "reflectInsight": { "feature": "Monthly AI review coach", "free": "✗", "paid": "✓" },
+      "receiptOcr": { "feature": "Receipt photo OCR", "free": "5 / month", "paid": "Unlimited" },
+      "multilang": { "feature": "9 languages + multi-currency", "free": "✓", "paid": "✓" },
+      "placesMap": { "feature": "Place pins & reviews", "free": "✓", "paid": "✓" },
+      "recurring": { "feature": "Recurring & upcoming alerts", "free": "✓", "paid": "✓" },
+      "excelExport": { "feature": "Excel / CSV export", "free": "✗", "paid": "✓" },
+      "unlimitedHistory": { "feature": "Ledger history", "free": "12 months", "paid": "Unlimited" },
+      "priority": { "feature": "Priority support", "free": "✗", "paid": "✓" }
     },
     "paymentTitle": "Payment methods",
-    "paymentDesc": "Korean users pay via Toss Payments; international users pay via Paddle (global merchant of record). Card details are stored by the payment provider — we only display the last 4 digits and brand.",
-    "paymentKr": "🇰🇷 Korea: Toss Payments (debit / credit)",
+    "paymentDesc": "Korean users pay via Toss Payments; international users pay via Paddle. Card details stay with the payment provider — Moa only displays the last 4 digits.",
+    "paymentKr": "🇰🇷 Korea: Toss Payments (debit, credit, bank transfer)",
     "paymentIntl": "🌍 International: Paddle (card, PayPal, Apple Pay, Google Pay — coming soon)",
-    "cancelTitle": "How to cancel",
+    "cancelTitle": "Cancel & refund",
     "cancelDesc": "Cancel anytime in My Page → Billing. You keep access until the end of the paid period.",
-    "refundLink": "See full refund policy →"
+    "refundLink": "See full refund policy →",
+    "operatorTitle": "Operator info",
+    "operatorName": "Company",
+    "operatorCeo": "CEO",
+    "operatorBizNo": "Business Registration No.",
+    "operatorMailOrder": "Mail-order Business No.",
+    "operatorContact": "Support"
   },
   "refund": {
     "title": "Refund Policy",
     "subtitle": "How and when refunds are granted at Moa AI Ledger.",
-    "section1Title": "1. Within 14 days of payment",
-    "section1Body": "Within 14 days of payment we offer a full refund regardless of usage. (Limited to one refund per member.)",
-    "section2Title": "2. After 14 days (recurring)",
-    "section2Body": "When you cancel, the next renewal stops. Already-billed months are treated as service period and are not refunded. We will review pro-rated refunds when service downtime caused unused time.",
+    "section1Title": "1. Within 7 days of payment (cooling-off)",
+    "section1Body": "Within 7 days of payment you may withdraw your subscription per Article 17 of the Korean E-Commerce Act and receive a full refund. The right may be restricted if more than 30% of paid features have been used. (Limited to one per member.)",
+    "section2Title": "2. After 7 days — pro-rated refund",
+    "section2Body": "Monthly plans: refund = paid amount − (days used × daily rate) − 10% processing fee.\n\nExample: $2.99/month, 10 days used → $2.99 − (10 × $0.10) − $0.30 ≈ $1.69 refund.\n\nYearly plans: months used × full monthly rate (NOT the discounted rate) is deducted from the refund.",
     "section3Title": "3. How to request a refund",
     "step1": "My Page → Billing → click \"Cancel\" (stops next renewal).",
     "step2Prefix": "For a refund, email",
     "step2Suffix": "with your order ID and account email.",
-    "step3": "Processed within 3–5 business days per the payment provider's policy (Toss / Paddle).",
+    "step3": "Processed within 3–10 business days per the payment provider's policy (Toss / Paddle).",
     "section4Title": "4. Non-refundable cases",
     "notRefundable1": "Forced cancellation due to Terms violation or account suspension",
     "notRefundable2": "Payments made using someone else's identity or fraud-detected payments",
     "section5Title": "5. Disputes",
-    "section5Body": "Disputes about this policy are governed by Korean law, with jurisdiction in the Seoul Central District Court. For international users, Paddle's refund/dispute policies may also apply.",
-    "effective": "Effective: 2026-05-19"
+    "section5Body": "Disputes about this policy are governed by Korean law and adjudicated in the court specified by the Korean Civil Procedure Act. For international users, Paddle's refund/dispute policies may also apply.",
+    "effective": "Effective: 2026-05-21"
   },
   "terms": {
     "title": "Terms of Service",
-    "intro": "These Terms govern use of Moa AI Ledger (the \"Service\"). Creating an account constitutes acceptance.",
-    "a1Title": "Article 1 (Purpose)",
-    "a1Body": "These Terms set out the rights, obligations and responsibilities of the provider (\"Company\") and members.",
-    "a2Title": "Article 2 (Scope of service)",
-    "a2Body": "The Company provides: expense and upcoming-expense tracking, monthly reviews, place reviews, AI classification and insight, data export, multi-language and multi-currency support.",
-    "a3Title": "Article 3 (Member obligations)",
-    "a3Body": "Members are responsible for the security of their accounts and must not post information that infringes others' rights or misuse the service.",
-    "a4Title": "Article 4 (Subscription & billing)",
-    "a4Body": "Paid plans renew monthly by default. Prices are charged in the currency shown on the Pricing page; price changes are announced at least 30 days in advance.",
-    "a5Title": "Article 5 (Cancellation)",
-    "a5Body": "Members may cancel anytime via My Page. Cancellation stops the next renewal; the remaining paid period remains usable.",
-    "a6Title": "Article 6 (Refund)",
-    "a6BodyPrefix": "Refund criteria and procedures follow the",
-    "a6Link": "Refund Policy",
-    "a6BodySuffix": ".",
-    "a7Title": "Article 7 (Service changes / suspension)",
-    "a7Body": "The Company may change or temporarily suspend the service for operational or technical reasons, with prior notice to members.",
-    "a8Title": "Article 8 (Limitation of liability)",
-    "a8Body": "The Company is not liable for damages caused by force majeure or member fault. AI-generated classifications and insights are provided for reference and accuracy is not guaranteed.",
-    "a9Title": "Article 9 (Personal data)",
-    "a9BodyPrefix": "Collection, use and provision of personal data follow the separate",
-    "a9Link": "Privacy Policy",
-    "a9BodySuffix": ".",
-    "a10Title": "Article 10 (Intellectual property)",
-    "a10Body": "Members own the ledger data they input. The Company does not provide such data to third parties without the member's explicit consent.",
-    "a11Title": "Article 11 (Disputes & governing law)",
-    "a11Body": "Disputes regarding these Terms are governed by the laws of the Republic of Korea, with jurisdiction in the Seoul Central District Court.",
-    "a12Title": "Article 12 (Third-party payment processing)",
-    "a12Body": "Payments are processed as the legal merchant by Toss Payments (Korea) or Paddle.com Market Limited (international; coming soon). The Company does not store card numbers or expiry dates — only the payment result, card brand and last 4 digits are kept for display.",
-    "effective": "Effective: 2026-05-19"
+    "effectiveLabel": "Effective",
+    "intro": "These Terms govern your use of Moa AI Ledger (the \"Service\") operated by ATM Store Co., Ltd. (the \"Company\"). Signing up indicates acceptance.\n\nNote: This English text is a summary. The Korean version (한국어) is authoritative and prevails in any conflict of interpretation.",
+    "a1": {
+      "title": "Article 1 (Purpose)",
+      "body": "These Terms set out the rights, obligations and responsibilities of the Company and members regarding use of the Service."
+    },
+    "a2": {
+      "title": "Article 2 (Definitions)",
+      "body": "1. \"Service\" means the Moa AI Ledger web and mobile application and related services.\n2. \"Member\" means a person who agrees to these Terms and enters a use contract with the Company.\n3. \"AI features\" means functions that call external AI models (Anthropic Claude etc.) to classify, summarize, or coach.\n4. \"Content\" means all data members enter or upload (expenses, photos, reviews, reflections)."
+    },
+    "a3": {
+      "title": "Article 3 (Effect & amendment)",
+      "body": "1. These Terms take effect upon being posted in the Service.\n2. The Company may amend these Terms within applicable laws. Material amendments are notified at least 30 days in advance; ordinary amendments at least 7 days in advance.\n3. Continued use after the amendment effective date constitutes acceptance."
+    },
+    "a4": {
+      "title": "Article 4 (Account creation)",
+      "body": "1. The use contract is formed when an applicant accepts these Terms and the Company approves the application.\n2. The Company may refuse applications that use false identity, are under 14 years old without guardian consent, or have fraudulent purpose."
+    },
+    "a5": {
+      "title": "Article 5 (Member obligations)",
+      "body": "Members must not: impersonate others, register false information, copy or distribute Service content without consent, collect other members' personal data, disrupt Service operation, or violate any law."
+    },
+    "a6": {
+      "title": "Article 6 (Company obligations)",
+      "body": "The Company strives to provide stable Service, protect personal data, and respond to member inquiries promptly."
+    },
+    "a7": {
+      "title": "Article 7 (Service provision)",
+      "body": "The Company provides AI-assisted ledger input, calendar management, place reviews, monthly AI coaching, data export, and multi-language / multi-currency support. The Service runs 24/7 but may be suspended for maintenance or force majeure."
+    },
+    "a8": {
+      "title": "Article 8 (Service changes & suspension)",
+      "body": "The Company may change or suspend any part of the Service. Members will be notified at least 30 days in advance, except in urgent cases where post-notification applies."
+    },
+    "a9": {
+      "title": "Article 9 (Paid service & recurring billing)",
+      "body": "1. Some features require payment. Pricing and benefits are posted on the Pricing page.\n2. Subscriptions auto-renew unless cancelled. A notice is emailed 7 days before the next charge.\n3. Payments are processed by Toss Payments (Korea) or Paddle.com Market Limited (international) as Merchant of Record. The Company does not store card numbers or expiry dates."
+    },
+    "a10": {
+      "title": "Article 10 (Withdrawal & refund)",
+      "body": "1. Members may withdraw a subscription within 7 days of payment for a full refund, unless more than 30% of paid features have been used.\n2. Refunds after the 7-day window follow the separate Refund Policy.\n3. Refunds are issued to the original payment method within 3–10 business days."
+    },
+    "a11": {
+      "title": "Article 11 (AI features)",
+      "body": "1. The Service transmits member-entered text and images to external AI providers (Anthropic Claude etc.) for classification, OCR and coaching.\n2. Transmitted data is stripped of identifying fields (email, name) and is requested not to be used for model training.\n3. AI output is for reference only; the Company does not guarantee accuracy or completeness. Members are responsible for reviewing AI results.\n4. See the Privacy Policy for full details."
+    },
+    "a12": {
+      "title": "Article 12 (Data ownership)",
+      "body": "Members own the Content they input. The Company processes Content only to provide the Service and never shares it with third parties without explicit consent. Members may export their data via My Page → Export."
+    },
+    "a13": {
+      "title": "Article 13 (Intellectual property)",
+      "body": "Design, source code, trademarks, logos, and Company-created content are owned by the Company. Members must not commercially reproduce or redistribute such content without prior written consent."
+    },
+    "a14": {
+      "title": "Article 14 (Use restriction & termination)",
+      "body": "The Company may restrict use or terminate membership for Terms violations, harm to others, willful disruption of the Service, or illegal acts. Members may file an objection within 14 days of notice."
+    },
+    "a15": {
+      "title": "Article 15 (Withdrawal & data deletion)",
+      "body": "Members may withdraw at any time. Upon withdrawal, all Content is permanently deleted with no recovery. Export your data before withdrawal if needed. Records required by law (payment history, dispute logs) are retained for the legally mandated period and then destroyed."
+    },
+    "a16": {
+      "title": "Article 16 (Limitation of liability)",
+      "body": "The Company is not liable for: force majeure, member fault, content accuracy entered by members, or financial decisions based on AI output."
+    },
+    "a17": {
+      "title": "Article 17 (Personal data)",
+      "body": "Personal data handling is governed by the separate Privacy Policy."
+    },
+    "a18": {
+      "title": "Article 18 (Governing law & jurisdiction)",
+      "body": "These Terms are governed by the laws of the Republic of Korea. Disputes are adjudicated in the court specified by the Korean Civil Procedure Act."
+    },
+    "companyInfoTitle": "Operator information",
+    "companyName": "Company",
+    "companyCeo": "CEO",
+    "companyBizNo": "Business Registration No.",
+    "companyMailOrder": "Mail-order Business No.",
+    "companyAddress": "Address",
+    "companyContact": "Support"
   },
   "privacy": {
     "title": "Privacy Policy",
-    "intro": "Moa AI Ledger takes member privacy very seriously and complies with applicable laws.",
-    "s1Title": "1. Personal data we collect",
-    "s1Required": "Required: email, password (hashed), nickname (optional), country / language / currency",
-    "s1Generated": "Generated during use: expense records, places, photos, reviews, reflection text",
-    "s1Auto": "Auto-collected: IP, browser info, cookies, Google Analytics traffic stats (cookie-based, non-PII)",
-    "s2Title": "2. Purpose of use",
-    "s2a": "Service provision and member identification",
-    "s2b": "AI classification and insight generation (anonymized statistics sent to Anthropic Claude API)",
-    "s2c": "Incident response, usage analytics, payment processing",
-    "s3Title": "3. Payment data handling",
-    "s3Body": "Card numbers, expiry dates and CVCs are collected and processed directly by Toss Payments (Korea) or Paddle (international) — they are never stored on Moa AI Ledger servers. We only retain payment result, card brand and the last 4 digits of the card number for display in billing history.",
-    "s4Title": "4. Third-party sharing & cross-border transfer",
-    "s4Anthropic": "Anthropic (USA) — anonymized text sent for AI classification and insight",
-    "s4Toss": "Toss Payments (Republic of Korea) — domestic payment processing",
-    "s4Paddle": "Paddle.com Market Limited (UK) — international payment processing (coming soon)",
-    "s4R2": "Cloudflare R2 (global) — photo file storage (when enabled)",
-    "s4Ga": "Google Analytics (USA) — page-view traffic stats",
-    "s5Title": "5. Retention",
-    "s5Body": "We delete account data 30 days after withdrawal. We retain data longer if required by applicable law.",
-    "s6Title": "6. Member rights",
-    "s6Body": "Members can request access, correction, deletion or withdrawal at any time. My Page → Export also provides a JSON download of your own data (GDPR Article 20).",
-    "s7Title": "7. Cookies",
-    "s7Body": "We use cookies / localStorage to keep you logged in, remember your language and measure Google Analytics traffic. You may block these in your browser settings; some features may be limited as a result.",
-    "s8Title": "8. Data protection contact",
-    "s8Body": "For inquiries and rights requests, contact:",
-    "effective": "Effective: 2026-05-19"
+    "effectiveLabel": "Effective",
+    "intro": "ATM Store Co., Ltd. (the \"Company\") respects member privacy and complies with the Korean Personal Information Protection Act, the Act on Promotion of Information and Communications Network Utilization, and related laws.\n\nThis Privacy Policy describes how the Company collects, uses, stores and destroys personal data in connection with the Moa AI Ledger service.\n\nNote: This English text is a summary. The Korean version (한국어) is authoritative and prevails in any conflict of interpretation.",
+    "s1": {
+      "title": "1. Purposes of processing",
+      "body": "The Company processes personal data for: member identification and fraud prevention; service delivery (ledger storage, AI classification, coaching, calendar, place pins); payment processing for paid plans; customer support; service improvement via anonymized analytics; and legal compliance (e-commerce, tax)."
+    },
+    "s2": {
+      "title": "2. Categories of personal data",
+      "body": "Required (at signup): email, password (one-way hash), nickname, country / language / currency.\n\nOptional: profile photo, monthly income / budget, last geo location (if consented).\n\nGenerated during use: expense records, place records (name, address, rating, reviews, photos), monthly reflection text, recurring expense rules.\n\nAuto-collected: IP, browser / device info, access timestamps, page visited, cookies and localStorage.\n\nPayment (for paid users): collected directly by the payment provider; the Company only stores result, card brand and last 4 digits.\n\nThe Company does not collect sensitive data (race, religion, political views, health, criminal record etc.) under Article 23 of the PIPA."
+    },
+    "s3": {
+      "title": "3. Retention periods",
+      "body": "Personal data is held until the processing purpose is achieved. By statute the following are retained separately:\n\n① Member signup data: deleted upon withdrawal (anti-fraud hash kept for 30 days)\n② Payment / transaction records: 5 years (E-Commerce Act §6)\n③ Consumer complaint / dispute records: 3 years (E-Commerce Act §6)\n④ Credit info collection/processing records: 3 years (Credit Information Act §20)\n⑤ Display / advertising records: 6 months (E-Commerce Act §6)\n⑥ Access logs and IP: 3 months (Communications Privacy Act §15-2)\n\nUpon withdrawal, ledger content (expenses, photos, reflections) is permanently and immediately deleted with no recovery."
+    },
+    "s4": {
+      "title": "4. Third-party provision",
+      "body": "The Company does not provide personal data to third parties by default. Exceptions: (i) prior member consent, (ii) legal request following proper process, (iii) provision in non-identifiable aggregated form for research / public interest."
+    },
+    "s5": {
+      "title": "5. Outsourced processing & cross-border transfer",
+      "body": "The Company outsources processing to the following recipients; some involve cross-border transfer. Outsourcing contracts under PIPA §26 prohibit use beyond agreed purposes, require technical / managerial safeguards, and restrict re-outsourcing.\n\n[Recipient / Purpose / Country / Items / Retention]\n\n① Anthropic, PBC (USA) — AI classification / coaching — Ledger text with identifiers removed — Per provider policy; the Company requests no model-training use\n② Resend, Inc. (USA) — Password reset / system emails — Recipient email and message body — Destroyed after send\n③ Google LLC (USA) — Google Maps Geocoding — Place name / address (no PII) — Destroyed after send\n④ Render Services, Inc. (USA) — Backend hosting — All member data — Deleted upon withdrawal\n⑤ Vercel Inc. (USA) — Frontend hosting — Static assets and access logs — Per Vercel policy, 30 days\n⑥ Toss Payments (Korea) — Domestic payment processing — Payment info — 5 years per E-Commerce Act\n⑦ Paddle.com Market Limited (UK / USA, coming soon) — International payment processing — Payment info — Per provider policy\n⑧ Cloudflare, Inc. (USA, when enabled) — Photo storage on R2 — Member-uploaded photos — Deleted upon withdrawal\n\nMembers may refuse cross-border transfer but doing so may limit Service use."
+    },
+    "s6": {
+      "title": "6. Data subject rights",
+      "body": "Members may at any time: (i) view their personal data, (ii) correct / delete errors, (iii) stop processing, (iv) withdraw membership and request permanent data deletion, (v) download their own data in machine-readable JSON (akin to GDPR Article 20).\n\nExercise rights via My Page → Account settings, or by emailing master@aitrend.kr. The Company acts without delay, subject to limits in PIPA §35(4), §36(1), §37(2)."
+    },
+    "s7": {
+      "title": "7. Destruction procedures and methods",
+      "body": "Procedure: data is moved to a separate database after the processing purpose is achieved and retained per internal policy / law before destruction.\nMethod: electronic files are permanently deleted by methods preventing recovery; paper documents are shredded or incinerated."
+    },
+    "s8": {
+      "title": "8. Security safeguards",
+      "body": "Managerial: internal management plan, periodic staff training.\nTechnical: bcrypt one-way password hashing, HTTPS encryption in transit, access control, backup / recovery procedures.\nPhysical: data-center physical-security standards via cloud providers (Render, Vercel, Cloudflare).\nReview: security patches and vulnerability checks at least quarterly."
+    },
+    "s9": {
+      "title": "9. Cookies and automatic collection",
+      "body": "Purpose: keep you logged in, remember language / currency, anonymized usage analytics.\nOpt-out: block via browser settings (some features may be limited).\nThe Company does not install third-party advertising / tracking cookies."
+    },
+    "s10": {
+      "title": "10. AI features — personal data handling",
+      "body": "To provide AI features the Company transmits member-entered text and images to external AI providers (Anthropic Claude etc.).\n\nTransmitted: ledger text and receipt images with email / name removed; monthly reflection text.\nPurpose: auto-categorization, OCR, monthly coaching, insight generation.\nRetention: per the provider's data retention policy and automatic destruction. The Company explicitly requests the provider not to use this data for model training.\nLimits: AI output is reference only and accuracy is not guaranteed.\nOpt-out: members can choose manual entry instead of AI features."
+    },
+    "s11": {
+      "title": "11. Data Protection Officer",
+      "body": "The Company appoints a Data Protection Officer to handle privacy complaints, inquiries and remedies. Members can contact the DPO and department below for all such matters."
+    },
+    "s12": {
+      "title": "12. Changes to this Policy",
+      "body": "This Privacy Policy may be amended due to changes in law, policy, or security. Changes are announced in the Service at least 7 days in advance, or 30 days in advance for material changes affecting member rights."
+    },
+    "officerTitle": "Data Protection Officer",
+    "officerName": "Name",
+    "officerEmail": "Email",
+    "officerDesc": "You may also seek remedy at: Korean Personal Information Dispute Mediation Committee (1833-6972, kopico.go.kr), Personal Information Infringement Reporting Center (118, privacy.kisa.or.kr), Supreme Prosecutors' Office Cyber Investigation (1301, spo.go.kr), Korean National Police Cyber Bureau (182, ecrm.cyber.go.kr)."
   }
 }

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { SUPPORT_EMAIL } from '../services/api'
+import { COMPANY } from '../config/company'
 import AnnouncementBar from '../components/AnnouncementBar'
 import AppHeader from '../components/AppHeader'
 import Faq from '../components/Faq'
@@ -459,26 +460,39 @@ export default function Landing() {
 
       {/* ===== Footer ===== */}
       <footer className="px-6 py-10 bg-stone-50 border-t border-stone-200">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 text-sm">
-          <div className="flex items-center gap-3">
-            <img src="/favicon.svg" alt="" width={40} height={40} className="flex-shrink-0" />
-            <div>
-              <div className="font-semibold text-atm-ink mb-0.5">{t('app.name')}</div>
-              <div className="text-xs text-atm-muted">{t('landing.footerTagline')}</div>
+        <div className="max-w-5xl mx-auto space-y-6 text-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div className="flex items-center gap-3">
+              <img src="/favicon.svg" alt="" width={40} height={40} className="flex-shrink-0" />
+              <div>
+                <div className="font-semibold text-atm-ink mb-0.5">{t('app.name')}</div>
+                <div className="text-xs text-atm-muted">{t('landing.footerTagline')}</div>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-atm-muted">
+              <a
+                href={`mailto:${SUPPORT_EMAIL}`}
+                className="inline-flex items-center gap-2 hover:text-atm-ink"
+              >
+                <Mail size={14} /> {SUPPORT_EMAIL}
+              </a>
+              <Link to="/pricing" className="hover:text-atm-ink">{t('common.pricing')}</Link>
+              <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
+              <Link to="/privacy" className="hover:text-atm-ink">{t('landing.footerPrivacy')}</Link>
+              <Link to="/refund" className="hover:text-atm-ink">{t('common.refund')}</Link>
+              <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-atm-muted">
-            <a
-              href={`mailto:${SUPPORT_EMAIL}`}
-              className="inline-flex items-center gap-2 hover:text-atm-ink"
-            >
-              <Mail size={14} /> {SUPPORT_EMAIL}
-            </a>
-            <Link to="/pricing" className="hover:text-atm-ink">{t('common.pricing')}</Link>
-            <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
-            <Link to="/privacy" className="hover:text-atm-ink">{t('landing.footerPrivacy')}</Link>
-            <Link to="/refund" className="hover:text-atm-ink">{t('common.refund')}</Link>
-            <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
+
+          {/* 사업자 정보 — 전자상거래법 준수 */}
+          <div className="pt-5 border-t border-stone-200 text-[11px] text-atm-muted leading-relaxed">
+            <div className="font-semibold text-atm-ink mb-1.5">{COMPANY.legalNameKo} ({COMPANY.legalNameEn})</div>
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
+              <span>{t('landing.bizCeo')}: {COMPANY.ceo}</span>
+              <span>{t('landing.bizNo')}: {COMPANY.businessRegistrationNumber}</span>
+              <span>{t('landing.bizMailOrder')}: {COMPANY.mailOrderRegistrationNumber}</span>
+              <span>{t('landing.bizAddress')}: {COMPANY.addressKo}</span>
+            </div>
           </div>
         </div>
       </footer>
