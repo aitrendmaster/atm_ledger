@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut, Banknote } from 'lucide-react';
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { absolutizePhotoUrl } from '../services/ledgerMappers';
@@ -73,6 +74,23 @@ export default function ChatLedger() {
   const [pendingImage, setPendingImage] = useState(null);
   const [activeTab, setActiveTab] = useState('calendar');
   const [reflectMode, setReflectMode] = useState('monthly');
+
+  // === 하단 BottomTabBar 와 동기화 ===
+  // ?tab=calendar 가 있으면 캘린더 탭 활성화 + 탭 영역으로 스크롤,
+  // 쿼리가 없으면 페이지 최상단(채팅 영역)으로 스크롤.
+  const [searchParams] = useSearchParams();
+  const chatTopRef = useRef(null);
+  const tabsRef = useRef(null);
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam === 'calendar') {
+      setActiveTab('calendar');
+      requestAnimationFrame(() => tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    } else {
+      requestAnimationFrame(() => chatTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
+    // searchParams 만 의존 — 사용자가 BottomTabBar 누를 때마다 동작
+  }, [searchParams]);
   const [selectedMonth, setSelectedMonth] = useState(() => {
     const d = new Date(); d.setMonth(d.getMonth() - 1);
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
@@ -130,21 +148,37 @@ export default function ChatLedger() {
   const nextMonth = `${nextMonthDate.getFullYear()}-${String(nextMonthDate.getMonth() + 1).padStart(2, '0')}`;
   const todayStr = now.toISOString().split('T')[0];
 
+  // 반복지출(월세·이자·구독료 등) 은 사용자가 "확정 지출" 로 인식하므로
+  // 카테고리 합계와 월 지출 합계 모두에 포함시킨다.
+  // 일회성 planned (recurrence === 'none') 만 "예정된 지출" 섹션에 별도 표시.
+  const isRecurringPlanned = (p) =>
+    p.is_recurring_instance === true ||
+    (p.recurrence && p.recurrence !== 'none');
+
   const getMonthData = (monthKey) => {
     const monthEntries = entries.filter(e => e.date.startsWith(monthKey));
+    const monthRecurring = planned.filter(p => p.date.startsWith(monthKey) && isRecurringPlanned(p));
     const byCategory = {};
     Object.keys(CATEGORIES).forEach(cat => {
-      byCategory[cat] = monthEntries.filter(e => e.category === cat).reduce((s, e) => s + e.amount, 0);
+      const fromEntries = monthEntries.filter(e => e.category === cat).reduce((s, e) => s + e.amount, 0);
+      const fromRecurring = monthRecurring.filter(p => p.category === cat).reduce((s, p) => s + p.amount, 0);
+      byCategory[cat] = fromEntries + fromRecurring;
     });
-    return { total: monthEntries.reduce((s, e) => s + e.amount, 0), byCategory, entries: monthEntries };
+    const total =
+      monthEntries.reduce((s, e) => s + e.amount, 0) +
+      monthRecurring.reduce((s, p) => s + p.amount, 0);
+    return { total, byCategory, entries: monthEntries, recurring: monthRecurring };
   };
 
   const thisMonthData = getMonthData(thisMonth);
   const lastMonthData = getMonthData(lastMonth);
   const monthTotal = thisMonthData.total;
 
-  const upcomingThisMonth = planned.filter(p => p.date >= todayStr && p.date.startsWith(thisMonth));
-  const upcomingNextMonth = planned.filter(p => p.date.startsWith(nextMonth));
+  // 이번 달 일회성 예정지출 (반복은 위에서 이미 확정 지출로 합산했음)
+  const upcomingThisMonth = planned.filter(
+    (p) => p.date.startsWith(thisMonth) && p.date >= todayStr && !isRecurringPlanned(p),
+  );
+  const upcomingNextMonth = planned.filter((p) => p.date.startsWith(nextMonth));
   const upcomingTotal = upcomingThisMonth.reduce((s, p) => s + p.amount, 0);
   // budget 이 설정 안 됐으면 income 으로 fallback (사용자가 "자유롭게 쓸 수 있는 돈" 을
   // 항상 0 으로 보고 혼란스러워하는 케이스 방지). 둘 다 0 이면 자연스럽게 음수.
@@ -639,7 +673,7 @@ export default function ChatLedger() {
           <p className="text-xs md:text-sm mt-1" style={{ color: '#7A7567' }}>{t('ledger.todayTagline', { month: now.getMonth() + 1, day: now.getDate() })}</p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
+        <div ref={chatTopRef} className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
           <div className="lg:col-span-3 flex flex-col rounded-3xl overflow-hidden" style={{
             backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5',
             height: 'calc(100vh - 180px)', minHeight: '500px',
@@ -779,7 +813,7 @@ export default function ChatLedger() {
             </div>
 
             {/* 탭 — 5개 */}
-            <div className="flex gap-1 p-1 rounded-2xl overflow-x-auto" style={{ backgroundColor: '#EDE6D8' }}>
+            <div ref={tabsRef} className="flex gap-1 p-1 rounded-2xl overflow-x-auto" style={{ backgroundColor: '#EDE6D8' }}>
               {[
                 { id: 'calendar', icon: Calendar },
                 { id: 'places',   icon: MapPin },
