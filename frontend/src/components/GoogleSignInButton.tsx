@@ -31,13 +31,14 @@ export default function GoogleSignInButton({ redirectTo = '/app' }: { redirectTo
             toast.error(err?.response?.data?.detail || 'Google 로그인 실패')
           }
         }}
-        onError={() => toast.error('Google 로그인이 취소되었거나 실패했습니다.')}
+        onError={() => {
+          toast.error('Google 로그인이 취소되었거나 실패했습니다.')
+        }}
         useOneTap={false}
         theme="outline"
         size="large"
         text="continue_with"
         shape="rectangular"
-        locale="ko"
       />
     </div>
   )
