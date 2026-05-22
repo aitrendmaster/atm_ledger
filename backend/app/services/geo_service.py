@@ -18,7 +18,7 @@ from ..models.user import User
 GEO_CACHE_TTL = timedelta(hours=1)
 IPAPI_URL = "https://ipapi.co/{ip}/json/"
 # 호출 식별용 (ipapi.co 권장: User-Agent 식별 가능 문자열)
-UA = "moa-ai-ledger/1.0 (+https://moa.atm.ai.kr)"
+UA = "moa-ai-ledger/1.0 (+https://moa365.com)"
 
 
 def _is_private_ip(ip: str) -> bool:
