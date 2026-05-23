@@ -12,7 +12,8 @@
     "typecheck": "tsc -b",
     "cap:sync": "npm run build:mobile && cap sync",
     "cap:android": "npm run cap:sync && cap open android",
-    "android:dev": "npm run build:mobile && cap copy android && cap open android"
+    "android:dev": "npm run build:mobile && cap copy android && cap open android",
+    "icons:generate": "node scripts/generate-icons.mjs && capacitor-assets generate --android"
   },
   "dependencies": {
     "@capacitor-firebase/authentication": "^6.3.1",

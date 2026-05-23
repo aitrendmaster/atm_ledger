@@ -13,4 +13,11 @@ ext {
     androidxJunitVersion = '1.1.5'
     androidxEspressoCoreVersion = '3.5.1'
     cordovaAndroidVersion = '10.1.1'
+
+    // @capacitor-firebase/authentication — Google Sign-In 활성화 (play-services-auth 를
+    // compileOnly → implementation 으로 승격. 이게 없으면 런타임에 NoClassDefFoundError).
+    rgcfaIncludeGoogle = true
+    // 필요 시 버전 오버라이드 (기본: firebaseAuthVersion=22.3.1, playServicesAuthVersion=21.0.0)
+    // firebaseAuthVersion = '22.3.1'
+    // playServicesAuthVersion = '21.0.0'
 }

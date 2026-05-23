@@ -6,6 +6,9 @@ dist/
 *.tsbuildinfo
 
 # Capacitor / 안드로이드 ===============================
+# 아이콘 자동 생성용 소스 (scripts/generate-icons.mjs 출력). svg 가 진짜 소스.
+resources/
+
 # 안드로이드 빌드 산출물 (Gradle 캐시 / build/ 출력)
 android/.gradle/
 android/build/
