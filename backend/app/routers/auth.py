@@ -275,7 +275,7 @@ async def password_reset_request(
                 )
             )
             await db.commit()
-            reset_link = f"{settings.frontend_base_url.rstrip('/')}/reset-password?token={raw_token}"
+            reset_link = f"{settings.frontend_base_url.rstrip('/')}/#/reset-password?token={raw_token}"
             send_password_reset_email(user.email, reset_link, user.display_name)
         except Exception:
             logger.exception("password_reset_request 처리 중 오류")

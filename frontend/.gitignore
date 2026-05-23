@@ -4,3 +4,31 @@ dist/
 .env.local
 .vite/
 *.tsbuildinfo
+
+# Capacitor / 안드로이드 ===============================
+# 안드로이드 빌드 산출물 (Gradle 캐시 / build/ 출력)
+android/.gradle/
+android/build/
+android/app/build/
+android/captures/
+android/local.properties
+android/app/release/
+
+# Android Studio IDE 워크스페이스 (사용자별)
+android/.idea/
+android/**/*.iml
+
+# 키스토어 (반드시 별도 백업 — 분실 시 앱 업데이트 영구 불가)
+android/app/*.keystore
+android/app/*.jks
+android/keystore.properties
+
+# Firebase 클라이언트 설정 (시크릿 아님이지만 환경별 분리 위해 gitignore 권장)
+android/app/google-services.json
+ios/App/App/GoogleService-Info.plist
+
+# iOS 빌드 산출물
+ios/App/Pods/
+ios/App/build/
+ios/DerivedData/
+ios/App/App.xcworkspace/xcuserdata/

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Moa AI 가계부</string>
+    <string name="title_activity_main">Moa AI 가계부</string>
+    <string name="package_name">kr.atm.moa</string>
+    <string name="custom_url_scheme">kr.atm.moa</string>
+</resources>
