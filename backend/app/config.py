@@ -43,6 +43,12 @@ class Settings(BaseSettings):
     # 미설정 시 Nominatim 으로 자동 fallback. Render IP 제한 권장.
     google_maps_server_key: str = ""
 
+    # Firebase Admin SDK (FCM 푸시 발송용).
+    # Firebase Console > 프로젝트 설정 > 서비스 계정 > "새 비공개 키 생성" → JSON 다운로드.
+    # 그 JSON 내용 전체를 raw 그대로 또는 base64 인코딩해서 환경변수에 넣음.
+    # 미설정 시 FCM 발송 시 로그만 출력하고 graceful disable.
+    firebase_credentials_json: str = ""
+
     kakao_rest_api_key: str = ""
     kakao_redirect_uri: str = ""
 

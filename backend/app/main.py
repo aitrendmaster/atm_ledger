@@ -23,6 +23,7 @@ from .routers import (
     oauth,
     photos,
     planned,
+    push,
     reflections,
     toss_webhook,
 )
@@ -140,6 +141,8 @@ app.include_router(geocode.router)
 app.include_router(photos.router)
 app.include_router(announcements.router)
 app.include_router(admin.router)
+app.include_router(push.router)
+app.include_router(push.admin_router)
 
 
 @app.get("/health")
