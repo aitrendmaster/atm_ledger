@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+// 릴리스 서명 자격증명은 keystore.properties 에서 로드 (gitignored).
+// 파일 위치: atm-ledger/frontend/android/keystore.properties
+// 다른 개발자 환경 등에서 이 파일이 없으면 release 빌드는 unsigned 로 떨어짐.
+def keystorePropsFile = rootProject.file("keystore.properties")
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystoreProps.load(new FileInputStream(keystorePropsFile))
+}
+
 android {
     namespace "kr.atm.moa"
     compileSdk rootProject.ext.compileSdkVersion
@@ -16,8 +25,21 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile file(keystoreProps['MOA_KEYSTORE_FILE'] ?: 'moa-release.keystore')
+                storePassword keystoreProps['MOA_KEYSTORE_PASSWORD']
+                keyAlias keystoreProps['MOA_KEY_ALIAS'] ?: 'moa'
+                keyPassword keystoreProps['MOA_KEY_PASSWORD']
+            }
+        }
+    }
     buildTypes {
         release {
+            if (keystorePropsFile.exists()) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
