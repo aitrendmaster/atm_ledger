@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
+from loguru import logger
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -7,6 +8,7 @@ from ..deps import get_current_user
 from ..models.entry import Entry
 from ..models.user import User
 from ..schemas.entry import EntryCreate, EntryOut, EntryUpdate
+from ..services.notifier import maybe_notify_budget_exceeded
 
 router = APIRouter(prefix="/entries", tags=["entries"])
 
@@ -35,6 +37,11 @@ async def create_entry(
     db.add(entry)
     await db.commit()
     await db.refresh(entry)
+    # 이번 달 누적 지출이 예산을 처음 돌파하면 1회 푸시 알림 (FCM 미설정/토큰 없으면 no-op)
+    try:
+        await maybe_notify_budget_exceeded(db, user.id)
+    except Exception:
+        logger.exception("[entries] 예산 초과 알림 트리거 실패 — entry 저장은 정상")
     return entry
 
 

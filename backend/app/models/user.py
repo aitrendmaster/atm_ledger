@@ -57,6 +57,8 @@ class User(Base):
         DateTime(timezone=True), nullable=True
     )
     last_billing_error: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # FCM 예산 초과 알림 중복 방지 — YYYY-MM 형식. 같은 달 두 번 발송 방지.
+    last_budget_breach_month: Mapped[str | None] = mapped_column(String(7), nullable=True)
     # 개인정보: 위치 메타데이터(도시/지역) 를 AI 가 제품 경험 개선용으로 사용해도 되는지.
     allow_location_metadata: Mapped[bool] = mapped_column(
         Boolean, default=False, nullable=False, server_default="0"

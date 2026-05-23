@@ -27,7 +27,7 @@ from .routers import (
     reflections,
     toss_webhook,
 )
-from .services import subscription_scheduler
+from .services import notifier_scheduler, subscription_scheduler
 
 settings = get_settings()
 
@@ -119,6 +119,9 @@ async def lifespan(app: FastAPI):
 
     # Toss 정기결제 자동 청구 스케줄러 (Toss 미설정이면 no-op)
     subscription_scheduler.start()
+
+    # D-1 반복지출 FCM 알림 스케줄러 (매일 KST 09:00 1회)
+    notifier_scheduler.start()
 
     yield
 
