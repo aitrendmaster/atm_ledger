@@ -30,7 +30,17 @@ export default function GoogleSignInButton({ redirectTo = '/app' }: { redirectTo
     const handleNativeLogin = async () => {
       try {
         const { FirebaseAuthentication } = await import('@capacitor-firebase/authentication')
-        const result = await FirebaseAuthentication.signInWithGoogle()
+        // 1) 직전에 캐시된 Google 계정을 해제해서 자동 로그인 방지.
+        //    (비활성화·잘못된 계정이 자동 선택되면 사용자가 빠져나올 방법이 없으므로)
+        try {
+          await FirebaseAuthentication.signOut()
+        } catch (_) {
+          // 첫 호출 등으로 sign-out 할 게 없으면 무시
+        }
+        // 2) Google 표준 'select_account' prompt 로 매번 계정 선택 다이얼로그 강제.
+        const result = await FirebaseAuthentication.signInWithGoogle({
+          customParameters: [{ key: 'prompt', value: 'select_account' }],
+        })
         const idToken = result.credential?.idToken
         if (!idToken) {
           toast.error('Google 응답에 토큰이 없습니다.')
