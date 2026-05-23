@@ -32,13 +32,28 @@ class GoogleLoginOut(TokenPair):
     user: UserOut
 
 
-def _verify_id_token(id_token_str: str, client_id: str) -> dict:
-    """Google id_token 검증. 검증 실패 시 ValueError."""
+def _verify_id_token(id_token_str: str, allowed_client_ids: list[str]) -> dict:
+    """Google id_token 검증. 허용 client_id 중 하나에 audience 매칭되면 통과.
+
+    웹 클라이언트는 단일 audience(`google_client_id`), Capacitor Android 앱은
+    google-services.json 의 client_id (Firebase 자동 생성) audience 를 사용해
+    audience 가 환경에 따라 다르다. 따라서 허용 목록을 순회하며 시도.
+    """
     # 라이브러리 미설치 환경에서도 import 가 무사히 부팅되도록 지연 import.
     from google.auth.transport import requests as g_requests  # type: ignore
     from google.oauth2 import id_token as gid_token  # type: ignore
 
-    return gid_token.verify_oauth2_token(id_token_str, g_requests.Request(), client_id)
+    request = g_requests.Request()
+    last_err: Exception | None = None
+    for cid in allowed_client_ids:
+        if not cid:
+            continue
+        try:
+            return gid_token.verify_oauth2_token(id_token_str, request, cid)
+        except ValueError as e:
+            last_err = e
+            continue
+    raise last_err or ValueError("허용된 Google client_id 가 없습니다.")
 
 
 def _user_out(u: User) -> UserOut:
@@ -67,7 +82,7 @@ async def google_login(body: GoogleLoginIn, db: AsyncSession = Depends(get_db)):
         )
 
     try:
-        claims = _verify_id_token(body.id_token, settings.google_client_id)
+        claims = _verify_id_token(body.id_token, settings.google_client_ids_all)
     except Exception as e:
         logger.warning(f"Google id_token 검증 실패: {e}")
         raise HTTPException(

@@ -34,6 +34,11 @@ class Settings(BaseSettings):
     google_client_secret: str = ""
     google_redirect_uri: str = ""
 
+    # Google id_token 검증 시 허용할 추가 client_id 들 (콤마 구분).
+    # Capacitor Android 앱은 google-services.json 의 client_id 로 audience 발급하므로,
+    # Firebase 가 생성한 Android(type=1) + Web(type=3) client_id 두 개를 여기 등록.
+    google_extra_client_ids: str = ""
+
     # Google Maps Platform — 백엔드 전용 서버 키 (Geocoding API).
     # 미설정 시 Nominatim 으로 자동 fallback. Render IP 제한 권장.
     google_maps_server_key: str = ""
@@ -83,6 +88,15 @@ class Settings(BaseSettings):
     @property
     def cors_origins_list(self) -> List[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+
+    @property
+    def google_client_ids_all(self) -> List[str]:
+        """`google_client_id` + `google_extra_client_ids` 를 합친 audience 허용 목록."""
+        ids = [self.google_client_id] if self.google_client_id else []
+        ids += [c.strip() for c in self.google_extra_client_ids.split(",") if c.strip()]
+        # 중복 제거하면서 순서 유지
+        seen: set[str] = set()
+        return [c for c in ids if not (c in seen or seen.add(c))]
 
     @property
     def admin_email_set(self) -> set[str]:

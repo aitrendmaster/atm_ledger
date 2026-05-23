@@ -32,6 +32,12 @@ const config: CapacitorConfig = {
     Camera: {
       // 권한 안내 문구는 AndroidManifest / Info.plist 에서 별도 관리
     },
+    FirebaseAuthentication: {
+      // 네이티브 sign-in (Google Sign-In SDK) + Firebase Auth 둘 다 처리.
+      // Google id_token 은 google-services.json 의 client_id 로 audience 발급.
+      skipNativeAuth: false,
+      providers: ['google.com'],
+    },
   },
 }
 
