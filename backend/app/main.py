@@ -35,8 +35,19 @@ ALEMBIC_INI = Path(__file__).resolve().parent.parent / "alembic.ini"
 
 
 def _sync_db_url(url: str) -> str:
-    """Alembic inspect 용 sync URL (asyncpg/aiosqlite 드라이버 표기 제거)."""
-    return url.replace("+asyncpg", "").replace("+aiosqlite", "")
+    """Alembic inspect 용 sync URL.
+
+    1) asyncpg / aiosqlite 드라이버 표기 제거.
+    2) Render Postgres 는 `?ssl=require` 로 오는데 이건 asyncpg 전용 옵션.
+       psycopg2 는 `?sslmode=require` 를 요구하므로 변환.
+    """
+    url = url.replace("+asyncpg", "").replace("+aiosqlite", "")
+    # asyncpg ssl=  →  psycopg2 sslmode=  (단, sslmode= 가 이미 있으면 손대지 않음)
+    if "sslmode=" not in url:
+        url = url.replace("ssl=require", "sslmode=require").replace(
+            "ssl=disable", "sslmode=disable"
+        )
+    return url
 
 
 def _run_alembic_migrations() -> None:
