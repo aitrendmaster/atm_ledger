@@ -360,6 +360,18 @@ export const authApi = {
     api.post<TokenPair & { user: User }>('/auth/google', { id_token }),
 }
 
+// ===== Push Notifications (FCM) =====
+export const pushApi = {
+  registerToken: (token: string, platform: 'android' | 'ios' | 'web' = 'android', device_info?: string) =>
+    api.post<{ ok: boolean; id: number; platform: string }>('/me/push-token', {
+      token,
+      platform,
+      device_info,
+    }),
+  deleteToken: (token: string) =>
+    api.delete<SimpleResult>('/me/push-token', { data: { token } }),
+}
+
 // ===== Me (마이페이지 전용) =====
 export const meApi = {
   geo: () => api.get<GeoResult>('/me/geo'),

@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import i18n from '../i18n'
+import { initPushNotifications } from '../lib/push-init'
 import { authApi, SignupExtras, tokenStore, User } from '../services/api'
 
 interface AuthCtx {
@@ -36,6 +37,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (r.data.locale && i18n.language !== r.data.locale) {
         try { await i18n.changeLanguage(r.data.locale) } catch { /* 폴백 무시 */ }
       }
+      // 네이티브: 푸시 알림 권한 + FCM 토큰 등록 (웹은 no-op).
+      // 멱등 — 같은 토큰 반복 호출해도 백엔드에서 upsert.
+      void initPushNotifications()
     } catch {
       tokenStore.clear()
       setUser(null)
