@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <title>Moa AI 가계부</title>
+  <title>Moa365 — AI 가계부</title>
   <!-- 둥근 사각형 배경 -->
   <rect x="2" y="2" width="60" height="60" rx="14" ry="14" fill="#E07856"/>
-  <!-- 안쪽 부드러운 그림자(살짝) -->
+  <!-- 부드러운 highlight -->
   <rect x="2" y="2" width="60" height="60" rx="14" ry="14" fill="url(#g)" opacity="0.15"/>
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
@@ -10,14 +10,14 @@
       <stop offset="1" stop-color="#000"/>
     </linearGradient>
   </defs>
-  <!-- moa (위쪽, 큼) -->
+  <!-- Moa (위쪽) -->
   <text x="32" y="30"
         font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
-        font-size="22" font-weight="800" fill="#FFFDF8"
-        text-anchor="middle" letter-spacing="-1">moa</text>
-  <!-- atm (아래쪽, 살짝 작게) -->
-  <text x="32" y="50"
+        font-size="18" font-weight="800" fill="#FFFDF8"
+        text-anchor="middle" letter-spacing="-0.5">Moa</text>
+  <!-- 365 (아래쪽, 같은 크기로 강조) -->
+  <text x="32" y="51"
         font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
-        font-size="16" font-weight="700" fill="#FFFDF8" opacity="0.92"
-        text-anchor="middle" letter-spacing="2">atm</text>
+        font-size="18" font-weight="900" fill="#FFFDF8"
+        text-anchor="middle" letter-spacing="-0.5">365</text>
 </svg>

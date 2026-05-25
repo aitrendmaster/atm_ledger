@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <title>Moa AI 가계부 — square logo</title>
+  <title>Moa365 — AI 가계부</title>
 
   <!-- 배경 cream -->
   <rect width="512" height="512" rx="96" ry="96" fill="#FBF8F3"/>
@@ -11,24 +11,24 @@
   <path d="M 80 96 Q 256 60 432 96 L 432 200 Q 256 168 80 200 Z"
         fill="#FFFFFF" opacity="0.12"/>
 
-  <!-- moa: 큰 글자 -->
+  <!-- Moa: 큰 글자 -->
   <text x="256" y="248"
         font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
-        font-size="148" font-weight="800" fill="#FFFDF8"
-        text-anchor="middle" letter-spacing="-4">moa</text>
+        font-size="132" font-weight="800" fill="#FFFDF8"
+        text-anchor="middle" letter-spacing="-4">Moa</text>
 
   <!-- 구분선 -->
-  <line x1="180" y1="290" x2="332" y2="290"
+  <line x1="180" y1="288" x2="332" y2="288"
         stroke="#FFFDF8" stroke-width="3" opacity="0.5"/>
 
-  <!-- atm: 작은 글자 (간격 넓게) -->
-  <text x="256" y="358"
+  <!-- 365: 같은 크기, 살짝 더 굵게 (강조) -->
+  <text x="256" y="366"
         font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
-        font-size="76" font-weight="700" fill="#FFFDF8"
-        text-anchor="middle" letter-spacing="14" opacity="0.95">atm</text>
+        font-size="132" font-weight="900" fill="#FFFDF8"
+        text-anchor="middle" letter-spacing="-4">365</text>
 
   <!-- 서브 태그: AI 가계부 -->
-  <text x="256" y="416"
+  <text x="256" y="418"
         font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
         font-size="22" font-weight="600" fill="#FFFDF8" opacity="0.75"
         text-anchor="middle" letter-spacing="6">AI 가계부</text>
