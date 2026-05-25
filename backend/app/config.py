@@ -74,8 +74,9 @@ class Settings(BaseSettings):
     # 가맹 신청 후 dev center 에서 test_sk_*/test_ck_* 발급 → 검증 → live 키 전환.
     toss_secret_key: str = ""
     toss_client_key: str = ""
-    # 정기결제 가격(KRW). UI 에는 "₩5,400 / 월 (≈ $4)" 로 표시.
-    toss_monthly_price_krw: int = 5400
+    # 정기결제 가격(KRW). UI 에는 "₩5,500 / 월 (≈ $4)" 로 표시.
+    # Pricing 페이지·LS Moa 365 상품과 일치.
+    toss_monthly_price_krw: int = 5500
     toss_monthly_order_name: str = "Moa AI 가계부 월 정기결제"
 
     # Lemon Squeezy (Merchant of Record, 글로벌 카드/페이팔, 한국 사업자 없이 결제 가능).

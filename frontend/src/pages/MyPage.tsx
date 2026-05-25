@@ -339,6 +339,28 @@ function BillingTab({
 
   const refetch = () => queryClient.invalidateQueries({ queryKey: ['me', 'billing'] })
   const [params, setParams] = useSearchParams()
+  const [lsLoadingPlan, setLsLoadingPlan] = useState<'monthly' | 'yearly' | null>(null)
+
+  const startLsCheckout = async (plan: 'monthly' | 'yearly') => {
+    setLsLoadingPlan(plan)
+    try {
+      const { data } = await meApi.lemonSqueezyCheckoutUrl(plan)
+      window.location.href = data.url
+    } catch (err: any) {
+      const status = err?.response?.status
+      if (status === 409) {
+        toast('현재 베타 기간 동안 모든 기능이 무료입니다.', { icon: '🎉' })
+      } else if (status === 503) {
+        toast.error('결제가 아직 활성화되지 않았습니다.')
+      } else if (status === 400) {
+        toast.error(err?.response?.data?.detail || '해당 플랜이 설정되지 않았습니다.')
+      } else {
+        toast.error(err?.response?.data?.detail || '결제 페이지를 여는 중 문제가 발생했어요.')
+      }
+    } finally {
+      setLsLoadingPlan(null)
+    }
+  }
 
   // Toss 위젯이 success_url 로 돌려준 authKey/customerKey 를 백엔드 confirm 으로 교환
   useEffect(() => {
@@ -452,7 +474,7 @@ function BillingTab({
           <div className="font-medium text-emerald-800 mb-1">🎉 베타 기간 무료 운영 중</div>
           <div className="text-emerald-700 text-xs leading-relaxed">
             현재 모든 기능을 무료로 이용할 수 있어요. 엑셀 내보내기·전체 가계부 기능 포함.
-            정식 유료화(<strong>₩{b.price_krw_monthly.toLocaleString()} / 월</strong>)와 결제 시스템(Toss Payments)은
+            정식 유료화(<strong>월 ₩5,500 · 연 ₩50,000</strong>)와 결제 시스템(Lemon Squeezy 글로벌 + Toss 한국)은
             현재 <strong>테스트 모드</strong>로 준비되어 있으며, 베타 종료 시 별도 안내드립니다.
           </div>
         </div>
@@ -527,40 +549,94 @@ function BillingTab({
           features={['가입 후 1개월 가계부 이용', 'AI 분류·캘린더·회고', '장소 핀과 후기', '내 데이터 JSON 익스포트']}
           highlight={b.tier === 'free'}
         />
-        <PlanCard
-          title="유료"
-          price={`₩${b.price_krw_monthly.toLocaleString()} / 월`}
-          features={[
-            '무료 모든 기능',
-            '가계부 지속 이용',
-            '엑셀(.xlsx) 월별·연간 내보내기',
-            '우선 지원',
-          ]}
-          highlight={b.tier === 'paid' && !b.beta_free_mode}
-          actionLabel={
-            b.beta_free_mode
-              ? '베타 기간 무료'
-              : b.tier === 'paid'
-              ? '해지'
-              : '업그레이드'
-          }
-          onAction={b.tier === 'paid' ? cancel : upgrade}
-          actionDisabled={b.beta_free_mode}
-        />
+
+        {/* 유료 — LS 듀얼 플랜(월/연) + Toss 보조 옵션 */}
+        <div
+          className={`bg-white border rounded-2xl p-5 ${
+            b.tier === 'paid' && !b.beta_free_mode
+              ? 'border-atm-accent shadow-sm'
+              : 'border-stone-200'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-base font-semibold text-atm-ink">유료</h3>
+            {b.tier === 'paid' && !b.beta_free_mode && (
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-atm-accent/10 text-atm-accent font-medium">
+                현재 플랜
+              </span>
+            )}
+          </div>
+          <div className="mb-1">
+            <div className="text-2xl font-semibold text-atm-ink">₩5,500 / 월</div>
+            <div className="text-xs text-atm-muted mt-0.5">
+              또는 연 ₩50,000 (24% 할인 · 2개월 무료)
+            </div>
+          </div>
+          <ul className="space-y-1 text-sm text-atm-muted mb-4 mt-3">
+            <li>· 무료 모든 기능</li>
+            <li>· 가계부 지속 이용</li>
+            <li>· 엑셀(.xlsx) 월별·연간 내보내기</li>
+            <li>· 우선 지원</li>
+          </ul>
+
+          {b.beta_free_mode ? (
+            <button
+              type="button"
+              disabled
+              className="w-full py-2 rounded-lg text-sm font-medium border border-stone-200 text-atm-muted cursor-not-allowed opacity-60"
+            >
+              베타 기간 무료
+            </button>
+          ) : b.tier === 'paid' ? (
+            <button
+              type="button"
+              onClick={cancel}
+              className="w-full py-2 rounded-lg text-sm font-medium border border-stone-200 text-atm-muted hover:bg-stone-50"
+            >
+              해지
+            </button>
+          ) : (
+            <div className="space-y-2">
+              <button
+                type="button"
+                onClick={() => startLsCheckout('monthly')}
+                disabled={lsLoadingPlan !== null || !b.lemonsqueezy_configured}
+                className="w-full py-2.5 rounded-lg text-sm font-semibold bg-atm-accent text-white hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {lsLoadingPlan === 'monthly' ? '결제 페이지 여는 중…' : '월 ₩5,500 결제 시작'}
+              </button>
+              <button
+                type="button"
+                onClick={() => startLsCheckout('yearly')}
+                disabled={lsLoadingPlan !== null || !b.lemonsqueezy_configured}
+                className="w-full py-2 rounded-lg text-sm font-medium border border-atm-accent/40 text-atm-accent hover:bg-atm-accent/5 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {lsLoadingPlan === 'yearly' ? '결제 페이지 여는 중…' : '연 ₩50,000 결제 (2개월 무료)'}
+              </button>
+              {b.toss_configured && (
+                <button
+                  type="button"
+                  onClick={upgrade}
+                  className="block w-full text-center text-xs text-atm-muted hover:text-atm-ink underline mt-1"
+                >
+                  또는 Toss로 결제 (한국 카드 즉시 ₩)
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
-      {b.toss_configured ? (
+      {/* 결제 게이트웨이 상태 안내 — LS 우선, Toss 보조 */}
+      {b.lemonsqueezy_configured ? (
         <div className="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl p-3">
-          ✅ Toss Payments 정기결제 연결됨. 카드 1회 등록 후 매월 자동 청구됩니다 (한국 PG).
-          {b.subscription_status && (
-            <span className="ml-1 font-mono">(status: {b.subscription_status})</span>
-          )}
+          ✅ Lemon Squeezy (MoR) 연결됨 — 카드·페이팔 글로벌 결제. 부가세·환불·인보이스 자동 처리.
+          {b.toss_configured && ' Toss(KRW 즉시 카드) 도 함께 활성화되어 있어요.'}
         </div>
       ) : (
         <div className="text-[11px] text-atm-muted bg-stone-50 border border-stone-200 rounded-xl p-3">
-          💡 현재 운영자 환경에 Toss 키가 입력되어 있지 않아 데모 모드입니다 (실 결제 없음).
-          <code className="mx-1">TOSS_SECRET_KEY</code> 와 <code className="mx-1">TOSS_CLIENT_KEY</code>
-          가 Railway 에 설정되면 자동으로 실 결제 흐름이 활성화됩니다.
+          💡 현재 운영자 환경에 Lemon Squeezy 키가 입력되지 않아 결제가 비활성 상태입니다.
+          <code className="mx-1">LEMONSQUEEZY_API_KEY</code> 등이 Render 에 설정되면 자동으로 결제 흐름이 활성화됩니다.
         </div>
       )}
     </div>
