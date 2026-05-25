@@ -1,10 +1,43 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Check, X } from 'lucide-react'
+import toast from 'react-hot-toast'
+import { useState } from 'react'
 import { COMPANY } from '../config/company'
+import { meApi } from '../services/api'
+import { isAxiosError } from 'axios'
 
 export default function Pricing() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [loadingPlan, setLoadingPlan] = useState<'monthly' | 'yearly' | null>(null)
+
+  const startCheckout = async (plan: 'monthly' | 'yearly') => {
+    setLoadingPlan(plan)
+    try {
+      const { data } = await meApi.lemonSqueezyCheckoutUrl(plan)
+      window.location.href = data.url
+    } catch (err) {
+      if (isAxiosError(err)) {
+        const status = err.response?.status
+        if (status === 401) {
+          navigate('/signup?next=/pricing')
+          return
+        }
+        if (status === 409) {
+          toast(t('pricing.betaActiveToast'))
+          return
+        }
+        if (status === 503) {
+          toast.error(t('pricing.checkoutUnavailable'))
+          return
+        }
+      }
+      toast.error(t('pricing.checkoutError'))
+    } finally {
+      setLoadingPlan(null)
+    }
+  }
 
   const compareRows = [
     'aiInput',
@@ -62,12 +95,22 @@ export default function Pricing() {
             {t('pricing.paidPriceYearlyNote')}
           </div>
           <p className="text-sm text-atm-muted mb-5 leading-relaxed">{t('pricing.paidDesc')}</p>
-          <Link
-            to="/signup"
-            className="block w-full text-center px-4 py-2.5 rounded-xl bg-atm-accent text-white hover:opacity-90 font-medium"
+          <button
+            type="button"
+            onClick={() => startCheckout('monthly')}
+            disabled={loadingPlan !== null}
+            className="block w-full text-center px-4 py-2.5 rounded-xl bg-atm-accent text-white hover:opacity-90 font-medium disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {t('pricing.paidCta')}
-          </Link>
+            {loadingPlan === 'monthly' ? t('common.loading') : t('pricing.paidCta')}
+          </button>
+          <button
+            type="button"
+            onClick={() => startCheckout('yearly')}
+            disabled={loadingPlan !== null}
+            className="block w-full text-center px-4 py-2 mt-2 rounded-xl border border-atm-accent/40 text-atm-accent hover:bg-atm-accent/5 text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {loadingPlan === 'yearly' ? t('common.loading') : t('pricing.paidCtaYearly')}
+          </button>
         </div>
       </div>
 

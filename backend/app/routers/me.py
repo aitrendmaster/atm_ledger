@@ -25,7 +25,7 @@ from ..models.entry import Entry
 from ..models.planned import Planned
 from ..models.reflection import Reflection
 from ..models.user import User
-from ..services import toss_service
+from ..services import lemonsqueezy_service, toss_service
 from ..services.geo_service import (
     apply_geo_to_user,
     cached_geo_is_fresh,
@@ -125,6 +125,11 @@ class BillingStatus(BaseModel):
     last_billing_error: str | None = None
     # 베타 기간 무료 모드 — 활성 시 모든 사용자가 유료 권한, UI 는 결제 비활성
     beta_free_mode: bool = False
+    # Lemon Squeezy (MoR — 글로벌 카드/페이팔) 연동 상태
+    lemonsqueezy_configured: bool = False
+    lemonsqueezy_subscription_id: str | None = None
+    lemonsqueezy_renews_at: datetime | None = None
+    lemonsqueezy_variant_id: str | None = None
 
 
 def _customer_key_for(user: User) -> str:
@@ -140,6 +145,7 @@ def _billing_status(user: User) -> BillingStatus:
     provider = "toss" if toss_on else "none"
     beta = bool(settings.beta_free_mode)
 
+    ls_on = lemonsqueezy_service.configured()
     common = dict(
         free_trial_ends_at=free_trial_ends,
         price_usd_monthly=PAID_MONTHLY_USD,
@@ -153,6 +159,10 @@ def _billing_status(user: User) -> BillingStatus:
         card_last4=user.toss_card_last4,
         last_billing_error=user.last_billing_error,
         beta_free_mode=beta,
+        lemonsqueezy_configured=ls_on,
+        lemonsqueezy_subscription_id=user.lemonsqueezy_subscription_id,
+        lemonsqueezy_renews_at=user.lemonsqueezy_renews_at,
+        lemonsqueezy_variant_id=user.lemonsqueezy_variant_id,
     )
 
     # 베타 기간 무료 — 모든 사용자가 active. 표시되는 tier 는 그대로(`free`)지만
@@ -297,6 +307,52 @@ async def my_billing_toss_cancel(
     user.last_billing_error = None
     await db.commit()
     return _billing_status(user)
+
+
+# ---------- Lemon Squeezy (MoR) ----------
+
+
+class LemonSqueezyCheckoutOut(BaseModel):
+    url: str
+    plan: str  # monthly | yearly
+    expires_at_iso: str | None = None  # LS 체크아웃 세션 만료 (선택)
+
+
+@router.get(
+    "/billing/lemonsqueezy/checkout-url",
+    response_model=LemonSqueezyCheckoutOut,
+)
+async def my_billing_ls_checkout_url(
+    plan: str = Query(default="monthly", pattern="^(monthly|yearly)$"),
+    user: User = Depends(get_current_user),
+):
+    """LS 체크아웃 URL 발급 — user_id·email 을 쿼리 파라미터로 사전 주입.
+
+    프론트는 받은 url 로 window.location 리다이렉트만 하면 됨.
+    결제 완료 후 LS → POST /webhooks/lemonsqueezy 가 호출되어 사용자가 자동 paid 승격.
+
+    플로우:
+      Frontend  →  GET /me/billing/lemonsqueezy/checkout-url?plan=monthly
+              ←  { url: "https://atmstore.lemonsqueezy.com/checkout/buy/{variant}?..." }
+      Frontend  →  window.location.href = url   (LS 호스팅 결제 페이지로 이동)
+      User 결제 완료  →  LS  →  POST /webhooks/lemonsqueezy
+                              →  User.subscription_tier = paid 자동 갱신
+    """
+    if get_settings().beta_free_mode:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="현재 베타 기간 동안 무료로 운영되어 결제가 비활성화되어 있습니다.",
+        )
+    if not lemonsqueezy_service.configured():
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Lemon Squeezy 결제가 아직 활성화되지 않았습니다.",
+        )
+    try:
+        url = lemonsqueezy_service.build_checkout_url(user, plan)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return LemonSqueezyCheckoutOut(url=url, plan=plan)
 
 
 # 레거시 mock 경로 (Toss 미설정 + 개발 폴백) — Toss 활성 시 405 로 차단.

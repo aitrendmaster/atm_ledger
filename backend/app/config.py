@@ -78,6 +78,19 @@ class Settings(BaseSettings):
     toss_monthly_price_krw: int = 5400
     toss_monthly_order_name: str = "Moa AI 가계부 월 정기결제"
 
+    # Lemon Squeezy (Merchant of Record, 글로벌 카드/페이팔, 한국 사업자 없이 결제 가능).
+    # Toss(KRW 즉시)와 병존 — 사용자가 결제 페이지에서 선택. 미설정이면 LS 엔드포인트가 503.
+    # 발급 위치:
+    #   API key   → https://app.lemonsqueezy.com/settings/api
+    #   Webhook secret → Settings > Webhooks > Add endpoint 시 자동 발급
+    #   Store slug → 체크아웃 URL 의 서브도메인 (예: `atmstore.lemonsqueezy.com` → `atmstore`)
+    #   Variant ID → Products > 변형 > URL 끝 UUID
+    lemonsqueezy_api_key: str = ""
+    lemonsqueezy_webhook_secret: str = ""
+    lemonsqueezy_store_slug: str = ""
+    lemonsqueezy_variant_id_monthly: str = ""
+    lemonsqueezy_variant_id_yearly: str = ""
+
     # 베타 기간 무료 모드. true 면:
     # - 모든 사용자가 paid 와 동일한 권한 (엑셀 익스포트 등)
     # - 트라이얼 만료/구독 게이트 우회

@@ -19,6 +19,7 @@ from .routers import (
     auth,
     entries,
     geocode,
+    lemonsqueezy_webhook,
     me,
     oauth,
     photos,
@@ -147,6 +148,7 @@ app.include_router(auth.router)
 app.include_router(oauth.router)
 app.include_router(me.router)
 app.include_router(toss_webhook.router)
+app.include_router(lemonsqueezy_webhook.router)
 app.include_router(entries.router)
 app.include_router(planned.router)
 app.include_router(reflections.router)

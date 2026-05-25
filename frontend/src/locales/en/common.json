@@ -616,7 +616,11 @@
     "perMonth": "/ month",
     "paidPriceYearlyNote": "or $35.99 / year (24% off) · prices auto-converted by country",
     "paidDesc": "Unlimited AI + monthly AI review coach + receipt OCR + data export. Get the full Moa experience.",
-    "paidCta": "Go Premium",
+    "paidCta": "Start monthly ($3.99)",
+    "paidCtaYearly": "Annual ($35.99 · 2 months free)",
+    "betaActiveToast": "Premium features are free during the beta period.",
+    "checkoutUnavailable": "Checkout is not yet enabled. We'll announce launch shortly.",
+    "checkoutError": "We couldn't open checkout. Please try again in a moment.",
     "compareTitle": "Free vs Premium",
     "compareFeature": "Feature",
     "compare": {

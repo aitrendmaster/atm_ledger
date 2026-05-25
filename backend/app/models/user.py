@@ -57,6 +57,21 @@ class User(Base):
         DateTime(timezone=True), nullable=True
     )
     last_billing_error: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # Lemon Squeezy (MoR, 글로벌 카드/페이팔). subscription_tier/status/expires_at 는 Toss 와 공유.
+    # 사용자가 LS 체크아웃에서 결제하면 webhook 이 아래 ID 들을 채우고 tier=paid 로 승격.
+    lemonsqueezy_customer_id: Mapped[str | None] = mapped_column(
+        String(64), nullable=True, index=True
+    )
+    lemonsqueezy_subscription_id: Mapped[str | None] = mapped_column(
+        String(64), nullable=True, index=True
+    )
+    # 현재 구독 중인 LS variant — 어떤 플랜(monthly/yearly)에 가입했는지 식별.
+    lemonsqueezy_variant_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    # LS 가 다음 갱신 시각을 webhook 으로 전달 — Toss subscription_expires_at 와 별도 보관
+    # 해 plan 변경/취소 시 충돌 없이 LS 상태만 추적.
+    lemonsqueezy_renews_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     # FCM 예산 초과 알림 중복 방지 — YYYY-MM 형식. 같은 달 두 번 발송 방지.
     last_budget_breach_month: Mapped[str | None] = mapped_column(String(7), nullable=True)
     # 개인정보: 위치 메타데이터(도시/지역) 를 AI 가 제품 경험 개선용으로 사용해도 되는지.

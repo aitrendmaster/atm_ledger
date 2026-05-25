@@ -121,6 +121,17 @@ export interface BillingStatus {
   card_last4: string | null
   last_billing_error: string | null
   beta_free_mode: boolean
+  // Lemon Squeezy (MoR — 글로벌 카드/페이팔)
+  lemonsqueezy_configured: boolean
+  lemonsqueezy_subscription_id: string | null
+  lemonsqueezy_renews_at: string | null
+  lemonsqueezy_variant_id: string | null
+}
+
+export interface LemonSqueezyCheckoutOut {
+  url: string
+  plan: 'monthly' | 'yearly'
+  expires_at_iso: string | null
 }
 
 export interface AdminStats {
@@ -384,6 +395,10 @@ export const meApi = {
       customer_key: customerKey,
     }),
   tossCancel: () => api.post<BillingStatus>('/me/billing/toss/cancel'),
+  lemonSqueezyCheckoutUrl: (plan: 'monthly' | 'yearly') =>
+    api.get<LemonSqueezyCheckoutOut>('/me/billing/lemonsqueezy/checkout-url', {
+      params: { plan },
+    }),
   exportXlsx: (params: { period: 'monthly'; month: string } | { period: 'annual'; year: string }) =>
     api.get<Blob>('/me/export.xlsx', { params, responseType: 'blob' }),
 }
