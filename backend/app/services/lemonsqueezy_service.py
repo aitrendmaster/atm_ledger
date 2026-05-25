@@ -83,6 +83,23 @@ def verify_signature(body: bytes, signature_header: str | None) -> bool:
     return hmac.compare_digest(expected, signature_header)
 
 
+def _normalize_variant_id(value: str) -> str:
+    """env 값이 UUID 만 들어있든, 전체 체크아웃 URL 이 통째로 들어있든 UUID 만 추출.
+
+    예) 'b5d0282a-...'           → 그대로
+        'https://...buy/abc-..'  → 'abc-...'
+        '/checkout/buy/abc?x=1'  → 'abc'
+    """
+    value = (value or "").strip()
+    for marker in ("/checkout/buy/", "/buy/"):
+        if marker in value:
+            value = value.rsplit(marker, 1)[-1]
+            break
+    # 쿼리 파라미터·트레일링 슬래시 제거
+    value = value.split("?", 1)[0].rstrip("/")
+    return value
+
+
 def build_checkout_url(user: User, plan: str) -> str:
     """LS 체크아웃 URL 생성. user_id 를 custom_data 에 담아 webhook 에서 사용자 매칭.
 
@@ -97,9 +114,10 @@ def build_checkout_url(user: User, plan: str) -> str:
         raise ValueError(f"unknown plan: {plan}")
 
     s = get_settings()
-    variant_id = (
+    raw = (
         s.lemonsqueezy_variant_id_monthly if plan == PLAN_MONTHLY else s.lemonsqueezy_variant_id_yearly
     )
+    variant_id = _normalize_variant_id(raw)
     if not variant_id:
         raise ValueError(f"variant id for plan={plan} is not configured")
     if not s.lemonsqueezy_store_slug:
