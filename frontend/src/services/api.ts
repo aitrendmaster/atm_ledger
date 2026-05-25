@@ -395,9 +395,9 @@ export const meApi = {
       customer_key: customerKey,
     }),
   tossCancel: () => api.post<BillingStatus>('/me/billing/toss/cancel'),
-  lemonSqueezyCheckoutUrl: (plan: 'monthly' | 'yearly') =>
+  lemonSqueezyCheckoutUrl: (plan?: 'monthly' | 'yearly') =>
     api.get<LemonSqueezyCheckoutOut>('/me/billing/lemonsqueezy/checkout-url', {
-      params: { plan },
+      params: plan ? { plan } : undefined,
     }),
   exportXlsx: (params: { period: 'monthly'; month: string } | { period: 'annual'; year: string }) =>
     api.get<Blob>('/me/export.xlsx', { params, responseType: 'blob' }),

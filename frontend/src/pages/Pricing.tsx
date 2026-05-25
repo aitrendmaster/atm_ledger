@@ -10,12 +10,13 @@ import { isAxiosError } from 'axios'
 export default function Pricing() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const [loadingPlan, setLoadingPlan] = useState<'monthly' | 'yearly' | null>(null)
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
 
-  const startCheckout = async (plan: 'monthly' | 'yearly') => {
-    setLoadingPlan(plan)
+  const startCheckout = async () => {
+    setCheckoutLoading(true)
     try {
-      const { data } = await meApi.lemonSqueezyCheckoutUrl(plan)
+      // plan 미지정 — 백엔드가 설정된 variant 자동 선택. LS 페이지에서 월/연 선택 가능.
+      const { data } = await meApi.lemonSqueezyCheckoutUrl()
       window.location.href = data.url
     } catch (err) {
       if (isAxiosError(err)) {
@@ -35,7 +36,7 @@ export default function Pricing() {
       }
       toast.error(t('pricing.checkoutError'))
     } finally {
-      setLoadingPlan(null)
+      setCheckoutLoading(false)
     }
   }
 
@@ -97,20 +98,15 @@ export default function Pricing() {
           <p className="text-sm text-atm-muted mb-5 leading-relaxed">{t('pricing.paidDesc')}</p>
           <button
             type="button"
-            onClick={() => startCheckout('monthly')}
-            disabled={loadingPlan !== null}
+            onClick={startCheckout}
+            disabled={checkoutLoading}
             className="block w-full text-center px-4 py-2.5 rounded-xl bg-atm-accent text-white hover:opacity-90 font-medium disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {loadingPlan === 'monthly' ? t('common.loading') : t('pricing.paidCta')}
+            {checkoutLoading ? t('common.loading') : t('pricing.paidCta')}
           </button>
-          <button
-            type="button"
-            onClick={() => startCheckout('yearly')}
-            disabled={loadingPlan !== null}
-            className="block w-full text-center px-4 py-2 mt-2 rounded-xl border border-atm-accent/40 text-atm-accent hover:bg-atm-accent/5 text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            {loadingPlan === 'yearly' ? t('common.loading') : t('pricing.paidCtaYearly')}
-          </button>
+          <p className="text-[11px] text-atm-muted text-center mt-2">
+            {t('pricing.planSelectionHint')}
+          </p>
         </div>
       </div>
 

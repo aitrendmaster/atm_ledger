@@ -339,12 +339,13 @@ function BillingTab({
 
   const refetch = () => queryClient.invalidateQueries({ queryKey: ['me', 'billing'] })
   const [params, setParams] = useSearchParams()
-  const [lsLoadingPlan, setLsLoadingPlan] = useState<'monthly' | 'yearly' | null>(null)
+  const [lsCheckoutLoading, setLsCheckoutLoading] = useState(false)
 
-  const startLsCheckout = async (plan: 'monthly' | 'yearly') => {
-    setLsLoadingPlan(plan)
+  const startLsCheckout = async () => {
+    setLsCheckoutLoading(true)
     try {
-      const { data } = await meApi.lemonSqueezyCheckoutUrl(plan)
+      // plan 미지정 — 백엔드가 설정된 variant 자동 선택, LS 페이지에서 월/연 선택 가능.
+      const { data } = await meApi.lemonSqueezyCheckoutUrl()
       window.location.href = data.url
     } catch (err: any) {
       const status = err?.response?.status
@@ -352,13 +353,11 @@ function BillingTab({
         toast('현재 베타 기간 동안 모든 기능이 무료입니다.', { icon: '🎉' })
       } else if (status === 503) {
         toast.error('결제가 아직 활성화되지 않았습니다.')
-      } else if (status === 400) {
-        toast.error(err?.response?.data?.detail || '해당 플랜이 설정되지 않았습니다.')
       } else {
         toast.error(err?.response?.data?.detail || '결제 페이지를 여는 중 문제가 발생했어요.')
       }
     } finally {
-      setLsLoadingPlan(null)
+      setLsCheckoutLoading(false)
     }
   }
 
@@ -599,20 +598,15 @@ function BillingTab({
             <div className="space-y-2">
               <button
                 type="button"
-                onClick={() => startLsCheckout('monthly')}
-                disabled={lsLoadingPlan !== null || !b.lemonsqueezy_configured}
+                onClick={startLsCheckout}
+                disabled={lsCheckoutLoading || !b.lemonsqueezy_configured}
                 className="w-full py-2.5 rounded-lg text-sm font-semibold bg-atm-accent text-white hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {lsLoadingPlan === 'monthly' ? '결제 페이지 여는 중…' : '월 ₩5,500 결제 시작'}
+                {lsCheckoutLoading ? '결제 페이지 여는 중…' : 'Premium 결제 시작'}
               </button>
-              <button
-                type="button"
-                onClick={() => startLsCheckout('yearly')}
-                disabled={lsLoadingPlan !== null || !b.lemonsqueezy_configured}
-                className="w-full py-2 rounded-lg text-sm font-medium border border-atm-accent/40 text-atm-accent hover:bg-atm-accent/5 disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {lsLoadingPlan === 'yearly' ? '결제 페이지 여는 중…' : '연 ₩50,000 결제 (2개월 무료)'}
-              </button>
+              <p className="text-[11px] text-atm-muted text-center">
+                다음 화면에서 월·연 결제 중 선택할 수 있어요.
+              </p>
               {b.toss_configured && (
                 <button
                   type="button"

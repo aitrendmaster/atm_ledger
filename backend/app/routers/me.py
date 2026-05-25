@@ -314,7 +314,7 @@ async def my_billing_toss_cancel(
 
 class LemonSqueezyCheckoutOut(BaseModel):
     url: str
-    plan: str  # monthly | yearly
+    plan: str  # monthly | yearly  — 실제로 사용된 variant
     expires_at_iso: str | None = None  # LS 체크아웃 세션 만료 (선택)
 
 
@@ -323,16 +323,18 @@ class LemonSqueezyCheckoutOut(BaseModel):
     response_model=LemonSqueezyCheckoutOut,
 )
 async def my_billing_ls_checkout_url(
-    plan: str = Query(default="monthly", pattern="^(monthly|yearly)$"),
+    plan: str | None = Query(default=None, pattern="^(monthly|yearly)$"),
     user: User = Depends(get_current_user),
 ):
     """LS 체크아웃 URL 발급 — user_id·email 을 쿼리 파라미터로 사전 주입.
 
-    프론트는 받은 url 로 window.location 리다이렉트만 하면 됨.
-    결제 완료 후 LS → POST /webhooks/lemonsqueezy 가 호출되어 사용자가 자동 paid 승격.
+    plan 파라미터:
+      - 명시 (monthly|yearly) — 그 variant 로 직접 이동
+      - 생략 — 설정된 variant 중 monthly 우선, 없으면 yearly. 두 플랜이 같은 product
+        의 다른 variant 라면 LS 페이지에 두 옵션이 함께 노출되므로 단일 버튼 UX 와 호환.
 
-    플로우:
-      Frontend  →  GET /me/billing/lemonsqueezy/checkout-url?plan=monthly
+    Flow:
+      Frontend  →  GET /me/billing/lemonsqueezy/checkout-url
               ←  { url: "https://atmstore.lemonsqueezy.com/checkout/buy/{variant}?..." }
       Frontend  →  window.location.href = url   (LS 호스팅 결제 페이지로 이동)
       User 결제 완료  →  LS  →  POST /webhooks/lemonsqueezy
@@ -348,6 +350,21 @@ async def my_billing_ls_checkout_url(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Lemon Squeezy 결제가 아직 활성화되지 않았습니다.",
         )
+
+    s = get_settings()
+    if plan is None:
+        # 단일 버튼 UX — 둘 중 설정된 것 우선 (monthly → yearly 순)
+        from ..services.lemonsqueezy_service import _normalize_variant_id  # local import
+        if _normalize_variant_id(s.lemonsqueezy_variant_id_monthly):
+            plan = "monthly"
+        elif _normalize_variant_id(s.lemonsqueezy_variant_id_yearly):
+            plan = "yearly"
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Lemon Squeezy variant 가 설정되어 있지 않습니다.",
+            )
+
     try:
         url = lemonsqueezy_service.build_checkout_url(user, plan)
     except ValueError as e:
