@@ -1,18 +1,38 @@
 {
-  "app": { "name": "Sổ chi tiêu Moa AI" },
-  "lang": { "label": "Ngôn ngữ" },
-  "common": {
-    "or": "hoặc", "cancel": "Huỷ", "save": "Lưu", "loading": "Đang tải…",
-    "back": "Quay lại", "retry": "Vui lòng thử lại sau ít phút.",
-    "home": "Trang chủ", "pricing": "Giá", "refund": "Chính sách hoàn tiền",
-    "edit": "Sửa", "delete": "Xoá", "confirm": "OK"
+  "app": {
+    "name": "Sổ chi tiêu Moa AI"
   },
-  "nav": { "myAccount": "Tài khoản", "faq": "Hỏi đáp", "admin": "Admin", "logout": "Đăng xuất" },
+  "lang": {
+    "label": "Ngôn ngữ"
+  },
+  "common": {
+    "or": "hoặc",
+    "cancel": "Huỷ",
+    "save": "Lưu",
+    "loading": "Đang tải…",
+    "back": "Quay lại",
+    "retry": "Vui lòng thử lại sau ít phút.",
+    "home": "Trang chủ",
+    "pricing": "Giá",
+    "refund": "Chính sách hoàn tiền",
+    "edit": "Sửa",
+    "delete": "Xoá",
+    "confirm": "OK"
+  },
+  "nav": {
+    "myAccount": "Tài khoản",
+    "faq": "Hỏi đáp",
+    "admin": "Admin",
+    "logout": "Đăng xuất"
+  },
   "landing": {
     "badge": "Miễn phí Beta — sổ chi tiêu AI",
-    "headline1": "Ghi như đang chat,", "headline2": "nhìn lại trọn tháng nhẹ tênh.",
+    "headline1": "Ghi như đang chat,",
+    "headline2": "nhìn lại trọn tháng nhẹ tênh.",
     "subtitle": "Một dòng là đủ — \"Starbucks 80k\". AI tự phân loại, ghi số tiền và ngày, mỗi tháng gửi bạn lời khuyên ấm áp về thói quen.",
-    "ctaPrimary": "Bắt đầu miễn phí", "ctaLogin": "Đăng nhập", "ctaApp": "Mở sổ chi tiêu →",
+    "ctaPrimary": "Bắt đầu miễn phí",
+    "ctaLogin": "Đăng nhập",
+    "ctaApp": "Mở sổ chi tiêu →",
     "uspHeading": "Quản lý chi tiêu nhẹ nhàng hơn cả bạn nghĩ.",
     "uspSubtitle": "Mỗi ngày 1 phút, mỗi tháng một góc nhìn mới.",
     "uspChatTitle": "Nhập trong 1 giây",
@@ -26,7 +46,8 @@
     "cta2Heading": "Khác biệt từ tháng đầu tiên.",
     "cta2Subtitle": "30 giây đăng ký. Không cần thẻ. Miễn phí trong Beta.",
     "footerTagline": "Sổ chi tiêu AI ghi bằng cách chat",
-    "footerTerms": "Điều khoản", "footerPrivacy": "Quyền riêng tư",
+    "footerTerms": "Điều khoản",
+    "footerPrivacy": "Quyền riêng tư",
     "hero": {
       "badge": "Beta miễn phí · sổ chi tiêu AI",
       "headline1": "Lần này",
@@ -138,10 +159,30 @@
       "point1": "Chu kỳ tuần/tháng/năm",
       "point2": "Tự điền lịch đến ngày kết thúc",
       "point3": "Sửa rồi lưu hàng loạt một lúc",
-      "row1": { "name": "Tiền nhà", "amount": "6.000.000đ", "cycle": "Ngày 25 hằng tháng", "next": "25/11" },
-      "row2": { "name": "Netflix", "amount": "260.000đ", "cycle": "Ngày 28 hằng tháng", "next": "28/11" },
-      "row3": { "name": "Bảo hiểm", "amount": "420.000đ", "cycle": "Ngày 30 hằng tháng", "next": "30/11" },
-      "row4": { "name": "Phòng gym", "amount": "850.000đ", "cycle": "Ngày 5 hằng tháng", "next": "05/12" }
+      "row1": {
+        "name": "Tiền nhà",
+        "amount": "6.000.000đ",
+        "cycle": "Ngày 25 hằng tháng",
+        "next": "25/11"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "260.000đ",
+        "cycle": "Ngày 28 hằng tháng",
+        "next": "28/11"
+      },
+      "row3": {
+        "name": "Bảo hiểm",
+        "amount": "420.000đ",
+        "cycle": "Ngày 30 hằng tháng",
+        "next": "30/11"
+      },
+      "row4": {
+        "name": "Phòng gym",
+        "amount": "850.000đ",
+        "cycle": "Ngày 5 hằng tháng",
+        "next": "05/12"
+      }
     },
     "compare": {
       "label": "So sánh",
@@ -184,35 +225,55 @@
       "trust1": "Đăng ký 30 giây",
       "trust2": "Không cần thẻ",
       "trust3": "Beta miễn phí"
-    }
+    },
+    "bizCeo": "CEO",
+    "bizNo": "Đăng ký kinh doanh",
+    "bizMailOrder": "Bán hàng qua đơn",
+    "bizAddress": "Địa chỉ"
   },
   "login": {
     "subtitle": "Đăng nhập và bắt đầu ghi sổ.",
-    "email": "Email", "password8": "Mật khẩu (từ 8 ký tự)",
-    "submit": "Đăng nhập", "submitBusy": "Đang đăng nhập…",
-    "noAccount": "Chưa có tài khoản?", "signupLink": "Đăng ký",
-    "forgotLink": "Quên mật khẩu?", "failed": "Đăng nhập thất bại"
+    "email": "Email",
+    "password8": "Mật khẩu (từ 8 ký tự)",
+    "submit": "Đăng nhập",
+    "submitBusy": "Đang đăng nhập…",
+    "noAccount": "Chưa có tài khoản?",
+    "signupLink": "Đăng ký",
+    "forgotLink": "Quên mật khẩu?",
+    "failed": "Đăng nhập thất bại"
   },
   "signup": {
-    "title": "Tạo tài khoản", "nickname": "Biệt danh (tuỳ chọn)",
+    "title": "Tạo tài khoản",
+    "nickname": "Biệt danh (tuỳ chọn)",
     "countryLabel": "Quốc gia cư trú",
     "countryHint": "Ngôn ngữ và tiền tệ tự cài đặt theo quốc gia. Có thể đổi bất cứ lúc nào trong Trang của tôi.",
-    "agreeStart": "Tôi đồng ý với ", "agreeTerms": "Điều khoản",
-    "agreeAnd": " và ", "agreePrivacy": "Chính sách bảo mật", "agreeEnd": ".",
+    "agreeStart": "Tôi đồng ý với ",
+    "agreeTerms": "Điều khoản",
+    "agreeAnd": " và ",
+    "agreePrivacy": "Chính sách bảo mật",
+    "agreeEnd": ".",
     "agreeRequired": "Vui lòng đồng ý Điều khoản và Chính sách bảo mật.",
-    "submit": "Đăng ký", "submitBusy": "Đang tạo…",
-    "hasAccount": "Đã có tài khoản?", "loginLink": "Đăng nhập", "failed": "Đăng ký thất bại"
+    "submit": "Đăng ký",
+    "submitBusy": "Đang tạo…",
+    "hasAccount": "Đã có tài khoản?",
+    "loginLink": "Đăng nhập",
+    "failed": "Đăng ký thất bại"
   },
   "forgot": {
-    "title": "Đặt lại mật khẩu", "intro": "Nhập email đã đăng ký, chúng tôi sẽ gửi liên kết.",
+    "title": "Đặt lại mật khẩu",
+    "intro": "Nhập email đã đăng ký, chúng tôi sẽ gửi liên kết.",
     "sent": "Nếu email tồn tại, hướng dẫn đã được gửi. Kiểm tra thư rác nếu chưa thấy. Liên kết có hiệu lực 1 giờ.",
-    "submit": "Gửi email đặt lại", "submitBusy": "Đang gửi…",
-    "backLogin": "Quay về đăng nhập", "backLoginLink": "Về trang đăng nhập"
+    "submit": "Gửi email đặt lại",
+    "submitBusy": "Đang gửi…",
+    "backLogin": "Quay về đăng nhập",
+    "backLoginLink": "Về trang đăng nhập"
   },
   "reset": {
-    "title": "Đặt mật khẩu mới", "intro": "Từ 8 ký tự trở lên.",
+    "title": "Đặt mật khẩu mới",
+    "intro": "Từ 8 ký tự trở lên.",
     "newPassword": "Mật khẩu mới",
-    "submit": "Đổi mật khẩu", "submitBusy": "Đang lưu…",
+    "submit": "Đổi mật khẩu",
+    "submitBusy": "Đang lưu…",
     "invalid": "Liên kết không hợp lệ",
     "invalidDesc": "Thiếu mã đặt lại. Hãy dùng lại liên kết trong email.",
     "requestAgain": "Gửi lại email đặt lại",
@@ -223,15 +284,32 @@
   "ledger": {
     "title": "Sổ chi tiêu của tôi",
     "todayHint": "Hôm nay {{date}} · từ từ và đều đặn",
-    "tabs": { "chat": "Trò chuyện", "calendar": "Lịch", "place": "Địa điểm", "places": "Địa điểm", "reflect": "Nhìn lại", "plan": "Kế hoạch", "balance": "Đối soát" },
+    "tabs": {
+      "chat": "Trò chuyện",
+      "calendar": "Lịch",
+      "place": "Địa điểm",
+      "places": "Địa điểm",
+      "reflect": "Nhìn lại",
+      "plan": "Kế hoạch",
+      "balance": "Đối soát"
+    },
     "stats": {
-      "thisMonthFlow": "Tháng này", "budget": "Ngân sách", "freeMoney": "Có thể tiêu", "setBudgetHint": "Đặt ngân sách hoặc thu nhập để hiển thị →",
-      "spent": "Đã chi", "upcoming": "Sắp tới", "dailyAvg": "TB ngày",
-      "monthSpent": "Tháng này", "monthUpcoming": "Sắp tới", "won": ""
+      "thisMonthFlow": "Tháng này",
+      "budget": "Ngân sách",
+      "freeMoney": "Có thể tiêu",
+      "setBudgetHint": "Đặt ngân sách hoặc thu nhập để hiển thị →",
+      "spent": "Đã chi",
+      "upcoming": "Sắp tới",
+      "dailyAvg": "TB ngày",
+      "monthSpent": "Tháng này",
+      "monthUpcoming": "Sắp tới",
+      "won": "₩"
     },
     "input": {
-      "placeholder": "Starbucks 80k…", "send": "Gửi",
-      "retry": "Bạn viết lại nhé?", "tryAgain": "Vui lòng thử lại.",
+      "placeholder": "Starbucks 80k…",
+      "send": "Gửi",
+      "retry": "Bạn viết lại nhé?",
+      "tryAgain": "Vui lòng thử lại.",
       "shortcuts": "Enter để gửi · Shift+Enter để xuống dòng",
       "guideButton": "Viết thế nào? Xem hướng dẫn"
     },
@@ -244,20 +322,27 @@
       "askRecurrenceEnd": "🔁 Hiểu là chi tiêu định kỳ. Kéo dài đến khi nào? vd: 2027-12-31 / 24 tháng / 5 năm"
     },
     "place": {
-      "title": "Bản đồ chi tiêu", "intro": "{{count}} địa điểm · chạm pin hoặc thẻ để xem bản đồ, ảnh, đánh giá",
+      "title": "Bản đồ chi tiêu",
+      "intro": "{{count}} địa điểm · chạm pin hoặc thẻ để xem bản đồ, ảnh, đánh giá",
       "frequent": "Hay lui tới",
       "emptyPins": "Chưa có pin. Chạm vào thẻ để chọn vị trí chính xác.",
       "pickLocation": "Chọn vị trí chính xác",
       "aiHint": "(AI đoán có thể sai, vì vậy không tự gắn pin.)",
-      "searchPlaceholder": "Gần {{name}}", "search": "Tìm", "searchBusy": "Đang tìm…",
-      "useMyLocationGps": "Dùng vị trí của tôi (GPS)", "moreAccurate": "Chính xác hơn (GPS)",
+      "searchPlaceholder": "Gần {{name}}",
+      "search": "Tìm",
+      "searchBusy": "Đang tìm…",
+      "useMyLocationGps": "Dùng vị trí của tôi (GPS)",
+      "moreAccurate": "Chính xác hơn (GPS)",
       "viewboxIp": "📍 Quanh {{label}} (±20km)",
       "viewboxGps": "📍 Quanh tôi (GPS, ±20km)",
       "viewboxNationwide": "🌐 Tìm toàn cầu",
       "viewboxDenied": "🌐 Tìm toàn cầu (đã từ chối vị trí)",
       "viewboxUnsupported": "🌐 Tìm toàn cầu (trình duyệt không hỗ trợ)",
       "noResults": "Không có kết quả. Đổi từ khoá hoặc để trống vị trí.",
-      "againGo": "Sẽ quay lại", "avoid": "Tránh", "normal": "Bình thường", "resetPin": "Chọn lại",
+      "againGo": "Sẽ quay lại",
+      "avoid": "Tránh",
+      "normal": "Bình thường",
+      "resetPin": "Chọn lại",
       "openInGoogleMaps": "Mở trong Google Maps",
       "mapsUnavailable": "Bản đồ tạm thời không khả dụng.",
       "tapMapToPickLocation": "Nhấn bản đồ để chọn vị trí chính xác",
@@ -266,46 +351,83 @@
       "rating": "{{n}}/5",
       "addReview": "+ Thêm ghi chú ngắn",
       "reviewPlaceholder": "Cảm nhận thế nào?",
-      "photo": "Ảnh", "photoUploading": "Đang tải lên…",
+      "photo": "Ảnh",
+      "photoUploading": "Đang tải lên…",
       "photoTotal": "{{count}} ảnh"
     },
     "categories": {
-      "식비": "Ăn uống", "카페/간식": "Cà phê & vặt", "쇼핑": "Mua sắm", "교통": "Di chuyển",
-      "주거/공과금": "Nhà & tiện ích", "건강/뷰티": "Sức khoẻ & làm đẹp", "여행/이벤트": "Du lịch & sự kiện",
-      "경조사/선물": "Quà & nghi lễ", "금융/대출": "Tài chính & khoản vay", "기타": "Khác"
+      "식비": "Ăn uống",
+      "카페/간식": "Cà phê & vặt",
+      "쇼핑": "Mua sắm",
+      "교통": "Di chuyển",
+      "주거/공과금": "Nhà & tiện ích",
+      "건강/뷰티": "Sức khoẻ & làm đẹp",
+      "여행/이벤트": "Du lịch & sự kiện",
+      "경조사/선물": "Quà & nghi lễ",
+      "금융/대출": "Tài chính & khoản vay",
+      "기타": "Khác"
     },
     "calendar": {
-      "weekday": { "sun": "CN", "mon": "T2", "tue": "T3", "wed": "T4", "thu": "T5", "fri": "T6", "sat": "T7" },
+      "weekday": {
+        "sun": "CN",
+        "mon": "T2",
+        "tue": "T3",
+        "wed": "T4",
+        "thu": "T5",
+        "fri": "T6",
+        "sat": "T7"
+      },
       "today": "Hôm nay",
       "noEntries": "Tháng này chưa có ghi chép",
       "noEntriesDay": "Không có ghi chép trong ngày này",
       "monthYear": "{{month}}/{{year}}",
-      "planned": "Sắp tới", "dayTotal": "Tổng {{amount}} →",
-      "viewGrid": "Lịch", "viewList": "Danh sách",
+      "planned": "Sắp tới",
+      "dayTotal": "Tổng {{amount}} →",
+      "viewGrid": "Lịch",
+      "viewList": "Danh sách",
       "openDayMonth": "{{day}}/{{month}}",
       "spentLine": "Đã chi {{spent}} · Sắp tới {{planned}}"
     },
     "reflect": {
-      "monthly": "Theo tháng", "annual": "Theo năm",
+      "monthly": "Theo tháng",
+      "annual": "Theo năm",
       "noteTitle": "Ghi chú của tôi",
       "noteHint": "Viết một lời hứa, nó sẽ hiện tự động trong tab Kế hoạch tháng sau",
       "empty": "Chưa có nhìn lại",
-      "achieved": "Đạt!", "missed": "Chưa đạt",
+      "achieved": "Đạt!",
+      "missed": "Chưa đạt",
       "aiCoachTitle": "Insight từ AI",
       "aiCoachSubtitle": "Nhìn tháng này một cách khách quan",
-      "aiAnalyzing": "Đang phân tích...", "aiRegenerate": "Tạo lại",
-      "aiStart": "Xem insight", "aiEmpty": "Bấm nút phía trên để bắt đầu",
-      "praise": "Điểm tốt", "concern": "Cần chú ý", "suggestion": "Đề xuất tháng tới",
+      "aiAnalyzing": "Đang phân tích...",
+      "aiRegenerate": "Tạo lại",
+      "aiStart": "Xem insight",
+      "aiEmpty": "Bấm nút phía trên để bắt đầu",
+      "praise": "Điểm tốt",
+      "concern": "Cần chú ý",
+      "suggestion": "Đề xuất tháng tới",
       "addToGoal": "Thêm vào lời hứa tháng sau",
       "monthChange": "So với tháng trước",
       "monthHeader": "Nhìn lại {{month}}/{{year}}",
       "monthTotal": "Tổng {{amount}}",
       "types": {
-        "regret":  { "label": "Tiếc nuối", "placeholder": "vd: tốn quá nhiều cho cà phê" },
-        "praise":  { "label": "Làm tốt",  "placeholder": "vd: dọn dẹp các gói đăng ký" },
-        "goal":    { "label": "Lời hứa",  "placeholder": "vd: cà phê dưới 500k" },
-        "insight": { "label": "Nhận ra", "placeholder": "vd: ăn ngoài nhiều thì cà phê cũng tăng" }
-      }
+        "regret": {
+          "label": "Tiếc nuối",
+          "placeholder": "vd: tốn quá nhiều cho cà phê"
+        },
+        "praise": {
+          "label": "Làm tốt",
+          "placeholder": "vd: dọn dẹp các gói đăng ký"
+        },
+        "goal": {
+          "label": "Lời hứa",
+          "placeholder": "vd: cà phê dưới 500k"
+        },
+        "insight": {
+          "label": "Nhận ra",
+          "placeholder": "vd: ăn ngoài nhiều thì cà phê cũng tăng"
+        }
+      },
+      "lastMonthLabel": "Tháng trước"
     },
     "balance": {
       "title": "Bảng cân đối",
@@ -320,9 +442,12 @@
       "netLine": "= Còn lại (Thu − Chi − Sắp tới)",
       "savingPossible": "Số có thể tiết kiệm",
       "needIncome": "Cần thêm thu nhập",
-      "spent": "Chi tiêu", "planned": "Sắp tới",
-      "saving": "Tiết kiệm", "savingRate": "Tỷ lệ tiết kiệm",
-      "modeCurrent": "Tháng này", "modeNext": "Tháng tới",
+      "spent": "Chi tiêu",
+      "planned": "Sắp tới",
+      "saving": "Tiết kiệm",
+      "savingRate": "Tỷ lệ tiết kiệm",
+      "modeCurrent": "Tháng này",
+      "modeNext": "Tháng tới",
       "healthyTip": "💡 20%+ là tỷ lệ tiết kiệm tốt"
     },
     "plan": {
@@ -330,7 +455,8 @@
       "lastMonthPledge": "Lời hứa tháng trước · tháng này giữ tiếp",
       "lastMonthSucceed": "Đã đạt tháng trước",
       "bigPictureTitle": "Bức tranh {{mode}}",
-      "modeCurrent": "tháng này", "modeNext": "tháng tới",
+      "modeCurrent": "tháng này",
+      "modeNext": "tháng tới",
       "bigPictureSubtitle": "Phác dòng tiền trước",
       "currentUsage": "Đã dùng",
       "plannedAmount": "Sắp tới",
@@ -368,26 +494,235 @@
       "moodAvoid": "Không quay lại"
     },
     "entryEdit": {
-      "name": "Tên", "amount": "Số tiền", "date": "Ngày", "category": "Phân loại",
-      "save": "Lưu", "cancel": "Huỷ",
+      "name": "Tên",
+      "amount": "Số tiền",
+      "date": "Ngày",
+      "category": "Phân loại",
+      "save": "Lưu",
+      "cancel": "Huỷ",
       "namePlaceholder": "vd: cơm trưa kimbap",
       "defaultName": "(không tên)",
       "deleteConfirm": "Xoá \"{{name}}\"?"
+    },
+    "monthSuffix": "{{month}}",
+    "todayTagline": "Hôm nay là {{month}}/{{day}} · từng bước một",
+    "receiptLabel": "Hóa đơn",
+    "receiptUploadTitle": "Đính kèm ảnh hóa đơn",
+    "guideTitle": "Thử viết theo cách này",
+    "actions": {
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
+    },
+    "moneyUnit": {
+      "tenK": "k",
+      "thousand": "k"
+    },
+    "inputGuide": {
+      "openButton": "Thử viết theo cách này",
+      "title": "Cách trò chuyện với sổ cái",
+      "subtitle": "Chỉ cần viết như cách bạn nói. AI sẽ tự nhận diện số tiền, danh mục, ngày tháng và địa điểm.",
+      "summaryTitle": "Tóm tắt 3 giây",
+      "summaryBody": "\"Cái gì, bao nhiêu tiền, (tùy chọn) khi nào / ở đâu\" — thế là đủ.",
+      "summaryExampleLabel": "Ví dụ",
+      "summaryExample": "hôm nay ở Starbucks Bucheon tôi tiêu 6500",
+      "section1Title": "Ghi một dòng",
+      "section2Title": "Ghi nhiều cùng lúc",
+      "section3Title": "Chỉ định ngày / giờ",
+      "section4Title": "Thêm địa điểm",
+      "section5Title": "Chi phí sắp tới (kế hoạch)",
+      "section6Title": "Hóa đơn / ảnh",
+      "section7Title": "Gợi ý danh mục",
+      "tabsTitle": "Nhiều hơn trò chuyện",
+      "tabsHint": "✏️ Sử dụng biểu tượng bút chì/thùng rác bên cạnh mỗi ghi chép để chỉnh sửa hoặc xóa riêng lẻ.",
+      "notAllowedTitle": "Những cách này không hoạt động",
+      "close": "Hiểu rồi, bắt đầu thôi",
+      "tabs": {
+        "calendar": "Lịch — nhấn một ngày để xem chi tiêu và kế hoạch của ngày hôm đó",
+        "places": "Địa điểm — các nơi bạn hay ghé thăm, trên bản đồ với ảnh",
+        "reflect": "Rückblick — ghi lại những chiến thắng, tiếc nuối và cam kết mỗi tháng",
+        "plan": "Kế hoạch — ghi chi phí sắp tới cho tháng sắp đến",
+        "balance": "Số dư — thu nhập, chi tiêu và tỷ lệ tiết kiệm một cách rõ ràng"
+      }
     }
   },
   "mypage": {
     "title": "Trang của tôi",
-    "tabs": { "general": "Chung", "billing": "Thanh toán", "privacy": "Riêng tư", "location": "Vị trí", "export": "Xuất dữ liệu" },
+    "tabs": {
+      "general": "Chung",
+      "billing": "Thanh toán",
+      "privacy": "Riêng tư",
+      "location": "Vị trí",
+      "export": "Xuất dữ liệu"
+    },
     "region": {
       "title": "Khu vực / Ngôn ngữ / Tiền tệ",
       "subtitle": "Đổi tiền tệ hiển thị và ngôn ngữ giao diện. Số liệu đã nhập không thay đổi.",
-      "country": "Quốc gia", "currency": "Tiền tệ", "language": "Ngôn ngữ",
+      "country": "Quốc gia",
+      "currency": "Tiền tệ",
+      "language": "Ngôn ngữ",
       "saved": "Đã lưu cài đặt khu vực.",
       "applyDefaults": "Dùng mặc định của quốc gia đã chọn"
+    },
+    "requireLogin": "Vui lòng đăng nhập để tiếp tục.",
+    "requireLoginCta": "Đăng nhập",
+    "account": {
+      "title": "Tài khoản",
+      "email": "Email",
+      "role": "Vai trò",
+      "admin": "Quản trị viên",
+      "user": "Thành viên"
+    },
+    "profile": {
+      "title": "Hồ sơ",
+      "name": "Tên",
+      "namePlaceholder": "Jane Doe",
+      "displayName": "Tên hiển thị",
+      "displayNamePlaceholder": "Money Keeper",
+      "monthlyIncome": "Thu nhập hàng tháng",
+      "monthlyBudget": "Ngân sách hàng tháng",
+      "save": "Lưu hồ sơ",
+      "saving": "Đang lưu…"
+    },
+    "password": {
+      "title": "Đổi mật khẩu",
+      "current": "Mật khẩu hiện tại",
+      "newPlaceholder": "Mật khẩu mới (tối thiểu 8 ký tự)",
+      "change": "Đổi mật khẩu",
+      "changing": "Đang đổi…",
+      "forgot": "Quên mật khẩu?",
+      "minLength": "Mật khẩu mới phải có ít nhất 8 ký tự.",
+      "changed": "Mật khẩu đã được thay đổi.",
+      "changeFailed": "Không thể đổi mật khẩu"
+    },
+    "toasts": {
+      "profileSaved": "Hồ sơ đã được lưu.",
+      "saveFailed": "Lưu thất bại"
+    },
+    "billing": {
+      "statusTitle": "Trạng thái thanh toán",
+      "tierPaid": "Premium",
+      "tierFreeTrial": "Miễn phí (dùng thử)",
+      "tierExpired": "Hết hạn",
+      "daysRemaining": "Còn {{n}} ngày",
+      "pastDue": "Thanh toán quá hạn",
+      "trialEndsAt": "Dùng thử miễn phí kết thúc",
+      "paidUntil": "Premium có hiệu lực đến",
+      "price": "Giá Premium",
+      "perMonth": "/ tháng",
+      "cardOnFile": "Thẻ đã lưu",
+      "changeCard": "Thay đổi phương thức thanh toán (đăng ký thẻ mới)",
+      "lastError": "Lỗi thanh toán lần cuối",
+      "freeTitle": "Miễn phí",
+      "freeFeature1": "1 tháng sử dụng đầy đủ sau khi đăng ký",
+      "freeFeature2": "Phân loại bằng AI · lịch · đánh giá",
+      "freeFeature3": "Đặt ghim và ghi chú",
+      "freeFeature4": "Xuất dữ liệu của tôi dưới định dạng JSON",
+      "paidTitle": "Premium",
+      "currentPlan": "Gói hiện tại",
+      "priceMonthlyText": "₩5.500 / tháng",
+      "priceYearlyText": "hoặc ₩50.000 / năm (tiết kiệm 24% · miễn phí 2 tháng)",
+      "paidFeature1": "Tất cả tính năng miễn phí",
+      "paidFeature2": "Tiếp tục truy cập sổ cái",
+      "paidFeature3": "Xuất Excel (.xlsx) hàng tháng · hàng năm",
+      "paidFeature4": "Hỗ trợ ưu tiên",
+      "betaButtonLabel": "Miễn phí trong beta",
+      "cancelButton": "Hủy",
+      "checkoutStart": "Bắt đầu thanh toán Premium",
+      "checkoutLoading": "Đang mở thanh toán…",
+      "planSelectionHint": "Chọn hàng tháng hoặc hàng năm trên màn hình tiếp theo.",
+      "tossLink": "Hoặc thanh toán với Toss (Thẻ Hàn Quốc, KRW)",
+      "lsConnected": "✅ Lemon Squeezy (MoR) đã kết nối — thanh toán thẻ toàn cầu/PayPal. VAT, hoàn tiền, hóa đơn được xử lý tự động.",
+      "tossAlsoActive": "Toss (Thẻ KRW tức thì) cũng đang hoạt động.",
+      "lsUnconfigured": "💡 Khóa Lemon Squeezy chưa được cấu hình, vì vậy thanh toán bị vô hiệu hóa. Khi LEMONSQUEEZY_API_KEY v.v. được đặt trên Render, luồng thanh toán sẽ kích hoạt tự động.",
+      "betaBannerTitle": "🎉 Miễn phí trong beta",
+      "betaBannerBody": "Tất cả tính năng hiện đang miễn phí, bao gồm xuất Excel và sổ cái đầy đủ. Các gói trả phí (₩5.500 / tháng · ₩50.000 / năm) và hệ thống thanh toán (Lemon Squeezy toàn cầu + Toss Hàn Quốc) đang ở chế độ thử nghiệm và chúng tôi sẽ thông báo riêng khi beta kết thúc.",
+      "loadFailed": "Không thể tải thông tin đăng ký.",
+      "returnHint": "Quay lại ứng dụng sau khi thanh toán — chúng tôi sẽ làm mới tự động.",
+      "betaActive": "Tất cả tính năng miễn phí trong giai đoạn beta.",
+      "betaModeNotice": "Tất cả tính năng miễn phí trong giai đoạn beta.",
+      "checkoutUnavailable": "Thanh toán chưa được bật.",
+      "checkoutError": "Có lỗi xảy ra khi mở thanh toán.",
+      "paymentComplete": "Thanh toán hoàn tất.",
+      "confirmFailed": "Không thể xác nhận thanh toán",
+      "paymentCancelled": "Đã hủy trên màn hình thanh toán.",
+      "widgetFailed": "Không thể mở cửa sổ thanh toán.",
+      "upgradeMockConfirm": "Nâng cấp lên gói Premium với giá {{price}} mỗi tháng?\n\n※ Cổng thanh toán chưa được kết nối trong môi trường quản trị viên.\nBản demo này sẽ chuyển đổi bạn ngay (không tính phí thực).",
+      "upgradedMock": "Đã chuyển sang gói Premium.",
+      "upgradeFailed": "Nâng cấp thất bại",
+      "cancelConfirm": "Hủy gói Premium?\n· Khóa thanh toán thẻ của bạn sẽ bị thu hồi ngay lập tức và sẽ không có khoản phí nào khác.\n· Bạn sẽ chuyển sang Miễn phí tự động khi kỳ thanh toán này kết thúc.",
+      "cancelled": "Đã xử lý hủy.",
+      "cancelFailed": "Hủy thất bại"
+    },
+    "privacy": {
+      "title": "Quyền riêng tư",
+      "locationOptInTitle": "Cho phép siêu dữ liệu vị trí",
+      "locationOptInBody": "Cho phép Claude sử dụng siêu dữ liệu vị trí gần đúng (thành phố / vùng) để cải thiện trải nghiệm sản phẩm. Không bao giờ sử dụng tọa độ chính xác — chỉ ước tính dựa trên IP.",
+      "learnMore": "Tìm hiểu thêm",
+      "activeNote": "✓ Hiện đang bật — được sử dụng để tự động gợi ý các địa điểm gần đó khi bạn ghi một mục.",
+      "inactiveNote": "○ Tắt — ước tính vị trí dựa trên IP không được sử dụng.",
+      "toggledOn": "Đã cho phép siêu dữ liệu vị trí.",
+      "toggledOff": "Đã tắt siêu dữ liệu vị trí."
+    },
+    "location": {
+      "title": "Vị trí",
+      "intro": "Khi bạn đính kèm một địa điểm vào mục sổ cái, các vị trí gần đó được gợi ý trước tiên dựa trên IP của bạn (di động / máy tính để bàn). Nếu kết quả không chính xác, bạn có thể tìm kiếm hoặc chọn trên bản đồ từ màn hình chi tiết địa điểm.",
+      "disabledNotice": "Siêu dữ liệu vị trí bị tắt. Cho phép nó trong tab Quyền riêng tư để bật ước tính tự động.",
+      "tempFailure": "Ước tính vị trí dựa trên IP tạm thời thất bại. Làm mới hoặc thử lại trong giây lát.",
+      "detectedIp": "IP được phát hiện",
+      "country": "Quốc gia",
+      "region": "Vùng / Tiểu bang",
+      "city": "Thành phố",
+      "coordinates": "Lat / Lng",
+      "ipLabel": "IP",
+      "dataSource": "Nguồn dữ liệu",
+      "fromCache": "Đã lưu (trong vòng 1 giờ)",
+      "fresh": "Vừa ước tính",
+      "manualEditHint": "Để chỉnh sửa thủ công, hãy sử dụng tìm kiếm hoặc chạm vào bản đồ từ màn hình chi tiết địa điểm của mỗi mục sổ cái."
+    },
+    "export": {
+      "xlsxTitle": "Xuất các mục sổ cái sang Excel",
+      "xlsxDesc": "Tải xuống dưới dạng .xlsx. Một sheet hàng tháng, hoặc 12 tháng hàng năm + sheet tóm tắt.",
+      "monthly": "Hàng tháng",
+      "monthlyDownload": "Tải xuống hàng tháng",
+      "annual": "Hàng năm",
+      "annualDownload": "Tải xuống hàng năm",
+      "paidOnlyNotice": "Xuất Excel có sẵn trên gói Premium. Nâng cấp từ tab Thanh toán để sử dụng ngay.",
+      "betaFreeNotice": "🎉 Xuất Excel miễn phí trong giai đoạn beta.",
+      "gdprTitle": "Tất cả dữ liệu (GDPR)",
+      "gdprDesc": "Tải xuống sổ cái + kế hoạch + đánh giá + siêu dữ liệu ảnh dưới dạng JSON. Luôn có sẵn trên bất kỳ gói nào.",
+      "gdprButton": "Tất cả dữ liệu (JSON)",
+      "trialExpired": "Giai đoạn dùng thử miễn phí của bạn đã hết. Vui lòng nâng cấp lên Premium.",
+      "downloadStarted": "Tải xuống Excel đã bắt đầu.",
+      "gdprStarted": "Tải xuống dữ liệu đã bắt đầu.",
+      "failed": "Xuất không thành công"
+    },
+    "dangerZone": {
+      "title": "Khu vực nguy hiểm",
+      "description": "Xóa tài khoản của bạn sẽ chặn đăng nhập ngay lập tức. Dữ liệu sổ cái được giữ trong một khoảng thời gian trước khi xóa vĩnh viễn.",
+      "deleteButton": "Xóa tài khoản",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa tài khoản của mình không?\n\n· Đăng nhập bị chặn ngay lập tức.\n· Dữ liệu sổ cái được giữ trong một khoảng thời gian trước khi xóa vĩnh viễn.\n· Nếu bạn cần xóa hoàn toàn ngay, hãy xuất dữ liệu của bạn trước và liên hệ với nhà cung cấp.",
+      "confirmEmailPrompt": "Nhập email của bạn để xác nhận xóa tài khoản.",
+      "emailMismatch": "Email không khớp. Thao tác đã bị hủy.",
+      "deleted": "Tài khoản đã bị xóa.",
+      "deleteFailed": "Không thể xóa tài khoản"
     }
   },
-  "appHeader": { "faq": "Hỏi đáp", "myAccount": "Tài khoản", "admin": "Admin", "logout": "Đăng xuất", "recurring": "Định kỳ", "menu": "Menu", "close": "Đóng" },
-  "bottomNav": { "home": "Trang chủ", "calendar": "Lịch", "recurring": "Định kỳ", "me": "Tôi", "label": "Điều hướng chính" },
+  "appHeader": {
+    "faq": "Hỏi đáp",
+    "myAccount": "Tài khoản",
+    "admin": "Quản trị",
+    "logout": "Đăng xuất",
+    "recurring": "Định kỳ",
+    "menu": "Menu",
+    "close": "Đóng"
+  },
+  "bottomNav": {
+    "home": "Trang chủ",
+    "calendar": "Lịch",
+    "recurring": "Định kỳ",
+    "me": "Tôi",
+    "label": "Điều hướng chính"
+  },
   "recurring": {
     "title": "Quản lý chi tiêu định kỳ",
     "backToLedger": "Về sổ chi tiêu",
@@ -407,10 +742,33 @@
     "confirmDelete": "Xóa quy tắc này? Mọi lần xuất hiện trong tương lai cũng biến mất.",
     "delete": "Xóa",
     "fromStartDate": "Tháng/ngày của ngày bắt đầu",
-    "placeholders": { "description": "vd: Lãi vay ngày 16" },
-    "headers": { "description": "Mô tả", "amount": "Số tiền", "category": "Danh mục", "recurrence": "Tần suất", "day": "Ngày lặp", "startDate": "Ngày bắt đầu", "until": "Ngày kết thúc (bắt buộc)" },
-    "frequency": { "none": "Không (một lần)", "monthly": "Hàng tháng", "weekly": "Hàng tuần", "yearly": "Hàng năm" },
-    "weekday": { "mon": "T2", "tue": "T3", "wed": "T4", "thu": "T5", "fri": "T6", "sat": "T7", "sun": "CN" },
+    "placeholders": {
+      "description": "vd: Lãi vay ngày 16"
+    },
+    "headers": {
+      "description": "Mô tả",
+      "amount": "Số tiền",
+      "category": "Danh mục",
+      "recurrence": "Tần suất",
+      "day": "Ngày lặp",
+      "startDate": "Ngày bắt đầu",
+      "until": "Ngày kết thúc (bắt buộc)"
+    },
+    "frequency": {
+      "none": "Không (một lần)",
+      "monthly": "Hàng tháng",
+      "weekly": "Hàng tuần",
+      "yearly": "Hàng năm"
+    },
+    "weekday": {
+      "mon": "T2",
+      "tue": "T3",
+      "wed": "T4",
+      "thu": "T5",
+      "fri": "T6",
+      "sat": "T7",
+      "sun": "CN"
+    },
     "validation": {
       "descriptionRequired": "Vui lòng nhập mô tả",
       "amountRequired": "Vui lòng nhập số tiền",
@@ -424,5 +782,256 @@
       "missingEndDateTitle": "{{count}} chi tiêu định kỳ thiếu ngày kết thúc.",
       "missingEndDateBody": "Nếu không có ngày kết thúc, lịch không thể hiển thị chính xác. Vui lòng điền cột \"Ngày kết thúc\" ở các hàng được đánh dấu."
     }
+  },
+  "pricing": {
+    "title": "Moa365 AI Ledger — Giá cả",
+    "subtitle": "Các tính năng cốt lõi vẫn miễn phí. Đi sâu hơn với Premium.",
+    "betaTitle": "Người dùng beta — Giảm 50% trong 12 tháng đầu",
+    "betaDesc": "Nếu bạn đăng ký trong beta, bạn sẽ được giảm 50% Premium trong 12 tháng đầu khi các gói trả phí được ra mắt. $1.99 / tháng hoặc $17.99 / năm.",
+    "freePlan": "Miễn phí",
+    "freePrice": "$0",
+    "freePriceNote": "Miễn phí mãi mãi, không cần thẻ",
+    "freeDesc": "30 lần nhập AI / tháng + đầy đủ kiến thức cơ bản sổ cái (lịch, danh mục, địa điểm, chế độ xem hàng tháng). Không có quảng cáo.",
+    "freeCta": "Bắt đầu miễn phí",
+    "paidPlan": "Premium",
+    "paidBadge": "Được đề xuất",
+    "paidPriceMonthly": "$3.99",
+    "perMonth": "/ tháng",
+    "paidPriceYearlyNote": "hoặc $35.99 / năm (tiết kiệm 24%) · giá tự động chuyển đổi theo quốc gia",
+    "paidDesc": "AI không giới hạn + huấn luyện viên đánh giá AI hàng tháng + OCR biên lai + xuất dữ liệu. Trải nghiệm Moa365 đầy đủ.",
+    "paidCta": "Bắt đầu Premium",
+    "paidCtaYearly": "Hàng năm ($35.99 · miễn phí 2 tháng)",
+    "planSelectionHint": "Bạn có thể chọn hàng tháng hoặc hàng năm trên màn hình tiếp theo.",
+    "returnHint": "Quay lại ứng dụng khi thanh toán hoàn tất — chúng tôi sẽ làm mới tự động.",
+    "betaActiveToast": "Các tính năng Premium miễn phí trong giai đoạn beta.",
+    "checkoutUnavailable": "Checkout chưa được bật. Chúng tôi sẽ thông báo ra mắt sớm.",
+    "checkoutError": "Chúng tôi không thể mở checkout. Vui lòng thử lại trong giây lát.",
+    "compareTitle": "Miễn phí vs Premium",
+    "compareFeature": "Tính năng",
+    "compare": {
+      "aiInput": {
+        "feature": "Nhập liệu AI chat",
+        "free": "30 / tháng",
+        "paid": "Không giới hạn"
+      },
+      "adFree": {
+        "feature": "Không có quảng cáo",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "Huấn luyện viên AI hàng tháng",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "OCR ảnh chứng từ",
+        "free": "5 / tháng",
+        "paid": "Không giới hạn"
+      },
+      "multilang": {
+        "feature": "9 ngôn ngữ + đa tiền tệ",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "Ghim địa điểm & đánh giá",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "Cảnh báo định kỳ & sắp tới",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Xuất Excel / CSV",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "Lịch sử sổ cái",
+        "free": "12 tháng",
+        "paid": "Không giới hạn"
+      },
+      "priority": {
+        "feature": "Hỗ trợ ưu tiên",
+        "free": "✗",
+        "paid": "✓"
+      }
+    },
+    "paymentTitle": "Phương thức thanh toán",
+    "paymentDesc": "Người dùng Hàn Quốc thanh toán qua Toss Payments; người dùng quốc tế thanh toán qua Paddle. Thông tin thẻ được lưu với nhà cung cấp thanh toán — Moa chỉ hiển thị 4 chữ số cuối cùng.",
+    "paymentKr": "🇰🇷 Hàn Quốc: Toss Payments (thẻ ghi nợ, thẻ tín dụng, chuyển khoản ngân hàng)",
+    "paymentIntl": "🌍 Quốc tế: Paddle (thẻ, PayPal, Apple Pay, Google Pay — sắp có)",
+    "cancelTitle": "Hủy & hoàn tiền",
+    "cancelDesc": "Hủy bất kỳ lúc nào trong Trang của tôi → Hóa đơn. Bạn giữ quyền truy cập cho đến hết kỳ thanh toán.",
+    "refundLink": "Xem chính sách hoàn tiền đầy đủ →",
+    "operatorTitle": "Thông tin nhà điều hành",
+    "operatorName": "Công ty",
+    "operatorCeo": "CEO",
+    "operatorBizNo": "Số đăng ký kinh doanh",
+    "operatorMailOrder": "Số kinh doanh bán hàng qua thư",
+    "operatorContact": "Hỗ trợ"
+  },
+  "refund": {
+    "title": "Chính sách hoàn tiền",
+    "subtitle": "Cách và khi nào hoàn tiền được cấp tại Moa AI Ledger.",
+    "section1Title": "1. Trong 7 ngày kể từ khi thanh toán (thời gian suy nghĩ)",
+    "section1Body": "Trong vòng 7 ngày kể từ khi thanh toán, bạn có thể hủy đăng ký theo Điều 17 của Luật Thương mại Điện tử Hàn Quốc và nhận hoàn tiền đầy đủ. Quyền này có thể bị hạn chế nếu đã sử dụng hơn 30% các tính năng trả tiền. (Giới hạn một lần cho mỗi thành viên.)",
+    "section2Title": "2. Sau 7 ngày — hoàn tiền theo tỷ lệ",
+    "section2Body": "Gói hàng tháng: hoàn tiền = số tiền đã trả − (ngày sử dụng × mức giá hàng ngày) − phí xử lý 10%.\n\nVí dụ: $2.99/tháng, 10 ngày sử dụng → $2.99 − (10 × $0.10) − $0.30 ≈ $1.69 hoàn tiền.\n\nGói hàng năm: số tháng sử dụng × mức giá hàng tháng đầy đủ (KHÔNG phải mức giá được giảm) sẽ được trừ từ khoản hoàn tiền.",
+    "section3Title": "3. Cách yêu cầu hoàn tiền",
+    "step1": "Trang của tôi → Thanh toán → nhấp \"Huỷ\" (dừng gia hạn tiếp theo).",
+    "step2Prefix": "Để yêu cầu hoàn tiền, hãy gửi email tới",
+    "step2Suffix": "với ID đơn hàng và email tài khoản của bạn.",
+    "step3": "Được xử lý trong 3–10 ngày làm việc theo chính sách của nhà cung cấp thanh toán (Toss / Paddle).",
+    "section4Title": "4. Những trường hợp không được hoàn tiền",
+    "notRefundable1": "Huỷ bị buộc do vi phạm Điều khoản hoặc tạm dừng tài khoản",
+    "notRefundable2": "Thanh toán được thực hiện bằng danh tính của người khác hoặc những khoản thanh toán được phát hiện là gian lận",
+    "section5Title": "5. Tranh chấp",
+    "section5Body": "Tranh chấp về chính sách này được điều chỉnh bởi pháp luật Hàn Quốc và được giải quyết tại tòa án được quy định bởi Luật Tố tụng Dân sự Hàn Quốc. Đối với người dùng quốc tế, chính sách hoàn tiền/tranh chấp của Paddle cũng có thể được áp dụng.",
+    "effective": "Có hiệu lực: 2026-05-21"
+  },
+  "terms": {
+    "title": "Điều khoản Dịch vụ",
+    "effectiveLabel": "Có hiệu lực",
+    "intro": "Những Điều khoản này điều chỉnh việc sử dụng Moa AI Ledger (\"Dịch vụ\") do ATM Store Co., Ltd. (\"Công ty\") điều hành. Đăng ký cho biết chấp nhận.\n\nLưu ý: Văn bản tiếng Anh này chỉ là bản tóm tắt. Phiên bản tiếng Hàn (한국어) là phiên bản có thẩm quyền và được ưu tiên trong bất kỳ xung đột diễn giải nào.",
+    "a1": {
+      "title": "Điều 1 (Mục đích)",
+      "body": "Những Điều khoản này quy định quyền, nghĩa vụ và trách nhiệm của Công ty và thành viên liên quan đến việc sử dụng Dịch vụ."
+    },
+    "a2": {
+      "title": "Điều 2 (Định nghĩa)",
+      "body": "1. \"Dịch vụ\" có nghĩa là ứng dụng web và di động Moa AI Ledger và các dịch vụ liên quan.\n2. \"Thành viên\" có nghĩa là một người đồng ý với những Điều khoản này và nhập vào hợp đồng sử dụng với Công ty.\n3. \"Tính năng AI\" có nghĩa là các chức năng gọi các mô hình AI bên ngoài (Anthropic Claude, v.v.) để phân loại, tóm tắt hoặc hỗ trợ.\n4. \"Nội dung\" có nghĩa là tất cả dữ liệu mà thành viên nhập vào hoặc tải lên (chi phí, ảnh, đánh giá, suy ngẫm)."
+    },
+    "a3": {
+      "title": "Điều 3 (Hiệu lực & sửa đổi)",
+      "body": "1. Những Điều khoản này có hiệu lực khi được đăng trên Dịch vụ.\n2. Công ty có thể sửa đổi những Điều khoản này theo các luật pháp hiện hành. Các sửa đổi quan trọng được thông báo ít nhất 30 ngày trước; các sửa đổi thông thường ít nhất 7 ngày trước.\n3. Tiếp tục sử dụng sau ngày có hiệu lực của sửa đổi cấu thành chấp nhận."
+    },
+    "a4": {
+      "title": "Điều 4 (Tạo tài khoản)",
+      "body": "1. Hợp đồng sử dụng được hình thành khi người nộp đơn chấp nhận những Điều khoản này và Công ty phê duyệt đơn.\n2. Công ty có thể từ chối các đơn sử dụng danh tính giả, dưới 14 tuổi mà không có sự đồng ý của người bảo hộ, hoặc có mục đích gian lận."
+    },
+    "a5": {
+      "title": "Điều 5 (Nghĩa vụ của thành viên)",
+      "body": "Thành viên không được: mạo danh người khác, đăng ký thông tin sai, sao chép hoặc phân phối nội dung Dịch vụ mà không có sự đồng ý, thu thập dữ liệu cá nhân của các thành viên khác, làm gián đoạn hoạt động Dịch vụ, hoặc vi phạm bất kỳ luật pháp nào."
+    },
+    "a6": {
+      "title": "Điều 6 (Nghĩa vụ của Công ty)",
+      "body": "Công ty nỗ lực cung cấp Dịch vụ ổn định, bảo vệ dữ liệu cá nhân và phản hồi các thắc mắc của thành viên nhanh chóng."
+    },
+    "a7": {
+      "title": "Điều 7 (Cung cấp Dịch vụ)",
+      "body": "Công ty cung cấp nhập sổ cái hỗ trợ AI, quản lý lịch, đánh giá địa điểm, huấn luyện AI hàng tháng, xuất dữ liệu, và hỗ trợ đa ngôn ngữ / đa tiền tệ. Dịch vụ chạy 24/7 nhưng có thể bị tạm dừng để bảo trì hoặc lực bất khả kháng."
+    },
+    "a8": {
+      "title": "Điều 8 (Thay đổi & tạm dừng Dịch vụ)",
+      "body": "Công ty có thể thay đổi hoặc tạm dừng bất kỳ phần nào của Dịch vụ. Thành viên sẽ được thông báo ít nhất 30 ngày trước, ngoại trừ những trường hợp khẩn cấp có thông báo sau."
+    },
+    "a9": {
+      "title": "Điều 9 (Dịch vụ trả phí & thanh toán định kỳ)",
+      "body": "1. Một số tính năng yêu cầu thanh toán. Giá cả và lợi ích được đăng trên trang Giá cả.\n2. Các gói đăng ký tự động gia hạn trừ khi huỷ. Một thông báo được gửi qua email 7 ngày trước khi tính phí tiếp theo.\n3. Thanh toán được xử lý bởi Toss Payments (Hàn Quốc) hoặc Paddle.com Market Limited (quốc tế) với tư cách là Người bán hàng ghi danh. Công ty không lưu trữ số thẻ hoặc ngày hết hạn."
+    },
+    "a10": {
+      "title": "Điều 10 (Rút khỏi & hoàn tiền)",
+      "body": "1. Thành viên có thể rút một gói đăng ký trong vòng 7 ngày sau khi thanh toán để được hoàn tiền đầy đủ, trừ khi đã sử dụng hơn 30% các tính năng trả phí.\n2. Hoàn tiền sau cửa sổ 7 ngày tuân theo Chính sách hoàn tiền riêng biệt.\n3. Hoàn tiền được cấp cho phương thức thanh toán ban đầu trong vòng 3–10 ngày làm việc."
+    },
+    "a11": {
+      "title": "Điều 11 (Tính năng AI)",
+      "body": "1. Dịch vụ truyền văn bản và hình ảnh do thành viên nhập vào các nhà cung cấp AI bên ngoài (Anthropic Claude, v.v.) để phân loại, OCR và huấn luyện.\n2. Dữ liệu được truyền được xoá các trường định danh (email, tên) và được yêu cầu không sử dụng cho đào tạo mô hình.\n3. Kết quả AI chỉ để tham khảo; Công ty không đảm bảo độ chính xác hoặc tính đầy đủ. Thành viên chịu trách nhiệm xem xét kết quả AI.\n4. Xem Chính sách Quyền riêng tư để biết đầy đủ chi tiết."
+    },
+    "a12": {
+      "title": "Điều 12 (Quyền sở hữu dữ liệu)",
+      "body": "Thành viên sở hữu Nội dung mà họ nhập vào. Công ty xử lý Nội dung chỉ để cung cấp Dịch vụ và không bao giờ chia sẻ với các bên thứ ba mà không có sự đồng ý rõ ràng. Thành viên có thể xuất dữ liệu của họ qua Trang của tôi → Xuất."
+    },
+    "a13": {
+      "title": "Điều 13 (Tài sản trí tuệ)",
+      "body": "Thiết kế, mã nguồn, nhãn hiệu, logo và nội dung do Công ty tạo được sở hữu bởi Công ty. Thành viên không được tái tạo hoặc phân phối thương mại nội dung đó mà không có sự đồng ý bằng văn bản trước đó."
+    },
+    "a14": {
+      "title": "Điều 14 (Hạn chế sử dụng & chấm dứt)",
+      "body": "Công ty có thể hạn chế sử dụng hoặc chấm dứt thành viên do vi phạm Điều khoản, gây hại cho người khác, làm gián đoạn có chủ ý của Dịch vụ, hoặc các hành động bất hợp pháp. Thành viên có thể nộp phản đối trong vòng 14 ngày kể từ khi nhận thông báo."
+    },
+    "a15": {
+      "title": "Điều 15 (Rút khỏi & xoá dữ liệu)",
+      "body": "Thành viên có thể rút bất cứ lúc nào. Khi rút, tất cả Nội dung sẽ bị xoá vĩnh viễn mà không có khả năng phục hồi. Xuất dữ liệu của bạn trước khi rút nếu cần. Các bản ghi được yêu cầu bởi luật pháp (lịch sử thanh toán, nhật ký tranh chấp) sẽ được lưu giữ trong thời kỳ được yêu cầu bởi luật pháp và sau đó bị hủy."
+    },
+    "a16": {
+      "title": "Điều 16 (Giới hạn trách nhiệm)",
+      "body": "Công ty không chịu trách nhiệm về: lực bất khả kháng, lỗi của thành viên, độ chính xác nội dung được nhập bởi thành viên, hoặc các quyết định tài chính dựa trên kết quả AI."
+    },
+    "a17": {
+      "title": "Điều 17 (Dữ liệu cá nhân)",
+      "body": "Xử lý dữ liệu cá nhân được điều chỉnh bởi Chính sách Quyền riêng tư riêng biệt."
+    },
+    "a18": {
+      "title": "Điều 18 (Pháp luật & thẩm quyền)",
+      "body": "Các Điều khoản này được điều chỉnh bởi luật pháp của Cộng hòa Hàn Quốc. Các tranh chấp được xét xử tại tòa án được quy định trong Luật Tố tụng Dân sự Hàn Quốc."
+    },
+    "companyInfoTitle": "Thông tin nhà cung cấp dịch vụ",
+    "companyName": "Công ty",
+    "companyCeo": "Giám đốc điều hành",
+    "companyBizNo": "Số đăng ký kinh doanh",
+    "companyMailOrder": "Số đăng ký kinh doanh bán hàng qua đơn đặt hàng",
+    "companyAddress": "Địa chỉ",
+    "companyContact": "Hỗ trợ"
+  },
+  "privacy": {
+    "title": "Chính sách Bảo mật",
+    "effectiveLabel": "Có hiệu lực từ",
+    "intro": "ATM Store Co., Ltd. (\"Công ty\") tôn trọng quyền riêng tư của thành viên và tuân thủ Luật Bảo vệ Thông tin Cá nhân Hàn Quốc, Luật Hỗ trợ Sử dụng Mạng Thông tin và Truyền thông, cũng như các luật pháp liên quan.\n\nChính sách Bảo mật này mô tả cách Công ty thu thập, sử dụng, lưu trữ và xóa dữ liệu cá nhân liên quan đến dịch vụ Moa AI Ledger.\n\nLưu ý: Đây là bản tóm tắt tiếng Anh. Phiên bản tiếng Hàn (한국어) là phiên bản chính thức và có hiệu lực trong trường hợp xung đột về cách diễn giải.",
+    "s1": {
+      "title": "1. Mục đích xử lý",
+      "body": "Công ty xử lý dữ liệu cá nhân cho các mục đích: xác thực thành viên và phòng chống gian lận; cung cấp dịch vụ (lưu trữ sổ cái, phân loại AI, hướng dẫn, lịch, ghim địa điểm); xử lý thanh toán cho các gói trả phí; hỗ trợ khách hàng; cải thiện dịch vụ thông qua phân tích ẩn danh; và tuân thủ pháp lý (thương mại điện tử, thuế)."
+    },
+    "s2": {
+      "title": "2. Danh mục dữ liệu cá nhân",
+      "body": "Bắt buộc (khi đăng ký): email, mật khẩu (hash một chiều), biệt danh, quốc gia / ngôn ngữ / tiền tệ.\n\nTùy chọn: ảnh hồ sơ, thu nhập hàng tháng / ngân sách, vị trí địa lý cuối cùng (nếu được phép).\n\nTạo ra trong quá trình sử dụng: bản ghi chi tiêu, bản ghi địa điểm (tên, địa chỉ, xếp hạng, đánh giá, ảnh), văn bản phản ánh hàng tháng, quy tắc chi tiêu định kỳ.\n\nTự động thu thập: IP, thông tin trình duyệt / thiết bị, dấu thời gian truy cập, trang đã truy cập, cookie và localStorage.\n\nThanh toán (cho người dùng trả phí): được thu thập trực tiếp bởi nhà cung cấp thanh toán; Công ty chỉ lưu trữ kết quả, thương hiệu thẻ và 4 chữ số cuối.\n\nCông ty không thu thập dữ liệu nhạy cảm (chủng tộc, tôn giáo, quan điểm chính trị, sức khỏe, tiền án v.v.) theo Bài 23 của PIPA."
+    },
+    "s3": {
+      "title": "3. Thời gian lưu giữ",
+      "body": "Dữ liệu cá nhân được lưu giữ cho đến khi mục đích xử lý đạt được. Theo luật pháp, những dữ liệu sau được lưu giữ riêng:\n\n① Dữ liệu đăng ký thành viên: xóa khi rút khỏi (hash chống gian lận được giữ 30 ngày)\n② Bản ghi thanh toán / giao dịch: 5 năm (Luật Thương mại điện tử §6)\n③ Bản ghi khiếu nại / tranh chấp của người tiêu dùng: 3 năm (Luật Thương mại điện tử §6)\n④ Bản ghi thu thập / xử lý thông tin tín dụng: 3 năm (Luật Thông tin Tín dụng §20)\n⑤ Bản ghi hiển thị / quảng cáo: 6 tháng (Luật Thương mại điện tử §6)\n⑥ Nhật ký truy cập và IP: 3 tháng (Luật Bảo mật Truyền thông §15-2)\n\nKhi rút khỏi, nội dung sổ cái (chi tiêu, ảnh, phản ánh) được xóa vĩnh viễn ngay lập tức mà không có khả năng khôi phục."
+    },
+    "s4": {
+      "title": "4. Cung cấp cho bên thứ ba",
+      "body": "Công ty không cung cấp dữ liệu cá nhân cho bên thứ ba theo mặc định. Ngoại lệ: (i) sự đồng ý trước của thành viên, (ii) yêu cầu pháp lý theo quy trình thích hợp, (iii) cung cấp dưới dạng tổng hợp không xác định được cho mục đích nghiên cứu / lợi ích công cộng."
+    },
+    "s5": {
+      "title": "5. Xử lý ngoài và chuyển giao biên giới",
+      "body": "Công ty thuê ngoài xử lý cho các bên nhận sau đây; một số liên quan đến chuyển giao biên giới. Các hợp đồng thuê ngoài theo PIPA §26 cấm sử dụng vượt quá mục đích thỏa thuận, yêu cầu biện pháp bảo vệ kỹ thuật / quản lý, và hạn chế thuê ngoài lại.\n\n[Bên nhận / Mục đích / Quốc gia / Các mục / Thời gian lưu giữ]\n\n① Anthropic, PBC (USA) — Phân loại AI / hướng dẫn — Văn bản sổ cái với các định danh được loại bỏ — Theo chính sách nhà cung cấp; Công ty yêu cầu không sử dụng để đào tạo mô hình\n② Resend, Inc. (USA) — Đặt lại mật khẩu / email hệ thống — Email nhận và nội dung tin nhắn — Xóa sau khi gửi\n③ Google LLC (USA) — Địa chỉ địa lý Google Maps — Tên / địa chỉ địa điểm (không có PII) — Xóa sau khi gửi\n④ Render Services, Inc. (USA) — Lưu trữ backend — Tất cả dữ liệu thành viên — Xóa khi rút khỏi\n⑤ Vercel Inc. (USA) — Lưu trữ frontend — Tài sản tĩnh và nhật ký truy cập — Theo chính sách Vercel, 30 ngày\n⑥ Toss Payments (Hàn Quốc) — Xử lý thanh toán trong nước — Thông tin thanh toán — 5 năm theo Luật Thương mại điện tử\n⑦ Paddle.com Market Limited (UK / USA, sắp tới) — Xử lý thanh toán quốc tế — Thông tin thanh toán — Theo chính sách nhà cung cấp\n⑧ Cloudflare, Inc. (USA, khi được bật) — Lưu trữ ảnh trên R2 — Ảnh do thành viên tải lên — Xóa khi rút khỏi\n\nThành viên có thể từ chối chuyển giao biên giới nhưng làm như vậy có thể hạn chế sử dụng Dịch vụ."
+    },
+    "s6": {
+      "title": "6. Quyền của chủ thể dữ liệu",
+      "body": "Thành viên có thể bất kỳ lúc nào: (i) xem dữ liệu cá nhân của họ, (ii) sửa / xóa lỗi, (iii) dừng xử lý, (iv) rút khỏi tư cách thành viên và yêu cầu xóa dữ liệu vĩnh viễn, (v) tải xuống dữ liệu của họ ở định dạng JSON có thể đọc bằng máy (tương tự Bài 20 GDPR).\n\nThực hiện quyền thông qua My Page → Cài đặt tài khoản, hoặc gửi email đến master@aitrend.kr. Công ty hoạt động ngay lập tức, tùy thuộc vào các giới hạn trong PIPA §35(4), §36(1), §37(2)."
+    },
+    "s7": {
+      "title": "7. Quy trình và phương pháp xóa",
+      "body": "Quy trình: dữ liệu được chuyển đến cơ sở dữ liệu riêng sau khi mục đích xử lý đạt được và được giữ theo chính sách nội bộ / luật pháp trước khi xóa.\nPhương pháp: các tệp điện tử được xóa vĩnh viễn bằng các phương pháp ngăn chặn khôi phục; tài liệu giấy được cắt nhỏ hoặc đốt cháy."
+    },
+    "s8": {
+      "title": "8. Biện pháp bảo mật",
+      "body": "Quản lý: kế hoạch quản lý nội bộ, đào tạo nhân viên định kỳ.\nKỹ thuật: mã hóa mật khẩu bcrypt một chiều, mã hóa HTTPS trong quá trình vận chuyển, kiểm soát truy cập, quy trình sao lưu / phục hồi.\nVật lý: tiêu chuẩn bảo mật vật lý trung tâm dữ liệu thông qua các nhà cung cấp đám mây (Render, Vercel, Cloudflare).\nXem xét: các bản vá bảo mật và kiểm tra lỗ hổng ít nhất hàng quý."
+    },
+    "s9": {
+      "title": "9. Cookie và thu thập tự động",
+      "body": "Mục đích: giữ bạn đăng nhập, ghi nhớ ngôn ngữ / tiền tệ, phân tích sử dụng ẩn danh.\nTùy chọn không sử dụng: chặn qua cài đặt trình duyệt (một số tính năng có thể bị hạn chế).\nCông ty không cài đặt cookie quảng cáo / theo dõi của bên thứ ba."
+    },
+    "s10": {
+      "title": "10. Tính năng AI — xử lý dữ liệu cá nhân",
+      "body": "Để cung cấp các tính năng AI, Công ty truyền văn bản và hình ảnh do thành viên nhập vào các nhà cung cấp AI bên ngoài (Anthropic Claude v.v.).\n\nTruyền: văn bản sổ cái và hình ảnh biên lai với email / tên được loại bỏ; văn bản phản ánh hàng tháng.\nMục đích: phân loại tự động, OCR, hướng dẫn hàng tháng, tạo thông tin chi tiết.\nLưu giữ: theo chính sách lưu giữ dữ liệu của nhà cung cấp và xóa tự động. Công ty rõ ràng yêu cầu nhà cung cấp không sử dụng dữ liệu này để đào tạo mô hình.\nGiới hạn: đầu ra AI chỉ để tham khảo và độ chính xác không được đảm bảo.\nTùy chọn không sử dụng: thành viên có thể chọn nhập thủ công thay vì sử dụng tính năng AI."
+    },
+    "s11": {
+      "title": "11. Viên chức Bảo vệ Dữ liệu",
+      "body": "Công ty bổ nhiệm một Viên chức Bảo vệ Dữ liệu để xử lý các khiếu nại bảo mật, thắc mắc và các biện pháp khắc phục. Thành viên có thể liên hệ với DPO và phòng ban dưới đây cho tất cả các vấn đề như vậy."
+    },
+    "s12": {
+      "title": "12. Thay đổi Chính sách này",
+      "body": "Chính sách Bảo mật này có thể được sửa đổi do các thay đổi trong luật pháp, chính sách hoặc bảo mật. Những thay đổi được thông báo trong Dịch vụ ít nhất 7 ngày trước, hoặc 30 ngày trước cho các thay đổi quan trọng ảnh hưởng đến quyền của thành viên."
+    },
+    "officerTitle": "Viên chức Bảo vệ Dữ liệu",
+    "officerName": "Tên",
+    "officerEmail": "Email",
+    "officerDesc": "Bạn cũng có thể tìm cách khắc phục tại: Ủy ban Trọng tài Tranh chấp Thông tin Cá nhân Hàn Quốc (1833-6972, kopico.go.kr), Trung tâm Báo cáo Vi phạm Thông tin Cá nhân (118, privacy.kisa.or.kr), Văn phòng Công tố viên Tối cao Điều tra Mạng (1301, spo.go.kr), Cục Mạng Cảnh sát Quốc gia Hàn Quốc (182, ecrm.cyber.go.kr)."
   }
 }

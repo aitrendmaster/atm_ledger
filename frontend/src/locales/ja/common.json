@@ -1,6 +1,10 @@
 {
-  "app": { "name": "Moa AI 家計簿" },
-  "lang": { "label": "言語" },
+  "app": {
+    "name": "Moa AI 家計簿"
+  },
+  "lang": {
+    "label": "言語"
+  },
   "common": {
     "or": "または",
     "cancel": "キャンセル",
@@ -15,7 +19,12 @@
     "delete": "削除",
     "confirm": "OK"
   },
-  "nav": { "myAccount": "アカウント", "faq": "FAQ", "admin": "Admin", "logout": "ログアウト" },
+  "nav": {
+    "myAccount": "アカウント",
+    "faq": "FAQ",
+    "admin": "Admin",
+    "logout": "ログアウト"
+  },
   "landing": {
     "badge": "ベータ無料 — AI 家計簿",
     "headline1": "チャットのように記録し、",
@@ -52,7 +61,7 @@
       "trust3": "ベータ無料"
     },
     "problem": {
-      "label": "Why Moa",
+      "label": "Moaを選ぶ理由",
       "title": "なぜみんな家計簿を諦めるのか？",
       "subtitle": "理由はだいたい同じ — タップが多い、見返せない、続かない。",
       "card1": {
@@ -150,13 +159,33 @@
       "point1": "週・月・年単位の繰り返しに対応",
       "point2": "終了日まで自動でカレンダーを埋める",
       "point3": "修正・一括保存で一度に整理",
-      "row1": { "name": "家賃", "amount": "80,000円", "cycle": "毎月25日", "next": "11/25" },
-      "row2": { "name": "Netflix", "amount": "1,490円", "cycle": "毎月28日", "next": "11/28" },
-      "row3": { "name": "医療保険", "amount": "4,200円", "cycle": "毎月30日", "next": "11/30" },
-      "row4": { "name": "ジム", "amount": "9,500円", "cycle": "毎月5日", "next": "12/05" }
+      "row1": {
+        "name": "家賃",
+        "amount": "80,000円",
+        "cycle": "毎月25日",
+        "next": "11/25"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "1,490円",
+        "cycle": "毎月28日",
+        "next": "11/28"
+      },
+      "row3": {
+        "name": "医療保険",
+        "amount": "4,200円",
+        "cycle": "毎月30日",
+        "next": "11/30"
+      },
+      "row4": {
+        "name": "ジム",
+        "amount": "9,500円",
+        "cycle": "毎月5日",
+        "next": "12/05"
+      }
     },
     "compare": {
-      "label": "Compare",
+      "label": "比較",
       "title": "Moa は何が違う？",
       "subtitle": "よくある家計簿アプリ・Excel と並べて比べてみました。",
       "colFeature": "機能",
@@ -196,39 +225,55 @@
       "trust1": "30秒登録",
       "trust2": "カード不要",
       "trust3": "ベータ無料"
-    }
+    },
+    "bizCeo": "代表者",
+    "bizNo": "事業登録番号",
+    "bizMailOrder": "通信販売",
+    "bizAddress": "住所"
   },
   "login": {
     "subtitle": "ログインして家計簿を始めましょう。",
-    "email": "メール", "password8": "パスワード (8文字以上)",
-    "submit": "ログイン", "submitBusy": "ログイン中…",
-    "noAccount": "アカウントがありませんか?", "signupLink": "登録",
-    "forgotLink": "パスワードをお忘れですか?", "failed": "ログイン失敗"
+    "email": "メール",
+    "password8": "パスワード (8文字以上)",
+    "submit": "ログイン",
+    "submitBusy": "ログイン中…",
+    "noAccount": "アカウントがありませんか?",
+    "signupLink": "登録",
+    "forgotLink": "パスワードをお忘れですか?",
+    "failed": "ログイン失敗"
   },
   "signup": {
     "title": "アカウント作成",
     "nickname": "ニックネーム (任意)",
     "countryLabel": "お住まいの国",
     "countryHint": "選んだ国に合わせて言語と通貨を自動設定します。マイページでいつでも変更できます。",
-    "agreeStart": "", "agreeTerms": "利用規約", "agreeAnd": " と ",
-    "agreePrivacy": "プライバシーポリシー", "agreeEnd": " に同意します。",
+    "agreeStart": "",
+    "agreeTerms": "利用規約",
+    "agreeAnd": " と ",
+    "agreePrivacy": "プライバシーポリシー",
+    "agreeEnd": " に同意します。",
     "agreeRequired": "利用規約とプライバシーポリシーに同意してください。",
-    "submit": "登録する", "submitBusy": "作成中…",
+    "submit": "登録する",
+    "submitBusy": "作成中…",
     "hasAccount": "既にアカウントをお持ちですか?",
-    "loginLink": "ログイン", "failed": "登録失敗"
+    "loginLink": "ログイン",
+    "failed": "登録失敗"
   },
   "forgot": {
     "title": "パスワード再設定",
     "intro": "登録したメールを入力すると再設定リンクを送ります。",
     "sent": "そのメールが登録済みなら、再設定のご案内を送信しました。届かない場合は迷惑メールをご確認ください。リンクは 1 時間有効です。",
-    "submit": "再設定メールを送る", "submitBusy": "送信中…",
-    "backLogin": "ログイン画面へ", "backLoginLink": "ログインに戻る"
+    "submit": "再設定メールを送る",
+    "submitBusy": "送信中…",
+    "backLogin": "ログイン画面へ",
+    "backLoginLink": "ログインに戻る"
   },
   "reset": {
     "title": "新しいパスワード設定",
     "intro": "8 文字以上で入力してください。",
     "newPassword": "新しいパスワード",
-    "submit": "パスワード変更", "submitBusy": "保存中…",
+    "submit": "パスワード変更",
+    "submitBusy": "保存中…",
     "invalid": "無効なリンク",
     "invalidDesc": "再設定トークンが見つかりません。メール内のリンクを再度使用してください。",
     "requestAgain": "再設定メールをもう一度送る",
@@ -239,15 +284,32 @@
   "ledger": {
     "title": "私の家計簿",
     "todayHint": "今日は {{date}} · ゆっくり、こつこつ",
-    "tabs": { "chat": "チャット", "calendar": "カレンダー", "place": "場所", "places": "場所", "reflect": "振り返り", "plan": "予定", "balance": "残高" },
+    "tabs": {
+      "chat": "チャット",
+      "calendar": "カレンダー",
+      "place": "場所",
+      "places": "場所",
+      "reflect": "振り返り",
+      "plan": "予定",
+      "balance": "残高"
+    },
     "stats": {
-      "thisMonthFlow": "今月の流れ", "budget": "予算", "freeMoney": "自由に使えるお金", "setBudgetHint": "予算または収入を設定すると表示されます →",
-      "spent": "使った", "upcoming": "予定", "dailyAvg": "1日平均",
-      "monthSpent": "今月", "monthUpcoming": "予定", "won": ""
+      "thisMonthFlow": "今月の流れ",
+      "budget": "予算",
+      "freeMoney": "自由に使えるお金",
+      "setBudgetHint": "予算または収入を設定すると表示されます →",
+      "spent": "使った",
+      "upcoming": "予定",
+      "dailyAvg": "1日平均",
+      "monthSpent": "今月",
+      "monthUpcoming": "予定",
+      "won": "₩"
     },
     "input": {
-      "placeholder": "スタバ 650…", "send": "送信",
-      "retry": "もう一度書いてくれる?", "tryAgain": "もう一度試してね。",
+      "placeholder": "スタバ 650…",
+      "send": "送信",
+      "retry": "もう一度書いてくれる?",
+      "tryAgain": "もう一度試してね。",
       "shortcuts": "Enter で送信 · Shift+Enter で改行",
       "guideButton": "どんな書き方ができる?ガイドを見る"
     },
@@ -260,20 +322,27 @@
       "askRecurrenceEnd": "🔁 繰り返し支出として認識しました。いつまで続きますか? 例: 2027-12-31 / 24ヶ月 / 5年間"
     },
     "place": {
-      "title": "支出マップ", "intro": "{{count}}か所 · ピンまたはカードを押すと地図・写真・レビュー",
+      "title": "支出マップ",
+      "intro": "{{count}}か所 · ピンまたはカードを押すと地図・写真・レビュー",
       "frequent": "よく行く場所",
       "emptyPins": "まだピンに表示する位置がありません。カードを押して正確な場所を選んでください。",
       "pickLocation": "正確な場所を選んでね",
       "aiHint": "(AI 推定の位置は不正確なことがあるので自動でピンは打ちません)",
-      "searchPlaceholder": "{{name}} の近く", "search": "検索", "searchBusy": "検索中…",
-      "useMyLocationGps": "現在地を使う (GPS)", "moreAccurate": "より正確に (GPS)",
+      "searchPlaceholder": "{{name}} の近く",
+      "search": "検索",
+      "searchBusy": "検索中…",
+      "useMyLocationGps": "現在地を使う (GPS)",
+      "moreAccurate": "より正確に (GPS)",
       "viewboxIp": "📍 {{label}} 周辺 (±20km)",
       "viewboxGps": "📍 現在地周辺 (GPS, ±20km)",
       "viewboxNationwide": "🌐 全体検索",
       "viewboxDenied": "🌐 全体検索 (位置情報拒否)",
       "viewboxUnsupported": "🌐 全体検索 (ブラウザ非対応)",
       "noResults": "結果なし。別のキーワードで検索するか、場所を空にしても OK です。",
-      "againGo": "また行く", "avoid": "行かない", "normal": "普通", "resetPin": "ピンを再設定",
+      "againGo": "また行く",
+      "avoid": "行かない",
+      "normal": "普通",
+      "resetPin": "ピンを再設定",
       "openInGoogleMaps": "Google Maps で開く",
       "mapsUnavailable": "地図機能は一時的に利用できません。",
       "tapMapToPickLocation": "地図をタップして正確な位置を選択",
@@ -287,12 +356,27 @@
       "photoTotal": "写真 {{count}}枚"
     },
     "categories": {
-      "식비": "食費", "카페/간식": "カフェ・おやつ", "쇼핑": "ショッピング", "교통": "交通",
-      "주거/공과금": "住居・光熱費", "건강/뷰티": "健康・美容", "여행/이벤트": "旅行・イベント",
-      "경조사/선물": "冠婚葬祭・贈り物", "금융/대출": "金融・ローン", "기타": "その他"
+      "식비": "食費",
+      "카페/간식": "カフェ・おやつ",
+      "쇼핑": "ショッピング",
+      "교통": "交通",
+      "주거/공과금": "住居・光熱費",
+      "건강/뷰티": "健康・美容",
+      "여행/이벤트": "旅行・イベント",
+      "경조사/선물": "冠婚葬祭・贈り物",
+      "금융/대출": "金融・ローン",
+      "기타": "その他"
     },
     "calendar": {
-      "weekday": { "sun": "日", "mon": "月", "tue": "火", "wed": "水", "thu": "木", "fri": "金", "sat": "土" },
+      "weekday": {
+        "sun": "日",
+        "mon": "月",
+        "tue": "火",
+        "wed": "水",
+        "thu": "木",
+        "fri": "金",
+        "sat": "土"
+      },
       "today": "今日",
       "noEntries": "今月はまだ記録がありません",
       "noEntriesDay": "この日は記録なし",
@@ -305,26 +389,45 @@
       "spentLine": "使用 {{spent}} · 予定 {{planned}}"
     },
     "reflect": {
-      "monthly": "月間振り返り", "annual": "年間振り返り",
+      "monthly": "月間振り返り",
+      "annual": "年間振り返り",
       "noteTitle": "私の振り返りノート",
       "noteHint": "約束を書くと来月の予定タブに自動的に表示されます",
       "empty": "まだ振り返りがありません",
-      "achieved": "達成!", "missed": "未達",
+      "achieved": "達成!",
+      "missed": "未達",
       "aiCoachTitle": "AI コーチの洞察",
       "aiCoachSubtitle": "客観的に1か月を振り返る",
-      "aiAnalyzing": "分析中...", "aiRegenerate": "再生成",
-      "aiStart": "洞察を見る", "aiEmpty": "上のボタンを押して分析開始",
-      "praise": "良かった点", "concern": "注意点", "suggestion": "来月の提案",
+      "aiAnalyzing": "分析中...",
+      "aiRegenerate": "再生成",
+      "aiStart": "洞察を見る",
+      "aiEmpty": "上のボタンを押して分析開始",
+      "praise": "良かった点",
+      "concern": "注意点",
+      "suggestion": "来月の提案",
       "addToGoal": "来月の約束に追加",
       "monthChange": "前月比",
       "monthHeader": "{{year}}年 {{month}}月の振り返り",
       "monthTotal": "合計 {{amount}}",
       "types": {
-        "regret":  { "label": "反省点", "placeholder": "例: カフェに使いすぎた" },
-        "praise":  { "label": "良かった点", "placeholder": "例: サブスクを整理した" },
-        "goal":    { "label": "来月の約束", "placeholder": "例: カフェを月 5,000 円以下に" },
-        "insight": { "label": "気づき", "placeholder": "例: 外食が多いとカフェも増える" }
-      }
+        "regret": {
+          "label": "反省点",
+          "placeholder": "例: カフェに使いすぎた"
+        },
+        "praise": {
+          "label": "良かった点",
+          "placeholder": "例: サブスクを整理した"
+        },
+        "goal": {
+          "label": "来月の約束",
+          "placeholder": "例: カフェを月 5,000 円以下に"
+        },
+        "insight": {
+          "label": "気づき",
+          "placeholder": "例: 外食が多いとカフェも増える"
+        }
+      },
+      "lastMonthLabel": "先月"
     },
     "balance": {
       "title": "残高表",
@@ -339,8 +442,12 @@
       "netLine": "= 純利益 (収入 − 支出 − 予定)",
       "savingPossible": "貯められる金額",
       "needIncome": "もう少し収入が必要",
-      "spent": "支出", "planned": "予定", "saving": "貯金", "savingRate": "貯蓄率",
-      "modeCurrent": "今月", "modeNext": "来月",
+      "spent": "支出",
+      "planned": "予定",
+      "saving": "貯金",
+      "savingRate": "貯蓄率",
+      "modeCurrent": "今月",
+      "modeNext": "来月",
       "healthyTip": "💡 20% 以上が健全な貯蓄率"
     },
     "plan": {
@@ -348,7 +455,8 @@
       "lastMonthPledge": "先月の誓い · 今月も守ろう",
       "lastMonthSucceed": "先月達成",
       "bigPictureTitle": "{{mode}} 全体像",
-      "modeCurrent": "今月", "modeNext": "来月",
+      "modeCurrent": "今月",
+      "modeNext": "来月",
       "bigPictureSubtitle": "流れを先取りで描こう",
       "currentUsage": "現在の使用",
       "plannedAmount": "予定",
@@ -386,26 +494,235 @@
       "moodAvoid": "行かない"
     },
     "entryEdit": {
-      "name": "名前", "amount": "金額", "date": "日付", "category": "分類",
-      "save": "保存", "cancel": "キャンセル",
+      "name": "名前",
+      "amount": "金額",
+      "date": "日付",
+      "category": "分類",
+      "save": "保存",
+      "cancel": "キャンセル",
       "namePlaceholder": "例: ランチ おにぎり",
       "defaultName": "(無名)",
       "deleteConfirm": "「{{name}}」を削除しますか?"
+    },
+    "monthSuffix": "{{month}}",
+    "todayTagline": "今日は{{month}}/{{day}} · 着実に進もう",
+    "receiptLabel": "レシート",
+    "receiptUploadTitle": "レシート写真を添付",
+    "guideTitle": "こんな風に書いてみてください",
+    "actions": {
+      "edit": "編集",
+      "delete": "削除"
+    },
+    "moneyUnit": {
+      "tenK": "万",
+      "thousand": "千"
+    },
+    "inputGuide": {
+      "openButton": "こんな風に書いてみてください",
+      "title": "家計簿とチャットする方法",
+      "subtitle": "話しかけるように書くだけ。AIが金額、カテゴリ、日付、場所を判断します。",
+      "summaryTitle": "3秒で要約",
+      "summaryBody": "「何を、いくら、（オプション）いつ/どこで」——これで充分です。",
+      "summaryExampleLabel": "例",
+      "summaryExample": "今日ブヘオンのスターバックスで6500使った",
+      "section1Title": "1行で記録",
+      "section2Title": "まとめて複数登録",
+      "section3Title": "日付・時間を指定",
+      "section4Title": "場所を含める",
+      "section5Title": "今後の支出（予定）",
+      "section6Title": "レシート・写真",
+      "section7Title": "カテゴリのヒント",
+      "tabsTitle": "チャット以上の機能",
+      "tabsHint": "✏️ 各項目の横にあるペンシル/ゴミ箱アイコンで個別に編集・削除できます。",
+      "notAllowedTitle": "これらは機能しません",
+      "close": "わかりました、始めます",
+      "tabs": {
+        "calendar": "カレンダー — 日付をタップしてその日の支出と予定を確認",
+        "places": "場所 — よく訪れる場所を地図と写真で表示",
+        "reflect": "振り返り — 毎月の成果、後悔、誓いを記録",
+        "plan": "計画 — 来月の予定支出を登録",
+        "balance": "残高 — 収入、支出、貯蓄率が一目瞭然"
+      }
     }
   },
   "mypage": {
     "title": "マイページ",
-    "tabs": { "general": "一般", "billing": "決済", "privacy": "プライバシー", "location": "位置", "export": "エクスポート" },
+    "tabs": {
+      "general": "一般",
+      "billing": "決済",
+      "privacy": "プライバシー",
+      "location": "位置",
+      "export": "エクスポート"
+    },
     "region": {
       "title": "地域 / 言語 / 通貨",
       "subtitle": "記録画面の通貨単位と UI 言語を変更します。既存の入力数値は変わりません。",
-      "country": "国", "currency": "通貨", "language": "言語",
+      "country": "国",
+      "currency": "通貨",
+      "language": "言語",
       "saved": "地域設定を保存しました。",
       "applyDefaults": "選択した国の既定値を適用"
+    },
+    "requireLogin": "続行するにはサインインしてください。",
+    "requireLoginCta": "サインイン",
+    "account": {
+      "title": "アカウント",
+      "email": "メールアドレス",
+      "role": "ロール",
+      "admin": "管理者",
+      "user": "メンバー"
+    },
+    "profile": {
+      "title": "プロフィール",
+      "name": "名前",
+      "namePlaceholder": "Jane Doe",
+      "displayName": "表示名",
+      "displayNamePlaceholder": "Money Keeper",
+      "monthlyIncome": "月収",
+      "monthlyBudget": "月間予算",
+      "save": "プロフィールを保存",
+      "saving": "保存中…"
+    },
+    "password": {
+      "title": "パスワード変更",
+      "current": "現在のパスワード",
+      "newPlaceholder": "新しいパスワード（8文字以上）",
+      "change": "パスワードを変更",
+      "changing": "変更中…",
+      "forgot": "パスワードをお忘れですか？",
+      "minLength": "新しいパスワードは8文字以上である必要があります。",
+      "changed": "パスワードが変更されました。",
+      "changeFailed": "パスワードの変更に失敗しました"
+    },
+    "toasts": {
+      "profileSaved": "プロフィールが保存されました。",
+      "saveFailed": "保存に失敗しました"
+    },
+    "billing": {
+      "statusTitle": "請求ステータス",
+      "tierPaid": "Premium",
+      "tierFreeTrial": "無料（トライアル）",
+      "tierExpired": "期限切れ",
+      "daysRemaining": "残り{{n}}日",
+      "pastDue": "支払期日を過ぎています",
+      "trialEndsAt": "無料トライアル終了日",
+      "paidUntil": "Premium有効期限",
+      "price": "Premium価格",
+      "perMonth": "／月",
+      "cardOnFile": "登録済みカード",
+      "changeCard": "支払方法を変更（新しいカードを登録）",
+      "lastError": "最後の支払いエラー",
+      "freeTitle": "無料",
+      "freeFeature1": "サインアップ後1ヶ月間のフル家計簿",
+      "freeFeature2": "AI自動分類・カレンダー・レビュー",
+      "freeFeature3": "ピンとメモの追加",
+      "freeFeature4": "データのJSON書き出し",
+      "paidTitle": "Premium",
+      "currentPlan": "現在のプラン",
+      "priceMonthlyText": "₩5,500 ／月",
+      "priceYearlyText": "または₩50,000 ／年（24%割引・2ヶ月分無料）",
+      "paidFeature1": "すべての無料機能",
+      "paidFeature2": "家計簿への継続アクセス",
+      "paidFeature3": "月間・年間Excel（.xlsx）書き出し",
+      "paidFeature4": "優先サポート",
+      "betaButtonLabel": "ベータ期間中は無料",
+      "cancelButton": "キャンセル",
+      "checkoutStart": "Premium チェックアウト開始",
+      "checkoutLoading": "チェックアウトを開いています…",
+      "planSelectionHint": "次の画面で月払いまたは年払いを選択してください。",
+      "tossLink": "または Toss で支払う（韓国カード、KRW）",
+      "lsConnected": "✅ Lemon Squeezy (MoR) 接続済み — グローバルカード/PayPal チェックアウト。VAT、返金、請求書は自動処理されます。",
+      "tossAlsoActive": "Toss（KRW 即時カード）もアクティブです。",
+      "lsUnconfigured": "💡 Lemon Squeezy キーが設定されていないため、チェックアウトは無効です。Render で LEMONSQUEEZY_API_KEY などが設定されると、チェックアウトフローが自動的に有効になります。",
+      "betaBannerTitle": "🎉 ベータ期間中は無料",
+      "betaBannerBody": "現在すべての機能が無料です。Excel エクスポートと完全な台帳を含みます。有料プラン（₩5,500/月・₩50,000/年）と請求システム（Lemon Squeezy グローバル + Toss 韓国）はテストモード中で、ベータ終了時に別途お知らせします。",
+      "loadFailed": "サブスクリプション情報を読み込めませんでした。",
+      "returnHint": "チェックアウト後にアプリに戻ってください — 自動的に更新されます。",
+      "betaActive": "ベータ期間中はすべての機能が無料です。",
+      "betaModeNotice": "ベータ期間中はすべての機能が無料です。",
+      "checkoutUnavailable": "チェックアウトはまだ有効になっていません。",
+      "checkoutError": "チェックアウトを開く際にエラーが発生しました。",
+      "paymentComplete": "支払い完了。",
+      "confirmFailed": "支払い確認に失敗しました",
+      "paymentCancelled": "チェックアウト画面でキャンセルされました。",
+      "widgetFailed": "支払いウィンドウを開けませんでした。",
+      "upgradeMockConfirm": "Premium プランへ月額 {{price}} でアップグレードしますか？\n\n※ 運用環境では支払いゲートウェイが接続されていません。\nこのデモは即座に切り替えます（実際の請求はありません）。",
+      "upgradedMock": "Premium プランに切り替えました。",
+      "upgradeFailed": "アップグレード失敗",
+      "cancelConfirm": "Premium プランをキャンセルしますか？\n· カード請求キーが即座に取り消され、以降の請求は行われません。\n· 今回の請求期間終了時に自動的に Free に移行します。",
+      "cancelled": "キャンセル処理完了。",
+      "cancelFailed": "キャンセル失敗"
+    },
+    "privacy": {
+      "title": "プライバシー",
+      "locationOptInTitle": "位置情報メタデータを許可",
+      "locationOptInBody": "Claude が製品体験向上のため、おおよその位置情報メタデータ（都市/地域）を使用することを許可します。正確な座標は使用されません — IP ベースの推定のみです。",
+      "learnMore": "詳細",
+      "activeNote": "✓ 現在オン — 記入時に近くの場所を自動提案するために使用されます。",
+      "inactiveNote": "○ オフ — IP ベースの位置情報推定は使用されません。",
+      "toggledOn": "位置情報メタデータを許可しました。",
+      "toggledOff": "位置情報メタデータを無効にしました。"
+    },
+    "location": {
+      "title": "位置情報",
+      "intro": "台帳エントリに場所を添付すると、近くの場所が IP ベースで最初に提案されます（モバイル/デスクトップ）。結果が不正確な場合は、場所詳細画面から検索またはマップで選択できます。",
+      "disabledNotice": "位置情報メタデータが無効です。プライバシータブで許可して自動推定を有効にしてください。",
+      "tempFailure": "IP ベースの位置情報推定が一時的に失敗しました。更新または少し待ってからもう一度試してください。",
+      "detectedIp": "検出された IP",
+      "country": "国",
+      "region": "地域/州",
+      "city": "都市",
+      "coordinates": "緯度/経度",
+      "ipLabel": "IP",
+      "dataSource": "データソース",
+      "fromCache": "キャッシュ（1h 以内）",
+      "fresh": "推定したばかり",
+      "manualEditHint": "手動編集の場合は、各台帳エントリの場所詳細画面から検索またはマップをタップしてください。"
+    },
+    "export": {
+      "xlsxTitle": "台帳をExcelにエクスポート",
+      "xlsxDesc": ".xlsx形式でダウンロード。月次は1シート、年次は12ヶ月+サマリーシート。",
+      "monthly": "月次",
+      "monthlyDownload": "月次をダウンロード",
+      "annual": "年次",
+      "annualDownload": "年次をダウンロード",
+      "paidOnlyNotice": "Excelエクスポートはプレミアムプランで利用可能です。請求タブからアップグレードするとすぐに使えます。",
+      "betaFreeNotice": "🎉 ベータ期間中、Excelエクスポートは無料です。",
+      "gdprTitle": "すべてのデータ (GDPR)",
+      "gdprDesc": "台帳、予定、レビュー、写真メタデータをJSON形式でダウンロード。すべてのプランで利用可能。",
+      "gdprButton": "すべてのデータ (JSON)",
+      "trialExpired": "無料トライアルの有効期限が切れています。プレミアムにアップグレードしてください。",
+      "downloadStarted": "Excelのダウンロードが始まりました。",
+      "gdprStarted": "データのダウンロードが始まりました。",
+      "failed": "エクスポートに失敗しました"
+    },
+    "dangerZone": {
+      "title": "危険ゾーン",
+      "description": "アカウントを削除するとサインインが直ちにブロックされます。台帳データは保持期間の後に完全に削除されます。",
+      "deleteButton": "アカウントを削除",
+      "deleteConfirm": "本当にアカウントを削除しますか？\n\n· サインインは直ちにブロックされます。\n· 台帳データは保持期間の後に完全に削除されます。\n· すぐに完全に削除する必要がある場合は、データをエクスポートしてからオペレーターにお問い合わせください。",
+      "confirmEmailPrompt": "アカウント削除を確認するメールアドレスを入力してください。",
+      "emailMismatch": "メールアドレスが一致しません。処理がキャンセルされました。",
+      "deleted": "アカウントが削除されました。",
+      "deleteFailed": "アカウントの削除に失敗しました"
     }
   },
-  "appHeader": { "faq": "FAQ", "myAccount": "アカウント", "admin": "Admin", "logout": "ログアウト", "recurring": "繰り返し支出", "menu": "メニュー", "close": "閉じる" },
-  "bottomNav": { "home": "ホーム", "calendar": "カレンダー", "recurring": "繰返し", "me": "マイ", "label": "メインナビゲーション" },
+  "appHeader": {
+    "faq": "FAQ",
+    "myAccount": "アカウント",
+    "admin": "Admin",
+    "logout": "ログアウト",
+    "recurring": "繰り返し支出",
+    "menu": "メニュー",
+    "close": "閉じる"
+  },
+  "bottomNav": {
+    "home": "ホーム",
+    "calendar": "カレンダー",
+    "recurring": "繰返し",
+    "me": "マイ",
+    "label": "メインナビゲーション"
+  },
   "recurring": {
     "title": "繰り返し支出の管理",
     "backToLedger": "家計簿へ",
@@ -425,10 +742,33 @@
     "confirmDelete": "この繰り返しルールを削除しますか? 将来の発生分もすべて消えます。",
     "delete": "削除",
     "fromStartDate": "開始日の月/日",
-    "placeholders": { "description": "例: 16日 ローン利息" },
-    "headers": { "description": "説明", "amount": "金額", "category": "カテゴリ", "recurrence": "頻度", "day": "繰返し日", "startDate": "開始日", "until": "終了日 (必須)" },
-    "frequency": { "none": "なし (1回)", "monthly": "毎月", "weekly": "毎週", "yearly": "毎年" },
-    "weekday": { "mon": "月", "tue": "火", "wed": "水", "thu": "木", "fri": "金", "sat": "土", "sun": "日" },
+    "placeholders": {
+      "description": "例: 16日 ローン利息"
+    },
+    "headers": {
+      "description": "説明",
+      "amount": "金額",
+      "category": "カテゴリ",
+      "recurrence": "頻度",
+      "day": "繰返し日",
+      "startDate": "開始日",
+      "until": "終了日 (必須)"
+    },
+    "frequency": {
+      "none": "なし (1回)",
+      "monthly": "毎月",
+      "weekly": "毎週",
+      "yearly": "毎年"
+    },
+    "weekday": {
+      "mon": "月",
+      "tue": "火",
+      "wed": "水",
+      "thu": "木",
+      "fri": "金",
+      "sat": "土",
+      "sun": "日"
+    },
     "validation": {
       "descriptionRequired": "説明を入力してください",
       "amountRequired": "金額を入力してください",
@@ -442,5 +782,256 @@
       "missingEndDateTitle": "{{count}}件の繰り返し支出に終了日がありません。",
       "missingEndDateBody": "終了日がないとカレンダーに正しく表示されません。下にハイライト表示された行の「終了日」を埋めてください。"
     }
+  },
+  "pricing": {
+    "title": "Moa AI Ledger 料金",
+    "subtitle": "コア機能は無料。プレミアムでさらに深く。",
+    "betaTitle": "ベータユーザー — 最初の12ヶ月50%割引",
+    "betaDesc": "ベータ期間中にサインアップした場合、有料プラン開始後の最初の12ヶ月間、プレミアムが50%割引になります。$1.99/月または$17.99/年。",
+    "freePlan": "Free",
+    "freePrice": "$0",
+    "freePriceNote": "永遠に無料、カード不要",
+    "freeDesc": "月30回のAI入力 + 完全な台帳の基本機能（カレンダー、カテゴリー、場所、月次ビュー）。広告なし。",
+    "freeCta": "無料で始める",
+    "paidPlan": "Premium",
+    "paidBadge": "おすすめ",
+    "paidPriceMonthly": "$3.99",
+    "perMonth": "/月",
+    "paidPriceYearlyNote": "または$35.99/年（24%割引）· 価格は国に応じて自動変換されます",
+    "paidDesc": "無制限AI + 月次AIレビューコーチ + レシートOCR + データエクスポート。Moaの完全な機能を体験。",
+    "paidCta": "プレミアムを開始",
+    "paidCtaYearly": "年次 ($35.99 · 2ヶ月無料)",
+    "planSelectionHint": "次の画面で月次または年次を選択できます。",
+    "returnHint": "支払い後、アプリに戻ってください。自動的に更新されます。",
+    "betaActiveToast": "ベータ期間中、プレミアム機能は無料です。",
+    "checkoutUnavailable": "チェックアウトはまだ有効になっていません。近日中にお知らせします。",
+    "checkoutError": "チェックアウトを開くことができませんでした。しばらく後にもう一度お試しください。",
+    "compareTitle": "FreeとPremiumの比較",
+    "compareFeature": "機能",
+    "compare": {
+      "aiInput": {
+        "feature": "AIチャット入力",
+        "free": "月30回",
+        "paid": "無制限"
+      },
+      "adFree": {
+        "feature": "広告なし",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "月次AIレビューコーチ",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "レシート写真OCR",
+        "free": "月5回",
+        "paid": "無制限"
+      },
+      "multilang": {
+        "feature": "9言語対応+多通貨",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "場所ピン&レビュー",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "定期&予定アラート",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Excel / CSV エクスポート",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "帳簿履歴",
+        "free": "12ヶ月",
+        "paid": "無制限"
+      },
+      "priority": {
+        "feature": "優先サポート",
+        "free": "✗",
+        "paid": "✓"
+      }
+    },
+    "paymentTitle": "お支払い方法",
+    "paymentDesc": "韓国ユーザーはToss Paymentsでお支払い、国際ユーザーはPaddleでお支払いいただけます。カード情報は決済事業者に保管され、Moaには最後の4桁のみが表示されます。",
+    "paymentKr": "🇰🇷 韓国: Toss Payments (デビット、クレジット、銀行振込)",
+    "paymentIntl": "🌍 国際: Paddle (カード、PayPal、Apple Pay、Google Pay ― 近日対応予定)",
+    "cancelTitle": "キャンセル&返金",
+    "cancelDesc": "マイページ → 請求からいつでもキャンセルできます。有料期間が終了するまでアクセスが続きます。",
+    "refundLink": "返金ポリシー全文を見る →",
+    "operatorTitle": "事業者情報",
+    "operatorName": "会社名",
+    "operatorCeo": "代表取締役",
+    "operatorBizNo": "事業登録番号",
+    "operatorMailOrder": "通信販売番号",
+    "operatorContact": "サポート"
+  },
+  "refund": {
+    "title": "返金ポリシー",
+    "subtitle": "Moa AI Ledgerにおける返金の方法とタイミング。",
+    "section1Title": "1. お支払い後7日以内 (冷却期間)",
+    "section1Body": "お支払い後7日以内に、韓国電子商取引法第17条に基づいてサブスクリプションをキャンセルし、全額返金を受けることができます。有料機能の30%以上を使用した場合、この権利は制限されることがあります。(会員1人につき1回限り)",
+    "section2Title": "2. 7日後 ― 日割り返金",
+    "section2Body": "月額プラン: 返金額 = お支払い額 − (使用日数 × 日額) − 10%手数料\n\n例: $2.99/月、10日使用 → $2.99 − (10 × $0.10) − $0.30 ≈ $1.69 返金\n\n年額プラン: 使用月数 × 月額全額(割引価格ではなく)が返金額から差引されます。",
+    "section3Title": "3. 返金をリクエストする方法",
+    "step1": "マイページ → 請求 → 「キャンセル」をクリック(次回更新を停止します)。",
+    "step2Prefix": "払い戻しを希望される場合は、",
+    "step2Suffix": "にメールでご連絡ください。その際、注文IDとアカウントのメールアドレスをお知らせください。",
+    "step3": "お支払い方法のプロバイダーのポリシー（Toss / Paddle）に従い、3～10営業日以内に処理されます。",
+    "section4Title": "4. 払い戻し対象外の場合",
+    "notRefundable1": "利用規約違反またはアカウント停止による強制キャンセル",
+    "notRefundable2": "他人名義での支払い、または詐欺検知システムで検出された支払い",
+    "section5Title": "5. 紛争解決",
+    "section5Body": "本ポリシーに関する紛争は韓国法に準拠し、韓国民事訴訟法で指定された裁判所で裁定されます。国際ユーザーの場合、Paddleの払い戻し・紛争ポリシーも適用される場合があります。",
+    "effective": "発効日：2026-05-21"
+  },
+  "terms": {
+    "title": "利用規約",
+    "effectiveLabel": "発効日",
+    "intro": "本規約は、ATM Store Co., Ltd.（「当社」）が運営するMoa AI Ledger（「本サービス」）のご利用を規律します。登録することにより、本規約に同意したものとみなされます。\n\n注記：本英文は要約です。韓国語版（한국어）が正本であり、解釈上の矛盾がある場合は韓国語版が優先します。",
+    "a1": {
+      "title": "第1条（目的）",
+      "body": "本規約は、当社と利用者が本サービスの利用に関して有する権利、義務及び責任を定めるものです。"
+    },
+    "a2": {
+      "title": "第2条（定義）",
+      "body": "1. 「サービス」とは、Moa AI Ledgerのウェブアプリケーションおよびモバイルアプリケーション、並びに関連するサービスを意味します。\n2. 「利用者」とは、本規約に同意し、当社と利用契約を締結した者を意味します。\n3. 「AI機能」とは、外部のAIモデル（Anthropic Claudeなど）を呼び出して、分類、要約、またはコーチングを行う機能を意味します。\n4. 「コンテンツ」とは、利用者が入力またはアップロードするすべてのデータ（支出、写真、レビュー、振り返り）を意味します。"
+    },
+    "a3": {
+      "title": "第3条（効力及び修正）",
+      "body": "1. 本規約は、本サービスに掲載された時点で効力を生じます。\n2. 当社は法令の範囲内で本規約を修正することができます。重大な修正については事前に最低30日間、通常の修正については最低7日間の予告を行います。\n3. 修正効力発生日以降の本サービス継続利用は、修正内容の同意と見なされます。"
+    },
+    "a4": {
+      "title": "第4条（アカウント作成）",
+      "body": "1. 利用契約は、申請者が本規約に同意し、当社が当該申請を承認した時点で成立します。\n2. 当社は、偽の身分で申請した者、14歳未満で保護者の同意がない者、詐欺目的がある者の申請を拒否することができます。"
+    },
+    "a5": {
+      "title": "第5条（利用者の義務）",
+      "body": "利用者は、他人になりすまし、虚偽の情報を登録し、当社の同意なく本サービスのコンテンツを複製・配布し、他の利用者の個人データを収集し、本サービス運営を妨害し、または法律に違反する行為をしてはいけません。"
+    },
+    "a6": {
+      "title": "第6条（当社の義務）",
+      "body": "当社は、安定したサービス提供、個人データの保護、及び利用者からの問い合わせへの迅速な対応に努めます。"
+    },
+    "a7": {
+      "title": "第7条（サービス提供）",
+      "body": "当社は、AI対応の帳簿入力、カレンダー管理、場所レビュー、月間AIコーチング、データエクスポート、および多言語・多通貨対応を提供します。本サービスは24時間365日運営されますが、メンテナンスまたは不可抗力により中断される場合があります。"
+    },
+    "a8": {
+      "title": "第8条（サービス変更及び中断）",
+      "body": "当社は、本サービスの一部またはすべてを変更または中断することができます。利用者には事前に最低30日間の予告を行いますが、緊急の場合は事後通知となる場合があります。"
+    },
+    "a9": {
+      "title": "第9条（有料サービス及び自動更新）",
+      "body": "1. 一部の機能は有料です。料金および特典はプライシングページに掲載されます。\n2. サブスクリプションは解約されない限り自動更新されます。次回課金の7日前にメール通知が送信されます。\n3. 支払いはToss Payments（韓国）またはPaddle.com Market Limited（国際）により、商人記録保有者として処理されます。当社はカード番号または有効期限を保存しません。"
+    },
+    "a10": {
+      "title": "第10条（解約及び払い戻し）",
+      "body": "1. 利用者は支払い日から7日以内に、有料機能の30%以上を使用していない限り、サブスクリプションを解約して全額返金を受けることができます。\n2. 7日間のウィンドウ後の払い戻しは、別途の払い戻しポリシーに従います。\n3. 払い戻しは3～10営業日以内に元のお支払い方法で処理されます。"
+    },
+    "a11": {
+      "title": "第11条（AI機能）",
+      "body": "1. 本サービスは、利用者が入力したテキストと画像を外部のAIプロバイダー（Anthropic Claudeなど）に送信して、分類、OCR、およびコーチングを行います。\n2. 送信されたデータは識別フィールド（メール、名前）が除去され、モデルトレーニングに使用されないことを要請します。\n3. AI出力は参考用途のみであり、当社は正確性または完全性を保証しません。利用者はAI結果を確認する責任があります。\n4. 詳細はプライバシーポリシーをご覧ください。"
+    },
+    "a12": {
+      "title": "第12条（データ所有権）",
+      "body": "利用者は自身が入力したコンテンツを所有します。当社はコンテンツの処理を本サービスの提供目的に限定し、明示的な同意なく第三者と共有することはありません。利用者は「マイページ」→「エクスポート」からデータをエクスポートできます。"
+    },
+    "a13": {
+      "title": "第13条（知的財産権）",
+      "body": "デザイン、ソースコード、商標、ロゴ、および当社が作成したコンテンツは当社に所有されます。利用者は事前の書面による同意なく、このようなコンテンツを商業的に複製または再配布してはいけません。"
+    },
+    "a14": {
+      "title": "第14条（利用制限及び終了）",
+      "body": "当社は、本規約違反、他者への危害、本サービス運営の故意的妨害、または違法行為に対して、利用制限またはメンバーシップ終了ができます。利用者は通知から14日以内に異議を申し立てることができます。"
+    },
+    "a15": {
+      "title": "第15条（解約及びデータ削除）",
+      "body": "利用者はいつでも解約できます。解約時に、すべてのコンテンツは完全に削除され、回復することはできません。必要に応じて解約前にデータをエクスポートしてください。法律で要求される記録（支払い履歴、紛争ログ）は法定期間保持され、その後破棄されます。"
+    },
+    "a16": {
+      "title": "第16条（責任制限）",
+      "body": "当社は、不可抗力、利用者の過失、利用者が入力したコンテンツの正確性、またはAI出力に基づく財務上の意思決定については責任を負いません。"
+    },
+    "a17": {
+      "title": "第17条（個人データ）",
+      "body": "個人データの処理は、別途のプライバシーポリシーに準拠します。"
+    },
+    "a18": {
+      "title": "第18条（準拠法及び管轄権）",
+      "body": "本規約は大韓民国の法律に準拠します。紛争は韓国民事訴訟法で指定された裁判所で裁定されます。"
+    },
+    "companyInfoTitle": "運営者情報",
+    "companyName": "当社",
+    "companyCeo": "代表取締役",
+    "companyBizNo": "事業登録番号",
+    "companyMailOrder": "通信販売業番号",
+    "companyAddress": "住所",
+    "companyContact": "サポート"
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "effectiveLabel": "発効日",
+    "intro": "ATM Store Co., Ltd.（以下「当社」）は、会員のプライバシーを尊重し、韓国個人情報保護法、情報通信ネットワーク利用促進法及び関連法令を遵守しています。\n\nこのプライバシーポリシーは、当社がMoa AI Ledgerサービスに関連して個人データをいかに収集、利用、保存、破棄するかについて説明しています。\n\n注：本英文は要約です。韓国語版（한국어）が正式版であり、解釈の相違がある場合は韓国語版が優先されます。",
+    "s1": {
+      "title": "1. 処理の目的",
+      "body": "当社は以下の目的で個人データを処理します：会員識別および不正防止、サービス提供（台帳保存、AI分類、コーチング、カレンダー、プレイスピン）、有料プラン向け決済処理、カスタマーサポート、匿名化分析によるサービス改善、および法令遵守（e-コマース、税務）。"
+    },
+    "s2": {
+      "title": "2. 個人データの分類",
+      "body": "必須（サインアップ時）：メール、パスワード（一方向ハッシュ）、ニックネーム、国／言語／通貨。\n\nオプション：プロフィール写真、月間収入／予算、最後の位置情報（同意時）。\n\n利用中に生成：支出記録、プレイス記録（名前、住所、評価、レビュー、写真）、月間振り返りテキスト、定期支出ルール。\n\n自動収集：IP、ブラウザ／デバイス情報、アクセスタイムスタンプ、訪問ページ、クッキーおよびlocalStorage。\n\n決済（有料ユーザー向け）：決済プロバイダーから直接収集。当社は結果、カードブランド、および下4桁のみを保存します。\n\n当社は個人情報保護法第23条に基づき機密データ（人種、宗教、政治的見解、健康、犯罪記録等）を収集しません。"
+    },
+    "s3": {
+      "title": "3. 保持期間",
+      "body": "個人データは処理目的が達成されるまで保持されます。法定により以下は別途保持されます：\n\n① 会員サインアップデータ：脱会時に削除（不正防止ハッシュは30日間保持）\n② 決済／取引記録：5年（e-コマース法§6）\n③ 消費者苦情／紛争記録：3年（e-コマース法§6）\n④ クレジット情報収集／処理記録：3年（クレジット情報法§20）\n⑤ 表示／広告記録：6ヶ月（e-コマース法§6）\n⑥ アクセスログおよびIP：3ヶ月（通信プライバシー法§15-2）\n\n脱会時、台帳内容（支出、写真、振り返り）は即座に恒久的に削除され、復旧不可となります。"
+    },
+    "s4": {
+      "title": "4. 第三者への提供",
+      "body": "当社は原則として個人データを第三者に提供しません。例外：（i）事前の会員同意、（ii）適切な手続きに従った法的要請、（iii）研究／公益目的の識別不可能な集計形式での提供。"
+    },
+    "s5": {
+      "title": "5. 委託処理およびクロスボーダー移転",
+      "body": "当社は以下の受託者に処理を委託しており、クロスボーダー移転を含みます。個人情報保護法§26に基づく委託契約は合意目的を超える使用を禁止し、技術的／管理的保護措置を要求し、再委託を制限します。\n\n[受託者／目的／国／項目／保持期間]\n\n① Anthropic, PBC（USA）— AI分類／コーチング — 識別子を削除した台帳テキスト — プロバイダーポリシーに準拠。当社はモデル学習使用をしないよう要請\n② Resend, Inc.（USA）— パスワード再設定／システムメール — 受信者メール和メッセージ本文 — 送信後削除\n③ Google LLC（USA）— Google Mapsジオコーディング — プレイス名／住所（PII除外）— 送信後削除\n④ Render Services, Inc.（USA）— バックエンドホスティング — 全会員データ — 脱会時削除\n⑤ Vercel Inc.（USA）— フロントエンドホスティング — 静的アセットおよびアクセスログ — Vercelポリシーに準拠、30日\n⑥ Toss Payments（韓国）— 国内決済処理 — 決済情報 — e-コマース法に準拠、5年\n⑦ Paddle.com Market Limited（UK / USA、近日対応）— 国際決済処理 — 決済情報 — プロバイダーポリシーに準拠\n⑧ Cloudflare, Inc.（USA、有効化時）— R2での写真保存 — 会員アップロード写真 — 脱会時削除\n\n会員はクロスボーダー移転を拒否できますが、これはサービス利用を制限することがあります。"
+    },
+    "s6": {
+      "title": "6. データ主体の権利",
+      "body": "会員はいつでも以下のことができます：（i）個人データを閲覧、（ii）誤りを修正／削除、（iii）処理を停止、（iv）会員を脱会し恒久的データ削除を要請、（v）機械可読JSON形式で自身のデータをダウンロード（GDPRの第20条に類似）。\n\n権利行使はマイページ→アカウント設定から、またはmaster@aitrend.krにメール送信で実行可能です。当社は個人情報保護法§35(4)、§36(1)、§37(2)の制限に従い遅滞なく対応します。"
+    },
+    "s7": {
+      "title": "7. 破棄手順と方法",
+      "body": "手順：処理目的が達成された後、データは別個のデータベースに移動し、内部ポリシー／法律に従い保持されてから破棄されます。\n方法：電子ファイルは復旧を防止する方法で恒久的に削除。紙文書はシュレッダー処理または焼却。"
+    },
+    "s8": {
+      "title": "8. セキュリティ対策",
+      "body": "管理的：内部管理計画、定期的なスタッフ訓練。\n技術的：bcrypt一方向パスワードハッシング、HTTPS転送時暗号化、アクセス制御、バックアップ／リカバリ手順。\n物理的：クラウドプロバイダー（Render、Vercel、Cloudflare）経由のデータセンター物理セキュリティ基準。\n審査：セキュリティパッチおよび脆弱性チェックは最低四半期ごと。"
+    },
+    "s9": {
+      "title": "9. クッキーおよび自動収集",
+      "body": "目的：ログイン状態を維持、言語／通貨を記憶、匿名化使用分析。\nオプトアウト：ブラウザ設定でブロック可能（一部機能は制限される場合があります）。\n当社はサードパーティ広告／トラッキングクッキーをインストールしません。"
+    },
+    "s10": {
+      "title": "10. AI機能 — 個人データ取扱い",
+      "body": "AI機能を提供するため、当社は会員入力テキストと画像を外部AIプロバイダー（AnthropicのClaudeなど）に送信します。\n\n送信内容：メール／名前を削除した台帳テキストとレシート画像、月間振り返りテキスト。\n目的：自動カテゴリ化、OCR、月間コーチング、インサイト生成。\n保持：プロバイダーのデータ保持ポリシーと自動破棄に準拠。当社は明示的にプロバイダーにモデル学習使用をしないよう要請。\n制限：AI出力は参考のみであり、精度は保証されません。\nオプトアウト：会員はAI機能の代わりに手動入力を選択可能。"
+    },
+    "s11": {
+      "title": "11. データ保護責任者",
+      "body": "当社はプライバシー苦情、質問および救済を処理するためデータ保護責任者を任命しています。会員はこれらすべての事項について以下のDPOおよび部門に連絡できます。"
+    },
+    "s12": {
+      "title": "12. 本ポリシーの変更",
+      "body": "このプライバシーポリシーは法律、ポリシーまたはセキュリティの変更により修正されることがあります。変更はサービス内で最低7日前に、または会員の権利に影響を与える重大な変更の場合は30日前に公表されます。"
+    },
+    "officerTitle": "データ保護責任者",
+    "officerName": "名前",
+    "officerEmail": "メール",
+    "officerDesc": "以下の機関でも救済を求めることができます：韓国個人情報紛争調停委員会（1833-6972、kopico.go.kr）、個人情報侵害申告センター（118、privacy.kisa.or.kr）、最高検察庁サイバー捜査（1301、spo.go.kr）、韓国警察庁サイバー局（182、ecrm.cyber.go.kr）。"
   }
 }

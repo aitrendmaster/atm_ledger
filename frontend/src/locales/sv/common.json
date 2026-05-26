@@ -1,0 +1,1074 @@
+{
+  "app": {
+    "name": "Moa AI Ledger"
+  },
+  "lang": {
+    "label": "Språk"
+  },
+  "common": {
+    "or": "eller",
+    "cancel": "Avbryt",
+    "save": "Spara",
+    "loading": "Läser in…",
+    "back": "Tillbaka",
+    "retry": "Försök igen senare.",
+    "home": "Hem",
+    "pricing": "Priser",
+    "refund": "Återbetalningspolicy",
+    "edit": "Redigera",
+    "delete": "Ta bort",
+    "confirm": "OK"
+  },
+  "nav": {
+    "myAccount": "Konto",
+    "faq": "Vanliga frågor",
+    "admin": "Admin",
+    "logout": "Logga ut"
+  },
+  "landing": {
+    "badge": "Gratis beta — AI Ledger",
+    "headline1": "Bara chatta,",
+    "headline2": "se tillbaka på din månad.",
+    "subtitle": "Skriv \"latte $5\" och du är klar. AI sorterar kategori, belopp och datum åt dig, och en månatlig coach hjälper dig att bygga bättre utgiftsmönster.",
+    "ctaPrimary": "Börja gratis",
+    "ctaLogin": "Logga in",
+    "ctaApp": "Öppna ledger →",
+    "uspHeading": "Privatekonomi, äntligen så enkelt.",
+    "uspSubtitle": "En minut per dag. Återupptäck din månad.",
+    "uspChatTitle": "Skriv en rad",
+    "uspChatDesc": "Skriv \"lunch $9\" naturligt och AI sorterar kategori, belopp och datum. Även kvittobilder.",
+    "uspCalendarTitle": "Kalender + kommande",
+    "uspCalendarDesc": "Faktiska och kommande utgifter på en skärm. Se vad du verkligen har kvar till nästa lönedag.",
+    "uspMapTitle": "Sätt pins & recensioner",
+    "uspMapDesc": "Lämna betyg, foton och anteckningar på platser du besöker. Se tydligt vart du ska återvända och vad du kan hoppa över.",
+    "uspCoachTitle": "Månatlig AI-coaching",
+    "uspCoachDesc": "Anteckna ångrar, vinningar och nästa månads löfte — AI-coachen jämför med förra månaden och ger varma insikter.",
+    "cta2Heading": "Börja idag och märk skillnaden denna månad.",
+    "cta2Subtitle": "Registrera dig på 30 sekunder. Inget kreditkort. Gratis under beta.",
+    "footerTagline": "Chatta din pengar. Få insikter.",
+    "footerTerms": "Villkor",
+    "footerPrivacy": "Integritet",
+    "bizCeo": "VD",
+    "bizNo": "Företagsreg.",
+    "bizMailOrder": "Postorder",
+    "bizAddress": "Adress",
+    "hero": {
+      "badge": "Gratis beta · AI ledger",
+      "headline1": "Den här gången,",
+      "headline2": "ledgern som håller.",
+      "subtitle": "Inga kalkylark. Inga kvitton. Bara skriv \"latte $5\" och Moa ordnar det, sedan går den genom din månad tillsammans med dig.",
+      "ctaPrimary": "Börja gratis",
+      "ctaLogin": "Logga in",
+      "ctaApp": "Öppna huvudbok →",
+      "trust1": "30-sec registrering",
+      "trust2": "Inget kort",
+      "trust3": "Gratis beta"
+    },
+    "problem": {
+      "label": "Varför Moa",
+      "title": "Varför ger alla upp på budgetering?",
+      "subtitle": "De flesta appar slutar på samma sätt — för många knapptryckningar, ingen insikt, ingen rytm.",
+      "card1": {
+        "quote": "Välj kategori, skriv beloppet, sätt datum — tre tryck för varje kaffe. Jag höll i en vecka.",
+        "meta": "27, kontorsarbetare · senaste app: 1 vecka"
+      },
+      "card2": {
+        "quote": "Vid månadsslutet ser jag bara ett vägg av siffror. Ingen aning om vad jag faktiskt ska göra nästa månad.",
+        "meta": "33, frilansare · kalkylblad"
+      },
+      "card3": {
+        "quote": "Jag loggar allt, men en månad senare är det borta. Jag har aldrig tittat tillbaka en enda gång.",
+        "meta": "29, förälder · 3 budgeteringsappar testade"
+      }
+    },
+    "feature1": {
+      "label": "Funktion 01 · Chatinmatning",
+      "title": "Sluta trycka på kategorier. Bara skriv.",
+      "desc": "Kasta en mening till Moa på det sätt du redan tänker. AI bryter ut kategori, belopp, datum och plats.",
+      "point1": "Naturligt språk som \"lunch $9\" fungerar",
+      "point2": "Ladda upp ett kvitto — automatiskt tolkad",
+      "point3": "Ett tryck för att fixa om det blir fel",
+      "demoUser": "Latte på Starbucks, $5.20",
+      "demoAi": "Loggat! Du har spenderat $32 på kaféer denna månad — lite högre än vanligt :)",
+      "demoPlaceholder": "Berätta vad du spenderade idag…",
+      "tagCafe": "Kafé",
+      "tagAmount": "$5.20",
+      "tagPlace": "Starbucks"
+    },
+    "feature2": {
+      "label": "Funktion 02 · Kalender",
+      "title": "Verkligt + kommande på en skärm.",
+      "desc": "Hyra, prenumerationer, vad som helst återkommande — redan reflekterat. Se exakt vad som finns kvar till lönedagen.",
+      "point1": "Verkligt och kommande färgkodade",
+      "point2": "Automatiskt beräknad saldo till nästa löndag",
+      "point3": "Återkommande poster fyller kalendern automatiskt",
+      "month": "November",
+      "upcoming1": "Hyra",
+      "amount1": "$1,400",
+      "upcoming2": "Netflix",
+      "amount2": "$15.49",
+      "upcoming3": "Försäkring",
+      "amount3": "$48"
+    },
+    "feature3": {
+      "label": "Funktion 03 · Dagdetalj",
+      "title": "En dag, sorterad tydligt.",
+      "desc": "Se en dag uppdelad efter kategori, plats och anteckning. Var dina pengar läcker blir uppenbart.",
+      "point1": "9 fasta kategorier — kafé, mat, transport och mer",
+      "point2": "Automatisk platsdetektering med betyg och anteckningar",
+      "point3": "Bifoga foton för kvitton eller föremål",
+      "dateLabel": "Mån, nov 17",
+      "total": "$28.40"
+    },
+    "feature4": {
+      "label": "Funktion 04 · Platser",
+      "title": "Kartlägg dina favoriter. Hoppa över resten.",
+      "desc": "Betygsätt och kommentera platser du besöker — din nästa huvudbok använder det automatiskt. Vanliga ställen, allt på en vy.",
+      "point1": "Google Maps — markörer och foton",
+      "point2": "\"Returnera / Hoppa över\"-taggar från dina betyg",
+      "point3": "Automatiskt summerade besök och totaler"
+    },
+    "feature5": {
+      "label": "Funktion 05 · AI-coaching",
+      "title": "En varm AI-coach, varje månad.",
+      "desc": "Logga vinster, ångrar och nästa månads löften. Moa jämför med förra månaden och svarar med en väns röst.",
+      "point1": "Jämför automatiskt månatliga totaler & kategorier",
+      "point2": "En \"du gör det bra\"-ton, inte gnäll",
+      "point3": "En konkret åtgärd att prova nästa månad",
+      "messageTitle": "Moa dömer inte.",
+      "messageSub": "Den stänger månaden som en vän skulle — \"tack för att du loggade denna månad också.\"",
+      "monthLabel": "Oktober-sammanfattning",
+      "total": "$1,284.50",
+      "strength": "Kafékostnaderna sjönk 18% jämfört med förra månaden. Bra jobbat!",
+      "weakness": "Mat var 32% högre än vanligt — mer äta ute.",
+      "advice": "Prova en veckovis hemlagaddag. Ungefär $120 i besparingar."
+    },
+    "feature6": {
+      "label": "Funktion 06 · Balans",
+      "title": "Inkomst − utgifter − sparande = vad som är verkligen ditt.",
+      "desc": "Avsätt fasta kostnader och sparande först. Det som blir över är vad du verkligen kan spendera.",
+      "point1": "Inkomst, utgifter och sparande i en tabell",
+      "point2": "En rad \"fritt att spendera\"-sammanfattning",
+      "point3": "Automatisk överföring varje månad",
+      "monthLabel": "November-balans",
+      "income": "$3,200",
+      "spent": "$1,840",
+      "saved": "$600",
+      "free": "$760"
+    },
+    "feature7": {
+      "label": "Funktion 07 · Återkommande",
+      "title": "Ställ in en gång. Klart tills slutdatumet.",
+      "desc": "Hyra, prenumerationer, försäkringar — registrera dem en gång och de fyller din kalender fram till slutdatumet.",
+      "point1": "Vecko-, månads- och årscykler",
+      "point2": "Fyller automatiskt kalendern till slutdatumet",
+      "point3": "Spara redigeringar i bulk på en gång",
+      "row1": {
+        "name": "Hyra",
+        "amount": "$1,400",
+        "cycle": "25:e månadsvis",
+        "next": "Nov 25"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "$15.49",
+        "cycle": "28:e månadsvis",
+        "next": "Nov 28"
+      },
+      "row3": {
+        "name": "Försäkring",
+        "amount": "$48",
+        "cycle": "30:e månadsvis",
+        "next": "Nov 30"
+      },
+      "row4": {
+        "name": "Gym",
+        "amount": "$95",
+        "cycle": "5:e månadsvis",
+        "next": "Dec 5"
+      }
+    },
+    "compare": {
+      "label": "Jämför",
+      "title": "Vad gör Moa annorlunda?",
+      "subtitle": "Jämfört med typiska budgetappar och kalkylblad.",
+      "colFeature": "Funktion",
+      "colOther": "Typisk app",
+      "colExcel": "Kalkylblad",
+      "row1": "Chatinmatning på en rad",
+      "row2": "Automatisk kategorisering",
+      "row3": "Månatlig AI-coaching",
+      "row4": "Kommande + kalender",
+      "row5": "Auto-plats & recensioner",
+      "row6": "Återkommande till slutdatum",
+      "row7": "9 språk från början",
+      "row8": "Excel-export"
+    },
+    "target": {
+      "label": "För dig",
+      "title": "Människor som älskar Moa.",
+      "persona1": {
+        "emoji": "💼",
+        "name": "Den envisiga budgetören",
+        "desc": "Du har testat 3+ appar och slutat på var och en efter en vecka. Enkelt inmatning är vad som får dig att stanna."
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "Tidigt i karriären",
+        "desc": "Din lön kommer in och försvinner. AI-coachen hjälper dig förstå din månad."
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "Bor eller reser utomlands",
+        "desc": "Flera valutor och språk. Moa talar 9 — logga naturligt på båda sätten."
+      }
+    },
+    "cta2": {
+      "title": "Börja innan månaden slutar.",
+      "subtitle": "30-sekunders registrering, inget kort på fil, gratis under betaversion.",
+      "trust1": "30 sek registrering",
+      "trust2": "Inget kort",
+      "trust3": "Gratis beta"
+    }
+  },
+  "login": {
+    "subtitle": "Logga in och börja din huvudbok.",
+    "email": "E-post",
+    "password8": "Lösenord (8+ tecken)",
+    "submit": "Logga in",
+    "submitBusy": "Loggar in…",
+    "noAccount": "Inget konto?",
+    "signupLink": "Registrera dig",
+    "forgotLink": "Glömt lösenord?",
+    "failed": "Inloggning misslyckades"
+  },
+  "signup": {
+    "title": "Skapa konto",
+    "nickname": "Smeknamn (valfritt)",
+    "countryLabel": "Bosättningsland",
+    "countryHint": "Språk och valuta ställs in automatiskt från ditt land. Du kan ändra dem när som helst på Min sida.",
+    "agreeStart": "Jag godkänner ",
+    "agreeTerms": "Användarvillkoren",
+    "agreeAnd": " och ",
+    "agreePrivacy": "Sekretesspolicy",
+    "agreeEnd": ".",
+    "agreeRequired": "Vänligen godkänn användarvillkoren och sekretesspolicyn.",
+    "submit": "Registrera dig",
+    "submitBusy": "Registrerar…",
+    "hasAccount": "Har du redan ett konto?",
+    "loginLink": "Logga in",
+    "failed": "Registreringen misslyckades"
+  },
+  "forgot": {
+    "title": "Återställ lösenord",
+    "intro": "Ange e-postadressen du registrerade dig med så skickar vi en återställningslänk.",
+    "sent": "Om e-postadressen är registrerad har vi skickat en länk för lösenordsåterställning. Kontrollera din skräppostmapp om du inte ser den. Länken är giltig i 1 timme.",
+    "submit": "Skicka återställningsmail",
+    "submitBusy": "Skickar…",
+    "backLogin": "Tillbaka till inloggning",
+    "backLoginLink": "Tillbaka till inloggning"
+  },
+  "reset": {
+    "title": "Ange nytt lösenord",
+    "intro": "Använd minst 8 tecken.",
+    "newPassword": "Nytt lösenord",
+    "submit": "Ändra lösenord",
+    "submitBusy": "Ändrar…",
+    "invalid": "Ogiltig länk",
+    "invalidDesc": "Ingen återställningstoken hittades. Använd länken från e-postmeddelandet.",
+    "requestAgain": "Begär återställningsmail igen",
+    "minLength": "Lösenordet måste vara minst 8 tecken.",
+    "success": "Lösenord ändrat. Logga in igen.",
+    "failed": "Återställningen misslyckades"
+  },
+  "ledger": {
+    "title": "Min huvudbok",
+    "todayHint": "Idag är {{date}} · långsamt och stadigt",
+    "monthSuffix": "{{month}}",
+    "todayTagline": "Idag är {{month}}/{{day}} · långsamt och stadigt",
+    "receiptLabel": "Kvitto",
+    "receiptUploadTitle": "Bifoga kvittofoto",
+    "guideTitle": "Prova att skriva på det här sättet",
+    "actions": {
+      "edit": "Redigera",
+      "delete": "Ta bort"
+    },
+    "moneyUnit": {
+      "tenK": "k",
+      "thousand": "k"
+    },
+    "tabs": {
+      "chat": "Chatt",
+      "calendar": "Kalender",
+      "places": "Platser",
+      "reflect": "Granskning",
+      "plan": "Plan",
+      "balance": "Saldo"
+    },
+    "stats": {
+      "thisMonthFlow": "Den här månaden",
+      "budget": "Budget",
+      "freeMoney": "Fritt att spendera",
+      "setBudgetHint": "Ange en budget eller inkomst för att se det här →",
+      "spent": "Använt",
+      "upcoming": "Kommande",
+      "dailyAvg": "Dagligt snitt",
+      "monthSpent": "Månad använt",
+      "monthUpcoming": "Kommande",
+      "won": ""
+    },
+    "input": {
+      "placeholder": "Starbucks 5€…",
+      "send": "Skicka",
+      "retry": "Kan du omformulera?",
+      "tryAgain": "Försök igen.",
+      "shortcuts": "Enter för att skicka · Shift+Enter för ny rad",
+      "guideButton": "Vad kan jag skriva? Se guide"
+    },
+    "messages": {
+      "welcome": "Hej! Låt oss starta din huvudbok 📒",
+      "welcomeHint": "Skriv bara som du skulle prata — t.ex. \"lunch kimbap 4 idag\". Tryck på 💡-knappen bredvid inmatningen för att se vad du kan säga. Använd flikarna Kalender / Platser / Recensioner / Planering / Saldo för att avsluta månaden, och ✏️·🗑-ikonerna på varje rad för att redigera eller radera en post.",
+      "recorded": "Sparad ✓ ({{count}} post(er))",
+      "placeRecognized": "📍 \"{{name}}\" identifierad. Öppna posten för att välja exakt plats.",
+      "recurringRecorded": "🔁 {{count}} sparad som återkommande. Redigera eller radera dem på sidan [Återkommande utgifter].",
+      "askRecurrenceEnd": "🔁 Klart som återkommande utgift. När ska det sluta? t.ex. 2027-12-31 / 24 månader / 5 år"
+    },
+    "place": {
+      "title": "Min utgiftskarta",
+      "intro": "{{count}} platser · tryck på en nål eller kort för karta, foton och recensioner",
+      "frequent": "Ofta besökt",
+      "emptyPins": "Inga fästa platser än. Tryck på ett platskort för att välja exakt plats.",
+      "pickLocation": "Välj exakt plats",
+      "aiHint": "(AI:ns gissade plats kan vara felaktig, så ingen nål placeras automatiskt.)",
+      "searchPlaceholder": "Nära {{name}}",
+      "search": "Sök",
+      "searchBusy": "Söker…",
+      "useMyLocationGps": "Använd min plats (GPS)",
+      "moreAccurate": "Mer exakt (GPS)",
+      "viewboxIp": "📍 Omkring {{label}} (±20km)",
+      "viewboxGps": "📍 Omkring min plats (GPS, ±20km)",
+      "viewboxNationwide": "🌐 Sökning i hela landet",
+      "viewboxDenied": "🌐 Sökning i hela landet (plats nekad)",
+      "viewboxUnsupported": "🌐 Sökning i hela landet (webbläsare stöds ej)",
+      "noResults": "Inga resultat. Försök med ett annat sökord eller lämna platsen tom.",
+      "againGo": "Återkommer",
+      "avoid": "Återkommer ej",
+      "normal": "OK",
+      "resetPin": "Återställ plats",
+      "openInGoogleMaps": "Öppna i Google Maps",
+      "mapsUnavailable": "Kartan är tillfälligt otillgänglig.",
+      "tapMapToPickLocation": "Tryck på kartan för att välja exakt plats",
+      "savePickedLocation": "Spara denna plats",
+      "visitTitle": "Besök & recensioner",
+      "rating": "{{n}}/5",
+      "addReview": "+ Lägg till en snabb anteckning",
+      "reviewPlaceholder": "Hur var det?",
+      "photo": "Foto",
+      "photoUploading": "Laddar upp…",
+      "photoTotal": "{{count}} foto"
+    },
+    "categories": {
+      "식비": "Mat",
+      "카페/간식": "Café & Snacks",
+      "쇼핑": "Shopping",
+      "교통": "Transport",
+      "주거/공과금": "Bostad & Räkningar",
+      "건강/뷰티": "Hälsa & Skönhet",
+      "여행/이벤트": "Resor & Event",
+      "경조사/선물": "Gåvor & Tillfällen",
+      "금융/대출": "Finans & Lån",
+      "기타": "Övrigt"
+    },
+    "calendar": {
+      "weekday": {
+        "sun": "Sön",
+        "mon": "Mån",
+        "tue": "Tis",
+        "wed": "Ons",
+        "thu": "Tor",
+        "fri": "Fre",
+        "sat": "Lör"
+      },
+      "today": "Idag",
+      "noEntries": "Inga transaktioner denna månad än",
+      "noEntriesDay": "Inga transaktioner denna dag",
+      "monthYear": "{{month}} {{year}}",
+      "planned": "Planerat",
+      "dayTotal": "Totalt {{amount}} →",
+      "viewGrid": "Rutnät",
+      "viewList": "Lista",
+      "openDayMonth": "{{month}}/{{day}}",
+      "spentLine": "Spenderat {{spent}} · Kommande {{planned}}"
+    },
+    "reflect": {
+      "monthly": "Månadsöversikt",
+      "annual": "Årsöversikt",
+      "noteTitle": "Mina anteckningar",
+      "noteHint": "Skriv ett löfte — det visas automatiskt i nästa månads planflik.",
+      "empty": "Inga översikter än",
+      "achieved": "Uppnått!",
+      "missed": "Missad",
+      "aiCoachTitle": "AI-coachinsikt",
+      "aiCoachSubtitle": "En objektiv tillbakablick på din månad",
+      "aiAnalyzing": "Analyserar...",
+      "aiRegenerate": "Generera igen",
+      "aiStart": "Visa insikt",
+      "aiEmpty": "Tryck på knappen ovan för att starta",
+      "praise": "Vad som gick bra",
+      "concern": "Vad att hålla ögonen på",
+      "suggestion": "Nästa månad",
+      "addToGoal": "Lägg till nästa månads löfte",
+      "monthChange": "Jämfört med förra månad",
+      "lastMonthLabel": "Förra månad",
+      "monthHeader": "{{year}} · {{month}} översikt",
+      "monthTotal": "Totalt {{amount}}",
+      "types": {
+        "regret": {
+          "label": "Ånger",
+          "placeholder": "t.ex. spenderade för mycket på kaffe"
+        },
+        "praise": {
+          "label": "Seger",
+          "placeholder": "t.ex. städade upp prenumerationer"
+        },
+        "goal": {
+          "label": "Löfte",
+          "placeholder": "t.ex. hålla café under 50 kr"
+        },
+        "insight": {
+          "label": "Insikt",
+          "placeholder": "t.ex. restaurangbesök ökar kafékostnaden"
+        }
+      }
+    },
+    "balance": {
+      "title": "Balansräkning",
+      "headerMonth": "Balans — {{month}}",
+      "subtitle": "Din månad ur ett redovisningsperspektiv",
+      "income": "Inkomst",
+      "incomeRow": "Lön",
+      "expenseByCategory": "Utgifter (per kategori)",
+      "expenseSubtotal": "Utgiftssumma",
+      "plannedHeader": "Kommande utgifter",
+      "plannedRow": "Denna månad kommande ({{count}})",
+      "netLine": "= Netto (Inkomst − Utgifter − Kommande)",
+      "savingPossible": "Du kan spara detta",
+      "needIncome": "Du behöver mer inkomst",
+      "spent": "Spenderat",
+      "planned": "Planerat",
+      "saving": "Sparande",
+      "savingRate": "Sparkvot",
+      "modeCurrent": "Denna månad",
+      "modeNext": "Nästa månad",
+      "healthyTip": "💡 20%+ är en sund sparkvot"
+    },
+    "plan": {
+      "monthLabel": "{{month}} plan",
+      "lastMonthPledge": "Förra månadens löfte · fortsätt denna månad",
+      "lastMonthSucceed": "Lyckades förra månaden",
+      "bigPictureTitle": "{{mode}} sammanfattning",
+      "modeCurrent": "Denna månad",
+      "modeNext": "Nästa månad",
+      "bigPictureSubtitle": "Skissa flödet innan det händer",
+      "currentUsage": "Spenderat för närvarande",
+      "plannedAmount": "Kommande",
+      "totalProjected": "Total prognos",
+      "budgetSuffix": "/ budget {{budget}}",
+      "overBy": "Prognostiserat över med {{amount}}",
+      "nextMonthPledge": "Nästa månads löfte",
+      "letterToSelf": "En anteckning till dig själv",
+      "nextPledgePlaceholder": "t.ex. café endast två gånger i veckan",
+      "saveAsGoal": "Spara som nästa månads löfte"
+    },
+    "dayModal": {
+      "header": "{{month}}/{{day}}",
+      "spentLine": "Spenderat {{spent}} · Kommande {{planned}}",
+      "empty": "Inga poster denna dag",
+      "plannedTag": "Kommande"
+    },
+    "year": {
+      "last12Title": "Senaste 12 månader överblick",
+      "yearSummary": "Totalt {{total}} · Månadsmedeltal {{avg}}",
+      "mostSpent": "Månad med högst utgifter",
+      "mostSaved": "Månad med högst sparande",
+      "yearMonth": "{{month}} {{year}}",
+      "yearCategoriesTitle": "Där du spenderade mest under året",
+      "monthlyAvgLabel": "Månadsmedeltal {{amount}}"
+    },
+    "placeModal": {
+      "visitCount": "{{count}} besök",
+      "totalSpent": "Totalt {{amount}}",
+      "openGoogle": "Google Maps",
+      "openKakao": "Kakao Map",
+      "openNaver": "Naver Map",
+      "moodAgainWant": "Vill återbesöka",
+      "moodNormal": "Genomsnittlig",
+      "moodAvoid": "Återkommer inte"
+    },
+    "entryEdit": {
+      "name": "Namn",
+      "amount": "Belopp",
+      "date": "Datum",
+      "category": "Kategori",
+      "save": "Spara",
+      "cancel": "Avbryt",
+      "namePlaceholder": "t.ex. lunch kimbap",
+      "defaultName": "(namnlös)",
+      "deleteConfirm": "Ta bort \"{{name}}\"?"
+    },
+    "inputGuide": {
+      "openButton": "Prova att skriva på det här sättet",
+      "title": "Hur du chattar med din huvudbok",
+      "subtitle": "Skriv bara som du skulle prata. AI:n räknar ut belopp, kategori, datum och plats.",
+      "summaryTitle": "3-sekunders sammanfattning",
+      "summaryBody": "\"Vad, hur mycket, (valfritt) när / var\" — det räcker.",
+      "summaryExampleLabel": "Exempel",
+      "summaryExample": "idag på Starbucks Bucheon spenderade jag 6500",
+      "section1Title": "En rad utgift",
+      "section1Tips": [
+        "Starbucks 6500",
+        "lunch kimbap 4000",
+        "spent 2,300 at the convenience store"
+      ],
+      "section2Title": "Flera samtidigt",
+      "section2Tips": [
+        "today lunch 8000, cafe 5500, taxi 9000",
+        "groceries 32000 + movie 15000"
+      ],
+      "section3Title": "Ange datum / tid",
+      "section3Tips": [
+        "dinner with team yesterday 40000",
+        "haircut last Friday 30000",
+        "friend's wedding on Mar 15 100000"
+      ],
+      "section4Title": "Lägg till platsen",
+      "section4Tips": [
+        "coffee at Starbucks Gangnam 6500",
+        "20000 at Olive Young near home",
+        "※ The AI only recognises the name — open the entry to pin the exact spot."
+      ],
+      "section5Title": "Kommande utgifter (planerad)",
+      "section5Tips": [
+        "Netflix 17000 next Tuesday",
+        "rent 180000 due on the 15th",
+        "friend's birthday gift 50000 on the 5th of next month"
+      ],
+      "section6Title": "Kvitton / foton",
+      "section6Tips": [
+        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
+        "Multi-line receipts work too"
+      ],
+      "section7Title": "Kategorisuggestioner",
+      "section7Tips": [
+        "\"Olive Young mask sheet 10000\" → Health & Beauty",
+        "\"taxi 12000\" → Transport",
+        "Wrong category? Edit it with the ✏️ button next to the entry"
+      ],
+      "tabsTitle": "Mer än chat",
+      "tabsHint": "✏️ Använd penna-/papperskorg-ikonerna bredvid varje post för att redigera eller ta bort individuellt.",
+      "notAllowedTitle": "Det här fungerar inte",
+      "notAllowed": [
+        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
+        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
+        "· Personal IDs (full card numbers, government IDs) — never type them"
+      ],
+      "close": "Klart, låt oss börja",
+      "tabs": {
+        "calendar": "Kalender — tryck på en dag för att se utgifter och kommande den dagen",
+        "places": "Platser — platser du besöker ofta, på en karta med foton",
+        "reflect": "Recension — notera framgångar, ångrar och löften varje månad",
+        "plan": "Plan — fånga kommande utgifter för månaden framöver",
+        "balance": "Balans — inkomst, utgifter och sparande i snabb överblick"
+      }
+    }
+  },
+  "mypage": {
+    "title": "Min sida",
+    "requireLogin": "Logga in för att fortsätta.",
+    "requireLoginCta": "Logga in",
+    "tabs": {
+      "general": "Allmänt",
+      "billing": "Fakturering",
+      "privacy": "Integritet",
+      "location": "Plats",
+      "export": "Exportera"
+    },
+    "account": {
+      "title": "Konto",
+      "email": "E-post",
+      "role": "Roll",
+      "admin": "Admin",
+      "user": "Medlem"
+    },
+    "profile": {
+      "title": "Profil",
+      "name": "Namn",
+      "namePlaceholder": "Jane Doe",
+      "displayName": "Visningsnamn",
+      "displayNamePlaceholder": "Pengarhållare",
+      "monthlyIncome": "Månadsinkomst",
+      "monthlyBudget": "Månadlig budget",
+      "save": "Spara profil",
+      "saving": "Sparar…"
+    },
+    "password": {
+      "title": "Byt lösenord",
+      "current": "Nuvarande lösenord",
+      "newPlaceholder": "Nytt lösenord (8+ tecken)",
+      "change": "Byt lösenord",
+      "changing": "Byter…",
+      "forgot": "Glömt ditt lösenord?",
+      "minLength": "Nytt lösenord måste vara minst 8 tecken.",
+      "changed": "Lösenord ändrat.",
+      "changeFailed": "Kunde inte ändra lösenord"
+    },
+    "toasts": {
+      "profileSaved": "Profil sparad.",
+      "saveFailed": "Sparningen misslyckades"
+    },
+    "billing": {
+      "statusTitle": "Faktureringsstatus",
+      "tierPaid": "Premium",
+      "tierFreeTrial": "Kostnadsfri (provperiod)",
+      "tierExpired": "Utgånget",
+      "daysRemaining": "{{n}} dagar kvar",
+      "pastDue": "Betalning förfallen",
+      "trialEndsAt": "Provperioden slutar",
+      "paidUntil": "Premium giltigt till",
+      "price": "Premium-pris",
+      "perMonth": "/ månad",
+      "cardOnFile": "Spartat kort",
+      "changeCard": "Byt betalningsmetod (registrera ett nytt kort)",
+      "lastError": "Senaste betalningsfel",
+      "freeTitle": "Kostnadsfri",
+      "freeFeature1": "1 månad fullständig huvudbok efter registrering",
+      "freeFeature2": "AI-kategorisering · kalender · granskning",
+      "freeFeature3": "Placera markeringar och anteckningar",
+      "freeFeature4": "JSON-export av mina data",
+      "paidTitle": "Premium",
+      "currentPlan": "Aktuell plan",
+      "priceMonthlyText": "₩5 500 / månad",
+      "priceYearlyText": "eller ₩50 000 / år (24% rabatt · 2 månader gratis)",
+      "paidFeature1": "Alla kostnadsfria funktioner",
+      "paidFeature2": "Fortsatt huvudboksåtkomst",
+      "paidFeature3": "Excel (.xlsx) månatlig · årlig export",
+      "paidFeature4": "Prioriterad support",
+      "betaButtonLabel": "Kostnadsfri under betaversion",
+      "cancelButton": "Avbryt",
+      "checkoutStart": "Starta Premium-utcheckning",
+      "checkoutLoading": "Öppnar utcheckning…",
+      "planSelectionHint": "Välj månatlig eller årlig på nästa skärm.",
+      "tossLink": "Eller betala med Toss (koreanska kort, KRW)",
+      "lsConnected": "✅ Lemon Squeezy (MoR) ansluten — global kort-/PayPal-utcheckning. Moms, återbetalningar, fakturor hanteras automatiskt.",
+      "tossAlsoActive": "Toss (KRW snabbkort) är också aktiv.",
+      "lsUnconfigured": "💡 Lemon Squeezy-nycklar är inte konfigurerade, så checkout är inaktiverad. När LEMONSQUEEZY_API_KEY etc. är inställda på Render aktiveras checkout-flödet automatiskt.",
+      "betaBannerTitle": "🎉 Gratis under betaperioden",
+      "betaBannerBody": "Alla funktioner är gratis just nu, inklusive Excel-export och fullständig huvudbok. Betalda planer (₩5 500 / månad · ₩50 000 / år) och faktureringssystemet (Lemon Squeezy globalt + Toss Korea) är i testläge och vi meddelas separat när beta slutar.",
+      "loadFailed": "Kunde inte läsa in prenumerationsinformation.",
+      "returnHint": "Återvänd till appen efter checkout — vi uppdaterar automatiskt.",
+      "betaActive": "Alla funktioner är gratis under betaperioden.",
+      "betaModeNotice": "Alla funktioner är gratis under betaperioden.",
+      "checkoutUnavailable": "Checkout är inte aktiverat än.",
+      "checkoutError": "Något gick fel när checkout skulle öppnas.",
+      "paymentComplete": "Betalning slutförd.",
+      "confirmFailed": "Kunde inte bekräfta betalning",
+      "paymentCancelled": "Annullerad på checkout-skärmen.",
+      "widgetFailed": "Kunde inte öppna betalningsfönstret.",
+      "upgradeMockConfirm": "Uppgradera till Premium-planen för {{price}} per månad?\n\n※ Betalningsgatewayen är inte ansluten i operatörmiljön.\nDenna demo kommer att växla dig omedelbar (ingen faktisk debitering).",
+      "upgradedMock": "Uppgraderad till Premium-planen.",
+      "upgradeFailed": "Uppgradering misslyckades",
+      "cancelConfirm": "Avbryt Premium-planen?\n· Din kortfaktureringsnyckel kommer att återkallas omedelbar och inga ytterligare debiteringar görs.\n· Du kommer att flyttas till Gratis automatiskt när denna faktureringscykel slutar.",
+      "cancelled": "Annullering behandlad.",
+      "cancelFailed": "Annullering misslyckades"
+    },
+    "privacy": {
+      "title": "Integritet",
+      "locationOptInTitle": "Tillåt platsmetadata",
+      "locationOptInBody": "Tillåt Claude att använda ungefärlig platsmetadata (stad / region) för att förbättra produktupplevelsen. Exakta koordinater används aldrig — endast IP-baserad uppskattning.",
+      "learnMore": "Läs mer",
+      "activeNote": "✓ Aktiv nu — används för att automatiskt föreslå närliggande platser när du loggar en post.",
+      "inactiveNote": "○ Av — IP-baserad platsuppskattning används inte.",
+      "toggledOn": "Platsmetadata tillåten.",
+      "toggledOff": "Platsmetadata inaktiverad."
+    },
+    "location": {
+      "title": "Plats",
+      "intro": "När du bifogar en plats till en huvudbokpost föreslås närliggande platser först baserat på din IP (mobil / skrivbord). Om resultatet är felaktigt kan du söka eller välja på kartan från platsinformationsskärmen.",
+      "disabledNotice": "Platsmetadata är inaktiverad. Tillåt det under fliken Integritet för att aktivera automatisk uppskattning.",
+      "tempFailure": "IP-baserad platsuppskattning misslyckades tillfälligt. Uppdatera eller försök igen senare.",
+      "detectedIp": "Detekterad IP",
+      "country": "Land",
+      "region": "Region / Delstat",
+      "city": "Stad",
+      "coordinates": "Lat / Lng",
+      "ipLabel": "IP",
+      "dataSource": "Datakälla",
+      "fromCache": "Cachad (inom 1 timme)",
+      "fresh": "Precis uppskattad",
+      "manualEditHint": "För manuella redigeringar använder du sök eller trycker på kartan från varje huvudbokposts platsinformationsskärm."
+    },
+    "export": {
+      "xlsxTitle": "Exportera huvudbokposter till Excel",
+      "xlsxDesc": "Ladda ned som .xlsx. Månatligt enskilt ark, eller årligt 12 månader + sammanfattningsark.",
+      "monthly": "Månatlig",
+      "monthlyDownload": "Ladda ned månatlig",
+      "annual": "Årlig",
+      "annualDownload": "Ladda ned årlig",
+      "paidOnlyNotice": "Excel-export är tillgänglig på Premium-planen. Uppgradera från fliken Fakturering för att använda det omedelbar.",
+      "betaFreeNotice": "🎉 Excel-export är gratis under betaperioden.",
+      "gdprTitle": "All data (GDPR)",
+      "gdprDesc": "Ladda ned huvudbok + planerade + recensioner + fotometadata som JSON. Alltid tillgängligt på alla planer.",
+      "gdprButton": "Alla data (JSON)",
+      "trialExpired": "Din kostnadsfria provperiod har löpt ut. Uppgradera till Premium.",
+      "downloadStarted": "Excel-nedladdning startad.",
+      "gdprStarted": "Datanedladdning startad.",
+      "failed": "Export misslyckades"
+    },
+    "dangerZone": {
+      "title": "Farlig zon",
+      "description": "Borttagning av ditt konto blockerar inloggning omedelbar. Huvudboksdata sparas under en bevarandeperiod innan permanent borttagning.",
+      "deleteButton": "Radera konto",
+      "deleteConfirm": "Är du säker på att du vill radera ditt konto?\n\n· Inloggning blockeras omedelbar.\n· Huvudboksdata sparas under en bevarandeperiod innan permanent borttagning.\n· Om du behöver full borttagning direkt, exportera dina data först och kontakta operatören.",
+      "confirmEmailPrompt": "Skriv din e-postadress för att bekräfta kontoborttagning.",
+      "emailMismatch": "E-postadress stämde inte. Åtgärd avbruten.",
+      "deleted": "Konto raderat.",
+      "deleteFailed": "Det gick inte att radera konto"
+    },
+    "region": {
+      "title": "Region / Språk / Valuta",
+      "subtitle": "Ändra visningsvaluta för huvudbok och UI-språk. Befintliga postnummer förblir oförändrade.",
+      "country": "Land",
+      "currency": "Valuta",
+      "language": "Språk",
+      "saved": "Regioninställningar sparade.",
+      "applyDefaults": "Använd standardinställningar för det valda landet"
+    }
+  },
+  "appHeader": {
+    "faq": "FAQ",
+    "myAccount": "Konto",
+    "admin": "Admin",
+    "logout": "Logga ut",
+    "recurring": "Återkommande",
+    "menu": "Meny",
+    "close": "Stäng"
+  },
+  "bottomNav": {
+    "home": "Start",
+    "calendar": "Kalender",
+    "recurring": "Återkommande",
+    "me": "Jag",
+    "label": "Huvudnavigering"
+  },
+  "recurring": {
+    "title": "Återkommande utgifter",
+    "backToLedger": "Tillbaka till huvudbok",
+    "helpText": "Registrera en återkommande utgift en gång (månadsvis/veckovis/årlig) och den visas automatiskt i kalendern. T.ex. låneränta på 16:e, veckovisa måndagslunchklubavgifter.",
+    "existing": "Sparade återkommande regler",
+    "loading": "Laddar…",
+    "empty": "Inga återkommande utgifter ännu. Använd + Lägg till rad nedan för att börja.",
+    "newRows": "Nya rader",
+    "addRow": "Lägg till rad",
+    "saveAll": "Spara allt",
+    "saveAllWithCount": "Spara allt ({{count}})",
+    "unsavedChanges": "{{count}} osparad",
+    "revertAll": "Ångra",
+    "saving": "Sparar…",
+    "emptyDraft": "Inga rader tillagda",
+    "savedCount": "{{count}} sparad",
+    "confirmDelete": "Radera denna regel? Alla framtida förekomster försvinner också.",
+    "delete": "Radera",
+    "fromStartDate": "Från startdatum M/D",
+    "placeholders": {
+      "description": "t.ex. 16:e lånränta"
+    },
+    "headers": {
+      "description": "Beskrivning",
+      "amount": "Belopp",
+      "category": "Kategori",
+      "recurrence": "Frekvens",
+      "day": "Dag",
+      "startDate": "Startdatum",
+      "until": "Slutdatum (obligatoriskt)"
+    },
+    "frequency": {
+      "none": "Inget (engångsöverföring)",
+      "monthly": "Månadsvis",
+      "weekly": "Veckovis",
+      "yearly": "Årlig"
+    },
+    "weekday": {
+      "mon": "Mån",
+      "tue": "Tis",
+      "wed": "Ons",
+      "thu": "Tor",
+      "fri": "Fre",
+      "sat": "Lör",
+      "sun": "Sön"
+    },
+    "validation": {
+      "descriptionRequired": "Lägg till en beskrivning",
+      "amountRequired": "Lägg till ett belopp",
+      "categoryInvalid": "Ogiltig kategori",
+      "startDateInvalid": "Ogiltigt startdatum (YYYY-MM-DD)",
+      "monthlyDay": "Månadsvis: välj dag 1–31",
+      "weeklyDay": "Veckovis: välj en veckodag",
+      "endDateRequired": "Ange ett slutdatum (obligatoriskt för återkommande)",
+      "endDateInvalid": "Ogiltigt slutdatumformat (YYYY-MM-DD)",
+      "endDateAfterStart": "Slutdatum måste vara på eller efter startdatum",
+      "missingEndDateTitle": "{{count}} återkommande utgift(er) utan slutdatum.",
+      "missingEndDateBody": "Utan slutdatum kan kalendern inte visa dem korrekt. Fyll i kolumnen \"Slutdatum\" på de markerade raderna."
+    }
+  },
+  "pricing": {
+    "title": "Moa AI Ledger Prissättning",
+    "subtitle": "Kärnfunktioner är gratis. Gå djupare med Premium.",
+    "betaTitle": "Betaanvändare — 50% rabatt första 12 månaderna",
+    "betaDesc": "Om du anmälde dig under betafasen får du 50% rabatt på Premium de första 12 månaderna när betalda planer lanseras. 1,99 $/månad eller 17,99 $/år.",
+    "freePlan": "Gratis",
+    "freePrice": "$0",
+    "freePriceNote": "Gratis för alltid, inget kort krävs",
+    "freeDesc": "30 AI-inmatningar / månad + fullständiga huvudboksfunktioner (kalender, kategorier, platser, månadsvyn). Annonsfri.",
+    "freeCta": "Börja gratis",
+    "paidPlan": "Premium",
+    "paidBadge": "Rekommenderad",
+    "paidPriceMonthly": "$3,99",
+    "perMonth": "/ månad",
+    "paidPriceYearlyNote": "eller 35,99 $/år (24% rabatt) · priserna omvandlas automatiskt efter land",
+    "paidDesc": "Obegränsad AI + månatlig AI-träningscoach + kvittoigenkänning + dataexport. Få den fullständiga Moa-upplevelsen.",
+    "paidCta": "Börja Premium",
+    "paidCtaYearly": "Årlig (35,99 $ · 2 månader gratis)",
+    "planSelectionHint": "Du kan välja månadsvis eller årlig på nästa skärm.",
+    "returnHint": "Återgå till appen när betalningen är klar — vi uppdateras automatiskt.",
+    "betaActiveToast": "Premiumfunktioner är kostnadsfria under betaperioden.",
+    "checkoutUnavailable": "Checkout är inte aktiverat än. Vi meddelar lansering snart.",
+    "checkoutError": "Vi kunde inte öppna checkout. Försök igen om en stund.",
+    "compareTitle": "Gratis vs Premium",
+    "compareFeature": "Funktion",
+    "compare": {
+      "aiInput": {
+        "feature": "AI-chattinmatning",
+        "free": "30 / månad",
+        "paid": "Obegränsat"
+      },
+      "adFree": {
+        "feature": "Annonsfri",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "Månatlig AI-granskningstrainer",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "Kvitto-foto OCR",
+        "free": "5 / månad",
+        "paid": "Obegränsat"
+      },
+      "multilang": {
+        "feature": "9 språk + flerväruta",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "Platsmarkörer & recensioner",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "Återkommande & kommande aviseringar",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Excel / CSV-export",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "Huvudbokhistorik",
+        "free": "12 månader",
+        "paid": "Obegränsat"
+      },
+      "priority": {
+        "feature": "Prioriteringsstöd",
+        "free": "✗",
+        "paid": "✓"
+      }
+    },
+    "paymentTitle": "Betalningsmetoder",
+    "paymentDesc": "Användare i Korea betalar via Toss Payments; internationella användare betalar via Paddle. Kortuppgifter finns hos betalningsleverantören — Moa visar endast de sista 4 siffrorna.",
+    "paymentKr": "🇰🇷 Korea: Toss Payments (debet, kredit, banköverföring)",
+    "paymentIntl": "🌍 Internationellt: Paddle (kort, PayPal, Apple Pay, Google Pay — kommer snart)",
+    "cancelTitle": "Avbryt & återbetalning",
+    "cancelDesc": "Avbryt när som helst i Mina sidor → Fakturering. Du behåller åtkomsten till slutet av betalningsperioden.",
+    "refundLink": "Se fullständig återbetalningspolicy →",
+    "operatorTitle": "Operatörsinfo",
+    "operatorName": "Företag",
+    "operatorCeo": "VD",
+    "operatorBizNo": "Registreringsnummer för verksamhet",
+    "operatorMailOrder": "Postorderföretagsnummer",
+    "operatorContact": "Support"
+  },
+  "refund": {
+    "title": "Återbetalningspolicy",
+    "subtitle": "Hur och när återbetalningar beviljas på Moa AI Ledger.",
+    "section1Title": "1. Inom 7 dagar från betalning (ångerrätt)",
+    "section1Body": "Inom 7 dagar från betalning kan du säga upp din prenumeration enligt artikel 17 i Koreas e-handelslagstiftning och få full återbetalning. Rätten kan begränsas om mer än 30 % av de betalda funktionerna har använts. (Begränsat till en per medlem.)",
+    "section2Title": "2. Efter 7 dagar — proportionell återbetalning",
+    "section2Body": "Månatliga planer: återbetalning = betald summa − (använda dagar × daglig sats) − 10 % bearbetningsavgift.\n\nExempel: $2.99/månad, 10 dagar använd → $2.99 − (10 × $0.10) − $0.30 ≈ $1.69 återbetalning.\n\nÅrliga planer: använda månader × full månadssats (INTE den rabatterad sats) dras från återbetalningen.",
+    "section3Title": "3. Hur du begär återbetalning",
+    "step1": "Min sida → Fakturering → klicka \"Avbryt\" (stoppar nästa förnyelse).",
+    "step2Prefix": "För återbetalning, skicka e-post till",
+    "step2Suffix": "med ditt beställnings-ID och e-postadress för kontot.",
+    "step3": "Behandlas inom 3–10 arbetsdagar enligt betalningsleverantörens policy (Toss / Paddle).",
+    "section4Title": "4. Fall som inte är returnerbar",
+    "notRefundable1": "Tvångsinställning på grund av överträdelse av villkoren eller kontoupphävning",
+    "notRefundable2": "Betalningar gjorda med någon annans identitet eller betalningar där bedrägerier upptäcktes",
+    "section5Title": "5. Tvister",
+    "section5Body": "Tvister om denna policy styrs av koreansk lag och avgörs av domstolen som anges i koreas civilprocesslag. För internationella användare kan Paddles återbetalnings- och tvistpolicies också gälla.",
+    "effective": "Gäller från: 2026-05-21"
+  },
+  "terms": {
+    "title": "Användarvillkor",
+    "effectiveLabel": "Gäller från",
+    "intro": "Dessa villkor styr din användning av Moa AI Ledger (\"Tjänsten\") som drivs av ATM Store Co., Ltd. (\"Företaget\"). Registrering innebär godkännande.\n\nAnmärkning: Denna engelska text är en sammanfattning. Den koreanska versionen (한국어) är bindande och gäller vid tolkningskonflikter.",
+    "a1": {
+      "title": "Artikel 1 (Syfte)",
+      "body": "Dessa villkor anger rättigheter, skyldigheter och ansvar för Företaget och medlemmar angående användning av Tjänsten."
+    },
+    "a2": {
+      "title": "Artikel 2 (Definitioner)",
+      "body": "1. \"Tjänsten\" betyder Moa AI Ledger-webbapplikationen och mobilapplikationen samt relaterade tjänster.\n2. \"Medlem\" betyder en person som godkänner dessa villkor och ingår ett användningsavtal med Företaget.\n3. \"AI-funktioner\" betyder funktioner som anropar externa AI-modeller (Anthropic Claude etc.) för klassificering, sammanfattning eller coaching.\n4. \"Innehål\" betyder all data som medlemmar anger eller laddar upp (utgifter, foton, recensioner, reflektioner)."
+    },
+    "a3": {
+      "title": "Artikel 3 (Giltighet & ändringar)",
+      "body": "1. Dessa villkor träder i kraft när de publiceras i Tjänsten.\n2. Företaget får ändra dessa villkor inom gällande lagar. Väsentliga ändringar meddelas minst 30 dagar i förväg; vanliga ändringar minst 7 dagar i förväg.\n3. Fortsatt användning efter ändringsperiodens ikraftträdande utgör godkännande."
+    },
+    "a4": {
+      "title": "Artikel 4 (Kontoskapande)",
+      "body": "1. Användningsavtalet ingås när en sökande godkänner dessa villkor och Företaget godkänner ansökan.\n2. Företaget får vägra ansökningar som använder falsk identitet, är under 14 år utan övervakarens samtycke eller har bedräglig avsikt."
+    },
+    "a5": {
+      "title": "Artikel 5 (Medlemmars skyldigheter)",
+      "body": "Medlemmar får inte: utge sig för att vara andra, registrera falsk information, kopiera eller distribuera Tjänstens innehål utan samtycke, samla in personuppgifter om andra medlemmar, störa Tjänstens drift eller bryta mot någon lag."
+    },
+    "a6": {
+      "title": "Artikel 6 (Företagets skyldigheter)",
+      "body": "Företaget strävar efter att tillhandahålla stabil tjänst, skydda personuppgifter och svara på medlemsfrågor snabbt."
+    },
+    "a7": {
+      "title": "Artikel 7 (Tjänsteleverans)",
+      "body": "Företaget tillhandahåller AI-assisterad redovisningsinmatning, kalenderhantering, platsrecensioner, månatlig AI-coaching, dataexport och flerspråkiga / flervalu-stöd. Tjänsten körs 24/7 men kan pausas för underhåll eller force majeure."
+    },
+    "a8": {
+      "title": "Artikel 8 (Tjänsteändringar & upphävning)",
+      "body": "Företaget får ändra eller pausera någon del av Tjänsten. Medlemmar meddelas minst 30 dagar i förväg, förutom i brådskande fall där underrättelse ges i efterhand."
+    },
+    "a9": {
+      "title": "Artikel 9 (Betald tjänst & återkommande fakturering)",
+      "body": "1. Vissa funktioner kräver betalning. Priser och förmåner anges på sidan Prissättning.\n2. Prenumerationer förnyas automatiskt om de inte avbryts. Ett meddelande skickas via e-post 7 dagar före nästa debitering.\n3. Betalningar behandlas av Toss Payments (Korea) eller Paddle.com Market Limited (internationellt) som handlande. Företaget lagrar inte kortnummer eller utgångsdatum."
+    },
+    "a10": {
+      "title": "Artikel 10 (Utträde & återbetalning)",
+      "body": "1. Medlemmar kan säga upp en prenumeration inom 7 dagar från betalning för full återbetalning, om inte mer än 30 % av de betalda funktionerna har använts.\n2. Återbetalningar efter 7-dagarsfönstret följer den separata återbetalningspolicyn.\n3. Återbetalningar utfärdas till den ursprungliga betalningsmetoden inom 3–10 arbetsdagar."
+    },
+    "a11": {
+      "title": "Artikel 11 (AI-funktioner)",
+      "body": "1. Tjänsten överför medlemsangiven text och bilder till externa AI-leverantörer (Anthropic Claude etc.) för klassificering, OCR och coaching.\n2. Överförd data är befriad från identifierande fält (e-post, namn) och begärs inte användas för modellträning.\n3. AI-utdata är endast för referens; Företaget garanterar inte korrekthet eller fullständighet. Medlemmar ansvarar för att granska AI-resultat.\n4. Se sekretesspolicyn för fullständig information."
+    },
+    "a12": {
+      "title": "Artikel 12 (Dataägande)",
+      "body": "Medlemmar äger det innehål de anger. Företaget bearbetar innehål endast för att tillhandahålla Tjänsten och delar aldrig det med tredje parter utan uttryckligt samtycke. Medlemmar kan exportera sin data via Min sida → Exportera."
+    },
+    "a13": {
+      "title": "Artikel 13 (Immateriell egendom)",
+      "body": "Design, källkod, varumärken, logotyper och Företagets egenproducerade innehål ägs av Företaget. Medlemmar får inte kommersiellt återskapa eller distribuera sådant innehål utan tidigare skriftligt samtycke."
+    },
+    "a14": {
+      "title": "Artikel 14 (Användningsbegränsning & uppsägning)",
+      "body": "Företaget får begränsa användningen eller säga upp medlemskapet för överträdelse av villkoren, skada på andra, uppsåtlig störning av Tjänsten eller olagliga handlingar. Medlemmar får framställa invänd inom 14 dagar från meddelande."
+    },
+    "a15": {
+      "title": "Artikel 15 (Utträde & datadeleton)",
+      "body": "Medlemmar kan säga upp när som helst. Vid utträde raderas allt innehål permanent utan möjlighet till återställning. Exportera dina data före utträde om det behövs. Poster som krävs enligt lag (betalningshistorik, tvistloggar) behålls under den lagstadgade perioden och förstörs sedan."
+    },
+    "a16": {
+      "title": "Artikel 16 (Ansvarsbegränsning)",
+      "body": "Företaget är inte ansvarigt för: force majeure, medlemmarnas fel, innehållets korrekthet angivet av medlemmar eller ekonomiska beslut baserade på AI-utdata."
+    },
+    "a17": {
+      "title": "Artikel 17 (Personuppgifter)",
+      "body": "Behandling av personuppgifter regleras av separat integritetspolicy."
+    },
+    "a18": {
+      "title": "Artikel 18 (Tillämplig lag och jurisdiktion)",
+      "body": "Dessa villkor regleras av lagarna i Republiken Korea. Tvister löses av domstol enligt Koreas civilprocesslag."
+    },
+    "companyInfoTitle": "Operatörinformation",
+    "companyName": "Företag",
+    "companyCeo": "VD",
+    "companyBizNo": "Registreringsnummer för näringsverksamhet",
+    "companyMailOrder": "Postordernummer",
+    "companyAddress": "Adress",
+    "companyContact": "Support"
+  },
+  "privacy": {
+    "title": "Integritetspolicy",
+    "effectiveLabel": "Gäller från",
+    "intro": "ATM Store Co., Ltd. (\"Företaget\") respekterar medlemmarnas integritet och följer Koreas lag om skydd av personuppgifter, lag om främjande av användningen av informations- och kommunikationsnät och relaterade lagar.\n\nDenna integritetspolicy beskriver hur Företaget samlar in, använder, lagrar och förstör personuppgifter i samband med tjänsten Moa AI Ledger.\n\nObservera: Denna engelska text är en sammanfattning. Den koreanska versionen (한국어) är auktoritativ och har företräde vid tolkningskonflikter.",
+    "s1": {
+      "title": "1. Ändamål för behandling",
+      "body": "Företaget behandlar personuppgifter för: medlemsidentifiering och bedrägeribekämpning; tjänsteleverans (huvudboklagring, AI-klassificering, coachning, kalender, platsmarkeringar); betalningshantering för betalplaner; kundsupport; tjänsteförbättring via anonymiserad analys; och juridisk efterlevnad (e-handel, skatt)."
+    },
+    "s2": {
+      "title": "2. Kategorier av personuppgifter",
+      "body": "Obligatoriska (vid registrering): e-post, lösenord (envägshasning), nick, land/språk/valuta.\n\nFrivilliga: profilbild, månadsinkomst/budget, senaste geoposition (om samtycke lämnas).\n\nGenererade under användning: utgiftsposter, platsposter (namn, adress, betyg, recensioner, foton), månatlig reflektionstext, regler för återkommande utgifter.\n\nAuto-insamlat: IP, webbläsar-/enhetsinformation, åtkomsttidsstämplar, besökta sidor, cookies och localStorage.\n\nBetalning (för betalande användare): samlas in direkt av betalningsleverantören; Företaget lagrar endast resultat, kortkort och fyra sista siffror.\n\nFöretaget samlar inte in känsliga uppgifter (ras, religion, politiska åsikter, hälsa, brottsregister osv.) enligt artikel 23 i PIPA."
+    },
+    "s3": {
+      "title": "3. Lagringsperioder",
+      "body": "Personuppgifter lagras tills behandlingsändamålet uppnås. Enligt lag lagras följande separat:\n\n① Medlemsregistreringsdata: raderas vid utträde (bedrägeribekämpningshasning sparas i 30 dagar)\n② Betalnings-/transaktionsposter: 5 år (E-handelslag §6)\n③ Konsumentreklamation/tvistposter: 3 år (E-handelslag §6)\n④ Kreditupplysningssamlings-/behandlingsposter: 3 år (Kreditupplysningsslag §20)\n⑤ Visnings-/annonseringsposter: 6 månader (E-handelslag §6)\n⑥ Åtkomstloggar och IP: 3 månader (Kommunikationssekretesslagen §15-2)\n\nVid utträde raderas huvudbokinnehål (utgifter, foton, reflektioner) permanent och omedelbar utan möjlighet till återställning."
+    },
+    "s4": {
+      "title": "4. Tillhandahållande till tredje part",
+      "body": "Företaget tillhandahåller personuppgifter inte till tredje part som standard. Undantag: (i) tidigare medlemssamtycke, (ii) juridisk förfrågan efter korrekt process, (iii) tillhandahållande i anonymiserad aggregerad form för forskning/allmänt intresse."
+    },
+    "s5": {
+      "title": "5. Outsourcad behandling och gränsöverskridande överföring",
+      "body": "Företaget outsourcar behandling till följande mottagare; några innefattar gränsöverskridande överföring. Outsourcingavtal enligt PIPA §26 förbjuder användning bortom överenskomna ändamål, kräver tekniska/administrativa skyddsåtgärder och begränsar återutcourcing.\n\n[Mottagare / Ändamål / Land / Poster / Lagring]\n\n① Anthropic, PBC (USA) — AI-klassificering/coachning — Huvudboktext med identifierare borttagna — Enligt leverantörs policy; Företaget begär ingen användning för modellträning\n② Resend, Inc. (USA) — Lösenordsåterställning/systemmeddelanden — Mottagarens e-post och meddelandetext — Raderas efter sändning\n③ Google LLC (USA) — Google Maps geokodsökning — Platsnamn/adress (ingen PII) — Raderas efter sändning\n④ Render Services, Inc. (USA) — Backend-värdtjänster — Alla medlemsdata — Raderas vid utträde\n⑤ Vercel Inc. (USA) — Frontend-värdtjänster — Statiska tillgångar och åtkomstloggar — Enligt Vercel policy, 30 dagar\n⑥ Toss Payments (Korea) — Inhemsk betalningshantering — Betalningsinformation — 5 år enligt E-handelslag\n⑦ Paddle.com Market Limited (UK/USA, kommer snart) — Internationell betalningshantering — Betalningsinformation — Enligt leverantörs policy\n⑧ Cloudflare, Inc. (USA, när det är aktiverat) — Fotolagring på R2 — Medlemmarnas uppladdade foton — Raderas vid utträde\n\nMedlemmar kan vägra gränsöverskridande överföring men detta kan begränsa tjänsteanvändningen."
+    },
+    "s6": {
+      "title": "6. Registrerades rättigheter",
+      "body": "Medlemmar kan när som helst: (i) se sina personuppgifter, (ii) korrigera/radera fel, (iii) sluta behandlingen, (iv) avsluta medlemskapet och begära permanent dataraderingr, (v) hämta sina egna data i maskinläsbart JSON (liknar GDPR artikel 20).\n\nUtöva rättigheter via Min sida → Kontoinställningar, eller genom att e-posta master@aitrend.kr. Företaget agerar utan dröjsmål, med förbehål för begränsningar i PIPA §35(4), §36(1), §37(2)."
+    },
+    "s7": {
+      "title": "7. Raderingsförfaranden och metoder",
+      "body": "Förfarande: data flyttas till en separat databas efter att behandlingsändamålet uppnås och lagras enligt intern policy/lag innan radering.\nMetod: elektroniska filer raderas permanent genom metoder som förhindrar återställning; pappersdokument shredras eller förbränns."
+    },
+    "s8": {
+      "title": "8. Säkerhetsskyddsåtgärder",
+      "body": "Administrativa: intern förvaltningsplan, periodisk personalutbildning.\nTekniska: bcrypt envägshasning av lösenord, HTTPS-kryptering under överföring, åtkomstkontroll, säkerhets-/återställningsförfaranden.\nFysiska: datacenterets fysiska säkerhetsstandarder via molnleverantörer (Render, Vercel, Cloudflare).\nÖversyn: säkerhetspatchningar och sårbarhetsgranskningar minst kvartalsvis."
+    },
+    "s9": {
+      "title": "9. Cookies och automatisk insamling",
+      "body": "Ändamål: hålla dig inloggad, komma ihåg språk/valuta, anonymiserad användningsanalys.\nAvanmäl dig: blockera via webbläsarinställningar (vissa funktioner kan vara begränsade).\nFöretaget installerar inte cookies från tredje part för annonsering/spårning."
+    },
+    "s10": {
+      "title": "10. AI-funktioner — hantering av personuppgifter",
+      "body": "För att tillhandahålla AI-funktioner överför Företaget medlemsinhållen och bilder till externa AI-leverantörer (Anthropic Claude etc.).\n\nÖverförda: huvudboktext och kvittobilder med e-post/namn borttagna; månatlig reflektionstext.\nÄndamål: auto-kategorisering, OCR, månatlig coachning, insiktsgenerering.\nLagring: enligt leverantörens datalagringsplolicy och automatisk radering. Företaget begär uttryckligen att leverantören inte använder denna data för modellträning.\nBegränsningar: AI-utdata är endast referens och noggrannhet är inte garanterad.\nAvanmälan: medlemmar kan välja manuell inmatning istället för AI-funktioner."
+    },
+    "s11": {
+      "title": "11. Dataskyddsmansrik",
+      "body": "Företaget utser en dataskyddsombud för att hantera integritetsklagomål, förfrågningar och botemedel. Medlemmar kan kontakta dataskyddsombudet och avdelningen nedan för alla sådana frågor."
+    },
+    "s12": {
+      "title": "12. Ändringar av denna policy",
+      "body": "Denna integritetspolicy kan ändras på grund av ändringar i lag, policy eller säkerhet. Ändringar tillkännages i tjänsten minst 7 dagar i förväg, eller 30 dagar i förväg för väsentliga ändringar som påverkar medlemmarnas rättigheter."
+    },
+    "officerTitle": "Dataskyddsmansrik",
+    "officerName": "Namn",
+    "officerEmail": "E-post",
+    "officerDesc": "Du kan också söka botemedel hos: Korean Personal Information Dispute Mediation Committee (1833-6972, kopico.go.kr), Personal Information Infringement Reporting Center (118, privacy.kisa.or.kr), Supreme Prosecutors' Office Cyber Investigation (1301, spo.go.kr), Korean National Police Cyber Bureau (182, ecrm.cyber.go.kr)."
+  }
+}

@@ -1,0 +1,1074 @@
+{
+  "app": {
+    "name": "Moa AI Ledger"
+  },
+  "lang": {
+    "label": "Idioma"
+  },
+  "common": {
+    "or": "ou",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "loading": "Carregando…",
+    "back": "Voltar",
+    "retry": "Tente novamente mais tarde.",
+    "home": "Início",
+    "pricing": "Preços",
+    "refund": "Política de Reembolso",
+    "edit": "Editar",
+    "delete": "Deletar",
+    "confirm": "OK"
+  },
+  "nav": {
+    "myAccount": "Conta",
+    "faq": "FAQ",
+    "admin": "Admin",
+    "logout": "Sair"
+  },
+  "landing": {
+    "badge": "Beta Grátis — AI Ledger",
+    "headline1": "Só converse,",
+    "headline2": "veja como foi seu mês.",
+    "subtitle": "Digite \"café $5\" e pronto. A IA organiza categoria, valor e data para você, e um coach mensal ajuda você a construir melhores hábitos de gastos.",
+    "ctaPrimary": "Comece grátis",
+    "ctaLogin": "Entrar",
+    "ctaApp": "Abrir ledger →",
+    "uspHeading": "Finanças pessoais, finalmente fáceis.",
+    "uspSubtitle": "Um minuto por dia. Redescubra seu mês.",
+    "uspChatTitle": "Digite uma linha",
+    "uspChatDesc": "Escreva \"almoço $9\" naturalmente e a IA organiza categoria, valor e data. Fotos de recibos também.",
+    "uspCalendarTitle": "Calendário + próximos gastos",
+    "uspCalendarDesc": "Gastos atuais e futuros em uma tela. Veja quanto realmente sobra até o próximo pagamento.",
+    "uspMapTitle": "Marque lugares & avaliações",
+    "uspMapDesc": "Deixe avaliações, fotos e anotações nos lugares que visita. Veja claramente onde voltar e onde evitar.",
+    "uspCoachTitle": "Coaching com IA mensal",
+    "uspCoachDesc": "Registre arrependimentos, vitórias e sua promessa para o próximo mês — o coach IA compara com o mês anterior e oferece insights genuínos.",
+    "cta2Heading": "Comece hoje e sinta a diferença neste mês.",
+    "cta2Subtitle": "Cadastre-se em 30 segundos. Sem cartão de crédito. Grátis durante a beta.",
+    "footerTagline": "Converse sobre seu dinheiro. Ganhe insight.",
+    "footerTerms": "Termos",
+    "footerPrivacy": "Privacidade",
+    "bizCeo": "CEO",
+    "bizNo": "Registro Comercial",
+    "bizMailOrder": "Correspondência",
+    "bizAddress": "Endereço",
+    "hero": {
+      "badge": "Beta grátis · IA ledger",
+      "headline1": "Desta vez,",
+      "headline2": "o ledger que realmente funciona.",
+      "subtitle": "Sem planilhas. Sem recibos. Só digite \"café $5\" e Moa organiza, depois te guia pelo seu mês.",
+      "ctaPrimary": "Comece grátis",
+      "ctaLogin": "Entrar",
+      "ctaApp": "Abrir ledger →",
+      "trust1": "Cadastro em 30 seg",
+      "trust2": "Sem cartão",
+      "trust3": "Beta gratuito"
+    },
+    "problem": {
+      "label": "Por que Moa",
+      "title": "Por que todos desistem de fazer orçamento?",
+      "subtitle": "A maioria dos apps te abandona do mesmo jeito — muitos toques, sem insights, sem ritmo.",
+      "card1": {
+        "quote": "Escolher categoria, digitar valor, definir data — três toques para cada café. Durei uma semana.",
+        "meta": "27 anos, office worker · último app: 1 semana"
+      },
+      "card2": {
+        "quote": "No fim do mês só vejo um monte de números. Sem ideia do que fazer no próximo mês.",
+        "meta": "33 anos, freelancer · planilha"
+      },
+      "card3": {
+        "quote": "Registro tudo, mas um mês depois some. Nunca voltei pra ver de verdade.",
+        "meta": "29 anos, pai/mãe · 3 apps de orçamento testados"
+      }
+    },
+    "feature1": {
+      "label": "Feature 01 · Chat input",
+      "title": "Pare de tocar categorias. Apenas digite.",
+      "desc": "Jogue uma frase na Moa do jeito que você já pensa. IA separa categoria, valor, data e local.",
+      "point1": "Linguagem natural tipo \"almoço $9\" funciona",
+      "point2": "Envie um recibo — parsing automático",
+      "point3": "Um toque para corrigir se errar",
+      "demoUser": "Café na Starbucks, $5,20",
+      "demoAi": "Registrado! Você gastou $32 em cafés este mês — um pouco acima do normal :)",
+      "demoPlaceholder": "Me conte o que você gastou hoje…",
+      "tagCafe": "Café",
+      "tagAmount": "$5,20",
+      "tagPlace": "Starbucks"
+    },
+    "feature2": {
+      "label": "Feature 02 · Calendário",
+      "title": "Real + futuro em uma tela.",
+      "desc": "Aluguel, assinaturas, qualquer coisa recorrente — já refletida. Veja exatamente o que sobra até o próximo pagamento.",
+      "point1": "Real e futuro com código de cores",
+      "point2": "Saldo calculado automaticamente até próximo salário",
+      "point3": "Entradas recorrentes preenchem o calendário automaticamente",
+      "month": "Novembro",
+      "upcoming1": "Aluguel",
+      "amount1": "$1.400",
+      "upcoming2": "Netflix",
+      "amount2": "$15,49",
+      "upcoming3": "Seguro",
+      "amount3": "$48"
+    },
+    "feature3": {
+      "label": "Feature 03 · Detalhe do dia",
+      "title": "Um dia, organizado claramente.",
+      "desc": "Veja um dia dividido por categoria, local e anotação. Onde seu dinheiro vaza fica óbvio.",
+      "point1": "9 categorias fixas — café, comida, transporte e mais",
+      "point2": "Detecção automática de local com avaliação e notas",
+      "point3": "Anexe fotos de recibos ou itens",
+      "dateLabel": "seg, 17 de nov",
+      "total": "$28,40"
+    },
+    "feature4": {
+      "label": "Feature 04 · Locais",
+      "title": "Mapeie seus favoritos. Ignore o resto.",
+      "desc": "Avalie e comente os locais que visita — seu próximo ledger usa isso automaticamente. Seus spots frequentes, tudo em uma visão.",
+      "point1": "Google Maps — pins e fotos",
+      "point2": "Tags \"Devolver / Pular\" de suas avaliações",
+      "point3": "Visitas e totais somados automaticamente"
+    },
+    "feature5": {
+      "label": "Funcionalidade 05 · Coach de IA",
+      "title": "Um coach de IA amigável, todo mês.",
+      "desc": "Registre vitórias, arrependimentos e promessas para o próximo mês. Moa compara com o mês anterior e responde com a voz de um amigo.",
+      "point1": "Compara automaticamente totais e categorias mensais",
+      "point2": "Tom de \"você está indo bem\", sem críticas",
+      "point3": "Uma ação concreta para tentar no próximo mês",
+      "messageTitle": "Moa não julga.",
+      "messageSub": "Fecha o mês como um amigo faria — \"obrigado por registrar este mês também.\"",
+      "monthLabel": "Recapitulação de outubro",
+      "total": "$1.284,50",
+      "strength": "Gasto com café caiu 18% vs. mês passado. Parabéns!",
+      "weakness": "Alimentação ficou 32% acima do normal — mais refeições fora.",
+      "advice": "Tente um dia de culinária caseira por semana. Economiza uns $120."
+    },
+    "feature6": {
+      "label": "Funcionalidade 06 · Saldo",
+      "title": "Renda − gasto − economia = o que é realmente seu.",
+      "desc": "Reserve custos fixos e economia primeiro. O que sobra é o que você pode realmente gastar.",
+      "point1": "Renda, gasto e economia em uma tabela",
+      "point2": "Resumo de \"livre para gastar\" em uma linha",
+      "point3": "Carregamento automático cada mês",
+      "monthLabel": "Saldo de novembro",
+      "income": "$3.200",
+      "spent": "$1.840",
+      "saved": "$600",
+      "free": "$760"
+    },
+    "feature7": {
+      "label": "Funcionalidade 07 · Recorrente",
+      "title": "Configure uma vez. Pronto até a data final.",
+      "desc": "Aluguel, assinaturas, seguros — registre uma vez e eles preenchem seu calendário até a data final.",
+      "point1": "Ciclos semanais, mensais, anuais",
+      "point2": "Preenche automaticamente o calendário até a data final",
+      "point3": "Salve edições em lote de uma vez",
+      "row1": {
+        "name": "Aluguel",
+        "amount": "$1.400",
+        "cycle": "25º mensal",
+        "next": "25 nov"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "$15,49",
+        "cycle": "28º mensal",
+        "next": "28 nov"
+      },
+      "row3": {
+        "name": "Seguro",
+        "amount": "$48",
+        "cycle": "30º mensal",
+        "next": "30 nov"
+      },
+      "row4": {
+        "name": "Academia",
+        "amount": "$95",
+        "cycle": "5º mensal",
+        "next": "5 dez"
+      }
+    },
+    "compare": {
+      "label": "Comparar",
+      "title": "O que torna Moa diferente?",
+      "subtitle": "Lado a lado com apps de orçamento típicos e planilhas.",
+      "colFeature": "Recurso",
+      "colOther": "App típico",
+      "colExcel": "Planilha",
+      "row1": "Entrada por chat em uma linha",
+      "row2": "Categorização automática",
+      "row3": "Coaching de IA mensal",
+      "row4": "Próximos + calendário",
+      "row5": "Local automático e resenhas",
+      "row6": "Recorrência até data final",
+      "row7": "9 idiomas prontos para usar",
+      "row8": "Exportar para Excel"
+    },
+    "target": {
+      "label": "Para você",
+      "title": "Pessoas que amam Moa.",
+      "persona1": {
+        "emoji": "💼",
+        "name": "O orçamentista de enésima tentativa",
+        "desc": "Você testou 3+ apps e parou em cada um em uma semana. Entrada fácil é o que faz você ficar."
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "Iniciante na carreira",
+        "desc": "Seu salário chega e desaparece. O coach de IA faz sentido do seu mês."
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "Vivendo ou viajando no exterior",
+        "desc": "Múltiplas moedas e idiomas. Moa fala 9 — registre naturalmente de qualquer forma."
+      }
+    },
+    "cta2": {
+      "title": "Comece antes do mês acabar.",
+      "subtitle": "Cadastro de 30 segundos, sem cartão, gratuito na versão beta.",
+      "trust1": "Cadastro em 30s",
+      "trust2": "Sem cartão",
+      "trust3": "Beta gratuito"
+    }
+  },
+  "login": {
+    "subtitle": "Faça login e comece seu livro.",
+    "email": "Email",
+    "password8": "Senha (8+ caracteres)",
+    "submit": "Entrar",
+    "submitBusy": "Entrando…",
+    "noAccount": "Sem conta?",
+    "signupLink": "Cadastre-se",
+    "forgotLink": "Esqueceu a senha?",
+    "failed": "Login falhou"
+  },
+  "signup": {
+    "title": "Criar conta",
+    "nickname": "Apelido (opcional)",
+    "countryLabel": "País de residência",
+    "countryHint": "Idioma e moeda são definidos automaticamente pelo seu país. Você pode alterá-los a qualquer momento em Minha Página.",
+    "agreeStart": "Concordo com os ",
+    "agreeTerms": "Termos",
+    "agreeAnd": " e ",
+    "agreePrivacy": "Política de Privacidade",
+    "agreeEnd": ".",
+    "agreeRequired": "Por favor, concorde com os Termos e Política de Privacidade.",
+    "submit": "Cadastre-se",
+    "submitBusy": "Cadastrando…",
+    "hasAccount": "Já tem uma conta?",
+    "loginLink": "Fazer login",
+    "failed": "Falha no cadastro"
+  },
+  "forgot": {
+    "title": "Redefinir senha",
+    "intro": "Digite o email usado no cadastro e enviaremos um link para redefinir sua senha.",
+    "sent": "Se o email está registrado, enviamos um link de redefinição. Verifique sua pasta de spam se não o encontrar. O link é válido por 1 hora.",
+    "submit": "Enviar email de redefinição",
+    "submitBusy": "Enviando…",
+    "backLogin": "Voltar para login",
+    "backLoginLink": "Voltar para login"
+  },
+  "reset": {
+    "title": "Definir nova senha",
+    "intro": "Use pelo menos 8 caracteres.",
+    "newPassword": "Nova senha",
+    "submit": "Alterar senha",
+    "submitBusy": "Alterando…",
+    "invalid": "Link inválido",
+    "invalidDesc": "Token de redefinição não encontrado. Use o link do email.",
+    "requestAgain": "Solicitar email de redefinição novamente",
+    "minLength": "A senha deve ter pelo menos 8 caracteres.",
+    "success": "Senha alterada. Faça login novamente.",
+    "failed": "Falha na redefinição"
+  },
+  "ledger": {
+    "title": "Meu Registro",
+    "todayHint": "Hoje é {{date}} · devagar e sempre",
+    "monthSuffix": "{{month}}",
+    "todayTagline": "Hoje é {{month}}/{{day}} · devagar e sempre",
+    "receiptLabel": "Recibo",
+    "receiptUploadTitle": "Anexar foto do recibo",
+    "guideTitle": "Tente escrever assim",
+    "actions": {
+      "edit": "Editar",
+      "delete": "Excluir"
+    },
+    "moneyUnit": {
+      "tenK": "k",
+      "thousand": "k"
+    },
+    "tabs": {
+      "chat": "Chat",
+      "calendar": "Calendário",
+      "places": "Locais",
+      "reflect": "Análise",
+      "plan": "Plano",
+      "balance": "Saldo"
+    },
+    "stats": {
+      "thisMonthFlow": "Este mês",
+      "budget": "Orçamento",
+      "freeMoney": "Livre para gastar",
+      "setBudgetHint": "Defina um orçamento ou renda para ver isto →",
+      "spent": "Gasto",
+      "upcoming": "Próximo",
+      "dailyAvg": "Média diária",
+      "monthSpent": "Gasto no mês",
+      "monthUpcoming": "Próximo",
+      "won": ""
+    },
+    "input": {
+      "placeholder": "Starbucks $5…",
+      "send": "Enviar",
+      "retry": "Pode reformular?",
+      "tryAgain": "Por favor, tente novamente.",
+      "shortcuts": "Enter para enviar · Shift+Enter para nova linha",
+      "guideButton": "O que posso digitar? Ver guia"
+    },
+    "messages": {
+      "welcome": "Oi! Vamos começar seu ledger 📒",
+      "welcomeHint": "Digite como você falaria — ex: \"almoço kimbap 4 hoje\". Toque no botão 💡 ao lado da entrada para ver o que você pode dizer. Use as abas Calendário / Lugares / Avaliações / Planejamento / Saldo para encerrar o mês, e os ícones ✏️·🗑 em cada linha para editar ou deletar uma entrada.",
+      "recorded": "Salvo ✓ ({{count}} item(ns))",
+      "placeRecognized": "📍 \"{{name}}\" detectado. Abra a entrada para escolher o local exato.",
+      "recurringRecorded": "🔁 {{count}} salvo como recorrente. Edite ou delete na página [Despesas recorrentes].",
+      "askRecurrenceEnd": "🔁 Entendi como despesa recorrente. Quando deve terminar? ex: 2027-12-31 / 24 meses / 5 anos"
+    },
+    "place": {
+      "title": "Meu mapa de gastos",
+      "intro": "{{count}} lugares · toque em um marcador ou card para mapa, fotos e avaliações",
+      "frequent": "Visitados com frequência",
+      "emptyPins": "Nenhum local marcado ainda. Toque em um card de lugar para escolher o local exato.",
+      "pickLocation": "Escolha o local exato",
+      "aiHint": "(A localização sugerida pela IA pode ser imprecisa, então nenhum marcador é colocado automaticamente.)",
+      "searchPlaceholder": "Perto de {{name}}",
+      "search": "Pesquisar",
+      "searchBusy": "Pesquisando…",
+      "useMyLocationGps": "Usar minha localização (GPS)",
+      "moreAccurate": "Mais preciso (GPS)",
+      "viewboxIp": "📍 Perto de {{label}} (±20km)",
+      "viewboxGps": "📍 Perto de minha localização (GPS, ±20km)",
+      "viewboxNationwide": "🌐 Pesquisa em todo o país",
+      "viewboxDenied": "🌐 Pesquisa em todo o país (localização negada)",
+      "viewboxUnsupported": "🌐 Pesquisa em todo o país (navegador não suportado)",
+      "noResults": "Nenhum resultado. Tente outra palavra-chave ou deixe a localização em branco.",
+      "againGo": "Voltarei",
+      "avoid": "Não voltarei",
+      "normal": "OK",
+      "resetPin": "Redefinir localização",
+      "openInGoogleMaps": "Abrir no Google Maps",
+      "mapsUnavailable": "O mapa está temporariamente indisponível.",
+      "tapMapToPickLocation": "Toque no mapa para escolher o local exato",
+      "savePickedLocation": "Salvar este local",
+      "visitTitle": "Visitas e avaliações",
+      "rating": "{{n}}/5",
+      "addReview": "+ Adicionar uma nota rápida",
+      "reviewPlaceholder": "Como foi?",
+      "photo": "Foto",
+      "photoUploading": "Enviando…",
+      "photoTotal": "{{count}} foto(s)"
+    },
+    "categories": {
+      "식비": "Alimentação",
+      "카페/간식": "Café e Lanches",
+      "쇼핑": "Compras",
+      "교통": "Transporte",
+      "주거/공과금": "Moradia e Contas",
+      "건강/뷰티": "Saúde e Beleza",
+      "여행/이벤트": "Viagens e Eventos",
+      "경조사/선물": "Presentes e Ocasiões",
+      "금융/대출": "Finanças e Empréstimos",
+      "기타": "Outro"
+    },
+    "calendar": {
+      "weekday": {
+        "sun": "Dom",
+        "mon": "Seg",
+        "tue": "Ter",
+        "wed": "Qua",
+        "thu": "Qui",
+        "fri": "Sex",
+        "sat": "Sab"
+      },
+      "today": "Hoje",
+      "noEntries": "Nenhum lançamento neste mês ainda",
+      "noEntriesDay": "Nenhum lançamento neste dia",
+      "monthYear": "{{month}} {{year}}",
+      "planned": "Planejado",
+      "dayTotal": "Total {{amount}} →",
+      "viewGrid": "Grade",
+      "viewList": "Lista",
+      "openDayMonth": "{{month}}/{{day}}",
+      "spentLine": "Gasto {{spent}} · Próximo {{planned}}"
+    },
+    "reflect": {
+      "monthly": "Revisão mensal",
+      "annual": "Revisão anual",
+      "noteTitle": "Minhas anotações",
+      "noteHint": "Escreva um compromisso — ele aparece automaticamente na aba Planejar do próximo mês.",
+      "empty": "Nenhuma revisão ainda",
+      "achieved": "Alcançado!",
+      "missed": "Não alcançado",
+      "aiCoachTitle": "Insight do coach IA",
+      "aiCoachSubtitle": "Uma análise objetiva do seu mês",
+      "aiAnalyzing": "Analisando...",
+      "aiRegenerate": "Regenerar",
+      "aiStart": "Ver insight",
+      "aiEmpty": "Pressione o botão acima para começar",
+      "praise": "O que deu certo",
+      "concern": "O que ficar atento",
+      "suggestion": "Próximo mês",
+      "addToGoal": "Adicionar ao compromisso do próximo mês",
+      "monthChange": "Comparado ao mês anterior",
+      "lastMonthLabel": "Mês passado",
+      "monthHeader": "Revisão {{year}} · {{month}}",
+      "monthTotal": "Total {{amount}}",
+      "types": {
+        "regret": {
+          "label": "Arrependimento",
+          "placeholder": "ex: gastei muito com café"
+        },
+        "praise": {
+          "label": "Vitória",
+          "placeholder": "ex: canceli assinaturas desnecessárias"
+        },
+        "goal": {
+          "label": "Compromisso",
+          "placeholder": "ex: manter café abaixo de R$ 50"
+        },
+        "insight": {
+          "label": "Insight",
+          "placeholder": "ex: comer fora aumenta gastos com café"
+        }
+      }
+    },
+    "balance": {
+      "title": "Balanço patrimonial",
+      "headerMonth": "Balanço — {{month}}",
+      "subtitle": "Seu mês de uma perspectiva contábil",
+      "income": "Receita",
+      "incomeRow": "Salário",
+      "expenseByCategory": "Despesas (por categoria)",
+      "expenseSubtotal": "Subtotal de despesas",
+      "plannedHeader": "Despesas próximas",
+      "plannedRow": "Próximas deste mês ({{count}})",
+      "netLine": "= Líquido (Receita − Despesas − Próximas)",
+      "savingPossible": "Você poderia poupar isso",
+      "needIncome": "Você precisará de mais receita",
+      "spent": "Gasto",
+      "planned": "Planejado",
+      "saving": "Poupança",
+      "savingRate": "Taxa de poupança",
+      "modeCurrent": "Este mês",
+      "modeNext": "Próximo mês",
+      "healthyTip": "💡 20%+ é uma taxa de poupança saudável"
+    },
+    "plan": {
+      "monthLabel": "Plano de {{month}}",
+      "lastMonthPledge": "Promessa do mês passado · mantenha neste mês",
+      "lastMonthSucceed": "Conseguiu no mês passado",
+      "bigPictureTitle": "Visão geral de {{mode}}",
+      "modeCurrent": "Este mês",
+      "modeNext": "Próximo mês",
+      "bigPictureSubtitle": "Esboce o fluxo antes que aconteça",
+      "currentUsage": "Gasto atualmente",
+      "plannedAmount": "Próximas",
+      "totalProjected": "Total projetado",
+      "budgetSuffix": "/ orçamento {{budget}}",
+      "overBy": "Projetado acima em {{amount}}",
+      "nextMonthPledge": "Promessa para o próximo mês",
+      "letterToSelf": "Uma nota para si mesmo",
+      "nextPledgePlaceholder": "ex. café apenas duas vezes por semana",
+      "saveAsGoal": "Salvar como promessa do próximo mês"
+    },
+    "dayModal": {
+      "header": "{{month}}/{{day}}",
+      "spentLine": "Gasto {{spent}} · Próximas {{planned}}",
+      "empty": "Nenhuma entrada neste dia",
+      "plannedTag": "Próximas"
+    },
+    "year": {
+      "last12Title": "Últimos 12 meses em resumo",
+      "yearSummary": "Total {{total}} · Média mensal {{avg}}",
+      "mostSpent": "Mês com maior gasto",
+      "mostSaved": "Mês com maior poupança",
+      "yearMonth": "{{month}} {{year}}",
+      "yearCategoriesTitle": "Onde você gastou mais durante o ano",
+      "monthlyAvgLabel": "Média mensal {{amount}}"
+    },
+    "placeModal": {
+      "visitCount": "{{count}} visita(s)",
+      "totalSpent": "Total {{amount}}",
+      "openGoogle": "Google Maps",
+      "openKakao": "Kakao Map",
+      "openNaver": "Naver Map",
+      "moodAgainWant": "Quer revisitar",
+      "moodNormal": "Média",
+      "moodAvoid": "Não retorna"
+    },
+    "entryEdit": {
+      "name": "Nome",
+      "amount": "Valor",
+      "date": "Data",
+      "category": "Categoria",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "namePlaceholder": "ex: almoço kimbap",
+      "defaultName": "(sem nome)",
+      "deleteConfirm": "Deletar \"{{name}}\"?"
+    },
+    "inputGuide": {
+      "openButton": "Tente escrever assim",
+      "title": "Como conversar com seu diário",
+      "subtitle": "Escreva do jeito que você falaria. A IA descobre valor, categoria, data e lugar.",
+      "summaryTitle": "Resumo de 3 segundos",
+      "summaryBody": "\"O quê, quanto, (opcional) quando / onde\" — é o suficiente.",
+      "summaryExampleLabel": "Exemplo",
+      "summaryExample": "hoje na Starbucks Bucheon gastei 6500",
+      "section1Title": "Entrada em uma linha",
+      "section1Tips": [
+        "Starbucks 6500",
+        "lunch kimbap 4000",
+        "spent 2,300 at the convenience store"
+      ],
+      "section2Title": "Múltiplas de uma vez",
+      "section2Tips": [
+        "today lunch 8000, cafe 5500, taxi 9000",
+        "groceries 32000 + movie 15000"
+      ],
+      "section3Title": "Especificar data / hora",
+      "section3Tips": [
+        "dinner with team yesterday 40000",
+        "haircut last Friday 30000",
+        "friend's wedding on Mar 15 100000"
+      ],
+      "section4Title": "Incluir o lugar",
+      "section4Tips": [
+        "coffee at Starbucks Gangnam 6500",
+        "20000 at Olive Young near home",
+        "※ The AI only recognises the name — open the entry to pin the exact spot."
+      ],
+      "section5Title": "Gasto futuro (planejado)",
+      "section5Tips": [
+        "Netflix 17000 next Tuesday",
+        "rent 180000 due on the 15th",
+        "friend's birthday gift 50000 on the 5th of next month"
+      ],
+      "section6Title": "Recibos / fotos",
+      "section6Tips": [
+        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
+        "Multi-line receipts work too"
+      ],
+      "section7Title": "Dicas de categoria",
+      "section7Tips": [
+        "\"Olive Young mask sheet 10000\" → Health & Beauty",
+        "\"taxi 12000\" → Transport",
+        "Wrong category? Edit it with the ✏️ button next to the entry"
+      ],
+      "tabsTitle": "Mais do que chat",
+      "tabsHint": "✏️ Use os ícones de lápis/lixeira ao lado de cada entrada para editar ou deletar individualmente.",
+      "notAllowedTitle": "Isso não funciona",
+      "notAllowed": [
+        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
+        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
+        "· Personal IDs (full card numbers, government IDs) — never type them"
+      ],
+      "close": "Entendi, vamos começar",
+      "tabs": {
+        "calendar": "Calendário — toque um dia para ver gastos e planejamento daquele dia",
+        "places": "Lugares — locais que você visita frequentemente, em um mapa com fotos",
+        "reflect": "Revisão — anote conquistas, arrependimentos e promessas todo mês",
+        "plan": "Planejamento — capture despesas futuras do mês que vem",
+        "balance": "Saldo — receita, gastos e taxa de poupança em um relance"
+      }
+    }
+  },
+  "mypage": {
+    "title": "Minha Página",
+    "requireLogin": "Por favor, faça login para continuar.",
+    "requireLoginCta": "Entrar",
+    "tabs": {
+      "general": "Geral",
+      "billing": "Faturamento",
+      "privacy": "Privacidade",
+      "location": "Localização",
+      "export": "Exportar"
+    },
+    "account": {
+      "title": "Conta",
+      "email": "Email",
+      "role": "Função",
+      "admin": "Admin",
+      "user": "Membro"
+    },
+    "profile": {
+      "title": "Perfil",
+      "name": "Nome",
+      "namePlaceholder": "Jane Doe",
+      "displayName": "Nome de exibição",
+      "displayNamePlaceholder": "Guardião do Dinheiro",
+      "monthlyIncome": "Renda mensal",
+      "monthlyBudget": "Orçamento mensal",
+      "save": "Salvar perfil",
+      "saving": "Salvando…"
+    },
+    "password": {
+      "title": "Alterar senha",
+      "current": "Senha atual",
+      "newPlaceholder": "Nova senha (8+ caracteres)",
+      "change": "Alterar senha",
+      "changing": "Alterando…",
+      "forgot": "Esqueceu sua senha?",
+      "minLength": "A nova senha deve ter pelo menos 8 caracteres.",
+      "changed": "Senha alterada.",
+      "changeFailed": "Falha ao alterar senha"
+    },
+    "toasts": {
+      "profileSaved": "Perfil salvo.",
+      "saveFailed": "Falha ao salvar"
+    },
+    "billing": {
+      "statusTitle": "Status de cobrança",
+      "tierPaid": "Premium",
+      "tierFreeTrial": "Gratuito (período de teste)",
+      "tierExpired": "Expirado",
+      "daysRemaining": "{{n}} dias restantes",
+      "pastDue": "Pagamento em atraso",
+      "trialEndsAt": "Período de teste termina",
+      "paidUntil": "Premium válido até",
+      "price": "Preço Premium",
+      "perMonth": "/ mês",
+      "cardOnFile": "Cartão registrado",
+      "changeCard": "Alterar forma de pagamento (registre um novo cartão)",
+      "lastError": "Último erro de pagamento",
+      "freeTitle": "Gratuito",
+      "freeFeature1": "1 mês de ledger completo após cadastro",
+      "freeFeature2": "Categorização com IA · calendário · revisão",
+      "freeFeature3": "Coloque marcadores e anotações",
+      "freeFeature4": "Exportação JSON dos meus dados",
+      "paidTitle": "Premium",
+      "currentPlan": "Plano atual",
+      "priceMonthlyText": "₩5.500 / mês",
+      "priceYearlyText": "ou ₩50.000 / ano (24% de desconto · 2 meses grátis)",
+      "paidFeature1": "Todos os recursos gratuitos",
+      "paidFeature2": "Acesso contínuo ao ledger",
+      "paidFeature3": "Exportação Excel (.xlsx) mensal e anual",
+      "paidFeature4": "Suporte prioritário",
+      "betaButtonLabel": "Gratuito durante beta",
+      "cancelButton": "Cancelar",
+      "checkoutStart": "Iniciar checkout Premium",
+      "checkoutLoading": "Abrindo checkout…",
+      "planSelectionHint": "Escolha mensal ou anual na próxima tela.",
+      "tossLink": "Ou pague com Toss (cartões coreanos, KRW)",
+      "lsConnected": "✅ Lemon Squeezy (MoR) conectado — checkout global com cartão/PayPal. IVA, reembolsos e faturas automáticos.",
+      "tossAlsoActive": "Toss (cartão instantâneo em KRW) também está ativo.",
+      "lsUnconfigured": "💡 As chaves do Lemon Squeezy não estão configuradas, então o checkout está desabilitado. Quando LEMONSQUEEZY_API_KEY etc. forem definidas no Render, o fluxo de checkout será ativado automaticamente.",
+      "betaBannerTitle": "🎉 Gratuito durante a beta",
+      "betaBannerBody": "Todos os recursos são gratuitos agora, incluindo exportação Excel e ledger completo. Os planos pagos (₩5.500 / mês · ₩50.000 / ano) e o sistema de cobrança (Lemon Squeezy global + Toss Korea) estão em modo de teste e anunciaremos separadamente quando a beta terminar.",
+      "loadFailed": "Não foi possível carregar as informações da assinatura.",
+      "returnHint": "Volte para o aplicativo após o checkout — atualizaremos automaticamente.",
+      "betaActive": "Todos os recursos são gratuitos durante o período de beta.",
+      "betaModeNotice": "Todos os recursos são gratuitos durante o período de beta.",
+      "checkoutUnavailable": "O checkout ainda não está habilitado.",
+      "checkoutError": "Algo deu errado ao abrir o checkout.",
+      "paymentComplete": "Pagamento concluído.",
+      "confirmFailed": "Falha ao confirmar o pagamento",
+      "paymentCancelled": "Cancelado na tela de checkout.",
+      "widgetFailed": "Não foi possível abrir a janela de pagamento.",
+      "upgradeMockConfirm": "Fazer upgrade para o plano Premium por {{price}} por mês?\n\n※ O gateway de pagamento não está conectado no ambiente do operador.\nEsta demonstração o alternará imediatamente (sem cobrança real).",
+      "upgradedMock": "Alterado para o plano Premium.",
+      "upgradeFailed": "Falha no upgrade",
+      "cancelConfirm": "Cancelar o plano Premium?\n· Sua chave de cobrança será revogada imediatamente e nenhuma cobrança adicional será feita.\n· Você será movido para Free automaticamente quando este período de cobrança terminar.",
+      "cancelled": "Cancelamento processado.",
+      "cancelFailed": "Falha no cancelamento"
+    },
+    "privacy": {
+      "title": "Privacidade",
+      "locationOptInTitle": "Permitir metadados de localização",
+      "locationOptInBody": "Permitir que Claude use metadados de localização aproximada (cidade / região) para melhorar a experiência do produto. Coordenadas precisas nunca são usadas — apenas estimativa baseada em IP.",
+      "learnMore": "Saiba mais",
+      "activeNote": "✓ Ativado agora — usado para sugerir automaticamente lugares próximos ao registrar uma entrada.",
+      "inactiveNote": "○ Desativado — a estimativa de localização baseada em IP não é usada.",
+      "toggledOn": "Metadados de localização permitidos.",
+      "toggledOff": "Metadados de localização desabilitados."
+    },
+    "location": {
+      "title": "Localização",
+      "intro": "Quando você anexa um lugar a uma entrada do ledger, os locais próximos são sugeridos primeiro com base no seu IP (mobile / desktop). Se o resultado estiver impreciso, você pode pesquisar ou escolher no mapa na tela de detalhes do lugar.",
+      "disabledNotice": "Metadados de localização estão desabilitados. Permita na aba Privacidade para ativar a estimativa automática.",
+      "tempFailure": "A estimativa de localização baseada em IP falhou temporariamente. Atualize ou tente novamente em breve.",
+      "detectedIp": "IP detectado",
+      "country": "País",
+      "region": "Região / Estado",
+      "city": "Cidade",
+      "coordinates": "Lat / Lng",
+      "ipLabel": "IP",
+      "dataSource": "Fonte de dados",
+      "fromCache": "Em cache (até 1h)",
+      "fresh": "Estimado agora",
+      "manualEditHint": "Para edições manuais, use a pesquisa ou toque no mapa a partir da tela de detalhes do lugar de cada entrada do ledger."
+    },
+    "export": {
+      "xlsxTitle": "Exportar entradas do ledger para Excel",
+      "xlsxDesc": "Baixar como .xlsx. Planilha única mensal, ou anual com 12 meses + planilha resumida.",
+      "monthly": "Mensal",
+      "monthlyDownload": "Baixar mensal",
+      "annual": "Anual",
+      "annualDownload": "Baixar anual",
+      "paidOnlyNotice": "Exportação Excel está disponível no plano Premium. Faça upgrade na aba Cobrança para usá-la imediatamente.",
+      "betaFreeNotice": "🎉 Exportação Excel é gratuita durante o período de beta.",
+      "gdprTitle": "Todos os dados (GDPR)",
+      "gdprDesc": "Baixe razão + planejado + revisões + metadados de fotos como JSON. Sempre disponível em qualquer plano.",
+      "gdprButton": "Todos os dados (JSON)",
+      "trialExpired": "Seu período de avaliação gratuita expirou. Faça upgrade para Premium.",
+      "downloadStarted": "Download do Excel iniciado.",
+      "gdprStarted": "Download dos dados iniciado.",
+      "failed": "Falha na exportação"
+    },
+    "dangerZone": {
+      "title": "Zona de risco",
+      "description": "Deletar sua conta bloqueia o login imediatamente. Os dados da razão são mantidos por um período de retenção antes da exclusão permanente.",
+      "deleteButton": "Deletar conta",
+      "deleteConfirm": "Tem certeza de que deseja deletar sua conta?\n\n· O login é bloqueado imediatamente.\n· Os dados da razão são mantidos por um período de retenção antes da exclusão permanente.\n· Se precisar de exclusão total agora, exporte seus dados primeiro e contate o operador.",
+      "confirmEmailPrompt": "Digite seu email para confirmar a exclusão da conta.",
+      "emailMismatch": "Email não corresponde. Operação cancelada.",
+      "deleted": "Conta deletada.",
+      "deleteFailed": "Falha ao deletar conta"
+    },
+    "region": {
+      "title": "Região / Idioma / Moeda",
+      "subtitle": "Altere a moeda de exibição da razão e o idioma da interface. Os números das entradas existentes permanecem os mesmos.",
+      "country": "País",
+      "currency": "Moeda",
+      "language": "Idioma",
+      "saved": "Configurações de região salvas.",
+      "applyDefaults": "Aplicar padrões do país selecionado"
+    }
+  },
+  "appHeader": {
+    "faq": "FAQ",
+    "myAccount": "Conta",
+    "admin": "Admin",
+    "logout": "Sair",
+    "recurring": "Recorrente",
+    "menu": "Menu",
+    "close": "Fechar"
+  },
+  "bottomNav": {
+    "home": "Início",
+    "calendar": "Calendário",
+    "recurring": "Recorrente",
+    "me": "Eu",
+    "label": "Navegação principal"
+  },
+  "recurring": {
+    "title": "Despesas recorrentes",
+    "backToLedger": "Voltar à razão",
+    "helpText": "Registre uma despesa recorrente uma vez (mensal/semanal/anual) e ela aparece no calendário automaticamente. Ex: juros de empréstimo no dia 16, taxa semanal do clube de almoço na segunda.",
+    "existing": "Regras recorrentes salvas",
+    "loading": "Carregando…",
+    "empty": "Nenhuma despesa recorrente ainda. Use + Adicionar linha abaixo para começar.",
+    "newRows": "Novas linhas",
+    "addRow": "Adicionar linha",
+    "saveAll": "Salvar tudo",
+    "saveAllWithCount": "Salvar tudo ({{count}})",
+    "unsavedChanges": "{{count}} não salvo",
+    "revertAll": "Reverter",
+    "saving": "Salvando…",
+    "emptyDraft": "Nenhuma linha adicionada",
+    "savedCount": "{{count}} salvo",
+    "confirmDelete": "Deletar esta regra? Todas as ocorrências futuras também desaparecem.",
+    "delete": "Deletar",
+    "fromStartDate": "A partir de M/D",
+    "placeholders": {
+      "description": "ex: juros do 16º empréstimo"
+    },
+    "headers": {
+      "description": "Descrição",
+      "amount": "Valor",
+      "category": "Categoria",
+      "recurrence": "Frequência",
+      "day": "Dia",
+      "startDate": "Data inicial",
+      "until": "Data final (obrigatório)"
+    },
+    "frequency": {
+      "none": "Nenhuma (única vez)",
+      "monthly": "Mensal",
+      "weekly": "Semanal",
+      "yearly": "Anual"
+    },
+    "weekday": {
+      "mon": "Seg",
+      "tue": "Ter",
+      "wed": "Qua",
+      "thu": "Qui",
+      "fri": "Sex",
+      "sat": "Sab",
+      "sun": "Dom"
+    },
+    "validation": {
+      "descriptionRequired": "Adicione uma descrição",
+      "amountRequired": "Adicione um valor",
+      "categoryInvalid": "Categoria inválida",
+      "startDateInvalid": "Data inicial inválida (AAAA-MM-DD)",
+      "monthlyDay": "Mensal: escolha um dia entre 1–31",
+      "weeklyDay": "Semanal: escolha um dia da semana",
+      "endDateRequired": "Defina uma data final (obrigatório para recorrências)",
+      "endDateInvalid": "Formato de data final inválido (AAAA-MM-DD)",
+      "endDateAfterStart": "A data final deve ser igual ou posterior à data inicial",
+      "missingEndDateTitle": "{{count}} despesa(s) recorrente(s) sem data final.",
+      "missingEndDateBody": "Sem uma data final, o calendário não conseguirá exibi-las corretamente. Preencha a coluna \"Data final\" nas linhas destacadas."
+    }
+  },
+  "pricing": {
+    "title": "Moa AI Ledger — Planos",
+    "subtitle": "Funcionalidades essenciais são gratuitas. Avance com Premium.",
+    "betaTitle": "Usuários beta — 50% de desconto nos primeiros 12 meses",
+    "betaDesc": "Se você se cadastrou durante a fase beta, ganha 50% de desconto no Premium pelos primeiros 12 meses quando os planos pagos forem lançados. R$ 10,99 / mês ou R$ 99,99 / ano.",
+    "freePlan": "Gratuito",
+    "freePrice": "$0",
+    "freePriceNote": "Gratuito para sempre, sem cartão obrigatório",
+    "freeDesc": "30 entradas IA / mês + ledger completo (calendário, categorias, locais, visualização mensal). Sem anúncios.",
+    "freeCta": "Começar grátis",
+    "paidPlan": "Premium",
+    "paidBadge": "Recomendado",
+    "paidPriceMonthly": "$3.99",
+    "perMonth": "/ mês",
+    "paidPriceYearlyNote": "ou $35.99 / ano (24% de desconto) · preços auto-convertidos por país",
+    "paidDesc": "IA ilimitada + coach mensal + OCR de recibos + exportação de dados. Tenha a experiência completa Moa.",
+    "paidCta": "Ativar Premium",
+    "paidCtaYearly": "Anual ($35.99 · 2 meses grátis)",
+    "planSelectionHint": "Você poderá escolher mensal ou anual na próxima tela.",
+    "returnHint": "Volte ao app após completar o pagamento — atualizaremos automaticamente.",
+    "betaActiveToast": "Recursos Premium são gratuitos durante o período beta.",
+    "checkoutUnavailable": "O checkout ainda não está ativado. Anunciaremos o lançamento em breve.",
+    "checkoutError": "Não conseguimos abrir o checkout. Por favor, tente novamente em alguns instantes.",
+    "compareTitle": "Gratuito vs Premium",
+    "compareFeature": "Recurso",
+    "compare": {
+      "aiInput": {
+        "feature": "Chat com IA",
+        "free": "30 / mês",
+        "paid": "Ilimitado"
+      },
+      "adFree": {
+        "feature": "Sem anúncios",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "Coaching de revisão mensal com IA",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "OCR de foto de recibo",
+        "free": "5 / mês",
+        "paid": "Ilimitado"
+      },
+      "multilang": {
+        "feature": "9 idiomas + multi-moeda",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "Marcadores de locais e avaliações",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "Alertas recorrentes e futuros",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Exportação para Excel / CSV",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "Histórico do ledger",
+        "free": "12 meses",
+        "paid": "Ilimitado"
+      },
+      "priority": {
+        "feature": "Suporte prioritário",
+        "free": "✗",
+        "paid": "✓"
+      }
+    },
+    "paymentTitle": "Métodos de pagamento",
+    "paymentDesc": "Usuários coreanos pagam via Toss Payments; usuários internacionais pagam via Paddle. Dados do cartão ficam com o provedor de pagamento — Moa exibe apenas os últimos 4 dígitos.",
+    "paymentKr": "🇰🇷 Coreia: Toss Payments (débito, crédito, transferência bancária)",
+    "paymentIntl": "🌍 Internacional: Paddle (cartão, PayPal, Apple Pay, Google Pay — em breve)",
+    "cancelTitle": "Cancelamento e reembolso",
+    "cancelDesc": "Cancele a qualquer momento em Minha Página → Faturamento. Você mantém acesso até o final do período pago.",
+    "refundLink": "Ver política de reembolso completa →",
+    "operatorTitle": "Informações do operador",
+    "operatorName": "Empresa",
+    "operatorCeo": "CEO",
+    "operatorBizNo": "Nº de Registro Comercial",
+    "operatorMailOrder": "Nº de Registro de Venda por Correspondência",
+    "operatorContact": "Suporte"
+  },
+  "refund": {
+    "title": "Política de Reembolso",
+    "subtitle": "Como e quando reembolsos são concedidos no Moa365.",
+    "section1Title": "1. Nos primeiros 7 dias após o pagamento (direito de arrependimento)",
+    "section1Body": "Nos primeiros 7 dias após o pagamento, você pode cancelar sua assinatura conforme o Artigo 17 da Lei de Comércio Eletrônico da Coreia e receber reembolso total. O direito pode ser restrito se mais de 30% dos recursos pagos tiverem sido usados. (Limitado a um por membro.)",
+    "section2Title": "2. Após 7 dias — reembolso proporcional",
+    "section2Body": "Planos mensais: reembolso = valor pago − (dias usados × taxa diária) − 10% taxa de processamento.\n\nExemplo: $2,99/mês, 10 dias usados → $2,99 − (10 × $0,10) − $0,30 ≈ $1,69 de reembolso.\n\nPlanos anuais: meses usados × taxa mensal completa (NÃO a taxa com desconto) é deduzido do reembolso.",
+    "section3Title": "3. Como solicitar um reembolso",
+    "step1": "Minha Página → Faturamento → clique em \"Cancelar\" (para a próxima renovação).",
+    "step2Prefix": "Para solicitar reembolso, envie um email para",
+    "step2Suffix": "com seu ID de pedido e email da conta.",
+    "step3": "Processado em 3–10 dias úteis conforme a política do provedor de pagamento (Toss / Paddle).",
+    "section4Title": "4. Casos não reembolsáveis",
+    "notRefundable1": "Cancelamento forçado devido a violação dos Termos ou suspensão de conta",
+    "notRefundable2": "Pagamentos realizados usando identidade de terceiros ou pagamentos detectados como fraude",
+    "section5Title": "5. Disputas",
+    "section5Body": "Disputas sobre esta política são regidas pela lei coreana e julgadas no tribunal especificado pela Lei de Processo Civil da Coreia. Para usuários internacionais, as políticas de reembolso/disputa da Paddle também podem se aplicar.",
+    "effective": "Vigente: 2026-05-21"
+  },
+  "terms": {
+    "title": "Termos de Serviço",
+    "effectiveLabel": "Vigente",
+    "intro": "Estes Termos regem seu uso do Moa AI Ledger (o \"Serviço\") operado pela ATM Store Co., Ltd. (a \"Empresa\"). Ao se cadastrar, você concorda com estes Termos.\n\nNota: Este texto em inglês é um resumo. A versão em coreano (한국어) é a versão oficial e prevaleça em caso de conflito de interpretação.",
+    "a1": {
+      "title": "Artigo 1 (Propósito)",
+      "body": "Estes Termos definem os direitos, obrigações e responsabilidades da Empresa e dos membros quanto ao uso do Serviço."
+    },
+    "a2": {
+      "title": "Artigo 2 (Definições)",
+      "body": "1. \"Serviço\" significa o aplicativo web e mobile Moa AI Ledger e serviços relacionados.\n2. \"Membro\" significa uma pessoa que concorda com estes Termos e celebra um contrato de uso com a Empresa.\n3. \"Recursos de IA\" significa funções que chamam modelos de IA externos (Anthropic Claude etc.) para classificar, resumir ou fazer coaching.\n4. \"Conteúdo\" significa todos os dados que os membros inserem ou enviam (despesas, fotos, avaliações, reflexões)."
+    },
+    "a3": {
+      "title": "Artigo 3 (Vigência e emendas)",
+      "body": "1. Estes Termos entram em vigor quando publicados no Serviço.\n2. A Empresa pode emendar estes Termos dentro das leis aplicáveis. Emendas materiais são notificadas com pelo menos 30 dias de antecedência; emendas ordinárias com pelo menos 7 dias de antecedência.\n3. O uso contínuo após a data efetiva da emenda constitui aceitação."
+    },
+    "a4": {
+      "title": "Artigo 4 (Criação de conta)",
+      "body": "1. O contrato de uso é formado quando um candidato aceita estes Termos e a Empresa aprova a candidatura.\n2. A Empresa pode recusar candidaturas que usem identidade falsa, sejam menores de 14 anos sem consentimento do responsável, ou tenham propósito fraudulento."
+    },
+    "a5": {
+      "title": "Artigo 5 (Obrigações dos membros)",
+      "body": "Os membros não devem: se passar por outros, registrar informações falsas, copiar ou distribuir conteúdo do Serviço sem consentimento, coletar dados pessoais de outros membros, prejudicar a operação do Serviço ou violar qualquer lei."
+    },
+    "a6": {
+      "title": "Artigo 6 (Obrigações da Empresa)",
+      "body": "A Empresa se esforça para fornecer um Serviço estável, proteger dados pessoais e responder prontamente às consultas dos membros."
+    },
+    "a7": {
+      "title": "Artigo 7 (Provisão do Serviço)",
+      "body": "A Empresa fornece entrada de ledger assistida por IA, gerenciamento de calendário, avaliações de lugares, coaching de IA mensal, exportação de dados e suporte a múltiplos idiomas / múltiplas moedas. O Serviço funciona 24/7 mas pode ser suspenso para manutenção ou caso de força maior."
+    },
+    "a8": {
+      "title": "Artigo 8 (Alterações e suspensão do Serviço)",
+      "body": "A Empresa pode alterar ou suspender qualquer parte do Serviço. Os membros serão notificados com pelo menos 30 dias de antecedência, exceto em casos urgentes em que a notificação ocorre posteriormente."
+    },
+    "a9": {
+      "title": "Artigo 9 (Serviço pago e faturamento recorrente)",
+      "body": "1. Alguns recursos requerem pagamento. Os preços e benefícios são publicados na página de Preços.\n2. As assinaturas se renovam automaticamente a menos que sejam canceladas. Um aviso é enviado por email 7 dias antes da próxima cobrança.\n3. Os pagamentos são processados pela Toss Payments (Coreia) ou Paddle.com Market Limited (internacional) como Merchant of Record. A Empresa não armazena números de cartão ou datas de validade."
+    },
+    "a10": {
+      "title": "Artigo 10 (Cancelamento e reembolso)",
+      "body": "1. Os membros podem cancelar uma assinatura nos primeiros 7 dias após o pagamento para receber reembolso total, a menos que mais de 30% dos recursos pagos tenham sido usados.\n2. Reembolsos após a janela de 7 dias seguem a Política de Reembolso separada.\n3. Os reembolsos são emitidos para o método de pagamento original em 3–10 dias úteis."
+    },
+    "a11": {
+      "title": "Artigo 11 (Recursos de IA)",
+      "body": "1. O Serviço transmite texto e imagens inseridos por membros para provedores de IA externos (Anthropic Claude etc.) para classificação, OCR e coaching.\n2. Os dados transmitidos são despojados de campos identificadores (email, nome) e é solicitado que não sejam usados para treinamento de modelo.\n3. A saída de IA é apenas para referência; a Empresa não garante precisão ou completude. Os membros são responsáveis por revisar resultados de IA.\n4. Consulte a Política de Privacidade para detalhes completos."
+    },
+    "a12": {
+      "title": "Artigo 12 (Propriedade dos dados)",
+      "body": "Os membros possuem o Conteúdo que inserem. A Empresa processa Conteúdo apenas para fornecer o Serviço e nunca o compartilha com terceiros sem consentimento explícito. Os membros podem exportar seus dados via Minha Página → Exportar."
+    },
+    "a13": {
+      "title": "Artigo 13 (Propriedade intelectual)",
+      "body": "Design, código-fonte, marcas registradas, logos e conteúdo criado pela Empresa são de propriedade da Empresa. Os membros não devem reproduzir ou redistribuir comercialmente tal conteúdo sem consentimento prévio por escrito."
+    },
+    "a14": {
+      "title": "Artigo 14 (Restrição de uso e rescisão)",
+      "body": "A Empresa pode restringir o uso ou rescindir a associação por violação dos Termos, dano a terceiros, interrupção intencional do Serviço ou atos ilegais. Os membros podem apresentar uma objeção em até 14 dias após notificação."
+    },
+    "a15": {
+      "title": "Artigo 15 (Cancelamento e exclusão de dados)",
+      "body": "Os membros podem se cancelar a qualquer momento. Após cancelamento, todo o Conteúdo é permanentemente deletado sem possibilidade de recuperação. Exporte seus dados antes de cancelar se necessário. Registros exigidos por lei (histórico de pagamento, registros de disputa) são retidos pelo período legalmente obrigatório e depois destruídos."
+    },
+    "a16": {
+      "title": "Artigo 16 (Limitação de responsabilidade)",
+      "body": "A Empresa não é responsável por: força maior, culpa do membro, precisão de conteúdo inserido por membros ou decisões financeiras baseadas em saída de IA."
+    },
+    "a17": {
+      "title": "Artigo 17 (Dados pessoais)",
+      "body": "O tratamento de dados pessoais é regulado pela Política de Privacidade separada."
+    },
+    "a18": {
+      "title": "Artigo 18 (Lei aplicável e jurisdição)",
+      "body": "Estes Termos são regidos pelas leis da República da Coreia. As disputas são julgadas no tribunal especificado pela Lei de Processo Civil Coreana."
+    },
+    "companyInfoTitle": "Informações do operador",
+    "companyName": "Empresa",
+    "companyCeo": "CEO",
+    "companyBizNo": "Número de Registro Comercial",
+    "companyMailOrder": "Número de Negócio de Venda por Correio",
+    "companyAddress": "Endereço",
+    "companyContact": "Suporte"
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "effectiveLabel": "Em vigor desde",
+    "intro": "ATM Store Co., Ltd. (a \"Empresa\") respeita a privacidade dos membros e está em conformidade com a Lei de Proteção de Informações Pessoais da Coreia, a Lei de Promoção da Utilização de Redes de Informação e Comunicações, e leis relacionadas.\n\nEsta Política de Privacidade descreve como a Empresa coleta, usa, armazena e destrói dados pessoais em conexão com o serviço Moa AI Ledger.\n\nObservação: Este texto em inglês é um resumo. A versão em coreano (한국어) é autoritária e prevalece em caso de conflito de interpretação.",
+    "s1": {
+      "title": "1. Finalidades do processamento",
+      "body": "A Empresa processa dados pessoais para: identificação de membros e prevenção de fraude; entrega de serviços (armazenamento de ledger, classificação com IA, coaching, calendário, marcadores de lugares); processamento de pagamento para planos pagos; suporte ao cliente; melhoria de serviços via análise anonimizada; e conformidade legal (e-commerce, impostos)."
+    },
+    "s2": {
+      "title": "2. Categorias de dados pessoais",
+      "body": "Obrigatórios (ao se registrar): email, senha (hash unidirecional), apelido, país / idioma / moeda.\n\nOpcionais: foto de perfil, renda mensal / orçamento, última localização geográfica (se consentido).\n\nGerados durante o uso: registros de despesas, registros de lugares (nome, endereço, avaliação, comentários, fotos), texto de reflexão mensal, regras de despesas recorrentes.\n\nColetados automaticamente: IP, informações de navegador / dispositivo, timestamps de acesso, página visitada, cookies e localStorage.\n\nPagamento (para usuários pagos): coletado diretamente pelo provedor de pagamento; a Empresa apenas armazena resultado, marca do cartão e últimos 4 dígitos.\n\nA Empresa não coleta dados sensíveis (raça, religião, opiniões políticas, saúde, antecedentes criminais etc.) sob o Artigo 23 da PIPA."
+    },
+    "s3": {
+      "title": "3. Períodos de retenção",
+      "body": "Os dados pessoais são mantidos até que a finalidade do processamento seja alcançada. Por lei, os seguintes são retidos separadamente:\n\n① Dados de registro de membro: deletados na retirada (hash anti-fraude mantido por 30 dias)\n② Registros de pagamento / transação: 5 anos (Lei de E-Commerce §6)\n③ Registros de reclamação / disputa do consumidor: 3 anos (Lei de E-Commerce §6)\n④ Registros de coleta / processamento de informações de crédito: 3 anos (Lei de Informação de Crédito §20)\n⑤ Registros de exibição / publicidade: 6 meses (Lei de E-Commerce §6)\n⑥ Logs de acesso e IP: 3 meses (Lei de Privacidade de Comunicações §15-2)\n\nAo se retirar, o conteúdo do ledger (despesas, fotos, reflexões) é permanente e imediatamente deletado sem recuperação."
+    },
+    "s4": {
+      "title": "4. Fornecimento a terceiros",
+      "body": "A Empresa não fornece dados pessoais a terceiros por padrão. Exceções: (i) consentimento prévio do membro, (ii) solicitação legal após processo apropriado, (iii) fornecimento em forma agregada não identificável para pesquisa / interesse público."
+    },
+    "s5": {
+      "title": "5. Processamento terceirizado e transferência transfronteiriça",
+      "body": "A Empresa terceiriza o processamento para os seguintes destinatários; alguns envolvem transferência transfronteiriça. Contratos de terceirização sob PIPA §26 proíbem uso além de fins acordados, exigem salvaguardas técnicas / administrativas e restringem re-terceirização.\n\n[Destinatário / Finalidade / País / Itens / Retenção]\n\n① Anthropic, PBC (EUA) — Classificação com IA / coaching — Texto de ledger com identificadores removidos — Conforme política do provedor; a Empresa solicita que não seja usado para treinamento de modelo\n② Resend, Inc. (EUA) — Reset de senha / emails do sistema — Email do destinatário e corpo da mensagem — Destruído após envio\n③ Google LLC (EUA) — Google Maps Geocoding — Nome do lugar / endereço (sem PII) — Destruído após envio\n④ Render Services, Inc. (EUA) — Hospedagem backend — Todos os dados do membro — Deletado na retirada\n⑤ Vercel Inc. (EUA) — Hospedagem frontend — Assets estáticos e logs de acesso — Conforme política Vercel, 30 dias\n⑥ Toss Payments (Coreia) — Processamento de pagamento doméstico — Informações de pagamento — 5 anos conforme Lei de E-Commerce\n⑦ Paddle.com Market Limited (Reino Unido / EUA, em breve) — Processamento de pagamento internacional — Informações de pagamento — Conforme política do provedor\n⑧ Cloudflare, Inc. (EUA, quando habilitado) — Armazenamento de fotos no R2 — Fotos carregadas por membros — Deletado na retirada\n\nMembros podem recusar transferência transfronteiriça, mas fazer isso pode limitar o uso do Serviço."
+    },
+    "s6": {
+      "title": "6. Direitos dos titulares de dados",
+      "body": "Os membros podem a qualquer momento: (i) visualizar seus dados pessoais, (ii) corrigir / deletar erros, (iii) interromper o processamento, (iv) cancelar a adesão e solicitar deleção permanente de dados, (v) baixar seus próprios dados em JSON legível por máquina (semelhante ao Artigo 20 da GDPR).\n\nExerça direitos via Minha Página → Configurações da conta, ou enviando email para master@aitrend.kr. A Empresa atua sem demora, sujeita a limitações em PIPA §35(4), §36(1), §37(2)."
+    },
+    "s7": {
+      "title": "7. Procedimentos e métodos de destruição",
+      "body": "Procedimento: os dados são movidos para um banco de dados separado após a finalidade do processamento ser alcançada e retidos conforme política interna / lei antes da destruição.\nMétodo: arquivos eletrônicos são permanentemente deletados por métodos que impedem recuperação; documentos em papel são triturados ou incinerados."
+    },
+    "s8": {
+      "title": "8. Salvaguardas de segurança",
+      "body": "Administrativa: plano de gerenciamento interno, treinamento periódico de pessoal.\nTécnica: hash de senha unidirecional bcrypt, encriptação HTTPS em trânsito, controle de acesso, procedimentos de backup / recuperação.\nFísica: padrões de segurança física de data center via provedores de nuvem (Render, Vercel, Cloudflare).\nRevisão: patches de segurança e verificações de vulnerabilidade no mínimo trimestralmente."
+    },
+    "s9": {
+      "title": "9. Cookies e coleta automática",
+      "body": "Finalidade: mantê-lo conectado, lembrar idioma / moeda, análise de uso anonimizada.\nRecusar: bloquear via configurações do navegador (alguns recursos podem ser limitados).\nA Empresa não instala cookies de publicidade / rastreamento de terceiros."
+    },
+    "s10": {
+      "title": "10. Recursos de IA — tratamento de dados pessoais",
+      "body": "Para fornecer recursos de IA, a Empresa transmite texto e imagens inseridos por membros para provedores de IA externos (Anthropic Claude etc.).\n\nTransmitido: texto de ledger e imagens de recibos com email / nome removidos; texto de reflexão mensal.\nFinalidade: auto-categorização, OCR, coaching mensal, geração de insights.\nRetenção: conforme política de retenção de dados do provedor e destruição automática. A Empresa solicita explicitamente que o provedor não use esses dados para treinamento de modelo.\nLimitações: a saída de IA é apenas referencial e a precisão não é garantida.\nRecusar: membros podem escolher entrada manual em vez de recursos de IA."
+    },
+    "s11": {
+      "title": "11. Encarregado de Proteção de Dados",
+      "body": "A Empresa designa um Encarregado de Proteção de Dados para lidar com reclamações de privacidade, consultas e remédios. Os membros podem contatar o EPD e departamento abaixo para todos esses assuntos."
+    },
+    "s12": {
+      "title": "12. Alterações nesta Política",
+      "body": "Esta Política de Privacidade pode ser alterada devido a mudanças na lei, política ou segurança. As alterações são anunciadas no Serviço pelo menos 7 dias antes, ou 30 dias antes para alterações materiais que afetem direitos de membros."
+    },
+    "officerTitle": "Encarregado de Proteção de Dados",
+    "officerName": "Nome",
+    "officerEmail": "Email",
+    "officerDesc": "Você também pode buscar remédio em: Comitê de Mediação de Disputa de Informações Pessoais da Coreia (1833-6972, kopico.go.kr), Centro de Relatório de Violação de Informações Pessoais (118, privacy.kisa.or.kr), Escritório de Investigação Cibernética do Promotor Supremo (1301, spo.go.kr), Bureau Cibernético da Polícia Nacional Coreana (182, ecrm.cyber.go.kr)."
+  }
+}

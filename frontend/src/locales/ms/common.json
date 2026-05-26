@@ -1,18 +1,38 @@
 {
-  "app": { "name": "Buku Belanja Moa AI" },
-  "lang": { "label": "Bahasa" },
-  "common": {
-    "or": "atau", "cancel": "Batal", "save": "Simpan", "loading": "Memuatkan…",
-    "back": "Kembali", "retry": "Sila cuba semula sebentar lagi.",
-    "home": "Utama", "pricing": "Harga", "refund": "Dasar Bayaran Balik",
-    "edit": "Edit", "delete": "Padam", "confirm": "OK"
+  "app": {
+    "name": "Buku Belanja Moa AI"
   },
-  "nav": { "myAccount": "Akaun saya", "faq": "Soalan lazim", "admin": "Admin", "logout": "Log keluar" },
+  "lang": {
+    "label": "Bahasa"
+  },
+  "common": {
+    "or": "atau",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "loading": "Memuatkan…",
+    "back": "Kembali",
+    "retry": "Sila cuba semula sebentar lagi.",
+    "home": "Utama",
+    "pricing": "Harga",
+    "refund": "Dasar Bayaran Balik",
+    "edit": "Sunting",
+    "delete": "Padam",
+    "confirm": "OK"
+  },
+  "nav": {
+    "myAccount": "Akaun saya",
+    "faq": "Soalan lazim",
+    "admin": "Admin",
+    "logout": "Log keluar"
+  },
   "landing": {
     "badge": "Beta percuma — buku belanja AI",
-    "headline1": "Catat seperti berbual,", "headline2": "imbas kembali setiap bulan.",
+    "headline1": "Catat seperti berbual,",
+    "headline2": "imbas kembali setiap bulan.",
     "subtitle": "Satu baris cukup — \"Starbucks 20\". AI mengatur kategori, jumlah dan tarikh, dan setiap bulan beri panduan hangat tentang tabiat anda.",
-    "ctaPrimary": "Mula percuma", "ctaLogin": "Log masuk", "ctaApp": "Buka buku belanja →",
+    "ctaPrimary": "Mula percuma",
+    "ctaLogin": "Log masuk",
+    "ctaApp": "Buka buku belanja →",
     "uspHeading": "Pengurusan belanja boleh jadi mudah.",
     "uspSubtitle": "Seminit sehari, pandangan baru sebulan.",
     "uspChatTitle": "Taip dalam sesaat",
@@ -26,7 +46,8 @@
     "cta2Heading": "Perbezaan terasa dari bulan pertama.",
     "cta2Subtitle": "30 saat untuk daftar. Tanpa kad kredit. Percuma semasa Beta.",
     "footerTagline": "Buku belanja AI berasaskan sembang",
-    "footerTerms": "Terma", "footerPrivacy": "Privasi",
+    "footerTerms": "Terma",
+    "footerPrivacy": "Privasi",
     "hero": {
       "badge": "Beta percuma · buku belanja AI",
       "headline1": "Kali ini,",
@@ -40,7 +61,7 @@
       "trust3": "Beta percuma"
     },
     "problem": {
-      "label": "Why Moa",
+      "label": "Kenapa Moa",
       "title": "Mengapa ramai berhenti rekod belanja?",
       "subtitle": "Sebabnya hampir sama — terlalu banyak ketuk, tiada insight, kehilangan rentak.",
       "card1": {
@@ -138,10 +159,30 @@
       "point1": "Kitaran mingguan / bulanan / tahunan",
       "point2": "Auto isi kalendar sampai tarikh tamat",
       "point3": "Sunting dan simpan pukal sekaligus",
-      "row1": { "name": "Sewa", "amount": "RM1,500", "cycle": "Tiap 25hb", "next": "25/11" },
-      "row2": { "name": "Netflix", "amount": "RM55", "cycle": "Tiap 28hb", "next": "28/11" },
-      "row3": { "name": "Insurans", "amount": "RM180", "cycle": "Tiap 30hb", "next": "30/11" },
-      "row4": { "name": "Gimnasium", "amount": "RM120", "cycle": "Tiap 5hb", "next": "05/12" }
+      "row1": {
+        "name": "Sewa",
+        "amount": "RM1,500",
+        "cycle": "Tiap 25hb",
+        "next": "25/11"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "RM55",
+        "cycle": "Tiap 28hb",
+        "next": "28/11"
+      },
+      "row3": {
+        "name": "Insurans",
+        "amount": "RM180",
+        "cycle": "Tiap 30hb",
+        "next": "30/11"
+      },
+      "row4": {
+        "name": "Gimnasium",
+        "amount": "RM120",
+        "cycle": "Tiap 5hb",
+        "next": "05/12"
+      }
     },
     "compare": {
       "label": "Perbandingan",
@@ -184,35 +225,55 @@
       "trust1": "Daftar 30 saat",
       "trust2": "Tiada kad",
       "trust3": "Beta percuma"
-    }
+    },
+    "bizCeo": "CEO",
+    "bizNo": "No. Daftar Perniagaan",
+    "bizMailOrder": "Pesanan Mel",
+    "bizAddress": "Alamat"
   },
   "login": {
     "subtitle": "Log masuk dan mula merekod.",
-    "email": "E-mel", "password8": "Kata laluan (8 aksara ke atas)",
-    "submit": "Log masuk", "submitBusy": "Sedang log masuk…",
-    "noAccount": "Belum ada akaun?", "signupLink": "Daftar",
-    "forgotLink": "Terlupa kata laluan?", "failed": "Log masuk gagal"
+    "email": "E-mel",
+    "password8": "Kata laluan (8 aksara ke atas)",
+    "submit": "Log masuk",
+    "submitBusy": "Sedang log masuk…",
+    "noAccount": "Belum ada akaun?",
+    "signupLink": "Daftar",
+    "forgotLink": "Terlupa kata laluan?",
+    "failed": "Log masuk gagal"
   },
   "signup": {
-    "title": "Cipta akaun", "nickname": "Nama paparan (pilihan)",
+    "title": "Cipta akaun",
+    "nickname": "Nama paparan (pilihan)",
     "countryLabel": "Negara kediaman",
     "countryHint": "Bahasa dan mata wang akan ditetapkan berdasarkan negara. Tukar bila-bila di Halaman Saya.",
-    "agreeStart": "Saya bersetuju dengan ", "agreeTerms": "Terma",
-    "agreeAnd": " dan ", "agreePrivacy": "Dasar Privasi", "agreeEnd": ".",
+    "agreeStart": "Saya bersetuju dengan ",
+    "agreeTerms": "Terma",
+    "agreeAnd": " dan ",
+    "agreePrivacy": "Dasar Privasi",
+    "agreeEnd": ".",
     "agreeRequired": "Sila persetujui Terma dan Dasar Privasi.",
-    "submit": "Daftar", "submitBusy": "Mencipta…",
-    "hasAccount": "Sudah ada akaun?", "loginLink": "Log masuk", "failed": "Pendaftaran gagal"
+    "submit": "Daftar",
+    "submitBusy": "Mencipta…",
+    "hasAccount": "Sudah ada akaun?",
+    "loginLink": "Log masuk",
+    "failed": "Pendaftaran gagal"
   },
   "forgot": {
-    "title": "Tetapkan semula kata laluan", "intro": "Masukkan e-mel pendaftaran, kami akan hantar pautan.",
+    "title": "Tetapkan semula kata laluan",
+    "intro": "Masukkan e-mel pendaftaran, kami akan hantar pautan.",
     "sent": "Jika e-mel ini berdaftar, kami telah menghantar arahan. Semak folder spam jika tiada. Pautan sah 1 jam.",
-    "submit": "Hantar e-mel", "submitBusy": "Menghantar…",
-    "backLogin": "Kembali ke log masuk", "backLoginLink": "Kembali ke log masuk"
+    "submit": "Hantar e-mel",
+    "submitBusy": "Menghantar…",
+    "backLogin": "Kembali ke log masuk",
+    "backLoginLink": "Kembali ke log masuk"
   },
   "reset": {
-    "title": "Tetapkan kata laluan baru", "intro": "Minimum 8 aksara.",
+    "title": "Tetapkan kata laluan baru",
+    "intro": "Minimum 8 aksara.",
     "newPassword": "Kata laluan baru",
-    "submit": "Tukar kata laluan", "submitBusy": "Menyimpan…",
+    "submit": "Tukar kata laluan",
+    "submitBusy": "Menyimpan…",
     "invalid": "Pautan tidak sah",
     "invalidDesc": "Token tetapan tiada. Sila gunakan pautan dari e-mel sekali lagi.",
     "requestAgain": "Hantar semula e-mel tetap semula",
@@ -223,15 +284,32 @@
   "ledger": {
     "title": "Buku belanja saya",
     "todayHint": "Hari ini {{date}} · perlahan dan konsisten",
-    "tabs": { "chat": "Sembang", "calendar": "Kalendar", "place": "Tempat", "places": "Tempat", "reflect": "Imbas", "plan": "Rancang", "balance": "Baki" },
+    "tabs": {
+      "chat": "Sembang",
+      "calendar": "Kalendar",
+      "place": "Tempat",
+      "places": "Tempat",
+      "reflect": "Imbas",
+      "plan": "Rancang",
+      "balance": "Baki"
+    },
     "stats": {
-      "thisMonthFlow": "Bulan ini", "budget": "Belanjawan", "freeMoney": "Boleh dibelanjakan", "setBudgetHint": "Tetapkan belanjawan atau pendapatan untuk paparan →",
-      "spent": "Telah belanja", "upcoming": "Akan datang", "dailyAvg": "Purata harian",
-      "monthSpent": "Bulan ini", "monthUpcoming": "Akan datang", "won": ""
+      "thisMonthFlow": "Bulan ini",
+      "budget": "Belanjawan",
+      "freeMoney": "Boleh dibelanjakan",
+      "setBudgetHint": "Tetapkan belanjawan atau pendapatan untuk paparan →",
+      "spent": "Telah belanja",
+      "upcoming": "Akan datang",
+      "dailyAvg": "Purata harian",
+      "monthSpent": "Bulan ini",
+      "monthUpcoming": "Akan datang",
+      "won": ""
     },
     "input": {
-      "placeholder": "Starbucks 20…", "send": "Hantar",
-      "retry": "Boleh tulis semula?", "tryAgain": "Sila cuba lagi.",
+      "placeholder": "Starbucks 20…",
+      "send": "Hantar",
+      "retry": "Boleh tulis semula?",
+      "tryAgain": "Sila cuba lagi.",
       "shortcuts": "Enter hantar · Shift+Enter baris baru",
       "guideButton": "Bagaimana menulis? Lihat panduan"
     },
@@ -244,20 +322,27 @@
       "askRecurrenceEnd": "🔁 Difahami sebagai perbelanjaan berulang. Bilakah ia akan berakhir? cth: 2027-12-31 / 24 bulan / 5 tahun"
     },
     "place": {
-      "title": "Peta perbelanjaan", "intro": "{{count}} tempat · tekan pin atau kad untuk peta, foto, ulasan",
+      "title": "Peta perbelanjaan",
+      "intro": "{{count}} tempat · tekan pin atau kad untuk peta, foto, ulasan",
       "frequent": "Tempat kerap",
       "emptyPins": "Belum ada pin. Tekan kad tempat untuk pilih lokasi tepat.",
       "pickLocation": "Pilih lokasi tepat",
       "aiHint": "(Tekaan AI mungkin tidak tepat — pin tidak diletakkan automatik.)",
-      "searchPlaceholder": "Berhampiran {{name}}", "search": "Cari", "searchBusy": "Mencari…",
-      "useMyLocationGps": "Guna lokasi saya (GPS)", "moreAccurate": "Lebih tepat (GPS)",
+      "searchPlaceholder": "Berhampiran {{name}}",
+      "search": "Cari",
+      "searchBusy": "Mencari…",
+      "useMyLocationGps": "Guna lokasi saya (GPS)",
+      "moreAccurate": "Lebih tepat (GPS)",
       "viewboxIp": "📍 Sekitar {{label}} (±20km)",
       "viewboxGps": "📍 Sekitar saya (GPS, ±20km)",
       "viewboxNationwide": "🌐 Carian global",
       "viewboxDenied": "🌐 Carian global (lokasi ditolak)",
       "viewboxUnsupported": "🌐 Carian global (tidak disokong)",
       "noResults": "Tiada hasil. Cuba kata lain atau biarkan kosong.",
-      "againGo": "Akan kembali", "avoid": "Elak", "normal": "Biasa", "resetPin": "Pilih semula",
+      "againGo": "Akan kembali",
+      "avoid": "Elak",
+      "normal": "Biasa",
+      "resetPin": "Pilih semula",
       "openInGoogleMaps": "Buka di Google Maps",
       "mapsUnavailable": "Peta tidak tersedia buat sementara waktu.",
       "tapMapToPickLocation": "Ketuk peta untuk pilih lokasi tepat",
@@ -266,46 +351,83 @@
       "rating": "{{n}}/5",
       "addReview": "+ Tambah ulasan ringkas",
       "reviewPlaceholder": "Bagaimana tempatnya?",
-      "photo": "Foto", "photoUploading": "Memuat naik…",
+      "photo": "Foto",
+      "photoUploading": "Memuat naik…",
       "photoTotal": "{{count}} foto"
     },
     "categories": {
-      "식비": "Makanan", "카페/간식": "Kafe & snek", "쇼핑": "Membeli-belah", "교통": "Pengangkutan",
-      "주거/공과금": "Rumah & utiliti", "건강/뷰티": "Kesihatan & kecantikan", "여행/이벤트": "Pelancongan & acara",
-      "경조사/선물": "Majlis & hadiah", "금융/대출": "Kewangan & pinjaman", "기타": "Lain-lain"
+      "식비": "Makanan",
+      "카페/간식": "Kafe & snek",
+      "쇼핑": "Membeli-belah",
+      "교통": "Pengangkutan",
+      "주거/공과금": "Rumah & utiliti",
+      "건강/뷰티": "Kesihatan & kecantikan",
+      "여행/이벤트": "Pelancongan & acara",
+      "경조사/선물": "Majlis & hadiah",
+      "금융/대출": "Kewangan & pinjaman",
+      "기타": "Lain-lain"
     },
     "calendar": {
-      "weekday": { "sun": "Ahd", "mon": "Isn", "tue": "Sel", "wed": "Rab", "thu": "Kha", "fri": "Jum", "sat": "Sab" },
+      "weekday": {
+        "sun": "Ahd",
+        "mon": "Isn",
+        "tue": "Sel",
+        "wed": "Rab",
+        "thu": "Kha",
+        "fri": "Jum",
+        "sat": "Sab"
+      },
       "today": "Hari ini",
       "noEntries": "Belum ada rekod bulan ini",
       "noEntriesDay": "Tiada rekod pada hari ini",
       "monthYear": "{{month}}/{{year}}",
-      "planned": "Akan datang", "dayTotal": "Jumlah {{amount}} →",
-      "viewGrid": "Grid", "viewList": "Senarai",
+      "planned": "Akan datang",
+      "dayTotal": "Jumlah {{amount}} →",
+      "viewGrid": "Grid",
+      "viewList": "Senarai",
       "openDayMonth": "{{day}}/{{month}}",
       "spentLine": "Telah belanja {{spent}} · Akan datang {{planned}}"
     },
     "reflect": {
-      "monthly": "Bulanan", "annual": "Tahunan",
+      "monthly": "Bulanan",
+      "annual": "Tahunan",
       "noteTitle": "Nota imbas saya",
       "noteHint": "Tulis janji, akan muncul automatik di tab Rancang bulan depan",
       "empty": "Belum ada imbas kembali",
-      "achieved": "Tercapai!", "missed": "Tidak capai",
+      "achieved": "Tercapai!",
+      "missed": "Tidak capai",
       "aiCoachTitle": "Pandangan jurulatih AI",
       "aiCoachSubtitle": "Imbas semula bulan secara objektif",
-      "aiAnalyzing": "Menganalisis...", "aiRegenerate": "Jana semula",
-      "aiStart": "Lihat pandangan", "aiEmpty": "Tekan butang di atas untuk mula",
-      "praise": "Yang baik", "concern": "Yang perlu jaga", "suggestion": "Cadangan bulan depan",
+      "aiAnalyzing": "Menganalisis...",
+      "aiRegenerate": "Jana semula",
+      "aiStart": "Lihat pandangan",
+      "aiEmpty": "Tekan butang di atas untuk mula",
+      "praise": "Yang baik",
+      "concern": "Yang perlu jaga",
+      "suggestion": "Cadangan bulan depan",
       "addToGoal": "Tambah ke janji bulan depan",
       "monthChange": "Berbanding bulan lepas",
       "monthHeader": "Imbas {{month}}/{{year}}",
       "monthTotal": "Jumlah {{amount}}",
       "types": {
-        "regret":  { "label": "Kekesalan", "placeholder": "cth: terlalu banyak untuk kopi" },
-        "praise":  { "label": "Kejayaan",  "placeholder": "cth: kemas langganan" },
-        "goal":    { "label": "Janji",     "placeholder": "cth: kopi bawah RM200" },
-        "insight": { "label": "Sedaran",   "placeholder": "cth: makan luar buat kopi naik" }
-      }
+        "regret": {
+          "label": "Kekesalan",
+          "placeholder": "cth: terlalu banyak untuk kopi"
+        },
+        "praise": {
+          "label": "Kejayaan",
+          "placeholder": "cth: kemas langganan"
+        },
+        "goal": {
+          "label": "Janji",
+          "placeholder": "cth: kopi bawah RM200"
+        },
+        "insight": {
+          "label": "Sedaran",
+          "placeholder": "cth: makan luar buat kopi naik"
+        }
+      },
+      "lastMonthLabel": "Bulan lepas"
     },
     "balance": {
       "title": "Penyata baki",
@@ -320,9 +442,12 @@
       "netLine": "= Bersih (Pendapatan − Perbelanjaan − Akan datang)",
       "savingPossible": "Boleh disimpan",
       "needIncome": "Perlu pendapatan tambahan",
-      "spent": "Perbelanjaan", "planned": "Akan datang",
-      "saving": "Simpanan", "savingRate": "Kadar simpanan",
-      "modeCurrent": "Bulan ini", "modeNext": "Bulan depan",
+      "spent": "Perbelanjaan",
+      "planned": "Akan datang",
+      "saving": "Simpanan",
+      "savingRate": "Kadar simpanan",
+      "modeCurrent": "Bulan ini",
+      "modeNext": "Bulan depan",
       "healthyTip": "💡 20%+ adalah kadar simpanan sihat"
     },
     "plan": {
@@ -330,7 +455,8 @@
       "lastMonthPledge": "Janji bulan lepas · jaga juga bulan ini",
       "lastMonthSucceed": "Berjaya bulan lepas",
       "bigPictureTitle": "Gambaran {{mode}}",
-      "modeCurrent": "bulan ini", "modeNext": "bulan depan",
+      "modeCurrent": "bulan ini",
+      "modeNext": "bulan depan",
       "bigPictureSubtitle": "Lakar aliran sebelum berlaku",
       "currentUsage": "Sudah dibelanjakan",
       "plannedAmount": "Akan datang",
@@ -368,26 +494,235 @@
       "moodAvoid": "Elak"
     },
     "entryEdit": {
-      "name": "Nama", "amount": "Jumlah", "date": "Tarikh", "category": "Kategori",
-      "save": "Simpan", "cancel": "Batal",
+      "name": "Nama",
+      "amount": "Jumlah",
+      "date": "Tarikh",
+      "category": "Kategori",
+      "save": "Simpan",
+      "cancel": "Batal",
       "namePlaceholder": "cth: makan tengah hari kimbap",
       "defaultName": "(tanpa nama)",
       "deleteConfirm": "Padam \"{{name}}\"?"
+    },
+    "monthSuffix": "{{month}}",
+    "todayTagline": "Hari ini ialah {{month}}/{{day}} · perlahan dan stabil",
+    "receiptLabel": "Resit",
+    "receiptUploadTitle": "Lampirkan foto resit",
+    "guideTitle": "Cuba tulis dengan cara ini",
+    "actions": {
+      "edit": "Sunting",
+      "delete": "Padam"
+    },
+    "moneyUnit": {
+      "tenK": "k",
+      "thousand": "k"
+    },
+    "inputGuide": {
+      "openButton": "Cuba tulis dengan cara ini",
+      "title": "Cara berbual dengan lejar anda",
+      "subtitle": "Tulis saja seperti anda bercakap. AI akan mengenal pasti amaun, kategori, tarikh dan tempat.",
+      "summaryTitle": "Ringkasan 3 saat",
+      "summaryBody": "\"Apa, berapa banyak, (pilihan) bila / mana\" — itu sudah cukup.",
+      "summaryExampleLabel": "Contoh",
+      "summaryExample": "hari ini di Starbucks Bucheon saya belanja 6500",
+      "section1Title": "Catatan satu baris",
+      "section2Title": "Beberapa sekaligus",
+      "section3Title": "Nyatakan tarikh / waktu",
+      "section4Title": "Sertakan tempat",
+      "section5Title": "Perbelanjaan akan datang (dirancang)",
+      "section6Title": "Resit / foto",
+      "section7Title": "Petunjuk kategori",
+      "tabsTitle": "Lebih daripada chat",
+      "tabsHint": "✏️ Gunakan ikon pensil/sampah di sebelah setiap catatan untuk sunting atau padam secara individu.",
+      "notAllowedTitle": "Ini tidak akan berfungsi",
+      "close": "Faham, mari kita mulai",
+      "tabs": {
+        "calendar": "Kalendar — ketuk hari untuk melihat perbelanjaan & perancangan hari itu",
+        "places": "Tempat — tempat yang sering anda kunjungi, pada peta dengan foto",
+        "reflect": "Ulasan — catat kemenangan, penyesalan dan janji setiap bulan",
+        "plan": "Rancang — tangkap perbelanjaan mendatang untuk bulan depan",
+        "balance": "Imbangan — pendapatan, perbelanjaan dan kadar simpanan sekilas"
+      }
     }
   },
   "mypage": {
     "title": "Halaman saya",
-    "tabs": { "general": "Umum", "billing": "Pembayaran", "privacy": "Privasi", "location": "Lokasi", "export": "Eksport data" },
+    "tabs": {
+      "general": "Umum",
+      "billing": "Pembayaran",
+      "privacy": "Privasi",
+      "location": "Lokasi",
+      "export": "Eksport data"
+    },
     "region": {
       "title": "Wilayah / Bahasa / Mata wang",
       "subtitle": "Tukar mata wang paparan dan bahasa antara muka. Nombor sedia ada kekal sama.",
-      "country": "Negara", "currency": "Mata wang", "language": "Bahasa",
+      "country": "Negara",
+      "currency": "Mata wang",
+      "language": "Bahasa",
       "saved": "Tetapan wilayah disimpan.",
       "applyDefaults": "Guna lalai negara yang dipilih"
+    },
+    "requireLogin": "Sila daftar masuk untuk meneruskan.",
+    "requireLoginCta": "Daftar masuk",
+    "account": {
+      "title": "Akaun",
+      "email": "E-mel",
+      "role": "Peranan",
+      "admin": "Admin",
+      "user": "Ahli"
+    },
+    "profile": {
+      "title": "Profil",
+      "name": "Nama",
+      "namePlaceholder": "Jane Doe",
+      "displayName": "Nama paparan",
+      "displayNamePlaceholder": "Money Keeper",
+      "monthlyIncome": "Pendapatan bulanan",
+      "monthlyBudget": "Bajet bulanan",
+      "save": "Simpan profil",
+      "saving": "Menyimpan…"
+    },
+    "password": {
+      "title": "Tukar kata laluan",
+      "current": "Kata laluan semasa",
+      "newPlaceholder": "Kata laluan baru (8+ aksara)",
+      "change": "Tukar kata laluan",
+      "changing": "Menukar…",
+      "forgot": "Lupa kata laluan anda?",
+      "minLength": "Kata laluan baru mesti sekurang-kurangnya 8 aksara.",
+      "changed": "Kata laluan diubah.",
+      "changeFailed": "Gagal menukar kata laluan"
+    },
+    "toasts": {
+      "profileSaved": "Profil disimpan.",
+      "saveFailed": "Simpan gagal"
+    },
+    "billing": {
+      "statusTitle": "Status pengebilan",
+      "tierPaid": "Premium",
+      "tierFreeTrial": "Percubaan percuma",
+      "tierExpired": "Tamat tempoh",
+      "daysRemaining": "{{n}} hari tinggal",
+      "pastDue": "Bayaran sudah lewat",
+      "trialEndsAt": "Percubaan percuma berakhir",
+      "paidUntil": "Premium sah sehingga",
+      "price": "Harga Premium",
+      "perMonth": "/ bulan",
+      "cardOnFile": "Kad rekod",
+      "changeCard": "Tukar kaedah pembayaran (daftarkan kad baharu)",
+      "lastError": "Ralat pembayaran terakhir",
+      "freeTitle": "Percuma",
+      "freeFeature1": "1 bulan ledger penuh selepas daftar",
+      "freeFeature2": "Kategori AI · kalendar · ulasan",
+      "freeFeature3": "Tandai tempat dan nota",
+      "freeFeature4": "Eksport JSON data saya",
+      "paidTitle": "Premium",
+      "currentPlan": "Pelan semasa",
+      "priceMonthlyText": "₩5,500 / bulan",
+      "priceYearlyText": "atau ₩50,000 / tahun (24% diskaun · 2 bulan percuma)",
+      "paidFeature1": "Semua fitur percuma",
+      "paidFeature2": "Akses ledger berkelanjutan",
+      "paidFeature3": "Eksport Excel (.xlsx) bulanan · tahunan",
+      "paidFeature4": "Sokongan keutamaan",
+      "betaButtonLabel": "Percuma semasa beta",
+      "cancelButton": "Batal",
+      "checkoutStart": "Mulakan checkout Premium",
+      "checkoutLoading": "Membuka checkout…",
+      "planSelectionHint": "Pilih bulanan atau tahunan pada skrin seterusnya.",
+      "tossLink": "Atau bayar dengan Toss (kad Korea, KRW)",
+      "lsConnected": "✅ Lemon Squeezy (MoR) bersambung — checkout kad global/PayPal. VAT, bayaran balik, invois dikendalikan secara automatik.",
+      "tossAlsoActive": "Toss (kad instan KRW) juga aktif.",
+      "lsUnconfigured": "💡 Kunci Lemon Squeezy tidak dikonfigurasi, jadi checkout dilumpuhkan. Setelah LEMONSQUEEZY_API_KEY dsb. ditetapkan pada Render, aliran checkout diaktifkan secara automatik.",
+      "betaBannerTitle": "🎉 Percuma semasa beta",
+      "betaBannerBody": "Semua fitur percuma sekarang, termasuk eksport Excel dan ledger penuh. Pelan berbayar (₩5,500 / bulan · ₩50,000 / tahun) dan sistem pengebilan (Lemon Squeezy global + Toss Korea) dalam mod ujian dan kami akan umumkan secara terpisah apabila beta tamat.",
+      "loadFailed": "Tidak dapat memuatkan maklumat langganan.",
+      "returnHint": "Kembali ke apl selepas checkout — kami akan menyegarkan secara automatik.",
+      "betaActive": "Semua fitur percuma semasa tempoh beta.",
+      "betaModeNotice": "Semua fitur percuma semasa tempoh beta.",
+      "checkoutUnavailable": "Checkout belum didayakan.",
+      "checkoutError": "Sesuatu yang salah terjadi membuka checkout.",
+      "paymentComplete": "Pembayaran selesai.",
+      "confirmFailed": "Gagal mengesahkan pembayaran",
+      "paymentCancelled": "Dibatalkan pada skrin checkout.",
+      "widgetFailed": "Tidak dapat membuka tetingkap pembayaran.",
+      "upgradeMockConfirm": "Naik taraf kepada pelan Premium pada {{price}} setiap bulan?\n\n※ Pintu gerbang pembayaran tidak bersambung pada persekitaran pengendali.\nDemo ini akan menukar anda serta-merta (tiada caj sebenar).",
+      "upgradedMock": "Ditukar kepada pelan Premium.",
+      "upgradeFailed": "Naik taraf gagal",
+      "cancelConfirm": "Batalkan pelan Premium?\n· Kunci pengebilan kad anda akan dibatalkan serta-merta dan tiada caj lanjut akan dibuat.\n· Anda akan dipindahkan ke Percuma secara automatik apabila tempoh pengebilan ini tamat.",
+      "cancelled": "Pembatalan diproses.",
+      "cancelFailed": "Pembatalan gagal"
+    },
+    "privacy": {
+      "title": "Privasi",
+      "locationOptInTitle": "Benarkan metadata lokasi",
+      "locationOptInBody": "Benarkan Claude menggunakan metadata lokasi anggaran (kota / rantau) untuk meningkatkan pengalaman produk. Koordinat tepat tidak pernah digunakan — hanya anggaran berasaskan IP.",
+      "learnMore": "Ketahui lebih lanjut",
+      "activeNote": "✓ Sedang aktif — digunakan untuk mencadangkan tempat berdekatan secara automatik apabila anda mencatat entri.",
+      "inactiveNote": "○ Matikan — anggaran lokasi berasaskan IP tidak digunakan.",
+      "toggledOn": "Metadata lokasi dibenarkan.",
+      "toggledOff": "Metadata lokasi dilumpuhkan."
+    },
+    "location": {
+      "title": "Lokasi",
+      "intro": "Apabila anda melampirkan tempat pada entri ledger, lokasi berdekatan dicadangkan dahulu berdasarkan IP anda (mudah alih / desktop). Jika keputusan tidak tepat, anda boleh cari atau pilih pada peta dari skrin butiran tempat.",
+      "disabledNotice": "Metadata lokasi dilumpuhkan. Benarkannya di bawah tab Privasi untuk mendayakan anggaran automatik.",
+      "tempFailure": "Anggaran lokasi berasaskan IP gagal buat sementara. Segarkan atau cuba lagi dalam seketika.",
+      "detectedIp": "IP Terkesan",
+      "country": "Negara",
+      "region": "Rantau / Negeri",
+      "city": "Kota",
+      "coordinates": "Lat / Lng",
+      "ipLabel": "IP",
+      "dataSource": "Sumber data",
+      "fromCache": "Tersimpan (dalam 1j)",
+      "fresh": "Baru dianggarkan",
+      "manualEditHint": "Untuk suntingan manual, gunakan carian atau ketik pada peta dari skrin butiran tempat setiap entri lejar."
+    },
+    "export": {
+      "xlsxTitle": "Eksport entri lejar ke Excel",
+      "xlsxDesc": "Muat turun sebagai .xlsx. Lembaran tunggal bulanan, atau 12 bulan tahunan + lembaran ringkasan.",
+      "monthly": "Bulanan",
+      "monthlyDownload": "Muat turun bulanan",
+      "annual": "Tahunan",
+      "annualDownload": "Muat turun tahunan",
+      "paidOnlyNotice": "Eksport Excel tersedia pada pelan Premium. Naik taraf dari tab Pengebilan untuk menggunakannya dengan segera.",
+      "betaFreeNotice": "🎉 Eksport Excel adalah percuma semasa tempoh beta.",
+      "gdprTitle": "Semua data (GDPR)",
+      "gdprDesc": "Muat turun lejar + dirancang + ulasan + metadata foto sebagai JSON. Sentiasa tersedia pada mana-mana pelan.",
+      "gdprButton": "Semua data (JSON)",
+      "trialExpired": "Percubaan percuma anda telah tamat. Sila naik taraf ke Premium.",
+      "downloadStarted": "Muat turun Excel dimulakan.",
+      "gdprStarted": "Muat turun data dimulakan.",
+      "failed": "Eksport gagal"
+    },
+    "dangerZone": {
+      "title": "Zon bahaya",
+      "description": "Memadamkan akaun anda dengan segera menyekat sign-in. Data lejar disimpan untuk tempoh pengekalan sebelum penghapusan kekal.",
+      "deleteButton": "Padamkan akaun",
+      "deleteConfirm": "Adakah anda pasti ingin memadamkan akaun anda?\n\n· Sign-in disekat dengan segera.\n· Data lejar disimpan untuk tempoh pengekalan sebelum penghapusan kekal.\n· Jika anda memerlukan penghapusan penuh serta-merta, eksport data anda terlebih dahulu dan hubungi pengendali.",
+      "confirmEmailPrompt": "Taipkan e-mel anda untuk mengesahkan penghapusan akaun.",
+      "emailMismatch": "E-mel tidak sepadan. Operasi dibatalkan.",
+      "deleted": "Akaun telah dipadamkan.",
+      "deleteFailed": "Gagal memadamkan akaun"
     }
   },
-  "appHeader": { "faq": "Soalan", "myAccount": "Akaun", "admin": "Admin", "logout": "Keluar", "recurring": "Berulang", "menu": "Menu", "close": "Tutup" },
-  "bottomNav": { "home": "Utama", "calendar": "Kalendar", "recurring": "Berulang", "me": "Saya", "label": "Navigasi utama" },
+  "appHeader": {
+    "faq": "Soalan",
+    "myAccount": "Akaun",
+    "admin": "Admin",
+    "logout": "Keluar",
+    "recurring": "Berulang",
+    "menu": "Menu",
+    "close": "Tutup"
+  },
+  "bottomNav": {
+    "home": "Utama",
+    "calendar": "Kalendar",
+    "recurring": "Berulang",
+    "me": "Saya",
+    "label": "Navigasi utama"
+  },
   "recurring": {
     "title": "Perbelanjaan berulang",
     "backToLedger": "Kembali ke lejar",
@@ -407,10 +742,33 @@
     "confirmDelete": "Padam peraturan ini? Semua kejadian akan datang juga hilang.",
     "delete": "Padam",
     "fromStartDate": "Bulan/hari tarikh mula",
-    "placeholders": { "description": "cth: Faedah 16hb" },
-    "headers": { "description": "Penerangan", "amount": "Jumlah", "category": "Kategori", "recurrence": "Kekerapan", "day": "Hari", "startDate": "Tarikh mula", "until": "Tarikh akhir (wajib)" },
-    "frequency": { "none": "Tiada (sekali)", "monthly": "Bulanan", "weekly": "Mingguan", "yearly": "Tahunan" },
-    "weekday": { "mon": "Isn", "tue": "Sel", "wed": "Rab", "thu": "Kha", "fri": "Jum", "sat": "Sab", "sun": "Ahd" },
+    "placeholders": {
+      "description": "cth: Faedah 16hb"
+    },
+    "headers": {
+      "description": "Penerangan",
+      "amount": "Jumlah",
+      "category": "Kategori",
+      "recurrence": "Kekerapan",
+      "day": "Hari",
+      "startDate": "Tarikh mula",
+      "until": "Tarikh akhir (wajib)"
+    },
+    "frequency": {
+      "none": "Tiada (sekali)",
+      "monthly": "Bulanan",
+      "weekly": "Mingguan",
+      "yearly": "Tahunan"
+    },
+    "weekday": {
+      "mon": "Isn",
+      "tue": "Sel",
+      "wed": "Rab",
+      "thu": "Kha",
+      "fri": "Jum",
+      "sat": "Sab",
+      "sun": "Ahd"
+    },
     "validation": {
       "descriptionRequired": "Sila tambah penerangan",
       "amountRequired": "Sila tambah jumlah",
@@ -424,5 +782,256 @@
       "missingEndDateTitle": "{{count}} perbelanjaan berulang tiada tarikh akhir.",
       "missingEndDateBody": "Tanpa tarikh akhir, kalendar tidak boleh paparkan dengan betul. Isi lajur \"Tarikh akhir\" pada baris yang ditandakan."
     }
+  },
+  "pricing": {
+    "title": "Harga Moa AI Ledger",
+    "subtitle": "Ciri-ciri teras kekal percuma. Lebih dalam dengan Premium.",
+    "betaTitle": "Pengguna Beta — 50% diskaun untuk 12 bulan pertama",
+    "betaDesc": "Jika anda mendaftar semasa beta, anda mendapat 50% diskaun Premium untuk 12 bulan pertama anda setelah pelan berbayar dilancarkan. $1.99 / bulan atau $17.99 / tahun.",
+    "freePlan": "Percuma",
+    "freePrice": "$0",
+    "freePriceNote": "Percuma selamanya, tiada kad diperlukan",
+    "freeDesc": "30 input AI / bulan + lejar asas lengkap (kalendar, kategori, tempat, paparan bulanan). Tanpa iklan.",
+    "freeCta": "Mulai percuma",
+    "paidPlan": "Premium",
+    "paidBadge": "Disyorkan",
+    "paidPriceMonthly": "$3.99",
+    "perMonth": "/ bulan",
+    "paidPriceYearlyNote": "atau $35.99 / tahun (24% diskaun) · harga ditukar secara automatik mengikut negara",
+    "paidDesc": "AI tanpa had + jurulatih ulasan AI bulanan + OCR resit + eksport data. Dapatkan pengalaman Moa penuh.",
+    "paidCta": "Mulai Premium",
+    "paidCtaYearly": "Tahunan ($35.99 · 2 bulan percuma)",
+    "planSelectionHint": "Anda boleh memilih bulanan atau tahunan pada skrin seterusnya.",
+    "returnHint": "Kembali ke apl setelah pembayaran selesai — kami akan menyegarkan secara automatik.",
+    "betaActiveToast": "Ciri-ciri Premium adalah percuma semasa tempoh beta.",
+    "checkoutUnavailable": "Checkout belum diaktifkan. Kami akan mengumumkan pelancaran tidak lama lagi.",
+    "checkoutError": "Kami tidak dapat membuka checkout. Sila cuba lagi sebentar.",
+    "compareTitle": "Percuma vs Premium",
+    "compareFeature": "Ciri",
+    "compare": {
+      "aiInput": {
+        "feature": "Input chat AI",
+        "free": "30 / bulan",
+        "paid": "Tanpa had"
+      },
+      "adFree": {
+        "feature": "Bebas iklan",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "Jurulatih ulasan AI bulanan",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "OCR foto resit",
+        "free": "5 / bulan",
+        "paid": "Tanpa had"
+      },
+      "multilang": {
+        "feature": "9 bahasa + pelbagai mata wang",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "Pin lokasi & ulasan",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "Amaran berulang & akan datang",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Eksport Excel / CSV",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "Sejarah lejar",
+        "free": "12 bulan",
+        "paid": "Tanpa had"
+      },
+      "priority": {
+        "feature": "Sokongan keutamaan",
+        "free": "✗",
+        "paid": "✓"
+      }
+    },
+    "paymentTitle": "Kaedah pembayaran",
+    "paymentDesc": "Pengguna Korea membayar melalui Toss Payments; pengguna antarabangsa membayar melalui Paddle. Butiran kad kekal bersama penyedia pembayaran — Moa hanya memaparkan 4 digit terakhir.",
+    "paymentKr": "🇰🇷 Korea: Toss Payments (debit, kredit, pemindahan bank)",
+    "paymentIntl": "🌍 Antarabangsa: Paddle (kad, PayPal, Apple Pay, Google Pay — akan datang)",
+    "cancelTitle": "Batal & bayaran balik",
+    "cancelDesc": "Batal pada bila-bila masa di Halaman Saya → Pengebilan. Anda mengekalkan akses sehingga akhir tempoh berbayar.",
+    "refundLink": "Lihat dasar bayaran balik penuh →",
+    "operatorTitle": "Maklumat pengendali",
+    "operatorName": "Syarikat",
+    "operatorCeo": "Ketua Eksekutif",
+    "operatorBizNo": "No. Pendaftaran Perniagaan",
+    "operatorMailOrder": "No. Perniagaan Pesanan Mel",
+    "operatorContact": "Sokongan"
+  },
+  "refund": {
+    "title": "Dasar Bayaran Balik",
+    "subtitle": "Bagaimana dan bila bayaran balik diberikan di Moa AI Ledger.",
+    "section1Title": "1. Dalam 7 hari selepas pembayaran (tempoh berfikir semula)",
+    "section1Body": "Dalam 7 hari selepas pembayaran, anda boleh membatalkan langganan mengikut Artikel 17 Akta E-Perdagangan Korea dan menerima pengembalian dana penuh. Hak ini mungkin terhad jika lebih daripada 30% ciri berbayar telah digunakan. (Terhad kepada satu setiap ahli.)",
+    "section2Title": "2. Selepas 7 hari — pengembalian dana berkadar",
+    "section2Body": "Pelan bulanan: pengembalian dana = jumlah dibayar − (hari digunakan × kadar harian) − yuran pemprosesan 10%.\n\nContoh: $2.99/bulan, 10 hari digunakan → $2.99 − (10 × $0.10) − $0.30 ≈ $1.69 pengembalian dana.\n\nPelan tahunan: bulan digunakan × kadar bulanan penuh (BUKAN kadar diskaun) dipotong daripada pengembalian dana.",
+    "section3Title": "3. Cara meminta pengembalian dana",
+    "step1": "Halaman Saya → Pengebilan → klik \"Batal\" (hentikan pembaruan seterusnya).",
+    "step2Prefix": "Untuk pengembalian dana, emel",
+    "step2Suffix": "dengan ID pesanan dan emel akaun anda.",
+    "step3": "Diproses dalam 3–10 hari perniagaan mengikut dasar pembekal pembayaran (Toss / Paddle).",
+    "section4Title": "4. Kes yang tidak boleh dikembalikan",
+    "notRefundable1": "Pembatalan paksa disebabkan pelanggaran Syarat atau penggantungan akaun",
+    "notRefundable2": "Pembayaran yang dibuat menggunakan identiti orang lain atau pembayaran yang menunjukkan penipuan",
+    "section5Title": "5. Pertikaian",
+    "section5Body": "Pertikaian mengenai dasar ini dikawal oleh undang-undang Korea dan diputuskan di mahkamah yang ditentukan oleh Akta Prosedur Sivil Korea. Bagi pengguna antarabangsa, dasar pengembalian dana/pertikaian Paddle juga mungkin terpakai.",
+    "effective": "Berkuat kuasa: 2026-05-21"
+  },
+  "terms": {
+    "title": "Syarat Perkhidmatan",
+    "effectiveLabel": "Berkuat kuasa",
+    "intro": "Syarat-syarat ini mengawal penggunaan anda terhadap Moa AI Ledger (\"Perkhidmatan\") yang dikendalikan oleh ATM Store Co., Ltd. (\"Syarikat\"). Mendaftar menunjukkan penerimaan.\n\nNota: Teks Bahasa Inggeris ini adalah ringkasan. Versi Korea (한국어) adalah berwibawa dan mengatasi sebarang konflik tafsiran.",
+    "a1": {
+      "title": "Artikel 1 (Tujuan)",
+      "body": "Syarat-syarat ini menetapkan hak, kewajipan dan tanggungjawab Syarikat dan ahli mengenai penggunaan Perkhidmatan."
+    },
+    "a2": {
+      "title": "Artikel 2 (Definisi)",
+      "body": "1. \"Perkhidmatan\" bermakna aplikasi web dan mudah alih Moa AI Ledger dan perkhidmatan berkaitan.\n2. \"Ahli\" bermakna orang yang bersetuju dengan Syarat-syarat ini dan memasuki kontrak penggunaan dengan Syarikat.\n3. \"Ciri AI\" bermakna fungsi yang memanggil model AI luaran (Anthropic Claude dll.) untuk mengklasifikasi, meringkaskan atau memberi arahan.\n4. \"Kandungan\" bermakna semua data yang dimasukkan atau dimuat naik oleh ahli (perbelanjaan, foto, ulasan, refleksi)."
+    },
+    "a3": {
+      "title": "Artikel 3 (Kesan & pindaan)",
+      "body": "1. Syarat-syarat ini berkuat kuasa apabila disiarkan dalam Perkhidmatan.\n2. Syarikat boleh meminda Syarat-syarat ini dalam undang-undang yang terpakai. Pindaan material dimaklumkan sekurang-kurangnya 30 hari sebelumnya; pindaan biasa sekurang-kurangnya 7 hari sebelumnya.\n3. Penggunaan berterusan selepas tarikh berkuat kuasa pindaan merupakan penerimaan."
+    },
+    "a4": {
+      "title": "Artikel 4 (Penciptaan akaun)",
+      "body": "1. Kontrak penggunaan terbentuk apabila pemohon menerima Syarat-syarat ini dan Syarikat meluluskan permohonan.\n2. Syarikat boleh menolak permohonan yang menggunakan identiti palsu, berusia di bawah 14 tahun tanpa persetujuan penjaga, atau mempunyai tujuan penipuan."
+    },
+    "a5": {
+      "title": "Artikel 5 (Kewajipan ahli)",
+      "body": "Ahli tidak boleh: menyamar sebagai orang lain, mendaftarkan maklumat palsu, menyalin atau mengedarkan kandungan Perkhidmatan tanpa persetujuan, mengumpulkan data peribadi ahli lain, mengganggu operasi Perkhidmatan, atau melanggar sebarang undang-undang."
+    },
+    "a6": {
+      "title": "Artikel 6 (Kewajipan Syarikat)",
+      "body": "Syarikat berusaha untuk memberikan Perkhidmatan yang stabil, melindungi data peribadi, dan merespons pertanyaan ahli dengan segera."
+    },
+    "a7": {
+      "title": "Artikel 7 (Penyediaan Perkhidmatan)",
+      "body": "Syarikat menyediakan input lejar berbantu AI, pengurusan kalendar, ulasan tempat, arahan AI bulanan, eksport data, dan sokongan berbilang bahasa / berbilang mata wang. Perkhidmatan berjalan 24/7 tetapi mungkin ditangguhkan untuk penyelenggaraan atau daya majeur."
+    },
+    "a8": {
+      "title": "Artikel 8 (Perubahan & penggantungan Perkhidmatan)",
+      "body": "Syarikat boleh mengubah atau menggantung sebarang bahagian Perkhidmatan. Ahli akan dimaklumkan sekurang-kurangnya 30 hari sebelumnya, kecuali dalam kes-kes mendesak di mana notifikasi pasca-tindakan digunakan."
+    },
+    "a9": {
+      "title": "Artikel 9 (Perkhidmatan berbayar & pengebilan berulang)",
+      "body": "1. Beberapa ciri memerlukan pembayaran. Harga dan faedah disiarkan di halaman Harga.\n2. Langganan diperbaharui secara automatik kecuali dibatalkan. Notis dihantar melalui emel 7 hari sebelum caj seterusnya.\n3. Pembayaran diproses oleh Toss Payments (Korea) atau Paddle.com Market Limited (antarabangsa) sebagai Merchant of Record. Syarikat tidak menyimpan nombor kad atau tarikh tamat tempoh."
+    },
+    "a10": {
+      "title": "Artikel 10 (Penarikan diri & pengembalian dana)",
+      "body": "1. Ahli boleh menarik diri daripada langganan dalam 7 hari pembayaran untuk pengembalian dana penuh, kecuali lebih daripada 30% ciri berbayar telah digunakan.\n2. Pengembalian dana selepas tempoh 7 hari mengikuti Dasar Pengembalian Dana yang berasingan.\n3. Pengembalian dana dikeluarkan ke kaedah pembayaran asal dalam 3–10 hari perniagaan."
+    },
+    "a11": {
+      "title": "Artikel 11 (Ciri AI)",
+      "body": "1. Perkhidmatan menghantar teks dan imej yang dimasukkan ahli kepada pembekal AI luaran (Anthropic Claude dll.) untuk pengklasifikasian, OCR dan pemberian arahan.\n2. Data yang dihantar dikeluarkan daripada medan pengenalan (emel, nama) dan diminta untuk tidak digunakan untuk latihan model.\n3. Output AI adalah untuk rujukan sahaja; Syarikat tidak menjamin ketepatan atau kesempurnaan. Ahli bertanggungjawab untuk menyemak hasil AI.\n4. Lihat Dasar Privasi untuk butiran lengkap."
+    },
+    "a12": {
+      "title": "Artikel 12 (Pemilikan data)",
+      "body": "Ahli memiliki Kandungan yang mereka masukkan. Syarikat memproses Kandungan hanya untuk memberikan Perkhidmatan dan tidak pernah berkongsi dengan pihak ketiga tanpa persetujuan eksplisit. Ahli boleh mengeksport data mereka melalui Halaman Saya → Eksport."
+    },
+    "a13": {
+      "title": "Artikel 13 (Harta intelektual)",
+      "body": "Reka bentuk, kod sumber, tanda dagangan, logo, dan kandungan yang dibuat Syarikat adalah milik Syarikat. Ahli tidak boleh secara komersial mengeluarkan semula atau mengedarkan semula kandungan sedemikian tanpa persetujuan bertulis terlebih dahulu."
+    },
+    "a14": {
+      "title": "Artikel 14 (Sekatan penggunaan & penamatan)",
+      "body": "Syarikat boleh menyekat penggunaan atau menamatkan keahlian kerana pelanggaran Syarat-syarat, kerosakan kepada orang lain, gangguan sengaja terhadap Perkhidmatan, atau perbuatan haram. Ahli boleh memfailkan bantahan dalam 14 hari selepas notis."
+    },
+    "a15": {
+      "title": "Artikel 15 (Penarikan diri & pemadaman data)",
+      "body": "Ahli boleh menarik diri pada bila-bila masa. Selepas penarikan diri, semua Kandungan dipadamkan secara kekal tanpa pemulihan. Eksport data anda sebelum penarikan diri jika diperlukan. Rekod yang diperlukan oleh undang-undang (sejarah pembayaran, log pertikaian) disimpan untuk tempoh yang dimandatkan oleh undang-undang dan kemudian dimusnahkan."
+    },
+    "a16": {
+      "title": "Artikel 16 (Batasan liabiliti)",
+      "body": "Syarikat tidak bertanggungjawab untuk: daya majeur, kesalahan ahli, ketepatan kandungan yang dimasukkan oleh ahli, atau keputusan kewangan berdasarkan output AI."
+    },
+    "a17": {
+      "title": "Artikel 17 (Data peribadi)",
+      "body": "Pengendalian data peribadi diatur oleh Dasar Privasi yang terpisah."
+    },
+    "a18": {
+      "title": "Artikel 18 (Hukum yang mengawal & bidang kuasa)",
+      "body": "Syarat-syarat ini diatur oleh undang-undang Republik Korea. Pertikaian diselesaikan di mahkamah yang ditetapkan oleh Akta Prosedur Sivil Korea."
+    },
+    "companyInfoTitle": "Maklumat pengendali",
+    "companyName": "Syarikat",
+    "companyCeo": "Ketua Pegawai Eksekutif",
+    "companyBizNo": "No. Pendaftaran Perniagaan",
+    "companyMailOrder": "No. Perniagaan Pesanan Mel",
+    "companyAddress": "Alamat",
+    "companyContact": "Sokongan"
+  },
+  "privacy": {
+    "title": "Dasar Privasi",
+    "effectiveLabel": "Berkuat kuasa",
+    "intro": "ATM Store Co., Ltd. (\"Syarikat\") menghormati privasi ahli dan mematuhi Akta Perlindungan Maklumat Peribadi Korea, Akta Promosi Penggunaan Rangkaian Komunikasi dan Maklumat, dan undang-undang berkaitan.\n\nDasar Privasi ini menerangkan cara Syarikat mengumpul, menggunakan, menyimpan dan memusnahkan data peribadi sehubungan dengan perkhidmatan Moa AI Ledger.\n\nNota: Teks Bahasa Inggeris ini ialah ringkasan. Versi Korea (한국어) adalah berwibawa dan mendahului dalam sebarang konflik tafsiran.",
+    "s1": {
+      "title": "1. Tujuan pemprosesan",
+      "body": "Syarikat memproses data peribadi untuk: pengenalan ahli dan pencegahan penipuan; penyampaian perkhidmatan (penyimpanan lejar, klasifikasi AI, bimbingan, kalendar, pin tempat); pemprosesan pembayaran untuk pelan berbayar; sokongan pelanggan; peningkatan perkhidmatan melalui analitik tanpa nama; dan pematuhan undang-undang (e-dagang, cukai)."
+    },
+    "s2": {
+      "title": "2. Kategori data peribadi",
+      "body": "Diperlukan (semasa pendaftaran): e-mel, kata laluan (hash sekali jalan), nama samaran, negara / bahasa / mata wang.\n\nPilihan: foto profil, pendapatan bulanan / bajet, lokasi geo terakhir (jika dipersetujui).\n\nDijana semasa penggunaan: rekod perbelanjaan, rekod tempat (nama, alamat, penilaian, ulasan, foto), teks refleksi bulanan, peraturan perbelanjaan berulang.\n\nDikumpul secara automatik: IP, maklumat penyemak imbas / peranti, cap masa akses, halaman yang dilawati, kuki dan localStorage.\n\nPembayaran (untuk pengguna berbayar): dikumpul terus oleh penyedia pembayaran; Syarikat hanya menyimpan hasil, jenama kad dan 4 digit terakhir.\n\nSyarikat tidak mengumpul data sensitif (kaum, agama, pandangan politik, kesihatan, rekod jenayah dsb.) di bawah Artikel 23 PIPA."
+    },
+    "s3": {
+      "title": "3. Tempoh pengekalan",
+      "body": "Data peribadi disimpan sehingga tujuan pemprosesan tercapai. Mengikut statut yang berikut disimpan secara berasingan:\n\n① Data pendaftaran ahli: dihapus semasa penarikan diri (hash anti-penipuan disimpan selama 30 hari)\n② Rekod pembayaran / transaksi: 5 tahun (Akta E-Dagang §6)\n③ Rekod aduan / pertikaian pengguna: 3 tahun (Akta E-Dagang §6)\n④ Rekod pengumpulan/pemprosesan maklumat kredit: 3 tahun (Akta Maklumat Kredit §20)\n⑤ Rekod paparan / iklan: 6 bulan (Akta E-Dagang §6)\n⑥ Log akses dan IP: 3 bulan (Akta Privasi Komunikasi §15-2)\n\nSemasa penarikan diri, kandungan lejar (perbelanjaan, foto, refleksi) dihapus secara kekal dan segera tanpa pemulihan."
+    },
+    "s4": {
+      "title": "4. Penyediaan pihak ketiga",
+      "body": "Syarikat tidak menyediakan data peribadi kepada pihak ketiga secara lalai. Pengecualian: (i) persetujuan ahli sebelumnya, (ii) permintaan undang-undang berikut proses yang betul, (iii) penyediaan dalam bentuk agregat yang tidak boleh dikenal pasti untuk penyelidikan / kepentingan awam."
+    },
+    "s5": {
+      "title": "5. Pemprosesan yang disumber luar & pemindahan rentas sempadan",
+      "body": "Syarikat mengeluarkan pemprosesan kepada penerima berikut; beberapa melibatkan pemindahan rentas sempadan. Kontrak penyumberan luar di bawah PIPA §26 melarang penggunaan di luar tujuan yang dipersetujui, memerlukan perlindungan teknikal / pengurusan, dan mengehadkan penyumberan semula.\n\n[Penerima / Tujuan / Negara / Item / Pengekalan]\n\n① Anthropic, PBC (USA) — Klasifikasi AI / bimbingan — Teks lejar dengan pengecam dialih keluar — Mengikut dasar penyedia; Syarikat meminta tiada penggunaan latihan model\n② Resend, Inc. (USA) — Set semula kata laluan / e-mel sistem — E-mel penerima dan badan mesej — Dimusnahkan selepas penghantaran\n③ Google LLC (USA) — Google Maps Geocoding — Nama tempat / alamat (tiada PII) — Dimusnahkan selepas penghantaran\n④ Render Services, Inc. (USA) — Pengehosan bahagian belakang — Semua data ahli — Dihapus semasa penarikan diri\n⑤ Vercel Inc. (USA) — Pengehosan bahagian hadapan — Aset statik dan log akses — Mengikut dasar Vercel, 30 hari\n⑥ Toss Payments (Korea) — Pemprosesan pembayaran domestik — Maklumat pembayaran — 5 tahun mengikut Akta E-Dagang\n⑦ Paddle.com Market Limited (UK / USA, akan datang) — Pemprosesan pembayaran antarabangsa — Maklumat pembayaran — Mengikut dasar penyedia\n⑧ Cloudflare, Inc. (USA, apabila didayakan) — Penyimpanan foto di R2 — Foto yang dimuat naik ahli — Dihapus semasa penarikan diri\n\nAhli boleh menolak pemindahan rentas sempadan tetapi berbuat demikian mungkin mengehadkan penggunaan Perkhidmatan."
+    },
+    "s6": {
+      "title": "6. Hak subjek data",
+      "body": "Ahli boleh pada setiap masa: (i) melihat data peribadi mereka, (ii) membetulkan / memadamkan ralat, (iii) menghentikan pemprosesan, (iv) menarik diri daripada keahlian dan meminta penghapusan data kekal, (v) memuat turun data mereka sendiri dalam JSON yang boleh dibaca mesin (serupa dengan Artikel 20 GDPR).\n\nLaksanakan hak melalui Halaman Saya → Tetapan akaun, atau dengan menghantar e-mel ke master@aitrend.kr. Syarikat bertindak tanpa berlengah, tertakluk kepada had dalam PIPA §35(4), §36(1), §37(2)."
+    },
+    "s7": {
+      "title": "7. Prosedur dan kaedah pemusnahan",
+      "body": "Prosedur: data dipindahkan ke pangkalan data berasingan selepas tujuan pemprosesan tercapai dan disimpan mengikut dasar dalaman / undang-undang sebelum pemusnahan.\nKaedah: fail elektronik dihapus secara kekal oleh kaedah yang menghalang pemulihan; dokumen kertas dicincang atau dibakar."
+    },
+    "s8": {
+      "title": "8. Perlindungan keselamatan",
+      "body": "Pengurusan: pelan pengurusan dalaman, latihan kakitangan berkala.\nTeknikal: pencincangan kata laluan bcrypt sekali jalan, enkripsi HTTPS semasa transit, kawalan akses, prosedur sanggup / pemulihan.\nFizik: piawaian keselamatan fizikal pusat data melalui penyedia awan (Render, Vercel, Cloudflare).\nSemakan: tampung keselamatan dan semakan kerentanan sekurang-kurangnya suku tahunan."
+    },
+    "s9": {
+      "title": "9. Kuki dan pengumpulan automatik",
+      "body": "Tujuan: memastikan anda tetap log masuk, mengingati bahasa / mata wang, analitik penggunaan tanpa nama.\nPilihan keluar: sekat melalui tetapan penyemak imbas (beberapa ciri mungkin terhad).\nSyarikat tidak memasang kuki periklanan / penjejakan pihak ketiga."
+    },
+    "s10": {
+      "title": "10. Ciri AI — pengendalian data peribadi",
+      "body": "Untuk menyediakan ciri AI, Syarikat menghantar teks dan imej yang dimasukkan ahli kepada penyedia AI luaran (Anthropic Claude dsb.).\n\nDihantar: teks lejar dan imej resit dengan e-mel / nama dialih keluar; teks refleksi bulanan.\nTujuan: kategorisasi automatik, OCR, bimbingan bulanan, penjanaan wawasan.\nPengekalan: mengikut dasar pengekalan penyedia dan pemusnahan automatik. Syarikat secara eksplisit meminta penyedia tidak menggunakan data ini untuk latihan model.\nHad: output AI adalah rujukan sahaja dan ketepatan tidak dijamin.\nPilihan keluar: ahli boleh memilih entri manual sebagai gantinya ciri AI."
+    },
+    "s11": {
+      "title": "11. Pegawai Perlindungan Data",
+      "body": "Syarikat melantik Pegawai Perlindungan Data untuk mengendalikan aduan privasi, pertanyaan dan pemulihan. Ahli boleh menghubungi DPO dan jabatan di bawah untuk semua perkara tersebut."
+    },
+    "s12": {
+      "title": "12. Perubahan pada Dasar ini",
+      "body": "Dasar Privasi ini mungkin dipinda kerana perubahan dalam undang-undang, dasar, atau keselamatan. Perubahan diumumkan dalam Perkhidmatan sekurang-kurangnya 7 hari lebih awal, atau 30 hari lebih awal untuk perubahan material yang mempengaruhi hak ahli."
+    },
+    "officerTitle": "Pegawai Perlindungan Data",
+    "officerName": "Nama",
+    "officerEmail": "E-mel",
+    "officerDesc": "Anda juga boleh mencari pemulihan di: Jawatankuasa Mediasi Pertikaian Maklumat Peribadi Korea (1833-6972, kopico.go.kr), Pusat Pelaporan Pelanggaran Maklumat Peribadi (118, privacy.kisa.or.kr), Pejabat Pendakwa Agung Siasatan Siber (1301, spo.go.kr), Biro Siber Polis Nasional Korea (182, ecrm.cyber.go.kr)."
   }
 }

@@ -1,0 +1,1074 @@
+{
+  "app": {
+    "name": "Moa AI Ledger"
+  },
+  "lang": {
+    "label": "Taal"
+  },
+  "common": {
+    "or": "of",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "loading": "Laden…",
+    "back": "Terug",
+    "retry": "Probeer het later opnieuw.",
+    "home": "Home",
+    "pricing": "Prijzen",
+    "refund": "Retourbeleid",
+    "edit": "Bewerken",
+    "delete": "Verwijderen",
+    "confirm": "OK"
+  },
+  "nav": {
+    "myAccount": "Account",
+    "faq": "Veelgestelde vragen",
+    "admin": "Admin",
+    "logout": "Afmelden"
+  },
+  "landing": {
+    "badge": "Gratis Beta — AI Ledger",
+    "headline1": "Gewoon typen,",
+    "headline2": "en kijk terug op je maand.",
+    "subtitle": "Type \"koffie €5\" en je bent klaar. AI sorteert de categorie, bedrag en datum voor je, en een maandelijkse coach helpt je betere uitgavengewoonten op te bouwen.",
+    "ctaPrimary": "Gratis starten",
+    "ctaLogin": "Inloggen",
+    "ctaApp": "Ledger openen →",
+    "uspHeading": "Persoonlijke financiën, eindelijk zo makkelijk.",
+    "uspSubtitle": "Een minuut per dag. Herontdek je maand.",
+    "uspChatTitle": "Typ één regel",
+    "uspChatDesc": "Schrijf \"lunch €9\" op natuurlijke wijze en de AI sorteert de categorie, bedrag en datum. Ook ontvangstbewijsfoto's.",
+    "uspCalendarTitle": "Kalender + verwacht",
+    "uspCalendarDesc": "Huidige en verwachte uitgaven op één scherm. Zie wat je werkelijk over hebt tot volgende salarisdag.",
+    "uspMapTitle": "Pins plaatsen & beoordelingen",
+    "uspMapDesc": "Laat beoordelingen, foto's en notities achter op plekken die je bezoekt. Zie duidelijk waar je terug moet gaan en waar je voorbij kunt lopen.",
+    "uspCoachTitle": "Maandelijkse AI-coaching",
+    "uspCoachDesc": "Noteer spijt, successen en je belofte voor volgende maand — de AI coach vergelijkt met vorige maand en geeft warme inzichten.",
+    "cta2Heading": "Begin vandaag en merk het verschil deze maand.",
+    "cta2Subtitle": "Inschrijven in 30 seconden. Geen creditcard nodig. Gratis tijdens beta.",
+    "footerTagline": "Chat je geld. Krijg inzicht.",
+    "footerTerms": "Voorwaarden",
+    "footerPrivacy": "Privacy",
+    "bizCeo": "CEO",
+    "bizNo": "Handelsregistratie",
+    "bizMailOrder": "Postorder",
+    "bizAddress": "Adres",
+    "hero": {
+      "badge": "Gratis beta · AI ledger",
+      "headline1": "Dit keer,",
+      "headline2": "de ledger die aanslaat.",
+      "subtitle": "Geen spreadsheets. Geen bonnen. Typ gewoon \"koffie €5\" en Moa regelt het, dan helpt het je door je maand heen.",
+      "ctaPrimary": "Gratis starten",
+      "ctaLogin": "Inloggen",
+      "ctaApp": "Dagboek openen →",
+      "trust1": "30 sec aanmelden",
+      "trust2": "Geen kaart",
+      "trust3": "Gratis beta"
+    },
+    "problem": {
+      "label": "Waarom Moa",
+      "title": "Waarom geeft iedereen budgetteren op?",
+      "subtitle": "De meeste apps laten je hetzelfde in de steek — te veel tikken, geen inzicht, geen ritme.",
+      "card1": {
+        "quote": "Categorie kiezen, bedrag typen, datum instellen — drie tikken voor elke koffie. Ik hield het een week vol.",
+        "meta": "27, kantoormedewerker · vorige app: 1 week"
+      },
+      "card2": {
+        "quote": "Aan het einde van de maand zie ik alleen getallen. Geen idee wat ik volgende maand echt moet doen.",
+        "meta": "33, freelancer · spreadsheet"
+      },
+      "card3": {
+        "quote": "Ik log alles, maar een maand later is het weg. Ik heb het nooit één keer terugbekeken.",
+        "meta": "29, ouder · 3 budgetapps geprobeerd"
+      }
+    },
+    "feature1": {
+      "label": "Feature 01 · Chat-invoer",
+      "title": "Stop met categoriën selecteren. Typ gewoon.",
+      "desc": "Zeg het Moa zoals je het al denkt. AI herkent categorie, bedrag, datum en plaats.",
+      "point1": "Natuurlijke taal zoals \"lunch $9\" werkt",
+      "point2": "Upload een bon — automatisch uitgelezen",
+      "point3": "Eén tik om het te corrigeren als het fout gaat",
+      "demoUser": "Latte bij Starbucks, $5,20",
+      "demoAi": "Opgeslagen! Je hebt deze maand $32 in café's uitgegeven — iets hoger dan normaal :)",
+      "demoPlaceholder": "Vertel me wat je vandaag hebt uitgegeven…",
+      "tagCafe": "Café",
+      "tagAmount": "$5,20",
+      "tagPlace": "Starbucks"
+    },
+    "feature2": {
+      "label": "Feature 02 · Kalender",
+      "title": "Werkelijk en komend op één scherm.",
+      "desc": "Huur, abonnementen, alles wat terugkeert — al zichtbaar. Zie precies wat over is tot de volgende salaris.",
+      "point1": "Werkelijk en komend met kleurcodes",
+      "point2": "Saldo tot volgende salaris automatisch berekend",
+      "point3": "Terugkerende posten vullen kalender automatisch in",
+      "month": "November",
+      "upcoming1": "Huur",
+      "amount1": "$1.400",
+      "upcoming2": "Netflix",
+      "amount2": "$15,49",
+      "upcoming3": "Verzekering",
+      "amount3": "$48"
+    },
+    "feature3": {
+      "label": "Feature 03 · Dag detail",
+      "title": "Een dag, duidelijk gesorteerd.",
+      "desc": "Zie een dag opgedeeld naar categorie, plaats en notitie. Waar je geld weglekt wordt duidelijk.",
+      "point1": "9 vaste categorieën — café, eten, vervoer en meer",
+      "point2": "Automatische plaats detectie met rating & notities",
+      "point3": "Foto's voor bonnen of aankopen",
+      "dateLabel": "ma, 17 nov",
+      "total": "$28,40"
+    },
+    "feature4": {
+      "label": "Feature 04 · Plaatsen",
+      "title": "Markeer je favorieten. Sla de rest over.",
+      "desc": "Beoordeel en becommentarieer plaatsen die je bezoekt — je volgende dagboek gebruikt dat automatisch. Veelvoorkomende plekken, alles in één overzicht.",
+      "point1": "Google Maps — pins en foto's",
+      "point2": "\"Geretourneerd / Overgeslagen\" tags van je beoordelingen",
+      "point3": "Automatisch opgetelde bezoeken en totalen"
+    },
+    "feature5": {
+      "label": "Feature 05 · AI coaching",
+      "title": "Een warmhartige AI coach, elke maand.",
+      "desc": "Log overwinningen, spijt en je voornemen voor volgende maand. Moa vergelijkt met vorige maand en reageert in de stem van een vriend.",
+      "point1": "Vergelijkt automatisch maandelijkse totalen en categorieën",
+      "point2": "Een \"je doet het geweldig\" toon, geen verwijten",
+      "point3": "Één concrete actie om volgende maand te proberen",
+      "messageTitle": "Moa oordeelt niet.",
+      "messageSub": "Het sluit de maand af zoals een vriend zou doen — \"bedankt dat je deze maand ook alles hebt gelogd.\"",
+      "monthLabel": "Oktober samenvatting",
+      "total": "$1.284,50",
+      "strength": "Café-uitgaven met 18% gedaald vs. vorige maand. Goed gedaan!",
+      "weakness": "Eten was 32% hoger dan normaal — meer eten buiten.",
+      "advice": "Probeer een wekelijkse thuiskookdag. Ongeveer $120 besparing."
+    },
+    "feature6": {
+      "label": "Feature 06 · Balans",
+      "title": "Inkomsten − uitgaven − sparen = wat is echt van jou.",
+      "desc": "Zet vaste kosten en sparen eerst opzij. Wat overblijft mag je echt uitgeven.",
+      "point1": "Inkomsten, uitgaven en sparen in één tabel",
+      "point2": "Eenregelig \"vrij te besteden\" overzicht",
+      "point3": "Automatisch overgedragen naar volgende maand",
+      "monthLabel": "November balans",
+      "income": "$3.200",
+      "spent": "$1.840",
+      "saved": "$600",
+      "free": "$760"
+    },
+    "feature7": {
+      "label": "Feature 07 · Terugkerend",
+      "title": "Eenmalig instellen. Klaar tot de einddatum.",
+      "desc": "Huur, abonnementen, verzekeringen — registreer ze eenmalig en ze vullen je kalender tot de einddatum.",
+      "point1": "Wekelijkse, maandelijkse, jaarlijkse cycli",
+      "point2": "Vult kalender automatisch tot einddatum",
+      "point3": "Batch-bewaar wijzigingen in één keer",
+      "row1": {
+        "name": "Huur",
+        "amount": "$1.400",
+        "cycle": "25e maandelijks",
+        "next": "25 nov"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "$15,49",
+        "cycle": "28e maandelijks",
+        "next": "28 nov"
+      },
+      "row3": {
+        "name": "Verzekering",
+        "amount": "$48",
+        "cycle": "30e maandelijks",
+        "next": "30 nov"
+      },
+      "row4": {
+        "name": "Gym",
+        "amount": "$95",
+        "cycle": "5e maandelijks",
+        "next": "5 dec"
+      }
+    },
+    "compare": {
+      "label": "Vergelijken",
+      "title": "Wat maakt Moa anders?",
+      "subtitle": "Naast elkaar met typische budgeteer-apps en spreadsheets.",
+      "colFeature": "Functie",
+      "colOther": "Typische app",
+      "colExcel": "Spreadsheet",
+      "row1": "Invoer via chatbericht",
+      "row2": "Automatische categorie-tagging",
+      "row3": "Maandelijkse AI-coaching",
+      "row4": "Komend + agenda",
+      "row5": "Automatische plaats & reviews",
+      "row6": "Herhaald tot einddatum",
+      "row7": "9 talen uit de doos",
+      "row8": "Excel-export"
+    },
+    "target": {
+      "label": "Voor jou",
+      "title": "Mensen die van Moa houden.",
+      "persona1": {
+        "emoji": "💼",
+        "name": "De herhaalde budgetter",
+        "desc": "Je hebt 3+ apps geprobeerd en bent steeds na een week gestopt. Makkelijke invoer is wat je doet blijven."
+      },
+      "persona2": {
+        "emoji": "🎓",
+        "name": "Starter in het beroepsleven",
+        "desc": "Je salaris komt binnen en verdwijnt. De AI-coach brengt inzicht in je maand."
+      },
+      "persona3": {
+        "emoji": "✈️",
+        "name": "Wonen of reizen in het buitenland",
+        "desc": "Meerdere valuta's en talen. Moa spreekt 9 — log natuurlijk op beide manieren."
+      }
+    },
+    "cta2": {
+      "title": "Begin voor het einde van deze maand.",
+      "subtitle": "30 seconden aanmelden, geen betaalgegeven nodig, gratis in bèta.",
+      "trust1": "30 sec aanmelden",
+      "trust2": "Geen betaalgegeven",
+      "trust3": "Gratis bèta"
+    }
+  },
+  "login": {
+    "subtitle": "Log in en start je journaal.",
+    "email": "E-mailadres",
+    "password8": "Wachtwoord (8+ tekens)",
+    "submit": "Log in",
+    "submitBusy": "Inloggen…",
+    "noAccount": "Geen account?",
+    "signupLink": "Aanmelden",
+    "forgotLink": "Wachtwoord vergeten?",
+    "failed": "Inloggen mislukt"
+  },
+  "signup": {
+    "title": "Account maken",
+    "nickname": "Bijnaam (optioneel)",
+    "countryLabel": "Land van woonplaats",
+    "countryHint": "Taal en valuta worden automatisch ingesteld op basis van je land. Je kunt deze altijd wijzigen in Mijn pagina.",
+    "agreeStart": "Ik ga akkoord met de ",
+    "agreeTerms": "Gebruiksvoorwaarden",
+    "agreeAnd": " en ",
+    "agreePrivacy": "Privacybeleid",
+    "agreeEnd": ".",
+    "agreeRequired": "Accepteer alstublieft de Gebruiksvoorwaarden en het Privacybeleid.",
+    "submit": "Aanmelden",
+    "submitBusy": "Aanmelden…",
+    "hasAccount": "Heb je al een account?",
+    "loginLink": "Inloggen",
+    "failed": "Registratie mislukt"
+  },
+  "forgot": {
+    "title": "Wachtwoord opnieuw instellen",
+    "intro": "Voer het e-mailadres in waarmee je je hebt aangemeld en we sturen je een resetlink.",
+    "sent": "Als dit e-mailadres is geregistreerd, hebben we een wachtwoordresetlink verzonden. Controleer je spammap als je het niet ziet. De link is 1 uur geldig.",
+    "submit": "Resetmail verzenden",
+    "submitBusy": "Verzenden…",
+    "backLogin": "Terug naar inloggen",
+    "backLoginLink": "Terug naar inloggen"
+  },
+  "reset": {
+    "title": "Nieuw wachtwoord instellen",
+    "intro": "Gebruik minstens 8 tekens.",
+    "newPassword": "Nieuw wachtwoord",
+    "submit": "Wachtwoord wijzigen",
+    "submitBusy": "Wijzigen…",
+    "invalid": "Ongeldige link",
+    "invalidDesc": "Geen resettoken gevonden. Gebruik de link uit de e-mail.",
+    "requestAgain": "Resetmail opnieuw aanvragen",
+    "minLength": "Wachtwoord moet minstens 8 tekens bevatten.",
+    "success": "Wachtwoord gewijzigd. Log alsjeblieft opnieuw in.",
+    "failed": "Reset mislukt"
+  },
+  "ledger": {
+    "title": "Mijn Dagboek",
+    "todayHint": "Vandaag is {{date}} · langzaam maar zeker",
+    "monthSuffix": "{{month}}",
+    "todayTagline": "Vandaag is {{month}}/{{day}} · langzaam maar zeker",
+    "receiptLabel": "Bon",
+    "receiptUploadTitle": "Foto van bon toevoegen",
+    "guideTitle": "Probeer het zo te schrijven",
+    "actions": {
+      "edit": "Bewerken",
+      "delete": "Verwijderen"
+    },
+    "moneyUnit": {
+      "tenK": "k",
+      "thousand": "k"
+    },
+    "tabs": {
+      "chat": "Chat",
+      "calendar": "Agenda",
+      "places": "Plaatsen",
+      "reflect": "Terugblik",
+      "plan": "Planning",
+      "balance": "Balans"
+    },
+    "stats": {
+      "thisMonthFlow": "Deze maand",
+      "budget": "Budget",
+      "freeMoney": "Vrij uit te geven",
+      "setBudgetHint": "Stel een budget of inkomsten in om dit te zien →",
+      "spent": "Uitgegeven",
+      "upcoming": "Komend",
+      "dailyAvg": "Dagelijks gemiddelde",
+      "monthSpent": "Maand uitgegeven",
+      "monthUpcoming": "Komend",
+      "won": ""
+    },
+    "input": {
+      "placeholder": "Starbucks €5…",
+      "send": "Verzenden",
+      "retry": "Kun je dit herformuleren?",
+      "tryAgain": "Probeer het opnieuw.",
+      "shortcuts": "Enter om te versturen · Shift+Enter voor nieuwe regel",
+      "guideButton": "Wat kan ik typen? Bekijk gids"
+    },
+    "messages": {
+      "welcome": "Hallo! Laten we je ledger starten 📒",
+      "welcomeHint": "Typ gewoon zoals je zou spreken — bijv. \"lunch kimbap 4 vandaag\". Tik op de 💡 knop naast het invoerveld om te zien wat je kunt zeggen. Gebruik de tabbladen Kalender / Locaties / Beoordeling / Plan / Balans om de maand af te ronden, en de ✏️·🗑 pictogrammen op elke rij om een invoer te bewerken of verwijderen.",
+      "recorded": "Opgeslagen ✓ ({{count}} item(s))",
+      "placeRecognized": "📍 \"{{name}}\" herkend. Open de invoer om de exacte locatie te kiezen.",
+      "recurringRecorded": "🔁 {{count}} opgeslagen als terugkerend. Bewerk of verwijder ze op de pagina [Terugkerende uitgaven].",
+      "askRecurrenceEnd": "🔁 Begrepen als terugkerende uitgave. Wanneer moet het eindigen? bijv. 2027-12-31 / 24 maanden / 5 jaar"
+    },
+    "place": {
+      "title": "Mijn uitgavenkaart",
+      "intro": "{{count}} locaties · tik op een speld of kaart voor kaart, foto's en beoordelingen",
+      "frequent": "Vaak bezocht",
+      "emptyPins": "Nog geen vastgepinde locaties. Tik op een locatiekaart om de exacte plek te kiezen.",
+      "pickLocation": "Kies de exacte locatie",
+      "aiHint": "(De door AI geraden locatie kan onnauwkeurig zijn, dus er wordt geen speld automatisch geplaatst.)",
+      "searchPlaceholder": "Bij {{name}}",
+      "search": "Zoeken",
+      "searchBusy": "Zoeken…",
+      "useMyLocationGps": "Gebruik mijn locatie (GPS)",
+      "moreAccurate": "Nauwkeuriger (GPS)",
+      "viewboxIp": "📍 Rond {{label}} (±20km)",
+      "viewboxGps": "📍 Rond mijn locatie (GPS, ±20km)",
+      "viewboxNationwide": "🌐 Landelijk zoeken",
+      "viewboxDenied": "🌐 Landelijk zoeken (locatie geweigerd)",
+      "viewboxUnsupported": "🌐 Landelijk zoeken (browser niet ondersteund)",
+      "noResults": "Geen resultaten. Probeer een ander zoekwoord of laat de locatie leeg.",
+      "againGo": "Zal terugkomen",
+      "avoid": "Zal niet terugkomen",
+      "normal": "OK",
+      "resetPin": "Locatie resetten",
+      "openInGoogleMaps": "Open in Google Maps",
+      "mapsUnavailable": "Kaart is tijdelijk niet beschikbaar.",
+      "tapMapToPickLocation": "Tik op de kaart om de exacte locatie te kiezen",
+      "savePickedLocation": "Sla deze locatie op",
+      "visitTitle": "Bezoeken & beoordelingen",
+      "rating": "{{n}}/5",
+      "addReview": "+ Voeg een snelle opmerking toe",
+      "reviewPlaceholder": "Hoe was het?",
+      "photo": "Foto",
+      "photoUploading": "Uploaden…",
+      "photoTotal": "{{count}} foto('s)"
+    },
+    "categories": {
+      "식비": "Voeding",
+      "카페/간식": "Café & Snacks",
+      "쇼핑": "Winkelen",
+      "교통": "Vervoer",
+      "주거/공과금": "Huisvesting & Rekeningen",
+      "건강/뷰티": "Gezondheid & Schoonheid",
+      "여행/이벤트": "Reizen & Evenementen",
+      "경조사/선물": "Cadeaus & Gelegenheden",
+      "금융/대출": "Financiën & Leningen",
+      "기타": "Overig"
+    },
+    "calendar": {
+      "weekday": {
+        "sun": "Zo",
+        "mon": "Ma",
+        "tue": "Di",
+        "wed": "Wo",
+        "thu": "Do",
+        "fri": "Vr",
+        "sat": "Za"
+      },
+      "today": "Vandaag",
+      "noEntries": "Nog geen inschrijvingen deze maand",
+      "noEntriesDay": "Geen inschrijvingen op deze dag",
+      "monthYear": "{{month}} {{year}}",
+      "planned": "Gepland",
+      "dayTotal": "Totaal {{amount}} →",
+      "viewGrid": "Raster",
+      "viewList": "Lijst",
+      "openDayMonth": "{{month}}/{{day}}",
+      "spentLine": "Uitgegeven {{spent}} · Komend {{planned}}"
+    },
+    "reflect": {
+      "monthly": "Maandelijkse terugblik",
+      "annual": "Jaarlijkse terugblik",
+      "noteTitle": "Mijn notities",
+      "noteHint": "Schrijf een belofte — deze verschijnt volgende maand automatisch in het Plan-tabblad.",
+      "empty": "Nog geen terugblikken",
+      "achieved": "Bereikt!",
+      "missed": "Gemist",
+      "aiCoachTitle": "AI-coachinsicht",
+      "aiCoachSubtitle": "Een objectieve terugblik op je maand",
+      "aiAnalyzing": "Analyseren...",
+      "aiRegenerate": "Opnieuw genereren",
+      "aiStart": "Bekijk inzicht",
+      "aiEmpty": "Druk op de knop hierboven om te beginnen",
+      "praise": "Wat goed ging",
+      "concern": "Waar op letten",
+      "suggestion": "Volgende maand",
+      "addToGoal": "Toevoegen aan volgende maands belofte",
+      "monthChange": "Vergeleken met vorige maand",
+      "lastMonthLabel": "Vorige maand",
+      "monthHeader": "{{year}} · {{month}} terugblik",
+      "monthTotal": "Totaal {{amount}}",
+      "types": {
+        "regret": {
+          "label": "Spijt",
+          "placeholder": "bijv. te veel aan koffie uitgegeven"
+        },
+        "praise": {
+          "label": "Winst",
+          "placeholder": "bijv. abonnementen opgeschoond"
+        },
+        "goal": {
+          "label": "Belofte",
+          "placeholder": "bijv. café onder €50 houden"
+        },
+        "insight": {
+          "label": "Inzicht",
+          "placeholder": "bijv. eten gaan verhoogt caféuitgaven"
+        }
+      }
+    },
+    "balance": {
+      "title": "Balans",
+      "headerMonth": "Balans — {{month}}",
+      "subtitle": "Je maand vanuit boekhoudkundig perspectief",
+      "income": "Inkomsten",
+      "incomeRow": "Salaris",
+      "expenseByCategory": "Uitgaven (per categorie)",
+      "expenseSubtotal": "Subtotaal uitgaven",
+      "plannedHeader": "Geplande uitgaven",
+      "plannedRow": "Deze maand gepland ({{count}})",
+      "netLine": "= Netto (Inkomsten − Uitgaven − Gepland)",
+      "savingPossible": "Hiervan kun je sparen",
+      "needIncome": "Je hebt meer inkomsten nodig",
+      "spent": "Uitgegeven",
+      "planned": "Gepland",
+      "saving": "Sparen",
+      "savingRate": "Spaarquote",
+      "modeCurrent": "Deze maand",
+      "modeNext": "Volgende maand",
+      "healthyTip": "💡 20%+ is een gezonde spaarquote"
+    },
+    "plan": {
+      "monthLabel": "{{month}} plan",
+      "lastMonthPledge": "Vorige maand voornemen · zet het door deze maand",
+      "lastMonthSucceed": "Vorige maand gehaald",
+      "bigPictureTitle": "{{mode}} totaalplaatje",
+      "modeCurrent": "Deze maand",
+      "modeNext": "Volgende maand",
+      "bigPictureSubtitle": "Schets de uitgaven voor ze gebeuren",
+      "currentUsage": "Tot nu toe uitgegeven",
+      "plannedAmount": "Gepland",
+      "totalProjected": "Totaal verwacht",
+      "budgetSuffix": "/ budget {{budget}}",
+      "overBy": "Verwacht over budget met {{amount}}",
+      "nextMonthPledge": "Voornemen volgende maand",
+      "letterToSelf": "Een notitie voor jezelf",
+      "nextPledgePlaceholder": "bijv. slechts twee keer per week naar een café",
+      "saveAsGoal": "Opslaan als voornemen volgende maand"
+    },
+    "dayModal": {
+      "header": "{{month}}/{{day}}",
+      "spentLine": "Uitgegeven {{spent}} · Gepland {{planned}}",
+      "empty": "Geen ingevoerde items deze dag",
+      "plannedTag": "Gepland"
+    },
+    "year": {
+      "last12Title": "Laatste 12 maanden in één oogopslag",
+      "yearSummary": "Totaal {{total}} · Maandelijks gemiddelde {{avg}}",
+      "mostSpent": "Maand met meeste uitgaven",
+      "mostSaved": "Maand met meeste spaarders",
+      "yearMonth": "{{month}} {{year}}",
+      "yearCategoriesTitle": "Waar je dit jaar het meest aan besteed hebt",
+      "monthlyAvgLabel": "Maandelijks gemiddelde {{amount}}"
+    },
+    "placeModal": {
+      "visitCount": "{{count}} bezoek(en)",
+      "totalSpent": "Totaal {{amount}}",
+      "openGoogle": "Google Maps",
+      "openKakao": "Kakao Map",
+      "openNaver": "Naver Map",
+      "moodAgainWant": "Wil je teruggaan",
+      "moodNormal": "Gemiddeld",
+      "moodAvoid": "Komt niet terug"
+    },
+    "entryEdit": {
+      "name": "Naam",
+      "amount": "Bedrag",
+      "date": "Datum",
+      "category": "Categorie",
+      "save": "Opslaan",
+      "cancel": "Annuleren",
+      "namePlaceholder": "bijv. lunch kimbap",
+      "defaultName": "(zonder naam)",
+      "deleteConfirm": "\"{{name}}\" verwijderen?"
+    },
+    "inputGuide": {
+      "openButton": "Probeer het op deze manier",
+      "title": "Hoe chat je met je kasboek",
+      "subtitle": "Schrijf gewoon zoals je zou spreken. De AI bepaalt bedrag, categorie, datum en plaats.",
+      "summaryTitle": "Samenvatting in 3 seconden",
+      "summaryBody": "\"Wat, hoeveel, (optioneel) wanneer / waar\" — dat is genoeg.",
+      "summaryExampleLabel": "Voorbeeld",
+      "summaryExample": "vandaag bij Starbucks Bucheon heb ik 6500 uitgegeven",
+      "section1Title": "Enkele regel invoer",
+      "section1Tips": [
+        "Starbucks 6500",
+        "lunch kimbap 4000",
+        "spent 2,300 at the convenience store"
+      ],
+      "section2Title": "Meerdere tegelijk",
+      "section2Tips": [
+        "today lunch 8000, cafe 5500, taxi 9000",
+        "groceries 32000 + movie 15000"
+      ],
+      "section3Title": "Datum / tijd opgeven",
+      "section3Tips": [
+        "dinner with team yesterday 40000",
+        "haircut last Friday 30000",
+        "friend's wedding on Mar 15 100000"
+      ],
+      "section4Title": "Plaats toevoegen",
+      "section4Tips": [
+        "coffee at Starbucks Gangnam 6500",
+        "20000 at Olive Young near home",
+        "※ The AI only recognises the name — open the entry to pin the exact spot."
+      ],
+      "section5Title": "Toekomstige uitgave (gepland)",
+      "section5Tips": [
+        "Netflix 17000 next Tuesday",
+        "rent 180000 due on the 15th",
+        "friend's birthday gift 50000 on the 5th of next month"
+      ],
+      "section6Title": "Bonnen / foto's",
+      "section6Tips": [
+        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
+        "Multi-line receipts work too"
+      ],
+      "section7Title": "Categorie hints",
+      "section7Tips": [
+        "\"Olive Young mask sheet 10000\" → Health & Beauty",
+        "\"taxi 12000\" → Transport",
+        "Wrong category? Edit it with the ✏️ button next to the entry"
+      ],
+      "tabsTitle": "Meer dan chat",
+      "tabsHint": "✏️ Gebruik het potlood- en prullenbakpictogram naast elk item om deze afzonderlijk te bewerken of verwijderen.",
+      "notAllowedTitle": "Deze werken niet",
+      "notAllowed": [
+        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
+        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
+        "· Personal IDs (full card numbers, government IDs) — never type them"
+      ],
+      "close": "Begrepen, laten we beginnen",
+      "tabs": {
+        "calendar": "Kalender — tik op een dag om de uitgaven en aankomende transacties van die dag te zien",
+        "places": "Plaatsen — plaatsen die je vaak bezoekt, op een kaart met foto's",
+        "reflect": "Evaluatie — noteer maandelijks successen, spijt en voornemens",
+        "plan": "Plan — vastleggen van aankomende uitgaven voor de komende maand",
+        "balance": "Saldo — inkomsten, uitgaven en spaarquote in één oogopslag"
+      }
+    }
+  },
+  "mypage": {
+    "title": "Mijn Pagina",
+    "requireLogin": "Meld je aan om door te gaan.",
+    "requireLoginCta": "Aanmelden",
+    "tabs": {
+      "general": "Algemeen",
+      "billing": "Facturering",
+      "privacy": "Privacy",
+      "location": "Locatie",
+      "export": "Exporteren"
+    },
+    "account": {
+      "title": "Account",
+      "email": "E-mailadres",
+      "role": "Rol",
+      "admin": "Beheerder",
+      "user": "Lid"
+    },
+    "profile": {
+      "title": "Profiel",
+      "name": "Naam",
+      "namePlaceholder": "Jane Doe",
+      "displayName": "Weergavenaam",
+      "displayNamePlaceholder": "Geldwacht",
+      "monthlyIncome": "Maandelijks inkomen",
+      "monthlyBudget": "Maandelijks budget",
+      "save": "Profiel opslaan",
+      "saving": "Opslaan…"
+    },
+    "password": {
+      "title": "Wachtwoord wijzigen",
+      "current": "Huidig wachtwoord",
+      "newPlaceholder": "Nieuw wachtwoord (8+ tekens)",
+      "change": "Wachtwoord wijzigen",
+      "changing": "Wijzigen…",
+      "forgot": "Wachtwoord vergeten?",
+      "minLength": "Nieuw wachtwoord moet minimaal 8 tekens zijn.",
+      "changed": "Wachtwoord gewijzigd.",
+      "changeFailed": "Wachtwoord wijzigen mislukt"
+    },
+    "toasts": {
+      "profileSaved": "Profiel opgeslagen.",
+      "saveFailed": "Opslaan mislukt"
+    },
+    "billing": {
+      "statusTitle": "Facturingsstatus",
+      "tierPaid": "Premium",
+      "tierFreeTrial": "Gratis (proefperiode)",
+      "tierExpired": "Verlopen",
+      "daysRemaining": "{{n}} dagen resterend",
+      "pastDue": "Betaling vervallen",
+      "trialEndsAt": "Gratis proefperiode eindigt",
+      "paidUntil": "Premium geldig tot",
+      "price": "Premium-prijs",
+      "perMonth": "/ maand",
+      "cardOnFile": "Kaart op bestand",
+      "changeCard": "Betaalmethode wijzigen (registreer een nieuwe kaart)",
+      "lastError": "Laatste betalingsfout",
+      "freeTitle": "Gratis",
+      "freeFeature1": "1 maand volledige boeking na aanmelding",
+      "freeFeature2": "AI-categorisatie · kalender · review",
+      "freeFeature3": "Pins en notities plaatsen",
+      "freeFeature4": "JSON-export van mijn gegevens",
+      "paidTitle": "Premium",
+      "currentPlan": "Huidge abonnement",
+      "priceMonthlyText": "₩5.500 / maand",
+      "priceYearlyText": "of ₩50.000 / jaar (24% korting · 2 maanden gratis)",
+      "paidFeature1": "Alle gratis functies",
+      "paidFeature2": "Voortgang boekhoudkundige toegang",
+      "paidFeature3": "Excel (.xlsx) maandelijkse en jaarlijkse export",
+      "paidFeature4": "Prioriteitsondersteuning",
+      "betaButtonLabel": "Gratis tijdens bètaperiode",
+      "cancelButton": "Annuleren",
+      "checkoutStart": "Premium-afrekening starten",
+      "checkoutLoading": "Afrekening openen…",
+      "planSelectionHint": "Kies maandelijks of jaarlijks op het volgende scherm.",
+      "tossLink": "Of betaal met Toss (Koreaanse kaarten, KRW)",
+      "lsConnected": "✅ Lemon Squeezy (MoR) verbonden — wereldwijde kaart-/PayPal-afrekening. Belasting, terugbetalingen, facturen automatisch verwerkt.",
+      "tossAlsoActive": "Toss (KRW directe kaart) is ook actief.",
+      "lsUnconfigured": "💡 Lemon Squeezy-sleutels zijn niet geconfigureerd, dus afrekening is uitgeschakeld. Zodra LEMONSQUEEZY_API_KEY etc. op Render zijn ingesteld, activeert de afrekenstroom automatisch.",
+      "betaBannerTitle": "🎉 Gratis tijdens beta",
+      "betaBannerBody": "Alle functies zijn nu gratis, inclusief Excel-export en volledig logboek. Betaalde abonnementen (₩5.500 / maand · ₩50.000 / jaar) en het betalingssysteem (Lemon Squeezy globaal + Toss Korea) zijn in testmodus en we kondigen apart aan wanneer de beta eindigt.",
+      "loadFailed": "Abonnementsinformatie kon niet worden geladen.",
+      "returnHint": "Keer terug naar de app na afrekening — we vernieuwen automatisch.",
+      "betaActive": "Alle functies zijn gratis tijdens de betaperiode.",
+      "betaModeNotice": "Alle functies zijn gratis tijdens de betaperiode.",
+      "checkoutUnavailable": "Afrekening is nog niet ingeschakeld.",
+      "checkoutError": "Er is iets misgegaan bij het openen van de afrekening.",
+      "paymentComplete": "Betaling voltooid.",
+      "confirmFailed": "Betaling kon niet worden bevestigd",
+      "paymentCancelled": "Geannuleerd op het afrekenscherm.",
+      "widgetFailed": "Betalingsvenster kon niet worden geopend.",
+      "upgradeMockConfirm": "Upgraden naar het Premium-plan voor {{price}} per maand?\n\n※ De betalingsgateway is niet verbonden in de omgeving van de exploitant.\nDeze demo schakelt u onmiddellijk over (geen echte transactie).",
+      "upgradedMock": "Overgeschakeld naar Premium-plan.",
+      "upgradeFailed": "Upgrade mislukt",
+      "cancelConfirm": "Premium-plan annuleren?\n· Uw kaartbillingsleutel wordt onmiddellijk ingetrokken en er worden geen verdere kosten in rekening gebracht.\n· U wordt automatisch naar Gratis verplaatst wanneer deze factuurperiode eindigt.",
+      "cancelled": "Annulering verwerkt.",
+      "cancelFailed": "Annulering mislukt"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "locationOptInTitle": "Locatiemetagegevens toestaan",
+      "locationOptInBody": "Toestaan dat Claude geschatte locatiemetagegevens (stad / regio) gebruikt om de productervaring te verbeteren. Nauwkeurige coördinaten worden nooit gebruikt — alleen op IP gebaseerde schatting.",
+      "learnMore": "Meer informatie",
+      "activeNote": "✓ Momenteel ingeschakeld — gebruikt voor automatische suggesties van nabije plaatsen bij het registreren van een vermelding.",
+      "inactiveNote": "○ Uit — op IP gebaseerde locatieschatting wordt niet gebruikt.",
+      "toggledOn": "Locatiemetagegevens toegestaan.",
+      "toggledOff": "Locatiemetagegevens uitgeschakeld."
+    },
+    "location": {
+      "title": "Locatie",
+      "intro": "Wanneer u een plaats aan een logboekvermelding koppelt, worden nabije locaties eerst voorgesteld op basis van uw IP (mobiel / desktop). Als het resultaat onnauwkeurig is, kunt u zoeken of kiezen op de kaart vanuit het detailscherm van de plaats.",
+      "disabledNotice": "Locatiemetagegevens zijn uitgeschakeld. Sta dit toe onder het tabblad Privacy om automatische schatting in te schakelen.",
+      "tempFailure": "Op IP gebaseerde locatieschatting is tijdelijk mislukt. Vernieuw of probeer het zo meteen opnieuw.",
+      "detectedIp": "Gedetecteerd IP",
+      "country": "Land",
+      "region": "Regio / Staat",
+      "city": "Stad",
+      "coordinates": "Breedtegraad / Lengtegraad",
+      "ipLabel": "IP",
+      "dataSource": "Gegevensbron",
+      "fromCache": "In cache (binnen 1u)",
+      "fresh": "Zojuist geschat",
+      "manualEditHint": "Voor handmatige bewerkingen gebruikt u zoeken of tikt u op de kaart vanuit het detailscherm van elke logboekvermelding."
+    },
+    "export": {
+      "xlsxTitle": "Logboekingangen naar Excel exporteren",
+      "xlsxDesc": "Download als .xlsx. Maandelijks enkel blad, of jaarlijks 12 maanden + samenvattingsblad.",
+      "monthly": "Maandelijks",
+      "monthlyDownload": "Maandelijks downloaden",
+      "annual": "Jaarlijks",
+      "annualDownload": "Jaarlijks downloaden",
+      "paidOnlyNotice": "Excel-export is beschikbaar op het Premium-plan. Upgrade via het tabblad Facturering om het onmiddellijk te gebruiken.",
+      "betaFreeNotice": "🎉 Excel-export is gratis tijdens de betaperiode.",
+      "gdprTitle": "Alle gegevens (GDPR)",
+      "gdprDesc": "Download ledger + planned + reviews + fotometadata als JSON. Altijd beschikbaar op elk abonnement.",
+      "gdprButton": "Alle gegevens (JSON)",
+      "trialExpired": "Uw gratis proefperiode is verlopen. Upgrade naar Premium.",
+      "downloadStarted": "Excel-download gestart.",
+      "gdprStarted": "Gegevensdownload gestart.",
+      "failed": "Export mislukt"
+    },
+    "dangerZone": {
+      "title": "Gevaarlijke zone",
+      "description": "Het verwijderen van uw account blokkeert inloggen onmiddellijk. Ledgergegevens worden gedurende een retentieperiode bewaard voordat ze permanent worden verwijderd.",
+      "deleteButton": "Account verwijderen",
+      "deleteConfirm": "Weet u zeker dat u uw account wilt verwijderen?\n\n· Inloggen wordt onmiddellijk geblokkeerd.\n· Ledgergegevens worden gedurende een retentieperiode bewaard voordat ze permanent worden verwijderd.\n· Neem contact op met de beheerder als u volledige verwijdering nu nodig hebt. Exporteer eerst uw gegevens.",
+      "confirmEmailPrompt": "Typ uw e-mailadres om accountverwijdering te bevestigen.",
+      "emailMismatch": "E-mailadres komt niet overeen. Bewerking geannuleerd.",
+      "deleted": "Account verwijderd.",
+      "deleteFailed": "Account verwijderen mislukt"
+    },
+    "region": {
+      "title": "Regio / Taal / Valuta",
+      "subtitle": "Wijzig de weergavevaluta van het ledger en de UI-taal. Bestaande invoernummers blijven hetzelfde.",
+      "country": "Land",
+      "currency": "Valuta",
+      "language": "Taal",
+      "saved": "Regio-instellingen opgeslagen.",
+      "applyDefaults": "Pas standaardinstellingen van het geselecteerde land toe"
+    }
+  },
+  "appHeader": {
+    "faq": "Veelgestelde vragen",
+    "myAccount": "Account",
+    "admin": "Admin",
+    "logout": "Afmelden",
+    "recurring": "Terugkerend",
+    "menu": "Menu",
+    "close": "Sluiten"
+  },
+  "bottomNav": {
+    "home": "Start",
+    "calendar": "Agenda",
+    "recurring": "Terugkerend",
+    "me": "Ik",
+    "label": "Primaire navigatie"
+  },
+  "recurring": {
+    "title": "Terugkerende uitgaven",
+    "backToLedger": "Terug naar ledger",
+    "helpText": "Registreer een terugkerende uitgave eenmaal (maandelijks/wekelijks/jaarlijks) en deze verschijnt automatisch in de agenda. Bijvoorbeeld: rentebetaling op de 16e, wekelijkse maandagse lunch clubbijdrage.",
+    "existing": "Opgeslagen terugkerende regels",
+    "loading": "Laden…",
+    "empty": "Nog geen terugkerende uitgaven. Gebruik + Rij toevoegen hieronder om te beginnen.",
+    "newRows": "Nieuwe rijen",
+    "addRow": "Rij toevoegen",
+    "saveAll": "Alles opslaan",
+    "saveAllWithCount": "Alles opslaan ({{count}})",
+    "unsavedChanges": "{{count}} niet opgeslagen",
+    "revertAll": "Ongedaan maken",
+    "saving": "Opslaan…",
+    "emptyDraft": "Geen rijen toegevoegd",
+    "savedCount": "{{count}} opgeslagen",
+    "confirmDelete": "Deze regel verwijderen? Alle toekomstige voorkomsten verdwijnen ook.",
+    "delete": "Verwijderen",
+    "fromStartDate": "Vanaf startdatum D/M",
+    "placeholders": {
+      "description": "bijv. 16de lening rente"
+    },
+    "headers": {
+      "description": "Beschrijving",
+      "amount": "Bedrag",
+      "category": "Categorie",
+      "recurrence": "Frequentie",
+      "day": "Dag",
+      "startDate": "Startdatum",
+      "until": "Einddatum (verplicht)"
+    },
+    "frequency": {
+      "none": "Geen (eenmalig)",
+      "monthly": "Maandelijks",
+      "weekly": "Wekelijks",
+      "yearly": "Jaarlijks"
+    },
+    "weekday": {
+      "mon": "Ma",
+      "tue": "Di",
+      "wed": "Wo",
+      "thu": "Do",
+      "fri": "Vr",
+      "sat": "Za",
+      "sun": "Zo"
+    },
+    "validation": {
+      "descriptionRequired": "Voeg een beschrijving toe",
+      "amountRequired": "Voeg een bedrag toe",
+      "categoryInvalid": "Ongeldige categorie",
+      "startDateInvalid": "Ongeldige startdatum (YYYY-MM-DD)",
+      "monthlyDay": "Maandelijks: kies een dag 1–31",
+      "weeklyDay": "Wekelijks: kies een weekdag",
+      "endDateRequired": "Stel een einddatum in (verplicht voor terugkerende)",
+      "endDateInvalid": "Ongeldig eindatumformaat (YYYY-MM-DD)",
+      "endDateAfterStart": "Einddatum moet op of na startdatum liggen",
+      "missingEndDateTitle": "{{count}} terugkerende uitgave(n) mist een einddatum.",
+      "missingEndDateBody": "Zonder einddatum kan de kalender deze niet correct weergeven. Vul de kolom \"Einddatum\" in op de gemarkeerde rijen."
+    }
+  },
+  "pricing": {
+    "title": "Moa AI Ledger Prijzen",
+    "subtitle": "Kernfuncties blijven gratis. Meer mogelijkheden met Premium.",
+    "betaTitle": "Bètagebruikers — 50% korting voor de eerste 12 maanden",
+    "betaDesc": "Als je je aanmeldde tijdens de bètafase, krijg je 50% korting op Premium voor je eerste 12 maanden zodra betaalde abonnementen beschikbaar zijn. €1,99 / maand of €17,99 / jaar.",
+    "freePlan": "Gratis",
+    "freePrice": "$0",
+    "freePriceNote": "Altijd gratis, geen kaart nodig",
+    "freeDesc": "30 AI-invoeren / maand + volledige boekingsbasics (kalender, categorieën, locaties, maandoverzicht). Advertentievrij.",
+    "freeCta": "Gratis starten",
+    "paidPlan": "Premium",
+    "paidBadge": "Aanbevolen",
+    "paidPriceMonthly": "$3,99",
+    "perMonth": "/ maand",
+    "paidPriceYearlyNote": "of $35,99 / jaar (24% korting) · prijzen automatisch omgerekend per land",
+    "paidDesc": "Onbeperkte AI + maandelijkse AI-coachsessie + bonafide OCR + gegevensexport. Beleef de volledige Moa ervaring.",
+    "paidCta": "Start Premium",
+    "paidCtaYearly": "Jaarlijks ($35,99 · 2 maanden gratis)",
+    "planSelectionHint": "Je kunt maandelijks of jaarlijks kiezen op het volgende scherm.",
+    "returnHint": "Keer terug naar de app zodra betaling is voltooid — we vernieuwen automatisch.",
+    "betaActiveToast": "Premium-functies zijn gratis tijdens de bètaperiode.",
+    "checkoutUnavailable": "Afrekenen is nog niet ingeschakeld. We kondigen de lancering binnenkort aan.",
+    "checkoutError": "We konden afrekenen niet openen. Probeer het zo meteen opnieuw.",
+    "compareTitle": "Gratis vs Premium",
+    "compareFeature": "Functie",
+    "compare": {
+      "aiInput": {
+        "feature": "AI-chatinvoer",
+        "free": "30 / maand",
+        "paid": "Onbeperkt"
+      },
+      "adFree": {
+        "feature": "Advertentievrij",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "Maandelijkse AI-reviewcoach",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "OCR voor bonnetfoto's",
+        "free": "5 / maand",
+        "paid": "Onbeperkt"
+      },
+      "multilang": {
+        "feature": "9 talen + multi-currency",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "Locatiepinnen & recensies",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "Herhalende & aankomende meldingen",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Excel / CSV exporteren",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "Transactiegeschiedenis",
+        "free": "12 maanden",
+        "paid": "Onbeperkt"
+      },
+      "priority": {
+        "feature": "Prioriteitsondersteuning",
+        "free": "✗",
+        "paid": "✓"
+      }
+    },
+    "paymentTitle": "Betaalmethoden",
+    "paymentDesc": "Koreaanse gebruikers betalen via Toss Payments; internationale gebruikers betalen via Paddle. Kaartgegevens blijven bij de betalingsprovider — Moa toont alleen de laatste 4 cijfers.",
+    "paymentKr": "🇰🇷 Korea: Toss Payments (debit, credit, bankoverschrijving)",
+    "paymentIntl": "🌍 Internationaal: Paddle (kaart, PayPal, Apple Pay, Google Pay — binnenkort beschikbaar)",
+    "cancelTitle": "Annuleren & terugbetaling",
+    "cancelDesc": "Annuleer op elk moment in Mijn pagina → Facturering. Je houdt toegang tot het einde van de betaalde periode.",
+    "refundLink": "Zie volledig terugbetalingsbeleid →",
+    "operatorTitle": "Bedrijfsgegevens",
+    "operatorName": "Bedrijf",
+    "operatorCeo": "CEO",
+    "operatorBizNo": "Bedrijfsregistratienummer",
+    "operatorMailOrder": "Nummer postorderhandel",
+    "operatorContact": "Ondersteuning"
+  },
+  "refund": {
+    "title": "Terugbetalingsbeleid",
+    "subtitle": "Hoe en wanneer terugbetalingen worden verleend bij Moa AI Ledger.",
+    "section1Title": "1. Binnen 7 dagen na betaling (herroepingsrecht)",
+    "section1Body": "Binnen 7 dagen na betaling kunt u uw abonnement opzeggen volgens artikel 17 van de Koreaanse E-commercewet en een volledige terugbetaling ontvangen. Het recht kan beperkt zijn als meer dan 30% van de betaalde functies zijn gebruikt. (Beperkt tot eenmaal per lid.)",
+    "section2Title": "2. Na 7 dagen — pro-rata terugbetaling",
+    "section2Body": "Maandelijkse abonnementen: terugbetaling = betaald bedrag − (gebruikte dagen × dagelijks tarief) − 10% verwerkingskosten.\n\nVoorbeeld: $2,99/maand, 10 dagen gebruikt → $2,99 − (10 × $0,10) − $0,30 ≈ $1,69 terugbetaling.\n\nJaarlijkse abonnementen: gebruikte maanden × volledig maandelijks tarief (NIET het gereduceerde tarief) wordt van de terugbetaling afgetrokken.",
+    "section3Title": "3. Hoe u een terugbetaling aanvraagt",
+    "step1": "Mijn pagina → Facturering → klik \"Annuleren\" (stopt volgende verlenging).",
+    "step2Prefix": "Voor een terugbetaling stuurt u een e-mail naar",
+    "step2Suffix": "met uw bestel-ID en accounte-mail.",
+    "step3": "Verwerkt binnen 3–10 werkdagen volgens het beleid van de betalingsprovider (Toss / Paddle).",
+    "section4Title": "4. Niet-restitueerbare gevallen",
+    "notRefundable1": "Gedwongen annulering wegens schending van voorwaarden of accountopschorting",
+    "notRefundable2": "Betalingen gedaan met iemand anders' identiteit of betalingen waar fraude is gedetecteerd",
+    "section5Title": "5. Geschillen",
+    "section5Body": "Geschillen over dit beleid worden geregeld door Koreaans recht en behandeld door de rechtbank zoals aangegeven in de Koreaanse Burgerlijke Rechtsvordering. Voor internationale gebruikers kunnen ook het terugbetalings- en geschillenbeleid van Paddle van toepassing zijn.",
+    "effective": "Ingangsdatum: 2026-05-21"
+  },
+  "terms": {
+    "title": "Servicevoorwaarden",
+    "effectiveLabel": "Ingangsdatum",
+    "intro": "Deze voorwaarden regelen uw gebruik van Moa AI Ledger (de \"Service\") beheerd door ATM Store Co., Ltd. (het \"Bedrijf\"). Registratie geeft acceptatie aan.\n\nOpmerking: Deze Engelse tekst is een samenvatting. De Koreaanse versie (한국어) is maatgevend en prevaleert bij enig geschil over interpretatie.",
+    "a1": {
+      "title": "Artikel 1 (Doel)",
+      "body": "Deze voorwaarden bepalen de rechten, verplichtingen en verantwoordelijkheden van het Bedrijf en leden met betrekking tot het gebruik van de Service."
+    },
+    "a2": {
+      "title": "Artikel 2 (Definities)",
+      "body": "1. \"Service\" betekent de Moa AI Ledger web- en mobiele applicatie en gerelateerde services.\n2. \"Lid\" betekent een persoon die deze voorwaarden aanvaardt en een gebruiksovereenkomst met het Bedrijf sluit.\n3. \"AI-functies\" betekent functies die externe AI-modellen (Anthropic Claude, enz.) aanroepen voor classificatie, samenvatting of coaching.\n4. \"Content\" betekent alle gegevens die leden invoeren of uploaden (uitgaven, foto's, recensies, reflecties)."
+    },
+    "a3": {
+      "title": "Artikel 3 (Werking & wijziging)",
+      "body": "1. Deze voorwaarden treden in werking wanneer ze in de Service worden geplaatst.\n2. Het Bedrijf mag deze voorwaarden wijzigen binnen het geldende recht. Wezenlijke wijzigingen worden minimaal 30 dagen van tevoren aangekondigd; normale wijzigingen minimaal 7 dagen van tevoren.\n3. Voortgezet gebruik na de ingangsdatum van de wijziging vormt acceptatie."
+    },
+    "a4": {
+      "title": "Artikel 4 (Accountcreatie)",
+      "body": "1. De gebruiksovereenkomst wordt gesloten wanneer een aanvrager deze voorwaarden aanvaardt en het Bedrijf de aanvraag goedkeurt.\n2. Het Bedrijf mag aanvragen weigeren die een valse identiteit gebruiken, afkomstig zijn van personen onder de 14 jaar zonder toestemming van een ouder, of een frauduleus doel hebben."
+    },
+    "a5": {
+      "title": "Artikel 5 (Lidverplichtingen)",
+      "body": "Leden mogen niet: zich voordoen als anderen, valse informatie registreren, Service-inhoud zonder toestemming kopiëren of verspreiden, persoonlijke gegevens van andere leden verzamelen, de werking van de Service verstoren, of enige wet overtreden."
+    },
+    "a6": {
+      "title": "Artikel 6 (Bedrijfsverplichtingen)",
+      "body": "Het Bedrijf streeft ernaar een stabiele Service te bieden, persoonlijke gegevens te beschermen, en snel op vragen van leden te reageren."
+    },
+    "a7": {
+      "title": "Artikel 7 (Serviceverstrekking)",
+      "body": "Het Bedrijf biedt AI-ondersteunde boekhoudingsinvoer, kalenderbeheer, plaatsrecensies, maandelijkse AI-coaching, gegevensexport, en ondersteuning voor meerdere talen / valuta's. De Service werkt 24/7 maar kan worden opgeschort voor onderhoud of overmacht."
+    },
+    "a8": {
+      "title": "Artikel 8 (Servicewijzigingen & opschorting)",
+      "body": "Het Bedrijf mag elk onderdeel van de Service wijzigen of opschorten. Leden worden minimaal 30 dagen van tevoren in kennis gesteld, behalve in dringende gevallen waar kennisgeving achteraf plaatsvindt."
+    },
+    "a9": {
+      "title": "Artikel 9 (Betaalde service & terugkerende facturering)",
+      "body": "1. Sommige functies vereisen betaling. Prijzen en voordelen staan op de pagina Prijzen.\n2. Abonnementen verlengen automatisch tenzij ze worden geannuleerd. Een kennisgeving wordt 7 dagen voor de volgende afschrijving per e-mail verzonden.\n3. Betalingen worden verwerkt door Toss Payments (Korea) of Paddle.com Market Limited (internationaal) als Merchant of Record. Het Bedrijf slaat geen kaartnummers of vervaldatums op."
+    },
+    "a10": {
+      "title": "Artikel 10 (Opzegging & terugbetaling)",
+      "body": "1. Leden mogen een abonnement binnen 7 dagen na betaling opzeggen voor volledige terugbetaling, tenzij meer dan 30% van de betaalde functies zijn gebruikt.\n2. Terugbetalingen na het 7-dagenvenster volgen het aparte terugbetalingsbeleid.\n3. Terugbetalingen worden binnen 3–10 werkdagen naar de originele betalingsmethode overgemaakt."
+    },
+    "a11": {
+      "title": "Artikel 11 (AI-functies)",
+      "body": "1. De Service verzendt door leden ingevoerde tekst en afbeeldingen naar externe AI-providers (Anthropic Claude, enz.) voor classificatie, OCR en coaching.\n2. Verzonden gegevens zijn ontdaan van identificerende velden (e-mail, naam) en het verzoek wordt gedaan deze niet te gebruiken voor modeltraining.\n3. AI-uitvoer is alleen voor referentie; het Bedrijf garandeert geen nauwkeurigheid of volledigheid. Leden zijn verantwoordelijk voor het controleren van AI-resultaten.\n4. Zie het Privacybeleid voor volledige details."
+    },
+    "a12": {
+      "title": "Artikel 12 (Gegevenseigendom)",
+      "body": "Leden zijn eigenaar van de Content die zij invoeren. Het Bedrijf verwerkt Content alleen om de Service te leveren en deelt deze nooit met derde partijen zonder expliciete toestemming. Leden kunnen hun gegevens exporteren via Mijn pagina → Exporteren."
+    },
+    "a13": {
+      "title": "Artikel 13 (Intellectueel eigendom)",
+      "body": "Ontwerp, broncode, handelsmerken, logo's en door het Bedrijf gemaakte inhoud zijn eigendom van het Bedrijf. Leden mogen dergelijke inhoud niet commercieel reproduceren of herdistribueren zonder voorafgaande schriftelijke toestemming."
+    },
+    "a14": {
+      "title": "Artikel 14 (Gebruikersbeperking & beëindiging)",
+      "body": "Het Bedrijf mag het gebruik beperken of het lidmaatschap beëindigen wegens schending van voorwaarden, schadeberokkening aan anderen, opzettelijke verstoring van de Service, of illegale handelingen. Leden kunnen binnen 14 dagen na kennisgeving bezwaar indienen."
+    },
+    "a15": {
+      "title": "Artikel 15 (Opzegging & gegevensverwijdering)",
+      "body": "Leden kunnen op elk moment opzeggen. Bij opzegging wordt alle Content permanent verwijderd zonder mogelijkheid van herstel. Exporteer uw gegevens vóór opzegging indien nodig. Records die wettelijk verplicht zijn (betalingsgeschiedenis, geschillenlogboeken) worden behouden voor de wettelijk voorgeschreven periode en vervolgens vernietigd."
+    },
+    "a16": {
+      "title": "Artikel 16 (Aansprakelijkheidsbeperkingen)",
+      "body": "Het Bedrijf is niet aansprakelijk voor: overmacht, lidverschuldiging, nauwkeurigheid van inhoud ingevoerd door leden, of financiële beslissingen op basis van AI-uitvoer."
+    },
+    "a17": {
+      "title": "Artikel 17 (Persoonlijke gegevens)",
+      "body": "De verwerking van persoonlijke gegevens wordt beheerst door het aparte Privacybeleid."
+    },
+    "a18": {
+      "title": "Artikel 18 (Toepasselijk recht en jurisdictie)",
+      "body": "Deze Voorwaarden worden beheerst door de wetten van de Republiek Korea. Geschillen worden beslecht door de rechtbank zoals bepaald in de Koreaanse Wetboek van Burgerlijke Procedure."
+    },
+    "companyInfoTitle": "Bedrijfsgegevens",
+    "companyName": "Bedrijf",
+    "companyCeo": "CEO",
+    "companyBizNo": "Handelsregisternummer",
+    "companyMailOrder": "Nummer voor postorderbedrijf",
+    "companyAddress": "Adres",
+    "companyContact": "Ondersteuning"
+  },
+  "privacy": {
+    "title": "Privacybeleid",
+    "effectiveLabel": "Geldig vanaf",
+    "intro": "ATM Store Co., Ltd. (het \"Bedrijf\") respecteert de privacy van leden en voldoet aan de Koreaanse wet op de bescherming van persoonlijke informatie, de wet op de bevordering van het gebruik van informatica- en communicatienetwerken, en gerelateerde wetten.\n\nDit Privacybeleid beschrijft hoe het Bedrijf persoonlijke gegevens verzamelt, gebruikt, opslaat en vernietigt in verband met de Moa AI Ledger-service.\n\nOpmerking: Deze Engelse tekst is een samenvatting. De Koreaanse versie (한국어) is authoriatief en prevaleert bij conflicterende interpretaties.",
+    "s1": {
+      "title": "1. Doeleinden van verwerking",
+      "body": "Het Bedrijf verwerkt persoonlijke gegevens voor: lidmaatschapsidentificatie en fraudepreventie; servicelevering (ledgeropslag, AI-classificatie, coaching, agenda, plaatspunten); betalingsverwerking voor betaalde abonnementen; klantenondersteuning; serviceverbetering via geanonimiseerde analyses; en wettelijke naleving (e-commerce, belasting)."
+    },
+    "s2": {
+      "title": "2. Categorieën persoonlijke gegevens",
+      "body": "Verplicht (bij aanmelding): e-mailadres, wachtwoord (eenrichtingshashing), gebruikersnaam, land / taal / valuta.\n\nOptioneel: profielfoto, maandelijks inkomen / budget, laatste geolocatie (indien toestemming gegeven).\n\nGegenereerd tijdens gebruik: uitgavenregisters, plaatsrecords (naam, adres, beoordeling, reviews, foto's), maandelijkse reflectietekst, terugkerende uitgavenregels.\n\nAutomatisch verzameld: IP, browser- / apparaatgegevens, toegangstijdstempels, bezochte pagina's, cookies en localStorage.\n\nBetaling (voor betalende gebruikers): rechtstreeks verzameld door de betalingsprovider; het Bedrijf slaat alleen het resultaat, de kaartmerk en de laatste 4 cijfers op.\n\nHet Bedrijf verzamelt geen gevoelige gegevens (ras, religie, politieke overtuigingen, gezondheid, strafblad enz.) onder Artikel 23 van de PIPA."
+    },
+    "s3": {
+      "title": "3. Retentieperioden",
+      "body": "Persoonlijke gegevens worden bewaard totdat het verwerkingsdoel is bereikt. Volgens de wet worden de volgende afzonderlijk bewaard:\n\n① Lidmaatschapsgegevens bij aanmelding: verwijderd bij opzegging (anti-fraudehash behouden voor 30 dagen)\n② Betaling- / transactierecords: 5 jaar (E-Commerce Act §6)\n③ Klachten-/geschillrecords: 3 jaar (E-Commerce Act §6)\n④ Creditinformatie verzamelings-/verwerkingsrecords: 3 jaar (Credit Information Act §20)\n⑤ Weergave-/advertentierecords: 6 maanden (E-Commerce Act §6)\n⑥ Toegangslogs en IP: 3 maanden (Communications Privacy Act §15-2)\n\nBij opzegging wordt het ledgerinhoud (uitgaven, foto's, reflecties) permanent en onmiddellijk verwijderd zonder hersteloptie."
+    },
+    "s4": {
+      "title": "4. Verstrekking aan derden",
+      "body": "Het Bedrijf verstrekt persoonlijke gegevens standaard niet aan derden. Uitzonderingen: (i) voorafgaande toestemming van het lid, (ii) wettelijk verzoek volgens correct proces, (iii) verstrekking in niet-identificeerbare geaggregeerde vorm voor onderzoek / algemeen belang."
+    },
+    "s5": {
+      "title": "5. Uitbestede verwerking en grensoverschrijdende overdracht",
+      "body": "Het Bedrijf besteedt verwerking uit aan de volgende ontvangers; sommige omvatten grensoverschrijdende overdracht. Uitbestedingscontracten onder PIPA §26 verbieden gebruik buiten overeengekomen doeleinden, vereisen technische / managementiale safeguards, en beperken herdelegering.\n\n[Ontvanger / Doel / Land / Gegevens / Retentie]\n\n① Anthropic, PBC (USA) — AI-classificatie / coaching — Ledgertekst met verwijderde identificeertalen — Per providerbeleid; het Bedrijf vraagt geen modeltraininggebruik\n② Resend, Inc. (USA) — Wachtwoordreset / systeeme-mails — E-mailadres ontvanger en berichtinhoud — Verwijderd na verzending\n③ Google LLC (USA) — Google Maps Geocoding — Plaatsnaam / adres (geen PII) — Verwijderd na verzending\n④ Render Services, Inc. (USA) — Backend hosting — Alle lidgegevens — Verwijderd bij opzegging\n⑤ Vercel Inc. (USA) — Frontend hosting — Statische assets en toegangslogs — Per Vercel-beleid, 30 dagen\n⑥ Toss Payments (Korea) — Binnenlandse betalingsverwerking — Betalingsgegevens — 5 jaar per E-Commerce Act\n⑦ Paddle.com Market Limited (UK / USA, binnenkort beschikbaar) — Internationale betalingsverwerking — Betalingsgegevens — Per providerbeleid\n⑧ Cloudflare, Inc. (USA, wanneer ingeschakeld) — Fotoopslag op R2 — Door lid geüploade foto's — Verwijderd bij opzegging\n\nLeden kunnen grensoverschrijdende overdracht weigeren, maar dit kan het servicegebruik beperken."
+    },
+    "s6": {
+      "title": "6. Rechten van het gegevensonderwerp",
+      "body": "Leden kunnen te allen tijde: (i) hun persoonlijke gegevens inzien, (ii) fouten corrigeren / verwijderen, (iii) verwerking stoppen, (iv) lidmaatschap opzeggen en permanent gegevenswissing aanvragen, (v) hun eigen gegevens downloaden in machine-leesbare JSON (vergelijkbaar met GDPR Artikel 20).\n\nOefen rechten uit via Mijn pagina → Accountinstellingen, of door te e-mailen naar master@aitrend.kr. Het Bedrijf handelt zonder vertraging, onder voorbehoud van beperkingen in PIPA §35(4), §36(1), §37(2)."
+    },
+    "s7": {
+      "title": "7. Vernietigingsprocedures en -methoden",
+      "body": "Procedure: gegevens worden naar een aparte database verplaatst nadat het verwerkingsdoel is bereikt en bewaard volgens intern beleid / wet voordat ze worden vernietigd.\nMethode: elektronische bestanden worden permanent verwijderd met methoden die herstel voorkomen; papieren documenten worden versnipperd of verbrand."
+    },
+    "s8": {
+      "title": "8. Beveiligingsmaatregelen",
+      "body": "Manageriaal: intern managementplan, periodieke personeelstraining.\nTechnisch: bcrypt eenrichtingswachtwoordhashing, HTTPS-versleuteling in transit, toegangscontrole, back-up- / herstelprocedures.\nFysiek: fysieke veiligheidsstandaarden van datacenters via cloudproviders (Render, Vercel, Cloudflare).\nReview: beveiligingspatches en kwetsbaarheidscontroles minstens driemaandelijks."
+    },
+    "s9": {
+      "title": "9. Cookies en automatische verzameling",
+      "body": "Doel: u aangemeldenheid bewaren, taal / valuta onthouden, geanonimiseerde gebruiksanalyses.\nUitsluiting: blokkeren via browserinstellingen (sommige functies kunnen beperkt zijn).\nHet Bedrijf installeert geen cookies van derden voor advertenties / tracking."
+    },
+    "s10": {
+      "title": "10. AI-functies — verwerking van persoonlijke gegevens",
+      "body": "Om AI-functies te bieden, verstuurt het Bedrijf door leden ingevoerde tekst en afbeeldingen naar externe AI-providers (Anthropic Claude enz.).\n\nVerstuurd: ledgertekst en bonafbeeldingen met e-mail / naam verwijderd; maandelijkse reflectietekst.\nDoel: auto-categorisering, OCR, maandelijkse coaching, inzichtgeneratie.\nRetentie: per het retentiebeleid van de provider en automatische vernietiging. Het Bedrijf verzoekt de provider expliciet deze gegevens niet voor modeltraining te gebruiken.\nLimits: AI-uitvoer is alleen referentie en nauwkeurigheid is niet gegarandeerd.\nUitsluiting: leden kunnen handmatige invoer kiezen in plaats van AI-functies."
+    },
+    "s11": {
+      "title": "11. Functionaris voor gegevensbescherming",
+      "body": "Het Bedrijf stelt een Functionaris voor gegevensbescherming aan om privacyclachten, vragen en rechtsmiddelen af te handelen. Leden kunnen contact opnemen met de FGB en afdeling hieronder voor dergelijke aangelegenheden."
+    },
+    "s12": {
+      "title": "12. Wijzigingen in dit beleid",
+      "body": "Dit Privacybeleid kan worden gewijzigd vanwege veranderingen in wet, beleid of beveiliging. Wijzigingen worden in de Service minstens 7 dagen van tevoren aangekondigd, of 30 dagen van tevoren voor materiële wijzigingen die ledrechten beïnvloeden."
+    },
+    "officerTitle": "Functionaris voor gegevensbescherming",
+    "officerName": "Naam",
+    "officerEmail": "E-mail",
+    "officerDesc": "U kunt ook om rechtsherstel verzoeken bij: Koreaanse commissie voor geschillenbemiddeling inzake persoonlijke informatie (1833-6972, kopico.go.kr), Centrum voor rapportage van schending van persoonlijke informatie (118, privacy.kisa.or.kr), Kantoor van de Procureur-Generaal Cyberinvestigatie (1301, spo.go.kr), Koreaans Nationaal Politie-Cyberbureau (182, ecrm.cyber.go.kr)."
+  }
+}

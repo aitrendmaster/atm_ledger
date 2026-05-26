@@ -1,18 +1,38 @@
 {
-  "app": { "name": "Moa AI 记账本" },
-  "lang": { "label": "语言" },
-  "common": {
-    "or": "或", "cancel": "取消", "save": "保存", "loading": "加载中…",
-    "back": "返回", "retry": "请稍后再试。",
-    "home": "首页", "pricing": "价格", "refund": "退款政策",
-    "edit": "编辑", "delete": "删除", "confirm": "确定"
+  "app": {
+    "name": "Moa AI 记账本"
   },
-  "nav": { "myAccount": "我的账户", "faq": "常见问题", "admin": "Admin", "logout": "退出登录" },
+  "lang": {
+    "label": "语言"
+  },
+  "common": {
+    "or": "或",
+    "cancel": "取消",
+    "save": "保存",
+    "loading": "加载中…",
+    "back": "返回",
+    "retry": "请稍后再试。",
+    "home": "首页",
+    "pricing": "价格",
+    "refund": "退款政策",
+    "edit": "编辑",
+    "delete": "删除",
+    "confirm": "确定"
+  },
+  "nav": {
+    "myAccount": "我的账户",
+    "faq": "常见问题",
+    "admin": "管理员",
+    "logout": "退出登录"
+  },
   "landing": {
     "badge": "公测免费 — AI 记账",
-    "headline1": "像聊天一样记录,", "headline2": "每月轻松复盘。",
+    "headline1": "像聊天一样记录,",
+    "headline2": "每月轻松复盘。",
     "subtitle": "一句话就够了 —「星巴克 30 元」。AI 自动整理类别、金额和日期,每月给你温暖的复盘建议。",
-    "ctaPrimary": "免费开始", "ctaLogin": "登录", "ctaApp": "打开记账 →",
+    "ctaPrimary": "免费开始",
+    "ctaLogin": "登录",
+    "ctaApp": "打开记账 →",
     "uspHeading": "记账可以这么轻松。",
     "uspSubtitle": "每天一分钟,重新理解你的一个月。",
     "uspChatTitle": "一秒输入",
@@ -26,7 +46,8 @@
     "cta2Heading": "从这个月起,感觉就会不一样。",
     "cta2Subtitle": "30 秒注册。无需信用卡。公测期免费。",
     "footerTagline": "用聊天记录的 AI 记账本",
-    "footerTerms": "服务条款", "footerPrivacy": "隐私政策",
+    "footerTerms": "服务条款",
+    "footerPrivacy": "隐私政策",
     "hero": {
       "badge": "公测免费 · AI 记账",
       "headline1": "这一次,",
@@ -40,7 +61,7 @@
       "trust3": "公测免费"
     },
     "problem": {
-      "label": "Why Moa",
+      "label": "为什么选择 Moa",
       "title": "为什么大家都坚持不下来?",
       "subtitle": "几乎都是相同的原因 — 操作多、看不出意义、节奏断了。",
       "card1": {
@@ -138,13 +159,33 @@
       "point1": "支持周/月/年的循环",
       "point2": "自动把日历填到结束日",
       "point3": "修改后一键批量保存",
-      "row1": { "name": "房租", "amount": "3,800 元", "cycle": "每月 25 日", "next": "11/25" },
-      "row2": { "name": "Netflix", "amount": "78 元", "cycle": "每月 28 日", "next": "11/28" },
-      "row3": { "name": "重疾险", "amount": "260 元", "cycle": "每月 30 日", "next": "11/30" },
-      "row4": { "name": "健身房", "amount": "480 元", "cycle": "每月 5 日", "next": "12/05" }
+      "row1": {
+        "name": "房租",
+        "amount": "3,800 元",
+        "cycle": "每月 25 日",
+        "next": "11/25"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "78 元",
+        "cycle": "每月 28 日",
+        "next": "11/28"
+      },
+      "row3": {
+        "name": "重疾险",
+        "amount": "260 元",
+        "cycle": "每月 30 日",
+        "next": "11/30"
+      },
+      "row4": {
+        "name": "健身房",
+        "amount": "480 元",
+        "cycle": "每月 5 日",
+        "next": "12/05"
+      }
     },
     "compare": {
-      "label": "Compare",
+      "label": "对比",
       "title": "Moa 哪里不一样?",
       "subtitle": "和常见记账 App、Excel 并排比一比。",
       "colFeature": "功能",
@@ -184,34 +225,55 @@
       "trust1": "30 秒注册",
       "trust2": "无需信用卡",
       "trust3": "公测免费"
-    }
+    },
+    "bizCeo": "首席执行官",
+    "bizNo": "营业执照号",
+    "bizMailOrder": "邮购",
+    "bizAddress": "地址"
   },
   "login": {
     "subtitle": "登录开始记账。",
-    "email": "邮箱", "password8": "密码 (8 位以上)",
-    "submit": "登录", "submitBusy": "登录中…",
-    "noAccount": "还没有账户?", "signupLink": "注册",
-    "forgotLink": "忘记密码?", "failed": "登录失败"
+    "email": "邮箱",
+    "password8": "密码 (8 位以上)",
+    "submit": "登录",
+    "submitBusy": "登录中…",
+    "noAccount": "还没有账户?",
+    "signupLink": "注册",
+    "forgotLink": "忘记密码?",
+    "failed": "登录失败"
   },
   "signup": {
-    "title": "创建账户", "nickname": "昵称 (可选)",
+    "title": "创建账户",
+    "nickname": "昵称 (可选)",
     "countryLabel": "居住国家",
     "countryHint": "将根据所选国家自动设置语言与货币,可随时在「我的页面」修改。",
-    "agreeStart": "我已阅读并同意", "agreeTerms": "服务条款",
-    "agreeAnd": " 与 ", "agreePrivacy": "隐私政策", "agreeEnd": "。",
+    "agreeStart": "我已阅读并同意",
+    "agreeTerms": "服务条款",
+    "agreeAnd": " 与 ",
+    "agreePrivacy": "隐私政策",
+    "agreeEnd": "。",
     "agreeRequired": "请先同意服务条款与隐私政策。",
-    "submit": "注册", "submitBusy": "创建中…",
-    "hasAccount": "已有账户?", "loginLink": "登录", "failed": "注册失败"
+    "submit": "注册",
+    "submitBusy": "创建中…",
+    "hasAccount": "已有账户?",
+    "loginLink": "登录",
+    "failed": "注册失败"
   },
   "forgot": {
-    "title": "重置密码", "intro": "输入注册邮箱,我们将向您发送重置链接。",
+    "title": "重置密码",
+    "intro": "输入注册邮箱,我们将向您发送重置链接。",
     "sent": "若该邮箱已注册,我们已发送重置说明。若未收到请查看垃圾邮件。链接有效期 1 小时。",
-    "submit": "发送重置邮件", "submitBusy": "发送中…",
-    "backLogin": "返回登录", "backLoginLink": "返回登录页"
+    "submit": "发送重置邮件",
+    "submitBusy": "发送中…",
+    "backLogin": "返回登录",
+    "backLoginLink": "返回登录页"
   },
   "reset": {
-    "title": "设置新密码", "intro": "请输入 8 位以上的新密码。",
-    "newPassword": "新密码", "submit": "修改密码", "submitBusy": "保存中…",
+    "title": "设置新密码",
+    "intro": "请输入 8 位以上的新密码。",
+    "newPassword": "新密码",
+    "submit": "修改密码",
+    "submitBusy": "保存中…",
     "invalid": "无效链接",
     "invalidDesc": "缺少重置令牌。请重新使用邮件中的链接。",
     "requestAgain": "重新发送重置邮件",
@@ -222,15 +284,32 @@
   "ledger": {
     "title": "我的记账本",
     "todayHint": "今天是 {{date}} · 慢慢来,坚持下去",
-    "tabs": { "chat": "聊天", "calendar": "日历", "place": "地点", "places": "地点", "reflect": "复盘", "plan": "计划", "balance": "对账" },
+    "tabs": {
+      "chat": "聊天",
+      "calendar": "日历",
+      "place": "地点",
+      "places": "地点",
+      "reflect": "复盘",
+      "plan": "计划",
+      "balance": "对账"
+    },
     "stats": {
-      "thisMonthFlow": "本月情况", "budget": "预算", "freeMoney": "可自由支配", "setBudgetHint": "设定预算或收入即可显示 →",
-      "spent": "已花", "upcoming": "待支出", "dailyAvg": "日均",
-      "monthSpent": "本月", "monthUpcoming": "待支出", "won": ""
+      "thisMonthFlow": "本月情况",
+      "budget": "预算",
+      "freeMoney": "可自由支配",
+      "setBudgetHint": "设定预算或收入即可显示 →",
+      "spent": "已花",
+      "upcoming": "待支出",
+      "dailyAvg": "日均",
+      "monthSpent": "本月",
+      "monthUpcoming": "待支出",
+      "won": "₩"
     },
     "input": {
-      "placeholder": "星巴克 30…", "send": "发送",
-      "retry": "可以重写一下吗?", "tryAgain": "请再试一次。",
+      "placeholder": "星巴克 30…",
+      "send": "发送",
+      "retry": "可以重写一下吗?",
+      "tryAgain": "请再试一次。",
       "shortcuts": "Enter 发送 · Shift+Enter 换行",
       "guideButton": "怎么写?查看示例"
     },
@@ -243,20 +322,27 @@
       "askRecurrenceEnd": "🔁 已识别为重复支出。持续到什么时候?例如: 2027-12-31 / 24个月 / 5年"
     },
     "place": {
-      "title": "我的支出地图", "intro": "{{count}} 处 · 点钉或卡片查看地图、照片、评论",
+      "title": "我的支出地图",
+      "intro": "{{count}} 处 · 点钉或卡片查看地图、照片、评论",
       "frequent": "常去的地方",
       "emptyPins": "暂无可显示的钉。请点击卡片选择准确位置。",
       "pickLocation": "选择准确位置",
       "aiHint": "(AI 猜测的位置可能不准,因此不会自动打钉。)",
-      "searchPlaceholder": "{{name}} 附近", "search": "搜索", "searchBusy": "搜索中…",
-      "useMyLocationGps": "使用我的位置 (GPS)", "moreAccurate": "更精确 (GPS)",
+      "searchPlaceholder": "{{name}} 附近",
+      "search": "搜索",
+      "searchBusy": "搜索中…",
+      "useMyLocationGps": "使用我的位置 (GPS)",
+      "moreAccurate": "更精确 (GPS)",
       "viewboxIp": "📍 {{label}} 附近 (±20km)",
       "viewboxGps": "📍 我的位置附近 (GPS, ±20km)",
       "viewboxNationwide": "🌐 全局搜索",
       "viewboxDenied": "🌐 全局搜索 (位置权限被拒)",
       "viewboxUnsupported": "🌐 全局搜索 (浏览器不支持)",
       "noResults": "没有结果。可换关键词或保留位置为空。",
-      "againGo": "还想去", "avoid": "不去了", "normal": "一般", "resetPin": "重新选位置",
+      "againGo": "还想去",
+      "avoid": "不去了",
+      "normal": "一般",
+      "resetPin": "重新选位置",
       "openInGoogleMaps": "在 Google 地图打开",
       "mapsUnavailable": "地图功能暂时不可用。",
       "tapMapToPickLocation": "点击地图选择确切位置",
@@ -265,42 +351,83 @@
       "rating": "{{n}} 分",
       "addReview": "+ 添加一句点评",
       "reviewPlaceholder": "这里怎么样?",
-      "photo": "照片", "photoUploading": "上传中…",
+      "photo": "照片",
+      "photoUploading": "上传中…",
       "photoTotal": "共 {{count}} 张照片"
     },
     "categories": {
-      "식비": "餐饮", "카페/간식": "咖啡·零食", "쇼핑": "购物", "교통": "交通",
-      "주거/공과금": "居家·水电", "건강/뷰티": "健康·美容", "여행/이벤트": "旅行·活动",
-      "경조사/선물": "礼仪·礼物", "금융/대출": "金融·贷款", "기타": "其他"
+      "식비": "餐饮",
+      "카페/간식": "咖啡·零食",
+      "쇼핑": "购物",
+      "교통": "交通",
+      "주거/공과금": "居家·水电",
+      "건강/뷰티": "健康·美容",
+      "여행/이벤트": "旅行·活动",
+      "경조사/선물": "礼仪·礼物",
+      "금융/대출": "金融·贷款",
+      "기타": "其他"
     },
     "calendar": {
-      "weekday": { "sun": "日", "mon": "一", "tue": "二", "wed": "三", "thu": "四", "fri": "五", "sat": "六" },
+      "weekday": {
+        "sun": "日",
+        "mon": "一",
+        "tue": "二",
+        "wed": "三",
+        "thu": "四",
+        "fri": "五",
+        "sat": "六"
+      },
       "today": "今天",
-      "noEntries": "本月暂无记录", "noEntriesDay": "这天没有记录",
-      "monthYear": "{{year}}年 {{month}}月", "planned": "待支出",
+      "noEntries": "本月暂无记录",
+      "noEntriesDay": "这天没有记录",
+      "monthYear": "{{year}}年 {{month}}月",
+      "planned": "待支出",
       "dayTotal": "合计 {{amount}} →",
-      "viewGrid": "日历", "viewList": "列表",
+      "viewGrid": "日历",
+      "viewList": "列表",
       "openDayMonth": "{{month}}月{{day}}日",
       "spentLine": "已花 {{spent}} · 待支出 {{planned}}"
     },
     "reflect": {
-      "monthly": "月度复盘", "annual": "年度复盘",
+      "monthly": "月度复盘",
+      "annual": "年度复盘",
       "noteTitle": "我的复盘笔记",
       "noteHint": "写下承诺,会自动出现在下月计划标签",
-      "empty": "还没有复盘记录", "achieved": "达成!", "missed": "未达成",
-      "aiCoachTitle": "AI 教练洞察", "aiCoachSubtitle": "客观回看一个月",
-      "aiAnalyzing": "分析中...", "aiRegenerate": "重新生成",
-      "aiStart": "查看洞察", "aiEmpty": "点击上方按钮开始分析",
-      "praise": "亮点", "concern": "需注意", "suggestion": "下月建议",
-      "addToGoal": "加入下月承诺", "monthChange": "对比上月",
+      "empty": "还没有复盘记录",
+      "achieved": "达成!",
+      "missed": "未达成",
+      "aiCoachTitle": "AI 教练洞察",
+      "aiCoachSubtitle": "客观回看一个月",
+      "aiAnalyzing": "分析中...",
+      "aiRegenerate": "重新生成",
+      "aiStart": "查看洞察",
+      "aiEmpty": "点击上方按钮开始分析",
+      "praise": "亮点",
+      "concern": "需注意",
+      "suggestion": "下月建议",
+      "addToGoal": "加入下月承诺",
+      "monthChange": "对比上月",
       "monthHeader": "{{year}}年 {{month}}月 复盘",
       "monthTotal": "合计 {{amount}}",
       "types": {
-        "regret":  { "label": "遗憾", "placeholder": "例如:咖啡花得太多" },
-        "praise":  { "label": "亮点", "placeholder": "例如:整理了订阅" },
-        "goal":    { "label": "下月承诺", "placeholder": "例如:咖啡控制在 200 以内" },
-        "insight": { "label": "心得", "placeholder": "例如:外食越多咖啡也越多" }
-      }
+        "regret": {
+          "label": "遗憾",
+          "placeholder": "例如:咖啡花得太多"
+        },
+        "praise": {
+          "label": "亮点",
+          "placeholder": "例如:整理了订阅"
+        },
+        "goal": {
+          "label": "下月承诺",
+          "placeholder": "例如:咖啡控制在 200 以内"
+        },
+        "insight": {
+          "label": "心得",
+          "placeholder": "例如:外食越多咖啡也越多"
+        }
+      },
+      "lastMonthLabel": "上个月"
     },
     "balance": {
       "title": "对账表",
@@ -315,8 +442,12 @@
       "netLine": "= 净额 (收入 − 支出 − 待支出)",
       "savingPossible": "可存下的金额",
       "needIncome": "需要额外收入",
-      "spent": "支出", "planned": "待支出", "saving": "结余", "savingRate": "储蓄率",
-      "modeCurrent": "本月", "modeNext": "下月",
+      "spent": "支出",
+      "planned": "待支出",
+      "saving": "结余",
+      "savingRate": "储蓄率",
+      "modeCurrent": "本月",
+      "modeNext": "下月",
       "healthyTip": "💡 20% 以上是健康的储蓄率"
     },
     "plan": {
@@ -324,7 +455,8 @@
       "lastMonthPledge": "上月承诺 · 本月也要守住",
       "lastMonthSucceed": "上月已达成",
       "bigPictureTitle": "{{mode}} 全景",
-      "modeCurrent": "本月", "modeNext": "下月",
+      "modeCurrent": "本月",
+      "modeNext": "下月",
       "bigPictureSubtitle": "提前画出流向",
       "currentUsage": "已使用",
       "plannedAmount": "待支出",
@@ -362,26 +494,235 @@
       "moodAvoid": "不去了"
     },
     "entryEdit": {
-      "name": "名称", "amount": "金额", "date": "日期", "category": "分类",
-      "save": "保存", "cancel": "取消",
+      "name": "名称",
+      "amount": "金额",
+      "date": "日期",
+      "category": "分类",
+      "save": "保存",
+      "cancel": "取消",
       "namePlaceholder": "例如:午餐紫菜包饭",
       "defaultName": "(未命名)",
       "deleteConfirm": "要删除「{{name}}」吗?"
+    },
+    "monthSuffix": "{{month}}",
+    "todayTagline": "今天是 {{month}}/{{day}} · 稳健前行",
+    "receiptLabel": "收据",
+    "receiptUploadTitle": "上传收据照片",
+    "guideTitle": "试试这样写",
+    "actions": {
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "moneyUnit": {
+      "tenK": "万",
+      "thousand": "千"
+    },
+    "inputGuide": {
+      "openButton": "试试这样写",
+      "title": "如何与账本聊天",
+      "subtitle": "就像正常说话一样写，AI 会自动识别金额、分类、日期和地点。",
+      "summaryTitle": "3 秒速览",
+      "summaryBody": "\"什么、多少钱、(可选) 何时/何地\" —— 这就够了。",
+      "summaryExampleLabel": "例子",
+      "summaryExample": "今天在本川星巴克花了 6500",
+      "section1Title": "单行记录",
+      "section2Title": "一次多笔",
+      "section3Title": "指定日期/时间",
+      "section4Title": "包含地点",
+      "section5Title": "计划开支",
+      "section6Title": "收据/照片",
+      "section7Title": "分类提示",
+      "tabsTitle": "不仅仅是聊天",
+      "tabsHint": "✏️ 用每条记录旁的铅笔/垃圾桶图标来编辑或单独删除。",
+      "notAllowedTitle": "这些不支持",
+      "close": "明白了，开始吧",
+      "tabs": {
+        "calendar": "日历 — 点击某天查看该天的开支和计划",
+        "places": "地点 — 你常去的地方，地图上有照片",
+        "reflect": "回顾 — 每月记录成就、遗憾和承诺",
+        "plan": "计划 — 记录下个月的计划开支",
+        "balance": "余额 — 收入、支出和储蓄率一览"
+      }
     }
   },
   "mypage": {
     "title": "我的页面",
-    "tabs": { "general": "一般", "billing": "支付", "privacy": "隐私", "location": "位置", "export": "数据导出" },
+    "tabs": {
+      "general": "一般",
+      "billing": "支付",
+      "privacy": "隐私",
+      "location": "位置",
+      "export": "数据导出"
+    },
     "region": {
       "title": "地区 / 语言 / 货币",
       "subtitle": "更改记账显示的货币和界面语言。已有数据不会变。",
-      "country": "国家", "currency": "货币", "language": "语言",
+      "country": "国家",
+      "currency": "货币",
+      "language": "语言",
       "saved": "地区设置已保存。",
       "applyDefaults": "应用所选国家的默认值"
+    },
+    "requireLogin": "请登录继续。",
+    "requireLoginCta": "登录",
+    "account": {
+      "title": "账户",
+      "email": "邮箱",
+      "role": "角色",
+      "admin": "管理员",
+      "user": "成员"
+    },
+    "profile": {
+      "title": "个人资料",
+      "name": "姓名",
+      "namePlaceholder": "张三",
+      "displayName": "显示名称",
+      "displayNamePlaceholder": "理财小卫士",
+      "monthlyIncome": "月收入",
+      "monthlyBudget": "月预算",
+      "save": "保存个人资料",
+      "saving": "保存中…"
+    },
+    "password": {
+      "title": "修改密码",
+      "current": "当前密码",
+      "newPlaceholder": "新密码（至少8个字符）",
+      "change": "修改密码",
+      "changing": "修改中…",
+      "forgot": "忘记密码？",
+      "minLength": "新密码必须至少包含8个字符。",
+      "changed": "密码已修改。",
+      "changeFailed": "密码修改失败"
+    },
+    "toasts": {
+      "profileSaved": "个人资料已保存。",
+      "saveFailed": "保存失败"
+    },
+    "billing": {
+      "statusTitle": "账单状态",
+      "tierPaid": "Premium",
+      "tierFreeTrial": "免费（试用）",
+      "tierExpired": "已过期",
+      "daysRemaining": "还剩{{n}}天",
+      "pastDue": "付款逾期",
+      "trialEndsAt": "免费试用结束于",
+      "paidUntil": "Premium有效期至",
+      "price": "Premium价格",
+      "perMonth": "/月",
+      "cardOnFile": "保存的卡片",
+      "changeCard": "更改支付方式（注册新卡）",
+      "lastError": "上次支付错误",
+      "freeTitle": "免费",
+      "freeFeature1": "注册后享受1个月完整账本",
+      "freeFeature2": "AI分类 · 日历 · 评价",
+      "freeFeature3": "添加标记和备注",
+      "freeFeature4": "JSON格式导出数据",
+      "paidTitle": "Premium",
+      "currentPlan": "当前套餐",
+      "priceMonthlyText": "₩5,500 /月",
+      "priceYearlyText": "或 ₩50,000 /年（省24% · 免费2个月）",
+      "paidFeature1": "所有免费功能",
+      "paidFeature2": "持续账本访问权限",
+      "paidFeature3": "Excel (.xlsx) 月度和年度导出",
+      "paidFeature4": "优先支持",
+      "betaButtonLabel": "测试期间免费",
+      "cancelButton": "取消",
+      "checkoutStart": "开始高级版结账",
+      "checkoutLoading": "打开结账页面中…",
+      "planSelectionHint": "在下一页面选择按月或按年订阅。",
+      "tossLink": "或使用 Toss 支付（韩国卡，KRW）",
+      "lsConnected": "✅ Lemon Squeezy (MoR) 已连接 — 全球卡/PayPal 结账。增值税、退款、发票自动处理。",
+      "tossAlsoActive": "Toss（KRW 即时卡支付）也已启用。",
+      "lsUnconfigured": "💡 Lemon Squeezy 密钥未配置，结账已禁用。在 Render 上设置 LEMONSQUEEZY_API_KEY 等后，结账流程将自动激活。",
+      "betaBannerTitle": "🎉 测试期间免费",
+      "betaBannerBody": "目前所有功能都是免费的，包括 Excel 导出和完整账本。付费计划（₩5,500 / 月 · ₩50,000 / 年）和计费系统（Lemon Squeezy 全球版 + Toss 韩国）处于测试模式，我们会另行公布测试期结束时间。",
+      "loadFailed": "无法加载订阅信息。",
+      "returnHint": "结账后返回应用 — 我们将自动刷新。",
+      "betaActive": "测试期间所有功能都是免费的。",
+      "betaModeNotice": "测试期间所有功能都是免费的。",
+      "checkoutUnavailable": "结账功能暂未启用。",
+      "checkoutError": "打开结账页面时出错。",
+      "paymentComplete": "支付完成。",
+      "confirmFailed": "支付确认失败",
+      "paymentCancelled": "在结账页面取消。",
+      "widgetFailed": "无法打开支付窗口。",
+      "upgradeMockConfirm": "升级到高级版计划，每月 {{price}}？\n\n※ 运营环境中支付网关未连接。\n本演示将立即切换您的账户（无实际扣费）。",
+      "upgradedMock": "已切换到高级版计划。",
+      "upgradeFailed": "升级失败",
+      "cancelConfirm": "取消高级版计划？\n· 您的卡片计费密钥将立即撤销，不再产生任何费用。\n· 本计费周期结束时，您将自动降级为免费版。",
+      "cancelled": "取消已处理。",
+      "cancelFailed": "取消失败"
+    },
+    "privacy": {
+      "title": "隐私设置",
+      "locationOptInTitle": "允许位置元数据",
+      "locationOptInBody": "允许 Claude 使用近似位置元数据（城市/地区）以改进产品体验。永远不会使用精确坐标 — 仅基于 IP 估算。",
+      "learnMore": "了解更多",
+      "activeNote": "✓ 当前开启 — 用于在您记录条目时自动建议附近地点。",
+      "inactiveNote": "○ 已关闭 — 不使用基于 IP 的位置估算。",
+      "toggledOn": "位置元数据已允许。",
+      "toggledOff": "位置元数据已禁用。"
+    },
+    "location": {
+      "title": "位置",
+      "intro": "在账本条目中附加地点时，系统将根据您的 IP（移动/桌面）首先建议附近地点。如果结果不准确，您可以在地点详情页面进行搜索或在地图上选择。",
+      "disabledNotice": "位置元数据已禁用。在隐私设置标签页中允许此功能以启用自动估算。",
+      "tempFailure": "基于 IP 的位置估算暂时失败。请刷新或稍后重试。",
+      "detectedIp": "检测到的 IP",
+      "country": "国家",
+      "region": "地区/州",
+      "city": "城市",
+      "coordinates": "纬度 / 经度",
+      "ipLabel": "IP",
+      "dataSource": "数据来源",
+      "fromCache": "缓存（1小时内）",
+      "fresh": "刚刚估算",
+      "manualEditHint": "如需手动编辑，请使用搜索功能或在各账本条目的地点详情页面点击地图。"
+    },
+    "export": {
+      "xlsxTitle": "将账本条目导出为 Excel",
+      "xlsxDesc": "下载为 .xlsx 格式。按月为单个工作表，按年为 12 个月 + 汇总工作表。",
+      "monthly": "按月",
+      "monthlyDownload": "下载月度报表",
+      "annual": "按年",
+      "annualDownload": "下载年度报表",
+      "paidOnlyNotice": "Excel 导出仅在 Premium 计划中可用。在计费标签页升级即可立即使用。",
+      "betaFreeNotice": "🎉 测试期间 Excel 导出免费。",
+      "gdprTitle": "全部数据 (GDPR)",
+      "gdprDesc": "下载账本、计划、评价和照片元数据为 JSON 格式。任何计划都可用。",
+      "gdprButton": "全部数据 (JSON)",
+      "trialExpired": "免费试用已过期。请升级至 Premium。",
+      "downloadStarted": "Excel 下载已开始。",
+      "gdprStarted": "数据下载已开始。",
+      "failed": "导出失败"
+    },
+    "dangerZone": {
+      "title": "危险区域",
+      "description": "删除账户将立即禁用登录。账本数据在保留期后永久删除。",
+      "deleteButton": "删除账户",
+      "deleteConfirm": "确定要删除您的账户吗？\n\n· 登录立即被禁用。\n· 账本数据在保留期后永久删除。\n· 如需立即完全删除，请先导出您的数据并联系运营人员。",
+      "confirmEmailPrompt": "输入您的邮箱以确认删除账户。",
+      "emailMismatch": "邮箱不匹配。操作已取消。",
+      "deleted": "账户已删除。",
+      "deleteFailed": "账户删除失败"
     }
   },
-  "appHeader": { "faq": "常见问题", "myAccount": "我的账户", "admin": "Admin", "logout": "退出", "recurring": "重复支出", "menu": "菜单", "close": "关闭" },
-  "bottomNav": { "home": "主页", "calendar": "日历", "recurring": "重复", "me": "我", "label": "主导航" },
+  "appHeader": {
+    "faq": "常见问题",
+    "myAccount": "我的账户",
+    "admin": "管理员",
+    "logout": "退出",
+    "recurring": "重复支出",
+    "menu": "菜单",
+    "close": "关闭"
+  },
+  "bottomNav": {
+    "home": "主页",
+    "calendar": "日历",
+    "recurring": "重复",
+    "me": "我",
+    "label": "主导航"
+  },
   "recurring": {
     "title": "重复支出管理",
     "backToLedger": "返回记账",
@@ -401,10 +742,33 @@
     "confirmDelete": "删除此重复规则?所有未来发生项也会消失。",
     "delete": "删除",
     "fromStartDate": "开始日的月/日",
-    "placeholders": { "description": "例: 16日 贷款利息" },
-    "headers": { "description": "描述", "amount": "金额", "category": "类别", "recurrence": "频率", "day": "重复日", "startDate": "开始日", "until": "结束日 (必填)" },
-    "frequency": { "none": "无 (一次性)", "monthly": "每月", "weekly": "每周", "yearly": "每年" },
-    "weekday": { "mon": "一", "tue": "二", "wed": "三", "thu": "四", "fri": "五", "sat": "六", "sun": "日" },
+    "placeholders": {
+      "description": "例: 16日 贷款利息"
+    },
+    "headers": {
+      "description": "描述",
+      "amount": "金额",
+      "category": "类别",
+      "recurrence": "频率",
+      "day": "重复日",
+      "startDate": "开始日",
+      "until": "结束日 (必填)"
+    },
+    "frequency": {
+      "none": "无 (一次性)",
+      "monthly": "每月",
+      "weekly": "每周",
+      "yearly": "每年"
+    },
+    "weekday": {
+      "mon": "一",
+      "tue": "二",
+      "wed": "三",
+      "thu": "四",
+      "fri": "五",
+      "sat": "六",
+      "sun": "日"
+    },
     "validation": {
       "descriptionRequired": "请输入描述",
       "amountRequired": "请输入金额",
@@ -418,5 +782,219 @@
       "missingEndDateTitle": "{{count}} 条重复支出缺少结束日。",
       "missingEndDateBody": "没有结束日,日历无法正确显示。请在高亮显示的行中填写「结束日」。"
     }
+  },
+  "pricing": {
+    "title": "Moa AI 账本定价",
+    "subtitle": "核心功能永久免费。升级 Premium 解锁更多。",
+    "betaTitle": "测试用户 — 首 12 个月享 5 折优惠",
+    "betaDesc": "如果您在测试期间注册，付费计划上线后首 12 个月可享 Premium 5 折优惠。$1.99 / 月或 $17.99 / 年。",
+    "freePlan": "免费",
+    "freePrice": "$0",
+    "freePriceNote": "永久免费，无需绑卡",
+    "freeDesc": "30 次 AI 输入 / 月 + 完整账本基础功能（日历、分类、地点、月视图）。无广告。",
+    "freeCta": "开始免费使用",
+    "paidPlan": "Premium",
+    "paidBadge": "推荐",
+    "paidPriceMonthly": "$3.99",
+    "perMonth": "/ 月",
+    "paidPriceYearlyNote": "或 ¥35.99 / 年（节省 24%）· 价格按国家自动换算",
+    "paidDesc": "无限制 AI + 每月 AI 复盘教练 + 收据 OCR + 数据导出。体验完整的 Moa 功能。",
+    "paidCta": "升级高级版",
+    "paidCtaYearly": "年度订阅（¥35.99 · 免费 2 个月）",
+    "planSelectionHint": "您可以在下一屏选择按月或按年付款。",
+    "returnHint": "支付完成后返回应用 — 我们会自动刷新。",
+    "betaActiveToast": "测试期间高级版功能免费开放。",
+    "checkoutUnavailable": "结账功能暂未启用。我们很快会公布上线时间。",
+    "checkoutError": "无法打开结账页面。请稍后重试。",
+    "compareTitle": "免费版 vs 高级版",
+    "compareFeature": "功能",
+    "compare": {
+      "aiInput": {
+        "feature": "AI 对话输入",
+        "free": "30 / 月",
+        "paid": "无限制"
+      },
+      "adFree": {
+        "feature": "无广告",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "每月 AI 复盘教练",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "收据拍照 OCR",
+        "free": "5 / 月",
+        "paid": "无限制"
+      },
+      "multilang": {
+        "feature": "9 种语言 + 多币种",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "地点标记 & 评论",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "循环 & 即将到期提醒",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Excel / CSV 导出",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "账本历史记录",
+        "free": "12 个月",
+        "paid": "无限制"
+      },
+      "priority": {
+        "feature": "优先支持",
+        "free": "✗",
+        "paid": "✓"
+      }
+    },
+    "paymentTitle": "支付方式",
+    "paymentDesc": "韩国用户通过 Toss Payments 支付；国际用户通过 Paddle 支付。卡片信息保存在支付服务商 — Moa 仅显示末尾 4 位数字。",
+    "paymentKr": "🇰🇷 韩国：Toss Payments（借记卡、信用卡、银行转账）",
+    "paymentIntl": "🌍 国际：Paddle（信用卡、PayPal、Apple Pay、Google Pay — 即将推出）",
+    "cancelTitle": "取消 & 退款",
+    "cancelDesc": "随时在「我的页面」→「账单」中取消。您可以继续使用至付费期结束。",
+    "refundLink": "查看完整退款政策 →",
+    "operatorTitle": "运营商信息",
+    "operatorName": "公司",
+    "operatorCeo": "CEO",
+    "operatorBizNo": "营业执照号",
+    "operatorMailOrder": "邮购业务号",
+    "operatorContact": "客服"
+  },
+  "terms": {
+    "a3": {
+      "body": "1. 本条款自发布在服务中时生效。\n2. 公司可在适用法律范围内修订本条款。重大修改至少提前30天通知；一般修改至少提前7天通知。\n3. 修改生效日期后继续使用本服务即视为接受修改。",
+      "title": "第3条（效力与修订）"
+    },
+    "a4": {
+      "title": "第4条（账户创建）",
+      "body": "1. 申请人接受本条款且公司批准申请时，使用合同成立。\n2. 公司可拒绝使用虚假身份、14岁以下无监护人同意、或存在欺诈目的的申请。"
+    },
+    "a5": {
+      "title": "第5条（会员义务）",
+      "body": "会员不得：冒充他人、注册虚假信息、未经同意复制或分发服务内容、收集其他会员的个人数据、中断服务运营、或违反任何法律。"
+    },
+    "a6": {
+      "title": "第6条（公司义务）",
+      "body": "公司致力于提供稳定的服务、保护个人数据，并及时回应会员咨询。"
+    },
+    "a7": {
+      "title": "第7条（服务提供）",
+      "body": "公司提供AI辅助账目录入、日历管理、地点评价、每月AI教练、数据导出以及多语言/多币种支持。服务全天候运营，但可能因维护或不可抗力因素而暂停。"
+    },
+    "a8": {
+      "title": "第8条（服务变更与暂停）",
+      "body": "公司可变更或暂停任何服务功能。除紧急情况外，会员将提前至少30天收到通知；紧急情况采用事后通知。"
+    },
+    "a9": {
+      "title": "第9条（付费服务与自动续订）",
+      "body": "1. 部分功能需要付费。定价和权益详见定价页面。\n2. 订阅自动续订，除非已取消。下次扣费前7天将发送邮件通知。\n3. 付款由Toss Payments（韩国）或Paddle.com Market Limited（国际）作为商家处理。公司不存储卡号或过期日期。"
+    },
+    "a10": {
+      "title": "第10条（退订与退款）",
+      "body": "1. 会员可在付款后7天内退订并获得全额退款，除非已使用超过30%的付费功能。\n2. 7天窗口后的退款按单独的退款政策处理。\n3. 退款将在3–10个工作日内退回至原支付方式。"
+    },
+    "a1": {
+      "title": "第1条（目的）",
+      "body": "本条款规定了公司和会员在使用本服务时的权利、义务和责任。"
+    },
+    "a2": {
+      "title": "第2条（定义）",
+      "body": "1. \"服务\"是指 Moa AI Ledger 网页及移动应用程序和相关服务。\n2. \"会员\"是指同意本条款并与公司订立使用协议的人。\n3. \"AI 功能\"是指调用外部 AI 模型（Anthropic Claude 等）进行分类、总结或指导的功能。\n4. \"内容\"是指会员输入或上传的所有数据（支出、照片、评价、反思）。"
+    },
+    "a13": {
+      "body": "设计、源代码、商标、徽标及公司创建的内容由公司所有。会员未经公司书面同意，不得商业性复制或转发此类内容。"
+    },
+    "a14": {
+      "title": "第14条（使用限制与终止）",
+      "body": "公司可因会员违反条款、伤害他人、故意扰乱服务或从事非法行为而限制使用或终止会员资格。会员可在收到通知后14天内提出异议。"
+    },
+    "a15": {
+      "title": "第15条（退出与数据删除）",
+      "body": "会员可随时退出。退出后，所有内容将被永久删除且无法恢复。如需要，请在退出前导出数据。法律规定保留的记录（支付历史、纠纷日志）将保留至法定期限届满后销毁。"
+    },
+    "a16": {
+      "title": "第16条（责任限制）",
+      "body": "公司不对以下情况负责：不可抗力、成员过错、成员输入内容的准确性或基于AI输出的财务决策。"
+    },
+    "a17": {
+      "title": "第17条（个人数据）",
+      "body": "个人数据处理受单独的隐私政策约束。"
+    },
+    "a18": {
+      "title": "第18条（管辖法律和司法管辖权）",
+      "body": "本条款受大韩民国法律管辖。争议由《韩国民事诉讼法》规定的法院裁决。"
+    },
+    "companyInfoTitle": "运营商信息",
+    "companyName": "公司",
+    "companyCeo": "首席执行官",
+    "companyBizNo": "营业执照号",
+    "companyMailOrder": "邮购业务编号",
+    "companyAddress": "地址",
+    "companyContact": "支持"
+  },
+  "privacy": {
+    "s10": {
+      "body": "为提供AI功能，公司会将用户输入的文本和图像传输给外部AI服务商（Anthropic Claude等）。\n\n传输内容：账本文本和收据图像（已移除邮箱/姓名）；月度反思文本。\n用途：自动分类、OCR识别、月度辅导、洞察生成。\n保留期限：按照服务商的数据保留政策及自动销毁规定。公司明确要求服务商不将此数据用于模型训练。\n限制：AI输出仅供参考，准确性不予保证。\n退出：用户可选择手动输入而不使用AI功能。",
+      "title": "10. AI 功能 — 个人数据处理"
+    },
+    "s11": {
+      "title": "11. 数据保护官",
+      "body": "公司设立数据保护官，负责处理隐私投诉、咨询和救济事项。用户可通过以下方式联系数据保护官及相关部门。"
+    },
+    "s12": {
+      "title": "12. 政策变更",
+      "body": "本隐私政策可能因法律、政策或安全要求而修改。变更将在服务中提前至少7天公示，重大变更影响用户权益时提前30天公示。"
+    },
+    "officerTitle": "数据保护官",
+    "officerName": "姓名",
+    "officerEmail": "邮箱",
+    "officerDesc": "您也可以向以下机构寻求救济：韩国个人信息纠纷调解委员会（1833-6972，kopico.go.kr）、个人信息侵害申报中心（118，privacy.kisa.or.kr）、最高检察厅网络调查部（1301，spo.go.kr）、韩国国家警察网络犯罪部（182，ecrm.cyber.go.kr）。",
+    "title": "隐私政策",
+    "effectiveLabel": "生效日期",
+    "s3": {
+      "title": "3. 数据保留期限",
+      "body": "个人数据在处理目的达成后删除。根据法律规定，以下数据分别保留：\n\n① 会员注册数据：注销时删除（防欺诈哈希保留30天）\n② 支付/交易记录：5年（《电商法》第6条）\n③ 消费者投诉/纠纷记录：3年（《电商法》第6条）\n④ 信用信息收集/处理记录：3年（《信用信息法》第20条）\n⑤ 展示/广告记录：6个月（《电商法》第6条）\n⑥ 访问日志和IP：3个月（《通信隐私法》第15-2条）\n\n注销时，账本内容（支出、照片、反思）将永久立即删除，无法恢复。"
+    },
+    "s4": {
+      "title": "4. 第三方数据提供",
+      "body": "公司默认不向第三方提供个人数据。例外情况：(i) 会员事先同意，(ii) 依法定程序提出的法律请求，(iii) 以不可识别的聚合形式用于研究/公共利益的提供。"
+    },
+    "s5": {
+      "title": "5. 外包处理与跨境转移"
+    },
+    "s8": {
+      "title": "8. 安全保护措施",
+      "body": "管理层面：内部管理计划、定期员工培训。\n技术层面：bcrypt 单向密码哈希、传输中的 HTTPS 加密、访问控制、备份/恢复流程。\n物理层面：通过云服务商（Render、Vercel、Cloudflare）提供的数据中心物理安全标准。\n审查：至少按季度进行安全补丁和漏洞检查。"
+    },
+    "s9": {
+      "title": "9. Cookie 和自动数据收集",
+      "body": "目的：保持登录状态、记住语言/货币、匿名使用分析。\n退出：通过浏览器设置阻止（部分功能可能受限）。\nMoa365 不安装第三方广告/跟踪 Cookie。"
+    }
+  },
+  "refund": {
+    "title": "退款政策",
+    "subtitle": "Moa AI Ledger 的退款规则和时间说明。",
+    "section1Title": "1. 付款后 7 天内（冷静期）",
+    "section1Body": "付款后 7 天内，你可根据《韩国电子商务法》第 17 条撤销订阅并获得全额退款。如已使用超过 30% 的付费功能，此权利可能受限。（每个会员仅限一次。）",
+    "section2Title": "2. 7 天后 — 按比例退款",
+    "step3": "根据支付服务商政策（Toss / Paddle）在 3–10 个工作日内处理。",
+    "section4Title": "4. 不可退款的情况",
+    "notRefundable1": "因违反条款或账户被冻结而被迫取消",
+    "notRefundable2": "使用他人身份进行的支付或检测到欺诈的支付",
+    "section5Title": "5. 争议处理"
   }
 }
