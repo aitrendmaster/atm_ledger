@@ -99,6 +99,17 @@ export default function ChatLedger() {
   const [newReflection, setNewReflection] = useState({ type: 'regret', text: '' });
   const [aiInsight, setAiInsight] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
+  // 장소 탭: 월 선택 + 정렬 옵션. default = 이번달.
+  const [placesMonth, setPlacesMonth] = useState(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  });
+  const [placesSortMode, setPlacesSortMode] = useState('recent'); // 'recent' | 'visits' | 'spent'
+  // 대차표 탭: 월 선택. default = 이번달.
+  const [balanceMonth, setBalanceMonth] = useState(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  });
 
   // 캘린더 상태 — selectedDateStr 만 보관, 실제 day 데이터는 calendarDays 에서 도출 (server state invalidate 시 자동 동기화)
   const [calMonth, setCalMonth] = useState(new Date());
@@ -239,9 +250,11 @@ export default function ChatLedger() {
   };
 
   // 장소별 그룹핑 — entries 가 invalidate 되면 자동 재계산.
+  // placesMonth 로 월 필터, placesSortMode 로 정렬.
   const placesMap = useMemo(() => {
+    const filtered = entries.filter(e => e.place && e.date && e.date.startsWith(placesMonth));
     const map = new Map();
-    entries.filter(e => e.place).forEach(e => {
+    filtered.forEach(e => {
       const key = e.place.name;
       if (!map.has(key)) map.set(key, {
         name: e.place.name, lat: e.place.lat, lng: e.place.lng, address: e.place.address,
@@ -255,15 +268,24 @@ export default function ChatLedger() {
       p.visits.push(e);
       p.totalSpent += e.amount;
     });
-    return Array.from(map.values()).map(p => ({
+    const arr = Array.from(map.values()).map(p => ({
       ...p,
       visitCount: p.visits.length,
+      lastVisitDate: p.visits.reduce((max, v) => (v.date > max ? v.date : max), '0000-00-00'),
       avgRating: p.visits.filter(v => v.rating).length > 0
         ? p.visits.filter(v => v.rating).reduce((s, v) => s + v.rating, 0) / p.visits.filter(v => v.rating).length : 0,
       allPhotos: p.visits.flatMap(v => v.photos || []),
       mood: p.visits[0].mood,
-    })).sort((a, b) => b.totalSpent - a.totalSpent);
-  }, [entries]);
+    }));
+    if (placesSortMode === 'recent') {
+      arr.sort((a, b) => b.lastVisitDate.localeCompare(a.lastVisitDate));
+    } else if (placesSortMode === 'visits') {
+      arr.sort((a, b) => b.visitCount - a.visitCount);
+    } else {
+      arr.sort((a, b) => b.totalSpent - a.totalSpent);
+    }
+    return arr;
+  }, [entries, placesMonth, placesSortMode]);
 
   // selectedPlace 는 placesMap 에서 매 렌더 도출. server state 가 바뀌면 자동 갱신.
   const selectedPlace = useMemo(
@@ -569,16 +591,20 @@ export default function ChatLedger() {
   };
   const deleteReflection = (id) => deleteReflectionMut.mutate(id);
 
+  // 회고 카테고리 3종 — insight(깨달음) 는 좁은 모바일 가로폭 UX 문제로 UI 에서 제거 (DB 행은 보존).
+  // 클라이언트 표시 필터 monthReflections 에서 알려지지 않은 type 은 무시.
   const REFLECT_TYPES = {
     regret: { label: t('ledger.reflect.types.regret.label'),   icon: TrendingDown, color: '#E07856', bg: '#FDF0EA', placeholder: t('ledger.reflect.types.regret.placeholder') },
     praise: { label: t('ledger.reflect.types.praise.label'),   icon: ThumbsUp,     color: '#6B8E6B', bg: '#E8EEE6', placeholder: t('ledger.reflect.types.praise.placeholder') },
     goal:   { label: t('ledger.reflect.types.goal.label'),     icon: Target,       color: '#8B5A8C', bg: '#F0E6F1', placeholder: t('ledger.reflect.types.goal.placeholder') },
-    insight:{ label: t('ledger.reflect.types.insight.label'),  icon: Lightbulb,    color: '#A0633C', bg: '#F5E9DD', placeholder: t('ledger.reflect.types.insight.placeholder') },
   };
 
-  const monthReflections = reflections.filter(r => r.month === selectedMonth);
+  // REFLECT_TYPES 에 없는 type (= insight 같은 deprecated 카테고리) 은 표시에서 제외 — DB 에는 보존.
+  const monthReflections = reflections.filter(r => r.month === selectedMonth && REFLECT_TYPES[r.type]);
   const monthGoals = evaluateGoals(selectedMonth);
   const lastMonthGoals = evaluateGoals(lastMonth);
+  // 이번달 회고에서 작성한 '다음달 약속' — 계획 탭의 next 모드에서 미리 보기용.
+  const thisMonthGoals = evaluateGoals(thisMonth);
 
   // 캘린더 데이터 — entries/planned/calMonth 가 바뀌면 자동 재계산.
   const calendarDays = useMemo(() => {
@@ -1015,9 +1041,41 @@ export default function ChatLedger() {
                   <h3 className="text-sm font-medium flex items-center gap-2 mb-1" style={{ color: '#2C2418' }}>
                     <MapPin size={14} style={{ color: '#A0633C' }} /> {t('ledger.place.title')}
                   </h3>
-                  <p className="text-xs mb-4" style={{ color: '#7A7567' }}>
+                  <p className="text-xs mb-3" style={{ color: '#7A7567' }}>
                     {t('ledger.place.intro', { count: placesMap.length })}
                   </p>
+
+                  {/* 월 선택 + 정렬 옵션 */}
+                  <div className="flex items-center justify-between gap-2 mb-3 p-2 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
+                    <div className="flex items-center gap-1">
+                      <button onClick={() => {
+                        const d = new Date(placesMonth + '-01'); d.setMonth(d.getMonth() - 1);
+                        setPlacesMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
+                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={14} style={{ color: '#7A7567' }} /></button>
+                      <span className="text-xs font-medium" style={{ color: '#2C2418' }}>
+                        {t('ledger.reflect.monthHeader', { year: placesMonth.split('-')[0], month: parseInt(placesMonth.split('-')[1]) })}
+                      </span>
+                      <button onClick={() => {
+                        const d = new Date(placesMonth + '-01'); d.setMonth(d.getMonth() + 1);
+                        const nk = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                        if (nk <= thisMonth) setPlacesMonth(nk);
+                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={14} style={{ color: '#7A7567' }} /></button>
+                    </div>
+                    <div className="flex gap-0.5 p-0.5 rounded-xl" style={{ backgroundColor: '#FFFDF8' }}>
+                      {[
+                        { id: 'recent', label: t('ledger.place.sortRecent') },
+                        { id: 'visits', label: t('ledger.place.sortVisits') },
+                        { id: 'spent',  label: t('ledger.place.sortSpent') },
+                      ].map(opt => (
+                        <button key={opt.id} onClick={() => setPlacesSortMode(opt.id)}
+                          className="px-2 py-1 rounded-lg text-[10px] font-medium"
+                          style={{
+                            backgroundColor: placesSortMode === opt.id ? '#2C2418' : 'transparent',
+                            color: placesSortMode === opt.id ? '#FFFDF8' : '#7A7567',
+                          }}>{opt.label}</button>
+                      ))}
+                    </div>
+                  </div>
 
                   {placesMap.length > 0 && (() => {
                     const pinned = placesMap.filter(p => typeof p.lat === 'number' && typeof p.lng === 'number');
@@ -1375,6 +1433,23 @@ export default function ChatLedger() {
                   </div>
                 )}
 
+                {planMode === 'next' && thisMonthGoals.filter(g => g.text).length > 0 && (
+                  <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '2px solid #8B5A8C' }}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Target size={14} style={{ color: '#8B5A8C' }} />
+                      <h3 className="text-sm font-medium" style={{ color: '#8B5A8C' }}>{t('ledger.plan.thisMonthPledgeForNext')}</h3>
+                    </div>
+                    <div className="space-y-2">
+                      {thisMonthGoals.map(g => (
+                        <div key={g.id} className="p-3 rounded-2xl flex items-start gap-2" style={{ backgroundColor: '#F0E6F1' }}>
+                          <Quote size={12} style={{ color: '#8B5A8C' }} className="flex-shrink-0 mt-1" />
+                          <p className="handwritten text-base flex-1" style={{ color: '#2C2418' }}>"{g.text}"</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
                   <h3 className="text-sm font-medium mb-1" style={{ color: '#2C2418' }}>{t('ledger.plan.bigPictureTitle', { mode: planMode === 'current' ? t('ledger.plan.modeCurrent') : t('ledger.plan.modeNext') })}</h3>
                   <p className="text-xs mb-4" style={{ color: '#7A7567' }}>{t('ledger.plan.bigPictureSubtitle')}</p>
@@ -1435,11 +1510,34 @@ export default function ChatLedger() {
             )}
 
             {/* === 대차대조표 탭 === */}
-            {activeTab === 'balance' && (
+            {activeTab === 'balance' && (() => {
+              const balData = getMonthData(balanceMonth);
+              const isCurrentMonth = balanceMonth === thisMonth;
+              const balUpcoming = isCurrentMonth
+                ? planned.filter(p => p.date.startsWith(balanceMonth) && p.date >= todayStr && !isRecurringPlanned(p))
+                : [];
+              const balUpcomingTotal = balUpcoming.reduce((s, p) => s + p.amount, 0);
+              const balYear = balanceMonth.split('-')[0];
+              const balMonthNum = parseInt(balanceMonth.split('-')[1]);
+              return (
               <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                <h3 className="text-sm font-medium mb-1 flex items-center gap-2" style={{ color: '#2C2418' }}>
-                  <BarChart3 size={14} style={{ color: '#A0633C' }} /> {t('ledger.balance.headerMonth', { month: now.getMonth() + 1 })}
-                </h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-sm font-medium flex items-center gap-2" style={{ color: '#2C2418' }}>
+                    <BarChart3 size={14} style={{ color: '#A0633C' }} /> {t('ledger.balance.headerMonth', { month: balMonthNum })}
+                  </h3>
+                  <div className="flex items-center gap-1">
+                    <button onClick={() => {
+                      const d = new Date(balanceMonth + '-01'); d.setMonth(d.getMonth() - 1);
+                      setBalanceMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
+                    }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={14} style={{ color: '#7A7567' }} /></button>
+                    <span className="text-xs" style={{ color: '#7A7567' }}>{balYear}</span>
+                    <button onClick={() => {
+                      const d = new Date(balanceMonth + '-01'); d.setMonth(d.getMonth() + 1);
+                      const nk = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                      if (nk <= thisMonth) setBalanceMonth(nk);
+                    }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={14} style={{ color: '#7A7567' }} /></button>
+                  </div>
+                </div>
                 <p className="text-xs mb-4" style={{ color: '#7A7567' }}>{t('ledger.balance.subtitle')}</p>
 
                 <div className="mb-4">
@@ -1453,7 +1551,7 @@ export default function ChatLedger() {
                 <div className="mb-4">
                   <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: '#E07856', borderColor: '#FDF0EA' }}>📉 {t('ledger.balance.expenseByCategory')}</div>
                   <div className="space-y-1">
-                    {Object.entries(thisMonthData.byCategory).filter(([_, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([cat, amount]) => {
+                    {Object.entries(balData.byCategory).filter(([_, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([cat, amount]) => {
                       const Icon = CATEGORIES[cat].icon;
                       return (
                         <div key={cat} className="flex justify-between py-1.5 px-3 rounded-xl items-center" style={{ backgroundColor: '#FAF7F0' }}>
@@ -1465,40 +1563,40 @@ export default function ChatLedger() {
                   </div>
                   <div className="flex justify-between mt-2 py-2 px-3 rounded-xl font-medium" style={{ backgroundColor: '#FDF0EA' }}>
                     <span className="text-sm" style={{ color: '#2C2418' }}>{t('ledger.balance.expenseSubtotal')}</span>
-                    <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {thisMonthData.total.toLocaleString()} {cur}</span>
+                    <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {balData.total.toLocaleString()} {cur}</span>
                   </div>
                 </div>
 
-                {upcomingTotal > 0 && (
+                {balUpcomingTotal > 0 && (
                   <div className="mb-4">
                     <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: '#A0633C', borderColor: '#F5E9DD' }}>⏰ {t('ledger.balance.plannedHeader')}</div>
                     <div className="flex justify-between py-2 px-3 rounded-xl" style={{ backgroundColor: '#FFF8EC' }}>
-                      <span className="text-sm" style={{ color: '#2C2418' }}>{t('ledger.balance.plannedRow', { count: upcomingThisMonth.length })}</span>
-                      <span className="text-sm tabular-nums" style={{ color: '#A0633C' }}>- {upcomingTotal.toLocaleString()} {cur}</span>
+                      <span className="text-sm" style={{ color: '#2C2418' }}>{t('ledger.balance.plannedRow', { count: balUpcoming.length })}</span>
+                      <span className="text-sm tabular-nums" style={{ color: '#A0633C' }}>- {balUpcomingTotal.toLocaleString()} {cur}</span>
                     </div>
                   </div>
                 )}
 
                 <div className="pt-3 border-t-2" style={{ borderColor: '#2C2418' }}>
                   <div className="text-xs font-medium mb-2" style={{ color: '#2C2418' }}>{t('ledger.balance.netLine')}</div>
-                  <div className="p-4 rounded-2xl text-center" style={{ backgroundColor: (income - monthTotal - upcomingTotal) > 0 ? '#E8EEE6' : '#FDF0EA' }}>
-                    <div className="text-3xl font-bold tabular-nums" style={{ color: (income - monthTotal - upcomingTotal) > 0 ? '#6B8E6B' : '#E07856' }}>
-                      {(income - monthTotal - upcomingTotal).toLocaleString()}<span className="text-base opacity-60 ml-1">{cur}</span>
+                  <div className="p-4 rounded-2xl text-center" style={{ backgroundColor: (income - balData.total - balUpcomingTotal) > 0 ? '#E8EEE6' : '#FDF0EA' }}>
+                    <div className="text-3xl font-bold tabular-nums" style={{ color: (income - balData.total - balUpcomingTotal) > 0 ? '#6B8E6B' : '#E07856' }}>
+                      {(income - balData.total - balUpcomingTotal).toLocaleString()}<span className="text-base opacity-60 ml-1">{cur}</span>
                     </div>
                     <div className="text-xs mt-1" style={{ color: '#7A7567' }}>
-                      {(income - monthTotal - upcomingTotal) > 0 ? t('ledger.balance.savingPossible') : t('ledger.balance.needIncome')}
+                      {(income - balData.total - balUpcomingTotal) > 0 ? t('ledger.balance.savingPossible') : t('ledger.balance.needIncome')}
                     </div>
                   </div>
                   <div className="mt-3 p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
                     <div className="flex justify-between text-xs mb-1.5">
                       <span style={{ color: '#7A7567' }}>{t('ledger.balance.savingRate')}</span>
                       <span className="font-medium" style={{ color: '#2C2418' }}>
-                        {income > 0 ? Math.max(0, Math.round(((income - monthTotal - upcomingTotal) / income) * 100)) : 0}%
+                        {income > 0 ? Math.max(0, Math.round(((income - balData.total - balUpcomingTotal) / income) * 100)) : 0}%
                       </span>
                     </div>
                     <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'white' }}>
                       <div className="h-full rounded-full" style={{
-                        width: `${income > 0 ? Math.max(0, Math.min(100, ((income - monthTotal - upcomingTotal) / income) * 100)) : 0}%`,
+                        width: `${income > 0 ? Math.max(0, Math.min(100, ((income - balData.total - balUpcomingTotal) / income) * 100)) : 0}%`,
                         backgroundColor: '#6B8E6B',
                       }} />
                     </div>
@@ -1506,7 +1604,8 @@ export default function ChatLedger() {
                   </div>
                 </div>
               </div>
-            )}
+              );
+            })()}
           </div>
         </div>
 

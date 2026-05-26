@@ -365,7 +365,10 @@
       "reviewPlaceholder": "كيف كانت التجربة؟",
       "photo": "صورة",
       "photoUploading": "جاري الرفع…",
-      "photoTotal": "{{count}} صورة"
+      "photoTotal": "{{count}} صورة",
+      "sortRecent": "الأحدث",
+      "sortVisits": "الزيارات",
+      "sortSpent": "المبلغ المنفق"
     },
     "categories": {
       "식비": "الطعام",
@@ -478,7 +481,8 @@
       "nextMonthPledge": "التعهد للشهر القادم",
       "letterToSelf": "ملاحظة لنفسك",
       "nextPledgePlaceholder": "مثلاً زيارة الكافيه مرتين فقط أسبوعياً",
-      "saveAsGoal": "احفظ كتعهد للشهر القادم"
+      "saveAsGoal": "احفظ كتعهد للشهر القادم",
+      "thisMonthPledgeForNext": "التزام هذا الشهر للشهر القادم"
     },
     "dayModal": {
       "header": "{{month}}/{{day}}",

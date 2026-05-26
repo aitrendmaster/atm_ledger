@@ -365,7 +365,10 @@
       "reviewPlaceholder": "Bagaimana menurut Anda?",
       "photo": "Foto",
       "photoUploading": "Mengunggah…",
-      "photoTotal": "{{count}} foto"
+      "photoTotal": "{{count}} foto",
+      "sortRecent": "Terbaru",
+      "sortVisits": "Kunjungan",
+      "sortSpent": "Pengeluaran"
     },
     "categories": {
       "식비": "Makanan",
@@ -478,7 +481,8 @@
       "nextMonthPledge": "Komitmen bulan depan",
       "letterToSelf": "Catatan untuk diri sendiri",
       "nextPledgePlaceholder": "mis. kafe hanya dua kali seminggu",
-      "saveAsGoal": "Simpan sebagai komitmen bulan depan"
+      "saveAsGoal": "Simpan sebagai komitmen bulan depan",
+      "thisMonthPledgeForNext": "Target bulan ini untuk bulan depan"
     },
     "dayModal": {
       "header": "{{month}}/{{day}}",

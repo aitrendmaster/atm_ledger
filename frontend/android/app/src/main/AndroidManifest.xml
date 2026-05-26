@@ -18,6 +18,10 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Android 15 (SDK 35) EdgeToEdge: 시스템 inset 을 WebView CSS env() 로 전달 -->
+            <meta-data
+                android:name="android.window.PROPERTY_EDGE_TO_EDGE_ENABLED"
+                android:value="true" />
         </activity>
 
         <provider

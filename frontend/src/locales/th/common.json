@@ -228,7 +228,7 @@
     },
     "bizCeo": "CEO",
     "bizNo": "เลขประจำตัวประกอบการ",
-    "bizMailOrder": "Mail-order",
+    "bizMailOrder": "จำหน่ายทางไปรษณีย์",
     "bizAddress": "ที่อยู่"
   },
   "login": {
@@ -353,7 +353,10 @@
       "reviewPlaceholder": "เป็นยังไงบ้าง?",
       "photo": "รูป",
       "photoUploading": "กำลังอัปโหลด…",
-      "photoTotal": "{{count}} รูป"
+      "photoTotal": "{{count}} รูป",
+      "sortRecent": "ล่าสุด",
+      "sortVisits": "จำนวนครั้ง",
+      "sortSpent": "จำนวนเงิน"
     },
     "categories": {
       "식비": "ค่าอาหาร",
@@ -466,7 +469,8 @@
       "nextMonthPledge": "คำมั่นเดือนหน้า",
       "letterToSelf": "โน้ตถึงตัวเอง",
       "nextPledgePlaceholder": "เช่น คาเฟ่อาทิตย์ละ 2 ครั้ง",
-      "saveAsGoal": "บันทึกเป็นคำมั่นเดือนหน้า"
+      "saveAsGoal": "บันทึกเป็นคำมั่นเดือนหน้า",
+      "thisMonthPledgeForNext": "สัญญาของเดือนนี้สำหรับเดือนหน้า"
     },
     "dayModal": {
       "header": "{{day}}/{{month}}",
@@ -710,7 +714,7 @@
       "country": "ประเทศ",
       "region": "ภูมิภาค/รัฐ",
       "city": "เมือง",
-      "coordinates": "Lat / Lng",
+      "coordinates": "ละติจูด /經度",
       "ipLabel": "IP",
       "dataSource": "แหล่งข้อมูล",
       "fromCache": "จากแคช (ภายใน 1 ชั่วโมง)",
@@ -748,7 +752,7 @@
   "appHeader": {
     "faq": "คำถาม",
     "myAccount": "บัญชี",
-    "admin": "Admin",
+    "admin": "ผู้ดูแลระบบ",
     "logout": "ออก",
     "recurring": "ค่าใช้จ่ายประจำ",
     "menu": "เมนู",

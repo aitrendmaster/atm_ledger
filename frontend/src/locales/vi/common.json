@@ -22,7 +22,7 @@
   "nav": {
     "myAccount": "Tài khoản",
     "faq": "Hỏi đáp",
-    "admin": "Admin",
+    "admin": "Quản lý",
     "logout": "Đăng xuất"
   },
   "landing": {
@@ -353,7 +353,10 @@
       "reviewPlaceholder": "Cảm nhận thế nào?",
       "photo": "Ảnh",
       "photoUploading": "Đang tải lên…",
-      "photoTotal": "{{count}} ảnh"
+      "photoTotal": "{{count}} ảnh",
+      "sortRecent": "Gần đây",
+      "sortVisits": "Lần ghé",
+      "sortSpent": "Chi tiêu"
     },
     "categories": {
       "식비": "Ăn uống",
@@ -466,7 +469,8 @@
       "nextMonthPledge": "Lời hứa tháng sau",
       "letterToSelf": "Ghi chú cho chính bạn",
       "nextPledgePlaceholder": "vd: cà phê tuần 2 lần thôi",
-      "saveAsGoal": "Lưu thành lời hứa tháng sau"
+      "saveAsGoal": "Lưu thành lời hứa tháng sau",
+      "thisMonthPledgeForNext": "Cam kết tháng này cho tháng sau"
     },
     "dayModal": {
       "header": "{{day}}/{{month}}",

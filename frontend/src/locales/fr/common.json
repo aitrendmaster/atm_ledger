@@ -365,7 +365,10 @@
       "reviewPlaceholder": "Comment c'était ?",
       "photo": "Photo",
       "photoUploading": "Téléchargement…",
-      "photoTotal": "{{count}} photo(s)"
+      "photoTotal": "{{count}} photo(s)",
+      "sortRecent": "Récent",
+      "sortVisits": "Visites",
+      "sortSpent": "Dépenses"
     },
     "categories": {
       "식비": "Alimentation",
@@ -478,7 +481,8 @@
       "nextMonthPledge": "Engagement du mois prochain",
       "letterToSelf": "Une note pour vous-même",
       "nextPledgePlaceholder": "ex. café seulement deux fois par semaine",
-      "saveAsGoal": "Enregistrer comme engagement du mois prochain"
+      "saveAsGoal": "Enregistrer comme engagement du mois prochain",
+      "thisMonthPledgeForNext": "Engagement du mois pour le mois prochain"
     },
     "dayModal": {
       "header": "{{month}}/{{day}}",
@@ -1068,7 +1072,7 @@
     },
     "officerTitle": "Délégué à la protection des données",
     "officerName": "Nom",
-    "officerEmail": "Email",
+    "officerEmail": "E-mail",
     "officerDesc": "Vous pouvez également chercher réparation auprès de : Commission coréenne de médiation des litiges relatifs aux informations personnelles (1833-6972, kopico.go.kr), Centre de signalement des violations des informations personnelles (118, privacy.kisa.or.kr), Bureau des enquêtes cybernétiques du Parquet suprême (1301, spo.go.kr), Bureau cybernétique de la Police nationale coréenne (182, ecrm.cyber.go.kr)."
   },
   "faq": {

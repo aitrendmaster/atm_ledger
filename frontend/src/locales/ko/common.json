@@ -313,6 +313,9 @@
       "title": "나의 지출 지도",
       "intro": "{{count}}곳 · 핀이나 카드를 누르면 구글지도, 사진, 리뷰까지 보여",
       "frequent": "자주 간 곳",
+      "sortRecent": "최근순",
+      "sortVisits": "방문수",
+      "sortSpent": "지출",
       "emptyPins": "아직 핀으로 표시할 위치가 없어. 장소 카드를 눌러 정확한 위치를 골라줘.",
       "pickLocation": "정확한 위치를 골라줘",
       "aiHint": "(AI 가 추측한 위치는 부정확할 수 있어 자동으로 핀을 찍지 않아)",
@@ -421,6 +424,7 @@
     "plan": {
       "monthLabel": "{{month}}월 계획",
       "lastMonthPledge": "지난달 다짐 · 이번 달에도 지켜보자",
+      "thisMonthPledgeForNext": "이번달에 다짐한 다음달 약속",
       "lastMonthSucceed": "지난달 성공",
       "bigPictureTitle": "{{mode}} 큰 그림",
       "modeCurrent": "이번 달",

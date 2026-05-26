@@ -54,8 +54,9 @@ export default function BottomTabBar() {
       aria-label={t('bottomNav.label', { defaultValue: '주 네비게이션' })}
       className="md:hidden fixed bottom-0 inset-x-0 z-30
                  bg-atm-card border-t border-stone-200
-                 pb-[env(safe-area-inset-bottom)]
-                 grid grid-cols-4 h-16"
+                 pb-[max(8px,env(safe-area-inset-bottom))]
+                 grid grid-cols-4"
+      style={{ minHeight: 'calc(64px + max(8px, env(safe-area-inset-bottom)))' }}
     >
       {tabs.map((tab) => {
         const active = tab.isActive()

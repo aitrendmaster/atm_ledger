@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
@@ -1046,6 +1046,7 @@ function RegionSection({
   const [currency, setCurrency] = useState<string>(user.currency_code || 'KRW')
   const [locale, setLocale] = useState<string>(user.locale || 'ko')
   const [busy, setBusy] = useState(false)
+  const langDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setCountry(user.country_code || 'KR')
@@ -1129,8 +1130,13 @@ function RegionSection({
               const next = e.target.value
               setLocale(next)
               // 즉시 UI 미리보기 — 저장은 별도 Save 버튼에서 PATCH /auth/me 로 영속.
-              // (구 AppHeader 의 LanguageSwitcher 즉시 전환 UX 보존)
-              if (i18n.language !== next) i18n.changeLanguage(next)
+              // 빠른 연속 변경 시 i18n 내부/localStorage 손상 방지를 위해 350ms debounce.
+              if (langDebounceRef.current) clearTimeout(langDebounceRef.current)
+              langDebounceRef.current = setTimeout(() => {
+                if (i18n.language !== next) {
+                  i18n.changeLanguage(next).catch((err) => console.warn('changeLanguage:', err))
+                }
+              }, 350)
             }}
             className="mt-1 w-full px-3 py-2 border border-stone-200 rounded-lg text-sm bg-white focus:outline-none focus:border-atm-accent"
           >

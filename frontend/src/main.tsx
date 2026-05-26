@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 
 import App from './App'
 import { AuthProvider } from './hooks/useAuth'
+import ErrorBoundary from './components/ErrorBoundary'
 import { initCapacitorNative } from './lib/capacitor-init'
 import './i18n'
 import './index.css'
@@ -18,16 +19,18 @@ const qc = new QueryClient({
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined
 
 const Root = (
-  <React.StrictMode>
-    <HashRouter>
-      <QueryClientProvider client={qc}>
-        <AuthProvider>
-          <App />
-          <Toaster position="top-center" />
-        </AuthProvider>
-      </QueryClientProvider>
-    </HashRouter>
-  </React.StrictMode>
+  <ErrorBoundary>
+    <React.StrictMode>
+      <HashRouter>
+        <QueryClientProvider client={qc}>
+          <AuthProvider>
+            <App />
+            <Toaster position="top-center" />
+          </AuthProvider>
+        </QueryClientProvider>
+      </HashRouter>
+    </React.StrictMode>
+  </ErrorBoundary>
 )
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

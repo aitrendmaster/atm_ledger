@@ -353,7 +353,10 @@
       "reviewPlaceholder": "どうだった?",
       "photo": "写真",
       "photoUploading": "アップロード中…",
-      "photoTotal": "写真 {{count}}枚"
+      "photoTotal": "写真 {{count}}枚",
+      "sortRecent": "最近",
+      "sortVisits": "訪問回数",
+      "sortSpent": "支出額"
     },
     "categories": {
       "식비": "食費",
@@ -466,7 +469,8 @@
       "nextMonthPledge": "来月の誓い",
       "letterToSelf": "自分への手紙",
       "nextPledgePlaceholder": "例: カフェは週2回まで",
-      "saveAsGoal": "来月の約束として保存"
+      "saveAsGoal": "来月の約束として保存",
+      "thisMonthPledgeForNext": "今月の来月分の予定額"
     },
     "dayModal": {
       "header": "{{month}}月 {{day}}日",
@@ -613,9 +617,9 @@
     "profile": {
       "title": "プロフィール",
       "name": "名前",
-      "namePlaceholder": "Jane Doe",
+      "namePlaceholder": "太郎 花子",
       "displayName": "表示名",
-      "displayNamePlaceholder": "Money Keeper",
+      "displayNamePlaceholder": "マネー管理者",
       "monthlyIncome": "月収",
       "monthlyBudget": "月間予算",
       "save": "プロフィールを保存",
@@ -826,7 +830,7 @@
     "subtitle": "コア機能は無料。プレミアムでさらに深く。",
     "betaTitle": "ベータユーザー — 最初の12ヶ月50%割引",
     "betaDesc": "ベータ期間中にサインアップした場合、有料プラン開始後の最初の12ヶ月間、プレミアムが50%割引になります。$1.99/月または$17.99/年。",
-    "freePlan": "Free",
+    "freePlan": "無料",
     "freePrice": "$0",
     "freePriceNote": "永遠に無料、カード不要",
     "freeDesc": "月30回のAI入力 + 完全な台帳の基本機能（カレンダー、カテゴリー、場所、月次ビュー）。広告なし。",

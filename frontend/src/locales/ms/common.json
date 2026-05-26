@@ -353,7 +353,10 @@
       "reviewPlaceholder": "Bagaimana tempatnya?",
       "photo": "Foto",
       "photoUploading": "Memuat naik…",
-      "photoTotal": "{{count}} foto"
+      "photoTotal": "{{count}} foto",
+      "sortRecent": "Terbaru",
+      "sortVisits": "Kunjungan",
+      "sortSpent": "Perbelanjaan"
     },
     "categories": {
       "식비": "Makanan",
@@ -466,7 +469,8 @@
       "nextMonthPledge": "Janji bulan depan",
       "letterToSelf": "Nota untuk diri sendiri",
       "nextPledgePlaceholder": "cth: kafe dua kali seminggu sahaja",
-      "saveAsGoal": "Simpan sebagai janji bulan depan"
+      "saveAsGoal": "Simpan sebagai janji bulan depan",
+      "thisMonthPledgeForNext": "Komitmen bulan ini untuk bulan depan"
     },
     "dayModal": {
       "header": "{{day}}/{{month}}",

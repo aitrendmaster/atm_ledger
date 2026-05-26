@@ -365,7 +365,10 @@
       "reviewPlaceholder": "Hur var det?",
       "photo": "Foto",
       "photoUploading": "Laddar upp…",
-      "photoTotal": "{{count}} foto"
+      "photoTotal": "{{count}} foto",
+      "sortRecent": "Senaste",
+      "sortVisits": "Besök",
+      "sortSpent": "Utgifter"
     },
     "categories": {
       "식비": "Mat",
@@ -478,7 +481,8 @@
       "nextMonthPledge": "Nästa månads löfte",
       "letterToSelf": "En anteckning till dig själv",
       "nextPledgePlaceholder": "t.ex. café endast två gånger i veckan",
-      "saveAsGoal": "Spara som nästa månads löfte"
+      "saveAsGoal": "Spara som nästa månads löfte",
+      "thisMonthPledgeForNext": "Den här månadens budget för nästa månad"
     },
     "dayModal": {
       "header": "{{month}}/{{day}}",

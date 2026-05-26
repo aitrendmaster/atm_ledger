@@ -353,7 +353,10 @@
       "reviewPlaceholder": "कैसा रहा?",
       "photo": "फ़ोटो",
       "photoUploading": "अपलोड हो रहा…",
-      "photoTotal": "{{count}} फ़ोटो"
+      "photoTotal": "{{count}} फ़ोटो",
+      "sortRecent": "हाल ही में",
+      "sortVisits": "विज़िट",
+      "sortSpent": "खर्च"
     },
     "categories": {
       "식비": "भोजन",
@@ -466,7 +469,8 @@
       "nextMonthPledge": "अगले महीने का वादा",
       "letterToSelf": "खुद के लिए नोट",
       "nextPledgePlaceholder": "उदा. कैफ़े सप्ताह में 2 बार",
-      "saveAsGoal": "अगले महीने के वादे में सहेजें"
+      "saveAsGoal": "अगले महीने के वादे में सहेजें",
+      "thisMonthPledgeForNext": "अगले महीने के लिए इस महीने की प्रतिबद्धता"
     },
     "dayModal": {
       "header": "{{day}}/{{month}}",
@@ -746,7 +750,7 @@
     }
   },
   "appHeader": {
-    "faq": "FAQ",
+    "faq": "सामान्य प्रश्न",
     "myAccount": "खाता",
     "admin": "Admin",
     "logout": "लॉग आउट",
@@ -831,7 +835,7 @@
     "freePriceNote": "हमेशा निःशुल्क, कोई कार्ड आवश्यक नहीं",
     "freeDesc": "30 AI इनपुट / महीना + पूर्ण लेजर मूल बातें (कैलेंडर, श्रेणियां, स्थान, मासिक दृश्य)। विज्ञापन-मुक्त।",
     "freeCta": "निःशुल्क शुरू करें",
-    "paidPlan": "Premium",
+    "paidPlan": "प्रीमियम",
     "paidBadge": "अनुशंसित",
     "paidPriceMonthly": "$3.99",
     "perMonth": "/ महीना",

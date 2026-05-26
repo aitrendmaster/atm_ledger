@@ -353,7 +353,10 @@
       "reviewPlaceholder": "¿Qué tal?",
       "photo": "Foto",
       "photoUploading": "Subiendo…",
-      "photoTotal": "{{count}} foto(s)"
+      "photoTotal": "{{count}} foto(s)",
+      "sortRecent": "Reciente",
+      "sortVisits": "Visitas",
+      "sortSpent": "Gastado"
     },
     "categories": {
       "식비": "Comida",
@@ -466,7 +469,8 @@
       "nextMonthPledge": "Promesa del próximo mes",
       "letterToSelf": "Una nota para ti",
       "nextPledgePlaceholder": "ej. café solo dos veces por semana",
-      "saveAsGoal": "Guardar como promesa del próximo mes"
+      "saveAsGoal": "Guardar como promesa del próximo mes",
+      "thisMonthPledgeForNext": "Compromiso de este mes para el próximo"
     },
     "dayModal": {
       "header": "{{day}}/{{month}}",

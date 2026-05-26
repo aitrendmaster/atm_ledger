@@ -355,7 +355,7 @@
       "avoid": "Zal niet terugkomen",
       "normal": "OK",
       "resetPin": "Locatie resetten",
-      "openInGoogleMaps": "Open in Google Maps",
+      "openInGoogleMaps": "Openen in Google Maps",
       "mapsUnavailable": "Kaart is tijdelijk niet beschikbaar.",
       "tapMapToPickLocation": "Tik op de kaart om de exacte locatie te kiezen",
       "savePickedLocation": "Sla deze locatie op",
@@ -365,7 +365,10 @@
       "reviewPlaceholder": "Hoe was het?",
       "photo": "Foto",
       "photoUploading": "Uploaden…",
-      "photoTotal": "{{count}} foto('s)"
+      "photoTotal": "{{count}} foto('s)",
+      "sortRecent": "Recent",
+      "sortVisits": "Bezoeken",
+      "sortSpent": "Uitgegeven"
     },
     "categories": {
       "식비": "Voeding",
@@ -478,7 +481,8 @@
       "nextMonthPledge": "Voornemen volgende maand",
       "letterToSelf": "Een notitie voor jezelf",
       "nextPledgePlaceholder": "bijv. slechts twee keer per week naar een café",
-      "saveAsGoal": "Opslaan als voornemen volgende maand"
+      "saveAsGoal": "Opslaan als voornemen volgende maand",
+      "thisMonthPledgeForNext": "Deze maand's voornemen voor volgende maand"
     },
     "dayModal": {
       "header": "{{month}}/{{day}}",

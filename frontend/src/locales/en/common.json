@@ -313,6 +313,9 @@
       "title": "My spending map",
       "intro": "{{count}} places · tap a pin or card for map, photos and reviews",
       "frequent": "Often visited",
+      "sortRecent": "Recent",
+      "sortVisits": "Visits",
+      "sortSpent": "Spent",
       "emptyPins": "No pinned locations yet. Tap a place card to pick the exact spot.",
       "pickLocation": "Pick the exact location",
       "aiHint": "(The AI-guessed location may be inaccurate, so no pin is auto-placed.)",
@@ -421,6 +424,7 @@
     "plan": {
       "monthLabel": "{{month}} plan",
       "lastMonthPledge": "Last month's pledge · keep it going this month",
+      "thisMonthPledgeForNext": "This month's pledge for next month",
       "lastMonthSucceed": "Made it last month",
       "bigPictureTitle": "{{mode}} big picture",
       "modeCurrent": "This month",

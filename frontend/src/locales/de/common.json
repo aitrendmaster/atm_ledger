@@ -365,7 +365,10 @@
       "reviewPlaceholder": "Wie war es?",
       "photo": "Foto",
       "photoUploading": "Wird hochgeladen…",
-      "photoTotal": "{{count}} Foto(s)"
+      "photoTotal": "{{count}} Foto(s)",
+      "sortRecent": "Zuletzt verwendet",
+      "sortVisits": "Besuche",
+      "sortSpent": "Ausgegeben"
     },
     "categories": {
       "식비": "Lebensmittel",
@@ -478,7 +481,8 @@
       "nextMonthPledge": "Vorsatz für nächsten Monat",
       "letterToSelf": "Eine Notiz für dich selbst",
       "nextPledgePlaceholder": "z.B. nur zweimal die Woche ins Café",
-      "saveAsGoal": "Als Vorsatz für nächsten Monat speichern"
+      "saveAsGoal": "Als Vorsatz für nächsten Monat speichern",
+      "thisMonthPledgeForNext": "Diesen Monat geplant für nächsten Monat"
     },
     "dayModal": {
       "header": "{{month}}/{{day}}",
@@ -1105,8 +1109,22 @@
         "a": "Alle Kontobuch-Einträge, Fotos und Notizen werden sofort nach der Kontolöschung dauerhaft gelöscht. Falls geltende Gesetze (E-Commerce-Gesetz, etc.) eine Aufbewahrung verlangen, werden die Daten für diese Zeit separat archiviert und anschließend vernichtet."
       },
       {
-        "q": "Kann ich meine Daten als CSV oder Excel exportieren?"
+        "q": "Kann ich meine Daten als CSV oder Excel exportieren?",
+        "a": "Geplant für v1.5. Nach dem Ende der Beta behält jeder Benutzer das Recht, seine Daten mitzunehmen."
+      },
+      {
+        "q": "Ich habe mein Passwort vergessen",
+        "a": "Tippe auf dem Login-Bildschirm auf \"Passwort vergessen?\" – wir senden dir einen Reset-Link per E-Mail. Überprüfe deinen Spam- oder Promotions-Ordner, falls du ihn nicht siehst. Der Link ist 60 Minuten nach dem Versand gültig."
+      },
+      {
+        "q": "Kann ich ein Ledger mit meiner Familie oder meinem Partner teilen?",
+        "a": "Geteilte / Gruppen-Ledger sind auf der v2-Roadmap. Derzeit wird ein Ledger pro Konto empfohlen."
+      },
+      {
+        "q": "Wo kann ich Feedback oder Fragen senden?",
+        "a": "E-Mail an {{email}}. Fehlerberichte, Verbesserungsideen und Anfragen für neue Funktionen sind willkommen."
       }
-    ]
+    ],
+    "contactPrefix": "Noch Fragen? "
   }
 }

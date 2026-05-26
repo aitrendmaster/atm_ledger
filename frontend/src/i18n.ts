@@ -47,6 +47,23 @@ export const SUPPORTED_LOCALES: ReadonlyArray<{ code: SupportedLang; name: strin
   { code: 'id', name: 'Bahasa Indonesia' },
 ]
 
+// 부팅 직전 localStorage 의 moa_locale 값이 SUPPORTED_LOCALES 에 없는 corrupt 값이면 제거.
+// 빠른 언어 전환 중 부분 기록되거나 외부 코드가 잘못 쓴 값을 자가 치유.
+const _SUPPORTED_SET = new Set([
+  'ko', 'en', 'ja', 'zh', 'es', 'th', 'vi', 'ms', 'hi',
+  'de', 'fr', 'it', 'nl', 'pt', 'ar', 'sv', 'id',
+])
+try {
+  if (typeof localStorage !== 'undefined') {
+    const stored = localStorage.getItem('moa_locale')
+    if (stored && !_SUPPORTED_SET.has(stored.split('-')[0].toLowerCase())) {
+      localStorage.removeItem('moa_locale')
+    }
+  }
+} catch {
+  /* storage 접근 불가 (시크릿 모드 등) — i18next 가 navigator 폴백 */
+}
+
 void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
