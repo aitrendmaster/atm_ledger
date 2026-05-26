@@ -542,7 +542,45 @@
         "reflect": "Revisión — apunta logros, arrepentimientos y compromisos cada mes",
         "plan": "Plan — captura gastos próximos para el mes que viene",
         "balance": "Balance — ingresos, gastos y tasa de ahorro de un vistazo"
-      }
+      },
+      "section1Tips": [
+        "Starbucks 6500",
+        "almuerzo kimbap 4000",
+        "gasté 2300 en la tienda de conveniencia"
+      ],
+      "section2Tips": [
+        "hoy almuerzo 8000, café 5500, taxi 9000",
+        "comida 32000 + película 15000"
+      ],
+      "section3Tips": [
+        "cena con el equipo ayer 40000",
+        "corte de cabello el viernes pasado 30000",
+        "boda de un amigo el 15 de marzo 100000"
+      ],
+      "section4Tips": [
+        "café en Starbucks Gangnam 6500",
+        "20000 en Olive Young cerca de casa",
+        "※ La IA solo reconoce el nombre — abre la entrada para marcar la ubicación exacta."
+      ],
+      "section5Tips": [
+        "Netflix 17000 próximo martes",
+        "alquiler 180000 vence el día 15",
+        "regalo de cumpleaños de un amigo 50000 el 5 del próximo mes"
+      ],
+      "section6Tips": [
+        "Toca la 📷 a la izquierda para subir un recibo — la IA extrae artículos, monto y fecha automáticamente",
+        "Los recibos de varias líneas también funcionan"
+      ],
+      "section7Tips": [
+        "\"mascarilla Olive Young 10000\" → Salud & Belleza",
+        "\"taxi 12000\" → Transporte",
+        "¿Categoría incorrecta? Edítala con el botón ✏️ junto a la entrada"
+      ],
+      "notAllowed": [
+        "· Mensajes sin monto (ej. \"fui a un café hoy\") — incluye el monto",
+        "· Preguntas no relacionadas con tu registro (clima, noticias, etc.) — esto es solo para tu registro",
+        "· IDs personales (números de tarjeta completos, IDs gubernamentales) — nunca los escribas"
+      ]
     }
   },
   "mypage": {
@@ -1033,5 +1071,57 @@
     "officerName": "Nombre",
     "officerEmail": "Correo electrónico",
     "officerDesc": "También puedes buscar solución en: Comité de Mediación de Disputas de Información Personal de Corea (1833-6972, kopico.go.kr), Centro de Reporte de Infracciones de Información Personal (118, privacy.kisa.or.kr), Oficina de Investigación Cibernética de la Fiscalía Suprema (1301, spo.go.kr), Oficina de Ciberdelincuencia de la Policía Nacional de Corea (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "Preguntas frecuentes · Ayuda",
+    "title": "Preguntas frecuentes",
+    "subtitle": "Echa un vistazo aquí primero si algo no está claro.",
+    "items": [
+      {
+        "q": "¿Es Moa AI Ledger de pago?",
+        "a": "Es gratuito por ahora. Todas las funciones principales están disponibles sin costo durante la versión beta. Si se introduce un plan de pago más adelante, se notificará a los usuarios existentes con anticipación."
+      },
+      {
+        "q": "¿Mis datos del libro mayor están seguros?",
+        "a": "Las contraseñas se codifican unidireccionalmente con bcrypt y cada conexión se ejecuta a través de HTTPS. Solo se envían estadísticas anonimizadas a la API de Claude de Anthropic para categorización e insights de IA."
+      },
+      {
+        "q": "¿Puedo usar el mismo libro mayor en múltiples dispositivos?",
+        "a": "Sí. Inicia sesión con tu correo y contraseña en cualquier lugar — tus datos se mantienen sincronizados. Los navegadores móviles funcionan de la misma manera."
+      },
+      {
+        "q": "¿Cómo funciona la IA?",
+        "a": "Solo escribe libremente, como \"Starbucks 6500\", y Claude AI clasifica la categoría, monto y fecha por ti. Al final del mes, un coach de IA también te muestra insights sobre patrones de gasto. Los resultados de IA son de referencia y pueden no ser 100% precisos."
+      },
+      {
+        "q": "¿Puede leer fotos de recibos?",
+        "a": "Sí. Toca el icono de cámara en la entrada de chat para cargar un recibo — la IA extrae artículos y montos y los añade a tu libro mayor automáticamente."
+      },
+      {
+        "q": "¿Se sincroniza automáticamente con bancos o empresas de tarjetas?",
+        "a": "Aún no. Los enlaces de banca abierta (Kakao Bank, Toss, etc.) están en el roadmap de v2. Por ahora, las entradas de chat o fotos de recibos son el camino más rápido."
+      },
+      {
+        "q": "¿Qué pasa con mis datos cuando elimino mi cuenta?",
+        "a": "Todas las entradas del libro mayor, fotos y reflexiones se eliminan permanentemente de inmediato al eliminar la cuenta. Si las leyes aplicables (ley de comercio electrónico, etc.) requieren retención, los datos se conservan por separado durante ese período y luego se destruyen."
+      },
+      {
+        "q": "¿Puedo exportar mis datos como CSV o Excel?",
+        "a": "Está planeado para v1.5. Después de que termine la beta, cada usuario conserva el derecho de llevarse sus datos."
+      },
+      {
+        "q": "Olvidé mi contraseña",
+        "a": "Toca \"¿Olvidaste tu contraseña?\" en la pantalla de inicio de sesión — te enviaremos un enlace de restablecimiento por correo. Revisa tu carpeta de spam o promociones si no lo ves. El enlace es válido durante 60 minutos después de enviarse."
+      },
+      {
+        "q": "¿Puedo compartir un libro mayor con mi familia o pareja?",
+        "a": "Los libros mayores compartidos / grupales están en la hoja de ruta v2. Por ahora, se recomienda un libro mayor por cuenta."
+      },
+      {
+        "q": "¿Dónde envío comentarios o preguntas?",
+        "a": "Envía un correo a {{email}}. Los reportes de errores, ideas de mejora y solicitudes de nuevas funciones son bienvenidos."
+      }
+    ],
+    "contactPrefix": "¿Aún tienes dudas? "
   }
 }

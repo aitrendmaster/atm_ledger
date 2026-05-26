@@ -48,7 +48,7 @@
     "footerTagline": "Chat dein Geld. Gewinne Einsicht.",
     "footerTerms": "Nutzungsbedingungen",
     "footerPrivacy": "Datenschutz",
-    "bizCeo": "CEO",
+    "bizCeo": "Geschäftsführer",
     "bizNo": "Geschäftsregistrierung",
     "bizMailOrder": "Versandhandel",
     "bizAddress": "Adresse",
@@ -182,7 +182,7 @@
         "next": "30. Nov"
       },
       "row4": {
-        "name": "Gym",
+        "name": "Fitnessstudio",
         "amount": "$95",
         "cycle": "5. täglich",
         "next": "5. Dez"
@@ -527,50 +527,50 @@
       "section1Title": "Einzelner Eintrag",
       "section1Tips": [
         "Starbucks 6500",
-        "lunch kimbap 4000",
-        "spent 2,300 at the convenience store"
+        "Mittagessen Kimbap 4000",
+        "2.300 im Supermarkt ausgegeben"
       ],
       "section2Title": "Mehrere auf einmal",
       "section2Tips": [
-        "today lunch 8000, cafe 5500, taxi 9000",
-        "groceries 32000 + movie 15000"
+        "heute Mittagessen 8000, Café 5500, Taxi 9000",
+        "Lebensmittel 32000 + Kino 15000"
       ],
       "section3Title": "Datum / Uhrzeit angeben",
       "section3Tips": [
-        "dinner with team yesterday 40000",
-        "haircut last Friday 30000",
-        "friend's wedding on Mar 15 100000"
+        "Abendessen mit Team gestern 40000",
+        "Haarschnitt letzten Freitag 30000",
+        "Hochzeit eines Freundes am 15. März 100000"
       ],
       "section4Title": "Mit Ort hinzufügen",
       "section4Tips": [
-        "coffee at Starbucks Gangnam 6500",
-        "20000 at Olive Young near home",
-        "※ The AI only recognises the name — open the entry to pin the exact spot."
+        "Kaffee bei Starbucks Gangnam 6500",
+        "20000 bei Olive Young in der Nähe",
+        "※ Die KI erkennt nur den Namen – öffnen Sie den Eintrag, um den genauen Ort festzulegen."
       ],
       "section5Title": "Geplante Ausgaben",
       "section5Tips": [
-        "Netflix 17000 next Tuesday",
-        "rent 180000 due on the 15th",
-        "friend's birthday gift 50000 on the 5th of next month"
+        "Netflix 17000 nächsten Dienstag",
+        "Miete 180000 fällig am 15.",
+        "Geburtstagsgeschenk für einen Freund 50000 am 5. des nächsten Monats"
       ],
       "section6Title": "Belege / Fotos",
       "section6Tips": [
-        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
-        "Multi-line receipts work too"
+        "Tippen Sie auf die 📷 links, um eine Quittung hochzuladen – die KI extrahiert Artikel, Betrag und Datum automatisch",
+        "Mehrzeilige Quittungen funktionieren auch"
       ],
       "section7Title": "Kategorie-Hinweise",
       "section7Tips": [
-        "\"Olive Young mask sheet 10000\" → Health & Beauty",
-        "\"taxi 12000\" → Transport",
-        "Wrong category? Edit it with the ✏️ button next to the entry"
+        "\"Olive Young Gesichtsmaske 10000\" → Gesundheit & Schönheit",
+        "\"Taxi 12000\" → Transport",
+        "Falsche Kategorie? Bearbeite sie mit dem ✏️ Button neben dem Eintrag"
       ],
       "tabsTitle": "Mehr als Chat",
       "tabsHint": "✏️ Nutze die Stift- und Löschen-Symbole neben jedem Eintrag zum Bearbeiten oder Löschen.",
       "notAllowedTitle": "Das funktioniert nicht",
       "notAllowed": [
-        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
-        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
-        "· Personal IDs (full card numbers, government IDs) — never type them"
+        "· Nachrichten ohne Betrag (z.B. \"heute im Café gewesen\") — gib den Betrag an",
+        "· Fragen unabhängig von deinem Ledger (Wetter, Nachrichten etc.) — das ist nur für dein Ledger",
+        "· Persönliche Daten (vollständige Kartennummern, Ausweisdaten) — gib diese niemals ein"
       ],
       "close": "Verstanden, lass uns starten",
       "tabs": {
@@ -1070,5 +1070,43 @@
     "officerName": "Name",
     "officerEmail": "E-Mail",
     "officerDesc": "Sie können auch Abhilfe anfordern bei: Koreanisches Komitee für Personalinformationen-Streitbeilegung (1833-6972, kopico.go.kr), Meldestelle für Personalinformationsverletzungen (118, privacy.kisa.or.kr), Staatsanwaltschaft Cyber-Ermittlung (1301, spo.go.kr), Koreanisches Nationalpolizei Cyber-Büro (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "FAQ · Hilfe",
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Wirf zunächst einen Blick hier, falls etwas unklar ist.",
+    "items": [
+      {
+        "q": "Ist Moa AI Ledger kostenpflichtig?",
+        "a": "Derzeit kostenlos. Alle Kernfunktionen sind während der Beta verfügbar. Falls später ein kostenpflichtiges Abonnement eingeführt wird, werden bestehende Nutzer rechtzeitig benachrichtigt."
+      },
+      {
+        "q": "Sind meine Ledger-Daten sicher?",
+        "a": "Passwörter werden mit bcrypt in eine Richtung verschlüsselt und jede Verbindung läuft über HTTPS. Nur anonymisierte Daten werden an die Anthropic Claude API für KI-Kategorisierung und Insights gesendet."
+      },
+      {
+        "q": "Kann ich das gleiche Ledger auf mehreren Geräten nutzen?",
+        "a": "Ja. Melde dich mit deiner E-Mail und deinem Passwort überall an — deine Daten bleiben synchron. Mobile Browser funktionieren genauso."
+      },
+      {
+        "q": "Wie funktioniert die KI?",
+        "a": "Gib einfach ein, wie \"Starbucks 6500\", und Claude AI sortiert Kategorie, Betrag und Datum für dich. Am Monatsende liefert ein KI-Coach auch Insights zu deinen Ausgabenmustern. KI-Ergebnisse dienen nur zur Orientierung und können 100% genau sein."
+      },
+      {
+        "q": "Kann sie Quittungsfotos lesen?",
+        "a": "Ja. Tippe auf das Kamerasymbol in der Chat-Eingabe, um eine Quittung hochzuladen – die KI extrahiert Positionen und Beträge und fügt sie automatisch zu deinem Kontobuch hinzu."
+      },
+      {
+        "q": "Synchronisiert es sich automatisch mit Banken oder Kartenanbietern?",
+        "a": "Noch nicht. Open-Banking-Verbindungen (Kakao Bank, Toss, etc.) stehen auf der v2-Roadmap. Momentan sind Chat-Einträge oder Fotos von Quittungen der schnellste Weg."
+      },
+      {
+        "q": "Was passiert mit meinen Daten, wenn ich mein Konto lösche?",
+        "a": "Alle Kontobuch-Einträge, Fotos und Notizen werden sofort nach der Kontolöschung dauerhaft gelöscht. Falls geltende Gesetze (E-Commerce-Gesetz, etc.) eine Aufbewahrung verlangen, werden die Daten für diese Zeit separat archiviert und anschließend vernichtet."
+      },
+      {
+        "q": "Kann ich meine Daten als CSV oder Excel exportieren?"
+      }
+    ]
   }
 }

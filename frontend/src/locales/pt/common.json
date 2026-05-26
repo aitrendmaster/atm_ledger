@@ -82,7 +82,7 @@
       }
     },
     "feature1": {
-      "label": "Feature 01 · Chat input",
+      "label": "Recurso 01 · Entrada por chat",
       "title": "Pare de tocar categorias. Apenas digite.",
       "desc": "Jogue uma frase na Moa do jeito que você já pensa. IA separa categoria, valor, data e local.",
       "point1": "Linguagem natural tipo \"almoço $9\" funciona",
@@ -318,7 +318,7 @@
       "won": ""
     },
     "input": {
-      "placeholder": "Starbucks $5…",
+      "placeholder": "Starbucks R$5…",
       "send": "Enviar",
       "retry": "Pode reformular?",
       "tryAgain": "Por favor, tente novamente.",
@@ -527,50 +527,50 @@
       "section1Title": "Entrada em uma linha",
       "section1Tips": [
         "Starbucks 6500",
-        "lunch kimbap 4000",
-        "spent 2,300 at the convenience store"
+        "almoço kimbap 4000",
+        "gastei 2.300 na conveniência"
       ],
       "section2Title": "Múltiplas de uma vez",
       "section2Tips": [
-        "today lunch 8000, cafe 5500, taxi 9000",
-        "groceries 32000 + movie 15000"
+        "hoje almoço 8000, café 5500, táxi 9000",
+        "compras 32000 + cinema 15000"
       ],
       "section3Title": "Especificar data / hora",
       "section3Tips": [
-        "dinner with team yesterday 40000",
-        "haircut last Friday 30000",
-        "friend's wedding on Mar 15 100000"
+        "jantar com time ontem 40000",
+        "corte de cabelo sexta passada 30000",
+        "casamento amiga 15 de mar 100000"
       ],
       "section4Title": "Incluir o lugar",
       "section4Tips": [
-        "coffee at Starbucks Gangnam 6500",
-        "20000 at Olive Young near home",
-        "※ The AI only recognises the name — open the entry to pin the exact spot."
+        "café no Starbucks Gangnam 6500",
+        "20000 na Olive Young perto de casa",
+        "※ A IA reconhece apenas o nome — abra o registro para fixar a localização exata."
       ],
       "section5Title": "Gasto futuro (planejado)",
       "section5Tips": [
-        "Netflix 17000 next Tuesday",
-        "rent 180000 due on the 15th",
-        "friend's birthday gift 50000 on the 5th of next month"
+        "Netflix 17000 próxima terça",
+        "aluguel 180000 vence no dia 15",
+        "presente aniversário amiga 50000 no dia 5 do próximo mês"
       ],
       "section6Title": "Recibos / fotos",
       "section6Tips": [
-        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
-        "Multi-line receipts work too"
+        "Toque no 📷 à esquerda para enviar um recibo — a IA extrai itens, valor e data automaticamente",
+        "Recibos com múltiplas linhas também funcionam"
       ],
       "section7Title": "Dicas de categoria",
       "section7Tips": [
-        "\"Olive Young mask sheet 10000\" → Health & Beauty",
-        "\"taxi 12000\" → Transport",
-        "Wrong category? Edit it with the ✏️ button next to the entry"
+        "\"Olive Young máscara facial 10000\" → Saúde & Beleza",
+        "\"táxi 12000\" → Transporte",
+        "Categoria errada? Edite com o botão ✏️ ao lado do lançamento"
       ],
       "tabsTitle": "Mais do que chat",
       "tabsHint": "✏️ Use os ícones de lápis/lixeira ao lado de cada entrada para editar ou deletar individualmente.",
       "notAllowedTitle": "Isso não funciona",
       "notAllowed": [
-        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
-        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
-        "· Personal IDs (full card numbers, government IDs) — never type them"
+        "· Mensagens sem valor (ex. \"fui em um café hoje\") — inclua o valor",
+        "· Perguntas não relacionadas ao seu ledger (clima, notícias, etc.) — isto é apenas para o ledger",
+        "· IDs pessoais (números de cartão completos, documentos) — nunca digite"
       ],
       "close": "Entendi, vamos começar",
       "tabs": {
@@ -1070,5 +1070,57 @@
     "officerName": "Nome",
     "officerEmail": "Email",
     "officerDesc": "Você também pode buscar remédio em: Comitê de Mediação de Disputa de Informações Pessoais da Coreia (1833-6972, kopico.go.kr), Centro de Relatório de Violação de Informações Pessoais (118, privacy.kisa.or.kr), Escritório de Investigação Cibernética do Promotor Supremo (1301, spo.go.kr), Bureau Cibernético da Polícia Nacional Coreana (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "FAQ · Ajuda",
+    "title": "Perguntas frequentes",
+    "subtitle": "Dê uma olhada rápida aqui primeiro se algo não estiver claro.",
+    "items": [
+      {
+        "q": "Moa AI Ledger é pago?",
+        "a": "É gratuito por enquanto. Todos os recursos principais estão disponíveis sem custo durante a beta. Se um plano pago for introduzido depois, os usuários existentes serão notificados com antecedência."
+      },
+      {
+        "q": "Meus dados do ledger estão seguros?",
+        "a": "Senhas são criptografadas com bcrypt usando hash de mão única e todas as conexões usam HTTPS. Apenas estatísticas anonimizadas são enviadas para a API Claude Anthropic para categorização e insights de IA."
+      },
+      {
+        "q": "Posso usar o mesmo diário em vários dispositivos?",
+        "a": "Sim. Faça login com seu email e senha em qualquer lugar — seus dados ficam sincronizados. Navegadores móveis funcionam da mesma forma."
+      },
+      {
+        "q": "Como funciona o AI?",
+        "a": "Basta digitar livremente, como \"Starbucks 6500\", e o Claude AI organiza a categoria, valor e data para você. No final do mês, um coach de IA também mostra insights sobre seus padrões de gastos. Os resultados de IA são para referência e podem não ser 100% precisos."
+      },
+      {
+        "q": "Consegue ler fotos de recibos?",
+        "a": "Sim. Toque no ícone de câmera na entrada do chat para fazer upload de um recibo — a IA extrai itens e valores e os adiciona ao seu diário automaticamente."
+      },
+      {
+        "q": "Sincroniza automaticamente com bancos ou operadoras de cartão?",
+        "a": "Ainda não. Integrações de open banking (Kakao Bank, Toss, etc.) estão no roadmap da v2. Por enquanto, entradas pelo chat ou fotos de recibos são o caminho mais rápido."
+      },
+      {
+        "q": "O que acontece com meus dados quando deleto minha conta?",
+        "a": "Todos os registros do diário, fotos e reflexões são permanentemente deletados imediatamente na exclusão da conta. Se leis aplicáveis (lei de comércio eletrônico, etc.) exigirem retenção, os dados são mantidos separadamente por esse período e depois destruídos."
+      },
+      {
+        "q": "Posso exportar meus dados como CSV ou Excel?",
+        "a": "Planejado para v1.5. Após o beta terminar, todo usuário mantém o direito de levar seus dados consigo."
+      },
+      {
+        "q": "Esqueci minha senha",
+        "a": "Toque em \"Esqueceu a senha?\" na tela de login — enviaremos um link de redefinição para seu email. Verifique sua aba de spam ou promoções se não o vir. O link é válido por 60 minutos após o envio."
+      },
+      {
+        "q": "Posso compartilhar um diário com minha família ou parceiro?",
+        "a": "Diários compartilhados e em grupo estão no roadmap da v2. Por enquanto, recomenda-se um diário por conta."
+      },
+      {
+        "q": "Onde envio feedback ou dúvidas?",
+        "a": "Envie um email para {{email}}. Relatórios de bugs, ideias de melhoria e requisições de novos recursos são bem-vindos."
+      }
+    ],
+    "contactPrefix": "Ainda curioso? "
   }
 }

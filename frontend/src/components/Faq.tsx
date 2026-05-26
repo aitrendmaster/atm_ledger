@@ -1,27 +1,38 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ChevronDown, Mail } from 'lucide-react'
-import { FAQ_ITEMS } from '../data/faq'
 import { SUPPORT_EMAIL } from '../services/api'
 
 interface FaqProps {
   compact?: boolean
 }
 
+interface FaqItem {
+  q: string
+  a: string
+}
+
 export default function Faq({ compact = false }: FaqProps) {
+  const { t } = useTranslation()
   const [open, setOpen] = useState<number | null>(compact ? null : 0)
+
+  const items = t('faq.items', { returnObjects: true, defaultValue: [] }) as FaqItem[]
 
   return (
     <section className={compact ? '' : 'max-w-3xl mx-auto'}>
       {!compact && (
         <header className="mb-6">
-          <h2 className="text-3xl font-semibold text-atm-ink mb-2">자주 묻는 질문</h2>
-          <p className="text-atm-muted text-sm">궁금한 점이 있으면 먼저 확인해보세요.</p>
+          <h2 className="text-3xl font-semibold text-atm-ink mb-2">{t('faq.title')}</h2>
+          <p className="text-atm-muted text-sm">{t('faq.subtitle')}</p>
         </header>
       )}
 
       <div className="space-y-2">
-        {FAQ_ITEMS.map((item, i) => {
+        {items.map((item, i) => {
           const expanded = open === i
+          const answer = item.a.includes('{{email}}')
+            ? item.a.replace('{{email}}', SUPPORT_EMAIL)
+            : item.a
           return (
             <div
               key={i}
@@ -40,7 +51,7 @@ export default function Faq({ compact = false }: FaqProps) {
               </button>
               {expanded && (
                 <div className="px-4 pb-4 text-sm text-atm-muted leading-relaxed border-t border-stone-100 pt-3">
-                  {item.a}
+                  {answer}
                 </div>
               )}
             </div>
@@ -51,7 +62,7 @@ export default function Faq({ compact = false }: FaqProps) {
       <div className="mt-6 bg-stone-50 rounded-xl p-4 flex items-center gap-3">
         <Mail size={18} className="text-atm-accent flex-shrink-0" />
         <div className="text-sm">
-          <span className="text-atm-muted">더 궁금한 점이 있으신가요? </span>
+          <span className="text-atm-muted">{t('faq.contactPrefix')}</span>
           <a
             href={`mailto:${SUPPORT_EMAIL}`}
             className="text-atm-accent font-medium hover:underline"

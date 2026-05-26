@@ -542,7 +542,45 @@
         "reflect": "Ulasan — catat kemenangan, penyesalan dan janji setiap bulan",
         "plan": "Rancang — tangkap perbelanjaan mendatang untuk bulan depan",
         "balance": "Imbangan — pendapatan, perbelanjaan dan kadar simpanan sekilas"
-      }
+      },
+      "section1Tips": [
+        "Starbucks 6500",
+        "makan tengah hari kimbap 4000",
+        "belanja 2,300 di kedai serbaneka"
+      ],
+      "section2Tips": [
+        "hari ini makan tengah hari 8000, kafe 5500, teksi 9000",
+        "groceries 32000 + wayang 15000"
+      ],
+      "section3Tips": [
+        "makan malam dengan pasukan semalam 40000",
+        "potong rambut Jumaat lepas 30000",
+        "perkahwinan kawan pada 15 Mac 100000"
+      ],
+      "section4Tips": [
+        "kopi di Starbucks Gangnam 6500",
+        "20000 di Olive Young berdekatan rumah",
+        "※ AI hanya mengenali nama — buka entri untuk pin lokasi tepat."
+      ],
+      "section5Tips": [
+        "Netflix 17000 Selasa depan",
+        "sewa 180000 perlu dibayar pada 15hb",
+        "hadiah hari jadi kawan 50000 pada 5hb bulan depan"
+      ],
+      "section6Tips": [
+        "Ketik 📷 di sebelah kiri untuk muat naik resit — AI ekstrak item, jumlah dan tarikh secara automatik",
+        "Resit berbaris banyak pun boleh"
+      ],
+      "section7Tips": [
+        "\"Olive Young mask sheet 10000\" → Kesihatan & Kecantikan",
+        "\"teksi 12000\" → Pengangkutan",
+        "Kategori salah? Edit dengan butang ✏️ bersebelahan entri"
+      ],
+      "notAllowed": [
+        "· Mesej tanpa jumlah (contoh \"pergi ke kafe hari ini\") — sertakan jumlahnya",
+        "· Soalan tidak berkaitan dengan lejar anda (cuaca, berita, dll) — ini untuk lejar sahaja",
+        "· ID peribadi (nombor kad penuh, ID kerajaan) — jangan taip pun"
+      ]
     }
   },
   "mypage": {
@@ -1033,5 +1071,57 @@
     "officerName": "Nama",
     "officerEmail": "E-mel",
     "officerDesc": "Anda juga boleh mencari pemulihan di: Jawatankuasa Mediasi Pertikaian Maklumat Peribadi Korea (1833-6972, kopico.go.kr), Pusat Pelaporan Pelanggaran Maklumat Peribadi (118, privacy.kisa.or.kr), Pejabat Pendakwa Agung Siasatan Siber (1301, spo.go.kr), Biro Siber Polis Nasional Korea (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "FAQ · Bantuan",
+    "title": "Soalan lazim",
+    "subtitle": "Lihat di sini dahulu jika ada yang tidak jelas.",
+    "items": [
+      {
+        "q": "Adakah Moa AI Ledger berbayar?",
+        "a": "Percuma buat masa ini. Semua ciri-ciri teras tersedia tanpa kos semasa beta. Jika pelan berbayar diperkenalkan nanti, pengguna sedia ada akan diberitahu lebih awal."
+      },
+      {
+        "q": "Adakah data lejar saya selamat?",
+        "a": "Kata laluan dienkripsi satu arah dengan bcrypt dan setiap sambungan berjalan melalui HTTPS. Hanya statistik tanpa nama dihantar ke API Claude Anthropic untuk pengkategorian dan wawasan AI."
+      },
+      {
+        "q": "Bolehkah saya menggunakan lejar yang sama di berbilang peranti?",
+        "a": "Ya. Daftar masuk dengan e-mel dan kata laluan anda di mana saja — data anda tetap tersinkron. Penyemak imbas mudah alih berfungsi dengan cara yang sama."
+      },
+      {
+        "q": "Bagaimanakah AI berfungsi?",
+        "a": "Hanya taip bebas, seperti \"Starbucks 6500\", dan Claude AI menyusun kategori, jumlah, dan tarikh untuk anda. Pada akhir bulan, pelatih AI juga menunjukkan wawasan corak perbelanjaan. Hasil AI adalah untuk rujukan dan mungkin tidak 100% tepat."
+      },
+      {
+        "q": "Bolehkah ia membaca foto resit?",
+        "a": "Ya. Ketuk ikon kamera dalam input sembang untuk memuat naik resit — AI mengekstrak item dan jumlah serta menambahnya ke lejar anda secara automatik."
+      },
+      {
+        "q": "Adakah ia auto-sinkron dengan bank atau syarikat kad?",
+        "a": "Belum lagi. Pautan perbankan terbuka (Kakao Bank, Toss, dll.) berada di peta jalan v2. Buat masa ini, entri sembang atau foto resit adalah laluan terpantas."
+      },
+      {
+        "q": "Apa yang berlaku pada data saya apabila saya memadam akaun saya?",
+        "a": "Semua entri lejar, foto, dan refleksi dipadamkan secara kekal serta-merta apabila akaun dipadamkan. Jika undang-undang yang berkaitan (akta e-perdagangan, dll.) memerlukan penyimpanan, data disimpan secara berasingan untuk tempoh itu kemudian dimusnahkan."
+      },
+      {
+        "q": "Bolehkah saya mengeksport data saya sebagai CSV atau Excel?",
+        "a": "Dirancang untuk v1.5. Selepas beta berakhir, setiap pengguna menyimpan hak untuk membawa data mereka bersama-sama."
+      },
+      {
+        "q": "Saya lupa kata laluan saya",
+        "a": "Ketuk \"Lupa kata laluan?\" pada skrin log masuk — kami akan menghantar e-mel pautan set semula kepada anda. Periksa tab spam atau promosi anda jika anda tidak melihatnya. Pautan sah selama 60 minit selepas dihantar."
+      },
+      {
+        "q": "Bolehkah saya berkongsi lejar dengan keluarga atau pasangan saya?",
+        "a": "Lejar bersama / berkumpulan berada di peta jalan v2. Buat masa ini, satu lejar per akaun disyorkan."
+      },
+      {
+        "q": "Di mana saya hantar maklum balas atau pertanyaan?",
+        "a": "E-mel {{email}}. Laporan pepijat, idea penambahbaikan, dan permintaan ciri baru semuanya dialu-alukan."
+      }
+    ],
+    "contactPrefix": "Masih ingin tahu? "
   }
 }

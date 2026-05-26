@@ -235,7 +235,7 @@
     "subtitle": "Log in en start je journaal.",
     "email": "E-mailadres",
     "password8": "Wachtwoord (8+ tekens)",
-    "submit": "Log in",
+    "submit": "Inloggen",
     "submitBusy": "Inloggen…",
     "noAccount": "Geen account?",
     "signupLink": "Aanmelden",
@@ -528,49 +528,49 @@
       "section1Tips": [
         "Starbucks 6500",
         "lunch kimbap 4000",
-        "spent 2,300 at the convenience store"
+        "uitgegeven 2.300 in de supermarkt"
       ],
       "section2Title": "Meerdere tegelijk",
       "section2Tips": [
-        "today lunch 8000, cafe 5500, taxi 9000",
-        "groceries 32000 + movie 15000"
+        "vandaag lunch 8000, cafe 5500, taxi 9000",
+        "boodschappen 32000 + film 15000"
       ],
       "section3Title": "Datum / tijd opgeven",
       "section3Tips": [
-        "dinner with team yesterday 40000",
-        "haircut last Friday 30000",
-        "friend's wedding on Mar 15 100000"
+        "team diner gisteren 40000",
+        "kapsel afgelopen vrijdag 30000",
+        "bruiloft vriend op 15 maart 100000"
       ],
       "section4Title": "Plaats toevoegen",
       "section4Tips": [
-        "coffee at Starbucks Gangnam 6500",
-        "20000 at Olive Young near home",
-        "※ The AI only recognises the name — open the entry to pin the exact spot."
+        "koffie bij Starbucks Gangnam 6500",
+        "20000 bij Olive Young dicht bij huis",
+        "※ De AI herkent alleen de naam — open het item om de exacte locatie in te stellen."
       ],
       "section5Title": "Toekomstige uitgave (gepland)",
       "section5Tips": [
-        "Netflix 17000 next Tuesday",
-        "rent 180000 due on the 15th",
-        "friend's birthday gift 50000 on the 5th of next month"
+        "Netflix 17000 volgende dinsdag",
+        "huur 180000 vervaldatum 15e",
+        "verjaardagscadeau vriend 50000 op de 5e volgende maand"
       ],
       "section6Title": "Bonnen / foto's",
       "section6Tips": [
-        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
-        "Multi-line receipts work too"
+        "Tik op de 📷 links om een bon te uploaden — de AI haalt items, bedrag en datum automatisch uit",
+        "Bonnen met meerdere regels werken ook"
       ],
       "section7Title": "Categorie hints",
       "section7Tips": [
-        "\"Olive Young mask sheet 10000\" → Health & Beauty",
-        "\"taxi 12000\" → Transport",
-        "Wrong category? Edit it with the ✏️ button next to the entry"
+        "\"Olive Young gezichtsmasker 10000\" → Gezondheid & Schoonheid",
+        "\"taxi 12000\" → Vervoer",
+        "Verkeerde categorie? Bewerk het met de ✏️ knop naast het item"
       ],
       "tabsTitle": "Meer dan chat",
       "tabsHint": "✏️ Gebruik het potlood- en prullenbakpictogram naast elk item om deze afzonderlijk te bewerken of verwijderen.",
       "notAllowedTitle": "Deze werken niet",
       "notAllowed": [
-        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
-        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
-        "· Personal IDs (full card numbers, government IDs) — never type them"
+        "· Berichten zonder bedrag (bijv. \"ben vandaag naar een café geweest\") — voeg het bedrag toe",
+        "· Vragen die niets met je boekhouding te maken hebben (weer, nieuws, enz.) — dit is alleen voor boekhouding",
+        "· Persoonlijke ID's (volledige kaartnummers, ID-nummers) — typ ze nooit in"
       ],
       "close": "Begrepen, laten we beginnen",
       "tabs": {
@@ -747,7 +747,7 @@
   "appHeader": {
     "faq": "Veelgestelde vragen",
     "myAccount": "Account",
-    "admin": "Admin",
+    "admin": "Beheer",
     "logout": "Afmelden",
     "recurring": "Terugkerend",
     "menu": "Menu",
@@ -836,7 +836,7 @@
     "perMonth": "/ maand",
     "paidPriceYearlyNote": "of $35,99 / jaar (24% korting) · prijzen automatisch omgerekend per land",
     "paidDesc": "Onbeperkte AI + maandelijkse AI-coachsessie + bonafide OCR + gegevensexport. Beleef de volledige Moa ervaring.",
-    "paidCta": "Start Premium",
+    "paidCta": "Premium starten",
     "paidCtaYearly": "Jaarlijks ($35,99 · 2 maanden gratis)",
     "planSelectionHint": "Je kunt maandelijks of jaarlijks kiezen op het volgende scherm.",
     "returnHint": "Keer terug naar de app zodra betaling is voltooid — we vernieuwen automatisch.",
@@ -1070,5 +1070,57 @@
     "officerName": "Naam",
     "officerEmail": "E-mail",
     "officerDesc": "U kunt ook om rechtsherstel verzoeken bij: Koreaanse commissie voor geschillenbemiddeling inzake persoonlijke informatie (1833-6972, kopico.go.kr), Centrum voor rapportage van schending van persoonlijke informatie (118, privacy.kisa.or.kr), Kantoor van de Procureur-Generaal Cyberinvestigatie (1301, spo.go.kr), Koreaans Nationaal Politie-Cyberbureau (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "Veelgestelde vragen · Hulp",
+    "title": "Veelgestelde vragen",
+    "subtitle": "Kijk hier eerst even rond als iets onduidelijk is.",
+    "items": [
+      {
+        "q": "Is Moa AI Ledger betaald?",
+        "a": "Het is nu gratis. Alle kernfuncties zijn beschikbaar zonder kosten tijdens de beta. Als er later een betaald plan wordt ingevoerd, worden bestaande gebruikers van tevoren op de hoogte gesteld."
+      },
+      {
+        "q": "Zijn mijn grootboekgegevens veilig?",
+        "a": "Wachtwoorden worden eenrichtings gehasht met bcrypt en elke verbinding loopt via HTTPS. Alleen geanonimiseerde statistieken worden naar de Anthropic Claude API gestuurd voor AI-categorisering en inzichten."
+      },
+      {
+        "q": "Kan ik hetzelfde grootboek op meerdere apparaten gebruiken?",
+        "a": "Ja. Meld je overal aan met je e-mailadres en wachtwoord — je gegevens blijven gesynchroniseerd. Mobiele browsers werken op dezelfde manier."
+      },
+      {
+        "q": "Hoe werkt de AI?",
+        "a": "Typ gewoon vrij, bijvoorbeeld \"Starbucks 6500\", en Claude AI sorteert de categorie, bedrag en datum voor je. Aan het einde van de maand geeft een AI-coach ook inzichten in uitgavenpatronen. AI-resultaten zijn ter referentie en zijn mogelijk niet 100% nauwkeurig."
+      },
+      {
+        "q": "Kan het bonnetjefotos lezen?",
+        "a": "Ja. Tik op het camerapictogram in de chatinvoer om een bon te uploaden — de AI extraheert items en bedragen en voegt ze automatisch aan je grootboek toe."
+      },
+      {
+        "q": "Synchroniseert het automatisch met banken of kaartbedrijven?",
+        "a": "Nog niet. Open banking-koppelingen (Kakao Bank, Toss, etc.) staan op de v2-roadmap. Voor nu zijn chatitems of bonnetjefotos het snelste pad."
+      },
+      {
+        "q": "Wat gebeurt er met mijn gegevens wanneer ik mijn account verwijder?",
+        "a": "Alle grootboekitems, fotos en notities worden onmiddellijk permanent verwijderd bij accountverwijdering. Indien toepasselijke wetgeving (e-commercewet, etc.) retentie vereist, worden de gegevens voor die periode apart bewaard en vervolgens vernietigd."
+      },
+      {
+        "q": "Kan ik mijn gegevens als CSV of Excel exporteren?",
+        "a": "Gepland voor v1.5. Na het einde van de beta behoudt elke gebruiker het recht om hun gegevens mee te nemen."
+      },
+      {
+        "q": "Ik ben mijn wachtwoord vergeten",
+        "a": "Tik op \"Wachtwoord vergeten?\" op het loginscherm — we sturen je een resetlink per e-mail. Controleer je spammap of promotiemap als je het niet ziet. De link is 60 minuten na verzending geldig."
+      },
+      {
+        "q": "Kan ik een grootboek delen met mijn familie of partner?",
+        "a": "Gedeelde / groepsgrootboeken staan op de v2-roadmap. Voor nu wordt één grootboek per account aanbevolen."
+      },
+      {
+        "q": "Waar kan ik feedback of vragen sturen?",
+        "a": "E-mail {{email}}. Bugrapporten, verbeteringideeën en verzoeken voor nieuwe functies zijn allemaal welkom."
+      }
+    ],
+    "contactPrefix": "Nog nieuwsgierig? "
   }
 }

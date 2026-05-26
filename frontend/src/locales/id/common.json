@@ -15,7 +15,7 @@
     "home": "Beranda",
     "pricing": "Harga",
     "refund": "Kebijakan Pengembalian Dana",
-    "edit": "Edit",
+    "edit": "Ubah",
     "delete": "Hapus",
     "confirm": "OK"
   },
@@ -290,7 +290,7 @@
     "receiptUploadTitle": "Lampirkan foto kuitansi",
     "guideTitle": "Coba tulis dengan cara ini",
     "actions": {
-      "edit": "Edit",
+      "edit": "Ubah",
       "delete": "Hapus"
     },
     "moneyUnit": {
@@ -527,50 +527,50 @@
       "section1Title": "Entri satu baris",
       "section1Tips": [
         "Starbucks 6500",
-        "lunch kimbap 4000",
-        "spent 2,300 at the convenience store"
+        "makan siang kimbap 4000",
+        "belanja 2.300 di minimarket"
       ],
       "section2Title": "Beberapa sekaligus",
       "section2Tips": [
-        "today lunch 8000, cafe 5500, taxi 9000",
+        "hari ini makan siang 8000, kafe 5500, taksi 9000",
         "groceries 32000 + movie 15000"
       ],
       "section3Title": "Tentukan tanggal/waktu",
       "section3Tips": [
-        "dinner with team yesterday 40000",
-        "haircut last Friday 30000",
-        "friend's wedding on Mar 15 100000"
+        "makan malam dengan tim kemarin 40000",
+        "potong rambut Jumat lalu 30000",
+        "pernikahan teman tanggal 15 Mar 100000"
       ],
       "section4Title": "Sertakan tempat",
       "section4Tips": [
-        "coffee at Starbucks Gangnam 6500",
-        "20000 at Olive Young near home",
-        "※ The AI only recognises the name — open the entry to pin the exact spot."
+        "kopi di Starbucks Gangnam 6500",
+        "20000 di Olive Young dekat rumah",
+        "※ AI hanya mengenali nama — buka entri untuk menandai lokasi yang tepat."
       ],
       "section5Title": "Pengeluaran mendatang (rencana)",
       "section5Tips": [
-        "Netflix 17000 next Tuesday",
-        "rent 180000 due on the 15th",
-        "friend's birthday gift 50000 on the 5th of next month"
+        "Netflix 17000 Selasa depan",
+        "sewa 180000 jatuh tempo tanggal 15",
+        "hadiah ulang tahun teman 50000 tanggal 5 bulan depan"
       ],
       "section6Title": "Kuitansi/foto",
       "section6Tips": [
-        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
-        "Multi-line receipts work too"
+        "Ketuk 📷 di sebelah kiri untuk unggah struk — AI mengekstrak item, jumlah, dan tanggal secara otomatis",
+        "Struk multi-baris juga berfungsi"
       ],
       "section7Title": "Petunjuk kategori",
       "section7Tips": [
-        "\"Olive Young mask sheet 10000\" → Health & Beauty",
-        "\"taxi 12000\" → Transport",
-        "Wrong category? Edit it with the ✏️ button next to the entry"
+        "\"masker sheet Olive Young 10000\" → Kesehatan & Kecantikan",
+        "\"taksi 12000\" → Transportasi",
+        "Kategori salah? Edit dengan tombol ✏️ di samping entri"
       ],
       "tabsTitle": "Lebih dari sekadar chat",
       "tabsHint": "✏️ Gunakan ikon pensil/tempat sampah di samping setiap entri untuk mengedit atau menghapus secara individual.",
       "notAllowedTitle": "Ini tidak akan berfungsi",
       "notAllowed": [
-        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
-        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
-        "· Personal IDs (full card numbers, government IDs) — never type them"
+        "· Pesan tanpa jumlah (mis. \"pergi ke kafe hari ini\") — sertakan jumlahnya",
+        "· Pertanyaan tidak terkait ledger (cuaca, berita, dll.) — ini hanya untuk ledger",
+        "· ID pribadi (nomor kartu lengkap, ID pemerintah) — jangan pernah ketikkan"
       ],
       "close": "Sudah paham, mari mulai",
       "tabs": {
@@ -1070,5 +1070,57 @@
     "officerName": "Nama",
     "officerEmail": "Email",
     "officerDesc": "Anda juga dapat mencari upaya perbaikan di: Komite Mediasi Sengketa Informasi Pribadi Korea (1833-6972, kopico.go.kr), Pusat Pelaporan Pelanggaran Informasi Pribadi (118, privacy.kisa.or.kr), Kantor Jaksa Agung Investigasi Cyber (1301, spo.go.kr), Biro Cyber Polisi Nasional Korea (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "FAQ · Bantuan",
+    "title": "Pertanyaan yang sering diajukan",
+    "subtitle": "Lihat di sini terlebih dahulu jika ada yang tidak jelas.",
+    "items": [
+      {
+        "q": "Apakah Moa AI Ledger berbayar?",
+        "a": "Gratis untuk saat ini. Semua fitur utama tersedia tanpa biaya selama beta. Jika rencana berbayar diperkenalkan nanti, pengguna yang ada akan diberitahu terlebih dahulu."
+      },
+      {
+        "q": "Apakah data buku besar saya aman?",
+        "a": "Kata sandi di-hash satu arah dengan bcrypt dan setiap koneksi berjalan melalui HTTPS. Hanya statistik anonim yang dikirim ke API Claude Anthropic untuk kategorisasi dan wawasan AI."
+      },
+      {
+        "q": "Bisakah saya menggunakan buku besar yang sama di beberapa perangkat?",
+        "a": "Ya. Masuk dengan email dan kata sandi Anda di mana saja — data Anda tetap tersinkronisasi. Browser seluler bekerja dengan cara yang sama."
+      },
+      {
+        "q": "Bagaimana cara kerja AI?",
+        "a": "Cukup ketik dengan bebas, seperti \"Starbucks 6500\", dan Claude AI mengurutkan kategori, jumlah, dan tanggal untuk Anda. Di akhir bulan, pelatih AI juga mengungkap wawasan pola pengeluaran. Hasil AI adalah untuk referensi dan mungkin tidak 100% akurat."
+      },
+      {
+        "q": "Bisakah membaca foto kwitansi?",
+        "a": "Ya. Ketuk ikon kamera di input obrolan untuk mengunggah kwitansi — AI mengekstrak item dan jumlah serta menambahkannya ke buku besar Anda secara otomatis."
+      },
+      {
+        "q": "Apakah itu sinkronisasi otomatis dengan bank atau perusahaan kartu?",
+        "a": "Belum. Tautan open banking (Kakao Bank, Toss, dll.) ada di roadmap v2. Untuk saat ini, entri obrolan atau foto kwitansi adalah jalur tercepat."
+      },
+      {
+        "q": "Apa yang terjadi pada data saya ketika saya menghapus akun saya?",
+        "a": "Semua entri buku besar, foto, dan refleksi dihapus secara permanen segera setelah penghapusan akun. Jika undang-undang yang berlaku (undang-undang e-commerce, dll.) memerlukan penyimpanan, data disimpan secara terpisah untuk periode tersebut kemudian dihancurkan."
+      },
+      {
+        "q": "Bisakah saya mengekspor data saya sebagai CSV atau Excel?",
+        "a": "Direncanakan untuk v1.5. Setelah beta berakhir, setiap pengguna mempertahankan hak untuk membawa data mereka."
+      },
+      {
+        "q": "Saya lupa kata sandi saya",
+        "a": "Ketuk \"Lupa kata sandi?\" di layar login — kami akan mengirimkan email berisi tautan reset kepada Anda. Periksa tab spam atau promosi jika Anda tidak melihatnya. Tautan berlaku selama 60 menit setelah dikirim."
+      },
+      {
+        "q": "Bisakah saya berbagi buku besar dengan keluarga atau pasangan saya?",
+        "a": "Buku besar bersama / grup ada di roadmap v2. Untuk saat ini, satu buku besar per akun disarankan."
+      },
+      {
+        "q": "Di mana saya mengirim umpan balik atau pertanyaan?",
+        "a": "Kirim email ke {{email}}. Laporan bug, ide perbaikan, dan permintaan fitur baru semuanya diterima dengan senang hati."
+      }
+    ],
+    "contactPrefix": "Masih penasaran? "
   }
 }

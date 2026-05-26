@@ -85,28 +85,57 @@ import anthropic  # noqa: E402  (after API key loader)
 client = anthropic.Anthropic(api_key=load_api_key())
 
 
-def flatten(d: dict, prefix: str = "") -> dict[str, str]:
+def flatten(d, prefix: str = "") -> dict[str, str]:
+    """dict + list 를 점 표기 경로로 평탄화. list 항목은 숫자 인덱스로 표현.
+    예: {"items": [{"q": "Hi"}]} -> {"items.0.q": "Hi"}
+    """
     out: dict[str, str] = {}
-    for k, v in d.items():
-        path = f"{prefix}.{k}" if prefix else k
-        if isinstance(v, dict):
+    if isinstance(d, dict):
+        for k, v in d.items():
+            path = f"{prefix}.{k}" if prefix else k
             out.update(flatten(v, path))
-        else:
-            out[path] = v
+    elif isinstance(d, list):
+        for i, v in enumerate(d):
+            path = f"{prefix}.{i}" if prefix else str(i)
+            out.update(flatten(v, path))
+    else:
+        if prefix:
+            out[prefix] = d
     return out
 
 
-def unflatten(flat: dict[str, str]) -> dict:
+def unflatten(flat: dict[str, str]):
+    """flatten 의 역. 숫자 키가 연속(0,1,2,...) 이면 list 로 복원."""
+    def _set(node, parts, value):
+        head = parts[0]
+        rest = parts[1:]
+        if not rest:
+            node[head] = value
+            return
+        if head not in node:
+            node[head] = {}
+        _set(node[head], rest, value)
+
     out: dict = {}
     for path, value in flat.items():
         parts = path.split(".")
-        cur = out
-        for p in parts[:-1]:
-            if p not in cur or not isinstance(cur[p], dict):
-                cur[p] = {}
-            cur = cur[p]
-        cur[parts[-1]] = value
-    return out
+        _set(out, parts, value)
+
+    def _to_lists(node):
+        if not isinstance(node, dict):
+            return node
+        # 자식 먼저 재귀
+        for k in list(node.keys()):
+            node[k] = _to_lists(node[k])
+        # 모든 키가 0..N-1 의 숫자면 list 로 변환
+        keys = list(node.keys())
+        if keys and all(k.isdigit() for k in keys):
+            idxs = sorted(int(k) for k in keys)
+            if idxs == list(range(len(idxs))):
+                return [node[str(i)] for i in idxs]
+        return node
+
+    return _to_lists(out)
 
 
 def translate_batch(target_lang_name: str, items: list[tuple[str, str]]) -> dict[str, str]:

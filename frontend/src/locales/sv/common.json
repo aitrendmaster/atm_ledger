@@ -167,25 +167,25 @@
         "name": "Hyra",
         "amount": "$1,400",
         "cycle": "25:e månadsvis",
-        "next": "Nov 25"
+        "next": "25 nov"
       },
       "row2": {
         "name": "Netflix",
         "amount": "$15.49",
         "cycle": "28:e månadsvis",
-        "next": "Nov 28"
+        "next": "28 nov"
       },
       "row3": {
         "name": "Försäkring",
         "amount": "$48",
         "cycle": "30:e månadsvis",
-        "next": "Nov 30"
+        "next": "30 nov"
       },
       "row4": {
         "name": "Gym",
         "amount": "$95",
         "cycle": "5:e månadsvis",
-        "next": "Dec 5"
+        "next": "5 dec"
       }
     },
     "compare": {
@@ -528,49 +528,49 @@
       "section1Tips": [
         "Starbucks 6500",
         "lunch kimbap 4000",
-        "spent 2,300 at the convenience store"
+        "spenderade 2 300 på närbutiken"
       ],
       "section2Title": "Flera samtidigt",
       "section2Tips": [
-        "today lunch 8000, cafe 5500, taxi 9000",
-        "groceries 32000 + movie 15000"
+        "idag lunch 8000, cafe 5500, taxi 9000",
+        "matvaror 32000 + biobiljett 15000"
       ],
       "section3Title": "Ange datum / tid",
       "section3Tips": [
-        "dinner with team yesterday 40000",
-        "haircut last Friday 30000",
-        "friend's wedding on Mar 15 100000"
+        "middag med teamet igår 40000",
+        "frisyr förra fredag 30000",
+        "vän's bröllopsfest 15 mars 100000"
       ],
       "section4Title": "Lägg till platsen",
       "section4Tips": [
-        "coffee at Starbucks Gangnam 6500",
-        "20000 at Olive Young near home",
-        "※ The AI only recognises the name — open the entry to pin the exact spot."
+        "kaffe på Starbucks Gangnam 6500",
+        "20000 på Olive Young nära hemmet",
+        "※ AI:n känner igen endast namnet — öppna posten för att markera den exakta platsen."
       ],
       "section5Title": "Kommande utgifter (planerad)",
       "section5Tips": [
-        "Netflix 17000 next Tuesday",
-        "rent 180000 due on the 15th",
-        "friend's birthday gift 50000 on the 5th of next month"
+        "Netflix 17000 nästa tisdag",
+        "hyra 180000 förfallen 15:e",
+        "väns födelsedagspresent 50000 5:e nästa månad"
       ],
       "section6Title": "Kvitton / foton",
       "section6Tips": [
-        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
-        "Multi-line receipts work too"
+        "Tryck på 📷 till vänster för att ladda upp ett kvitto — AI:n extraherar automatiskt artiklar, belopp och datum",
+        "Flerre-raders kvitton fungerar också"
       ],
       "section7Title": "Kategorisuggestioner",
       "section7Tips": [
-        "\"Olive Young mask sheet 10000\" → Health & Beauty",
+        "\"Olive Young ansiktsmask 10000\" → Hälsa & Skönhet",
         "\"taxi 12000\" → Transport",
-        "Wrong category? Edit it with the ✏️ button next to the entry"
+        "Fel kategori? Redigera den med ✏️-knappen bredvid posten"
       ],
       "tabsTitle": "Mer än chat",
       "tabsHint": "✏️ Använd penna-/papperskorg-ikonerna bredvid varje post för att redigera eller ta bort individuellt.",
       "notAllowedTitle": "Det här fungerar inte",
       "notAllowed": [
-        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
-        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
-        "· Personal IDs (full card numbers, government IDs) — never type them"
+        "· Meddelanden utan belopp (t.ex. \"gick till en cafe idag\") — inkludera beloppet",
+        "· Frågor orelaterade till ditt huvudbok (väder, nyheter osv.) — detta är endast för huvudboken",
+        "· Personliga ID:n (fullständiga kortnummer, statliga ID:n) — skriv aldrig dem"
       ],
       "close": "Klart, låt oss börja",
       "tabs": {
@@ -745,7 +745,7 @@
     }
   },
   "appHeader": {
-    "faq": "FAQ",
+    "faq": "Vanliga frågor",
     "myAccount": "Konto",
     "admin": "Admin",
     "logout": "Logga ut",
@@ -1070,5 +1070,57 @@
     "officerName": "Namn",
     "officerEmail": "E-post",
     "officerDesc": "Du kan också söka botemedel hos: Korean Personal Information Dispute Mediation Committee (1833-6972, kopico.go.kr), Personal Information Infringement Reporting Center (118, privacy.kisa.or.kr), Supreme Prosecutors' Office Cyber Investigation (1301, spo.go.kr), Korean National Police Cyber Bureau (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "Vanliga frågor · Hjälp",
+    "title": "Vanliga frågor",
+    "subtitle": "Kolla här först om något är oklart.",
+    "items": [
+      {
+        "q": "Är Moa AI Ledger betald?",
+        "a": "Det är gratis för närvarande. Alla huvudfunktioner är tillgängliga kostnadsfritt under betaperioden. Om en betald plan introduceras senare meddelas befintliga användare i förväg."
+      },
+      {
+        "q": "Är mina huvudboksdata säkra?",
+        "a": "Lösenord är krypterade envägskrypterade med bcrypt och all kommunikation går över HTTPS. Endast anonymiserad statistik skickas till Anthropic Claude API för AI-kategorisering och insikter."
+      },
+      {
+        "q": "Kan jag använda samma huvudbok på flera enheter?",
+        "a": "Ja. Logga in med din e-postadress och ditt lösenord var som helst — dina data förblir synkroniserade. Mobila webbläsare fungerar på samma sätt."
+      },
+      {
+        "q": "Hur fungerar AI:n?",
+        "a": "Skriv bara fritt, till exempel \"Starbucks 6500\", och Claude AI sorterar kategorin, beloppet och datumet åt dig. Vid månadsskiftet hjälper en AI-coach dig också att upptäcka utgiftsmönster. AI-resultat är endast för referens och kan inte vara 100 % korrekta."
+      },
+      {
+        "q": "Kan den läsa kvitton från foton?",
+        "a": "Ja. Tryck på kameraikon i chattinmatningen för att ladda upp ett kvitto — AI:n extraherar artiklar och belopp och lägger till dem automatiskt i din huvudbok."
+      },
+      {
+        "q": "Synkroniseras det automatiskt med banker eller kortföretag?",
+        "a": "Inte än. Open banking-integreringar (Kakao Bank, Toss, etc.) är på v2-färdplanen. För närvarande är chattinmatningar eller kvittofoto det snabbaste sättet."
+      },
+      {
+        "q": "Vad händer med mina data när jag tar bort mitt konto?",
+        "a": "Alla huvudboksposter, foton och reflektioner raderas omedelbar och permanent när kontot tas bort. Om tillämplig lagstiftning (e-handelslag etc.) kräver lagring behålls data separat under den perioden och raderas sedan."
+      },
+      {
+        "q": "Kan jag exportera mina data som CSV eller Excel?",
+        "a": "Planerat för v1.5. Efter betaperioden avslutas behåller varje användare rätten att ta med sig sina data."
+      },
+      {
+        "q": "Jag glömde mitt lösenord",
+        "a": "Tryck på \"Glömt lösenord?\" på inloggningsskärmen — vi skickar dig en återställningslänk via e-post. Kontrollera din spam- eller kampanjmapp om du inte ser det. Länken är giltig i 60 minuter efter skickandet."
+      },
+      {
+        "q": "Kan jag dela en huvudbok med min familj eller partner?",
+        "a": "Delade/gruppledger finns på v2-vägkarta. För närvarande rekommenderas en ledger per konto."
+      },
+      {
+        "q": "Var skickar jag feedback eller frågor?",
+        "a": "Mejla {{email}}. Felrapporter, förbättringsförslag och nya funktionsönskemål är välkomna."
+      }
+    ],
+    "contactPrefix": "Nyfiken på mer? "
   }
 }

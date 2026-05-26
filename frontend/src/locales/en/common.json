@@ -682,6 +682,58 @@
       "applyDefaults": "Apply defaults of the selected country"
     }
   },
+  "faq": {
+    "headerTitle": "FAQ · Help",
+    "title": "Frequently asked questions",
+    "subtitle": "Take a quick look here first if something's unclear.",
+    "items": [
+      {
+        "q": "Is Moa AI Ledger paid?",
+        "a": "It's free for now. All core features are available at no cost during the beta. If a paid plan is introduced later, existing users will be notified in advance."
+      },
+      {
+        "q": "Is my ledger data safe?",
+        "a": "Passwords are one-way hashed with bcrypt and every connection runs over HTTPS. Only anonymised stats are sent to the Anthropic Claude API for AI categorisation and insights."
+      },
+      {
+        "q": "Can I use the same ledger on multiple devices?",
+        "a": "Yes. Sign in with your email and password anywhere — your data stays in sync. Mobile browsers work the same way."
+      },
+      {
+        "q": "How does the AI work?",
+        "a": "Just type freely, like \"Starbucks 6500\", and Claude AI sorts the category, amount, and date for you. At month-end, an AI coach also surfaces spending-pattern insights. AI results are for reference and may not be 100% accurate."
+      },
+      {
+        "q": "Can it read receipt photos?",
+        "a": "Yes. Tap the camera icon in the chat input to upload a receipt — the AI extracts items and amounts and adds them to your ledger automatically."
+      },
+      {
+        "q": "Does it auto-sync with banks or card companies?",
+        "a": "Not yet. Open banking links (Kakao Bank, Toss, etc.) are on the v2 roadmap. For now, chat entries or receipt photos are the fastest path."
+      },
+      {
+        "q": "What happens to my data when I delete my account?",
+        "a": "All ledger entries, photos, and reflections are permanently deleted immediately on account deletion. If applicable laws (e-commerce act, etc.) require retention, the data is kept separately for that period and then destroyed."
+      },
+      {
+        "q": "Can I export my data as CSV or Excel?",
+        "a": "Planned for v1.5. After the beta ends, every user keeps the right to take their data with them."
+      },
+      {
+        "q": "I forgot my password",
+        "a": "Tap \"Forgot password?\" on the login screen — we'll email you a reset link. Check your spam or promotions tab if you don't see it. The link is valid for 60 minutes after sending."
+      },
+      {
+        "q": "Can I share a ledger with my family or partner?",
+        "a": "Shared / group ledgers are on the v2 roadmap. For now, one ledger per account is recommended."
+      },
+      {
+        "q": "Where do I send feedback or questions?",
+        "a": "Email {{email}}. Bug reports, improvement ideas, and new feature requests are all welcome."
+      }
+    ],
+    "contactPrefix": "Still curious? "
+  },
   "appHeader": {
     "faq": "FAQ",
     "myAccount": "Account",

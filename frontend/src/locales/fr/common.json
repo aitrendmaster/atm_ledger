@@ -233,7 +233,7 @@
   },
   "login": {
     "subtitle": "Connectez-vous et commencez votre registre.",
-    "email": "Email",
+    "email": "E-mail",
     "password8": "Mot de passe (8+ caractères)",
     "submit": "Se connecter",
     "submitBusy": "Connexion en cours…",
@@ -298,7 +298,7 @@
       "thousand": "k"
     },
     "tabs": {
-      "chat": "Chat",
+      "chat": "Discussion",
       "calendar": "Calendrier",
       "places": "Lieux",
       "reflect": "Bilan",
@@ -370,7 +370,7 @@
     "categories": {
       "식비": "Alimentation",
       "카페/간식": "Café et Snacks",
-      "쇼핑": "Shopping",
+      "쇼핑": "Courses",
       "교통": "Transport",
       "주거/공과금": "Logement et Charges",
       "건강/뷰티": "Santé et Beauté",
@@ -527,50 +527,50 @@
       "section1Title": "Entrée en une ligne",
       "section1Tips": [
         "Starbucks 6500",
-        "lunch kimbap 4000",
-        "spent 2,300 at the convenience store"
+        "déjeuner kimbap 4000",
+        "dépensé 2 300 à la supérette"
       ],
       "section2Title": "Plusieurs à la fois",
       "section2Tips": [
-        "today lunch 8000, cafe 5500, taxi 9000",
-        "groceries 32000 + movie 15000"
+        "aujourd'hui déjeuner 8000, café 5500, taxi 9000",
+        "courses 32000 + cinéma 15000"
       ],
       "section3Title": "Préciser la date / heure",
       "section3Tips": [
-        "dinner with team yesterday 40000",
-        "haircut last Friday 30000",
-        "friend's wedding on Mar 15 100000"
+        "dîner en équipe hier 40000",
+        "coupe de cheveux vendredi dernier 30000",
+        "mariage d'un ami le 15 mars 100000"
       ],
       "section4Title": "Inclure le lieu",
       "section4Tips": [
-        "coffee at Starbucks Gangnam 6500",
-        "20000 at Olive Young near home",
-        "※ The AI only recognises the name — open the entry to pin the exact spot."
+        "café chez Starbucks Gangnam 6500",
+        "20000 chez Olive Young près de chez moi",
+        "※ L'IA reconnaît uniquement le nom — ouvrez l'entrée pour épingler l'emplacement exact."
       ],
       "section5Title": "Dépense à venir (planifiée)",
       "section5Tips": [
-        "Netflix 17000 next Tuesday",
-        "rent 180000 due on the 15th",
-        "friend's birthday gift 50000 on the 5th of next month"
+        "Netflix 17000 mardi prochain",
+        "loyer 180000 le 15",
+        "cadeau d'anniversaire d'un ami 50000 le 5 du mois prochain"
       ],
       "section6Title": "Reçus / photos",
       "section6Tips": [
-        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
-        "Multi-line receipts work too"
+        "Appuyez sur 📷 à gauche pour télécharger un reçu — l'IA extrait automatiquement les articles, le montant et la date",
+        "Les reçus multiligne fonctionnent aussi"
       ],
       "section7Title": "Indices de catégorie",
       "section7Tips": [
-        "\"Olive Young mask sheet 10000\" → Health & Beauty",
-        "\"taxi 12000\" → Transport",
-        "Wrong category? Edit it with the ✏️ button next to the entry"
+        "« masque Olive Young 10000 » → Santé & Beauté",
+        "« taxi 12000 » → Transport",
+        "Mauvaise catégorie ? Modifiez-la avec le bouton ✏️ à côté de l'entrée"
       ],
       "tabsTitle": "Plus que le chat",
       "tabsHint": "✏️ Utilisez les icônes crayon/poubelle à côté de chaque entrée pour modifier ou supprimer individuellement.",
       "notAllowedTitle": "Ceux-ci ne fonctionneront pas",
       "notAllowed": [
-        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
-        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
-        "· Personal IDs (full card numbers, government IDs) — never type them"
+        "· Messages sans montant (ex. « allé au café aujourd'hui ») — indiquez le montant",
+        "· Questions sans rapport avec votre ledger (météo, actualités, etc.) — réservé au ledger uniquement",
+        "· Identifiants personnels (numéro de carte complet, documents officiels) — ne les tapez jamais"
       ],
       "close": "Compris, commençons",
       "tabs": {
@@ -591,7 +591,7 @@
       "billing": "Facturation",
       "privacy": "Confidentialité",
       "location": "Localisation",
-      "export": "Export"
+      "export": "Exporter"
     },
     "account": {
       "title": "Compte",
@@ -909,7 +909,7 @@
     "operatorCeo": "PDG",
     "operatorBizNo": "N° d'enregistrement commercial",
     "operatorMailOrder": "N° de commerce par correspondance",
-    "operatorContact": "Support"
+    "operatorContact": "Assistance"
   },
   "refund": {
     "title": "Politique de remboursement",
@@ -1012,7 +1012,7 @@
     "companyBizNo": "N° d'enregistrement commercial",
     "companyMailOrder": "N° d'agrément vente à distance",
     "companyAddress": "Adresse",
-    "companyContact": "Support"
+    "companyContact": "Assistance"
   },
   "privacy": {
     "title": "Politique de confidentialité",
@@ -1070,5 +1070,57 @@
     "officerName": "Nom",
     "officerEmail": "Email",
     "officerDesc": "Vous pouvez également chercher réparation auprès de : Commission coréenne de médiation des litiges relatifs aux informations personnelles (1833-6972, kopico.go.kr), Centre de signalement des violations des informations personnelles (118, privacy.kisa.or.kr), Bureau des enquêtes cybernétiques du Parquet suprême (1301, spo.go.kr), Bureau cybernétique de la Police nationale coréenne (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "FAQ · Aide",
+    "title": "Questions fréquemment posées",
+    "subtitle": "Jetez un œil ici d'abord si quelque chose n'est pas clair.",
+    "items": [
+      {
+        "q": "Moa AI Ledger est-il payant ?",
+        "a": "C'est gratuit pour le moment. Toutes les fonctionnalités essentielles sont disponibles sans frais pendant la bêta. Si un plan payant est lancé ultérieurement, les utilisateurs existants seront notifiés à l'avance."
+      },
+      {
+        "q": "Mes données de registre sont-elles sûres ?",
+        "a": "Les mots de passe sont hachés à sens unique avec bcrypt et chaque connexion utilise HTTPS. Seules les statistiques anonymisées sont envoyées à l'API Claude Anthropic pour la catégorisation et les analyses IA."
+      },
+      {
+        "q": "Puis-je utiliser le même registre sur plusieurs appareils ?",
+        "a": "Oui. Connectez-vous avec votre email et mot de passe n'importe où — vos données restent synchronisées. Les navigateurs mobiles fonctionnent de la même manière."
+      },
+      {
+        "q": "Comment fonctionne l'IA ?",
+        "a": "Tapez librement, par exemple « Starbucks 6500 », et Claude AI trie la catégorie, le montant et la date pour vous. En fin de mois, un coach IA affiche également des insights sur vos habitudes de dépenses. Les résultats IA sont à titre informatif et peuvent ne pas être 100 % précis."
+      },
+      {
+        "q": "Peut-elle lire des photos de reçus ?",
+        "a": "Oui. Appuyez sur l'icône appareil photo dans l'entrée de chat pour télécharger un reçu — l'IA extrait les articles et les montants et les ajoute automatiquement à votre registre."
+      },
+      {
+        "q": "Se synchronise-t-elle automatiquement avec les banques ou les sociétés de cartes ?",
+        "a": "Pas encore. Les liens open banking (Kakao Bank, Toss, etc.) sont sur la feuille de route v2. Pour le moment, les entrées de chat ou les photos de reçus sont le chemin le plus rapide."
+      },
+      {
+        "q": "Que deviennent mes données quand je supprime mon compte ?",
+        "a": "Toutes les entrées de registre, photos et réflexions sont définitivement supprimées immédiatement lors de la suppression du compte. Si les lois applicables (loi sur le commerce électronique, etc.) exigent la conservation, les données sont conservées séparément pour cette période puis détruites."
+      },
+      {
+        "q": "Puis-je exporter mes données en CSV ou Excel ?",
+        "a": "Prévu pour v1.5. Après la fin de la bêta, chaque utilisateur conserve le droit de récupérer ses données."
+      },
+      {
+        "q": "J'ai oublié mon mot de passe",
+        "a": "Appuyez sur « Mot de passe oublié ? » sur l'écran de connexion — nous vous enverrons un lien de réinitialisation. Vérifiez votre dossier spam ou promotions si vous ne le voyez pas. Le lien est valide pendant 60 minutes après l'envoi."
+      },
+      {
+        "q": "Puis-je partager un registre avec ma famille ou mon partenaire ?",
+        "a": "Les registres partagés / collectifs sont sur la feuille de route v2. Pour le moment, un registre par compte est recommandé."
+      },
+      {
+        "q": "Où envoyer mes commentaires ou questions ?",
+        "a": "Envoyez un email à {{email}}. Les rapports de bugs, idées d'amélioration et demandes de nouvelles fonctionnalités sont tous les bienvenus."
+      }
+    ],
+    "contactPrefix": "Toujours curieux ? "
   }
 }

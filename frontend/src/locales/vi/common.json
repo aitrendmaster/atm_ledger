@@ -542,7 +542,45 @@
         "reflect": "Rückblick — ghi lại những chiến thắng, tiếc nuối và cam kết mỗi tháng",
         "plan": "Kế hoạch — ghi chi phí sắp tới cho tháng sắp đến",
         "balance": "Số dư — thu nhập, chi tiêu và tỷ lệ tiết kiệm một cách rõ ràng"
-      }
+      },
+      "section1Tips": [
+        "Starbucks 6500",
+        "cơm trưa kimbap 4000",
+        "tiêu 2.300 tại cửa hàng tiện lợi"
+      ],
+      "section2Tips": [
+        "cơm trưa hôm nay 8000, cafe 5500, taxi 9000",
+        "thực phẩm 32000 + phim 15000"
+      ],
+      "section3Tips": [
+        "cơm tối với team hôm qua 40000",
+        "cắt tóc thứ Sáu tuần trước 30000",
+        "đám cưới bạn 15 tháng 3 100000"
+      ],
+      "section4Tips": [
+        "cà phê tại Starbucks Gangnam 6500",
+        "20000 tại Olive Young gần nhà",
+        "※ AI chỉ nhận diện tên cửa hàng — mở mục để ghim vị trí chính xác."
+      ],
+      "section5Tips": [
+        "Netflix 17000 tuần tới",
+        "tiền nhà 180000 thanh toán ngày 15",
+        "quà sinh nhật bạn 50000 ngày 5 tháng tới"
+      ],
+      "section6Tips": [
+        "Nhấn 📷 bên trái để tải hóa đơn — AI tự động trích xuất các mục, số tiền và ngày tháng",
+        "Hóa đơn nhiều dòng cũng được"
+      ],
+      "section7Tips": [
+        "\"mặt nạ Olive Young 10000\" → Sức khỏe & Làm đẹp",
+        "\"taxi 12000\" → Giao thông",
+        "Sai danh mục? Sửa bằng nút ✏️ bên cạnh mục nhập"
+      ],
+      "notAllowed": [
+        "· Tin nhắn không có số tiền (ví dụ \"đã đi cafe hôm nay\") — hãy thêm số tiền",
+        "· Câu hỏi không liên quan đến sổ cái (thời tiết, tin tức, v.v.) — chỉ dành cho sổ cái",
+        "· ID cá nhân (số thẻ đầy đủ, ID chính phủ) — không bao giờ nhập chúng"
+      ]
     }
   },
   "mypage": {
@@ -1033,5 +1071,57 @@
     "officerName": "Tên",
     "officerEmail": "Email",
     "officerDesc": "Bạn cũng có thể tìm cách khắc phục tại: Ủy ban Trọng tài Tranh chấp Thông tin Cá nhân Hàn Quốc (1833-6972, kopico.go.kr), Trung tâm Báo cáo Vi phạm Thông tin Cá nhân (118, privacy.kisa.or.kr), Văn phòng Công tố viên Tối cao Điều tra Mạng (1301, spo.go.kr), Cục Mạng Cảnh sát Quốc gia Hàn Quốc (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "Câu hỏi thường gặp · Trợ giúp",
+    "title": "Câu hỏi thường gặp",
+    "subtitle": "Hãy xem nhanh ở đây nếu bạn không rõ điều gì.",
+    "items": [
+      {
+        "q": "Moa AI Ledger có phải là dịch vụ trả phí?",
+        "a": "Hiện tại hoàn toàn miễn phí. Tất cả các tính năng cốt lõi đều có sẵn miễn phí trong giai đoạn beta. Nếu sau này có gói trả phí, chúng tôi sẽ thông báo trước cho người dùng hiện tại."
+      },
+      {
+        "q": "Dữ liệu sổ cái của tôi có an toàn không?",
+        "a": "Mật khẩu được mã hóa một chiều bằng bcrypt và mọi kết nối đều chạy qua HTTPS. Chỉ thống kê ẩn danh được gửi đến Claude API của Anthropic để phân loại và phân tích bằng AI."
+      },
+      {
+        "q": "Tôi có thể dùng cùng một sổ cái trên nhiều thiết bị không?",
+        "a": "Có. Đăng nhập bằng email và mật khẩu ở bất kỳ đâu — dữ liệu của bạn luôn được đồng bộ. Trình duyệt di động hoạt động tương tự."
+      },
+      {
+        "q": "AI hoạt động như thế nào?",
+        "a": "Chỉ cần gõ tự do, ví dụ \"Starbucks 6500\", Claude AI sẽ phân loại danh mục, số tiền và ngày tháng cho bạn. Vào cuối tháng, AI coach cũng sẽ cung cấp những hiểu biết về mô hình chi tiêu. Kết quả AI chỉ dùng để tham khảo và có thể không chính xác 100%."
+      },
+      {
+        "q": "Nó có thể đọc ảnh hóa đơn không?",
+        "a": "Có. Nhấn biểu tượng camera trong ô nhập liệu trò chuyện để tải lên hóa đơn — AI sẽ trích xuất các mục và số tiền rồi tự động thêm vào sổ cái của bạn."
+      },
+      {
+        "q": "Nó có tự động đồng bộ với ngân hàng hoặc công ty thẻ không?",
+        "a": "Chưa. Các liên kết open banking (Kakao Bank, Toss, v.v.) nằm trong lộ trình v2. Hiện tại, nhập liệu trò chuyện hoặc ảnh hóa đơn là cách nhanh nhất."
+      },
+      {
+        "q": "Dữ liệu của tôi sẽ như thế nào khi tôi xóa tài khoản?",
+        "a": "Tất cả các mục sổ cái, ảnh và ghi chép sẽ bị xóa vĩnh viễn ngay lập tức khi xóa tài khoản. Nếu các luật hiện hành (luật thương mại điện tử, v.v.) yêu cầu lưu giữ, dữ liệu sẽ được lưu riêng trong khoảng thời gian đó rồi bị xóa."
+      },
+      {
+        "q": "Tôi có thể xuất dữ liệu của mình dưới dạng CSV hoặc Excel không?",
+        "a": "Dự kiến trong v1.5. Sau khi beta kết thúc, mỗi người dùng sẽ có quyền lấy dữ liệu của họ."
+      },
+      {
+        "q": "Tôi quên mật khẩu",
+        "a": "Nhấn \"Quên mật khẩu?\" trên màn hình đăng nhập — chúng tôi sẽ gửi email hướng dẫn đặt lại cho bạn. Kiểm tra thư mục spam hoặc khuyến mãi nếu bạn không thấy. Liên kết có hiệu lực trong 60 phút sau khi được gửi."
+      },
+      {
+        "q": "Tôi có thể chia sẻ sổ cái với gia đình hoặc bạn đời không?",
+        "a": "Sổ cái chia sẻ / nhóm nằm trong lộ trình v2. Hiện tại, một sổ cái cho mỗi tài khoản được khuyến nghị."
+      },
+      {
+        "q": "Tôi gửi phản hồi hoặc câu hỏi ở đâu?",
+        "a": "Email {{email}}. Báo cáo lỗi, ý tưởng cải thiện và yêu cầu tính năng mới đều được hoan nghênh."
+      }
+    ],
+    "contactPrefix": "Còn tò mò? "
   }
 }

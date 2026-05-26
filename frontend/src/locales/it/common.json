@@ -82,7 +82,7 @@
       }
     },
     "feature1": {
-      "label": "Feature 01 · Chat input",
+      "label": "Funzione 01 · Input chat",
       "title": "Smetti di premere categorie. Digita basta.",
       "desc": "Scrivi a Moa come già pensi. L'AI estrae categoria, importo, data e luogo.",
       "point1": "Linguaggio naturale come \"pranzo $9\" funziona",
@@ -318,7 +318,7 @@
       "won": ""
     },
     "input": {
-      "placeholder": "Starbucks $5…",
+      "placeholder": "Starbucks 5€…",
       "send": "Invia",
       "retry": "Puoi riformulare?",
       "tryAgain": "Per favore riprova.",
@@ -527,50 +527,50 @@
       "section1Title": "Movimento singolo",
       "section1Tips": [
         "Starbucks 6500",
-        "lunch kimbap 4000",
-        "spent 2,300 at the convenience store"
+        "pranzo kimbap 4000",
+        "speso 2.300 al negozio di alimentari"
       ],
       "section2Title": "Più movimenti insieme",
       "section2Tips": [
-        "today lunch 8000, cafe 5500, taxi 9000",
-        "groceries 32000 + movie 15000"
+        "oggi pranzo 8000, caffè 5500, taxi 9000",
+        "spesa 32000 + film 15000"
       ],
       "section3Title": "Specifica data / ora",
       "section3Tips": [
-        "dinner with team yesterday 40000",
-        "haircut last Friday 30000",
-        "friend's wedding on Mar 15 100000"
+        "cena con il team ieri 40000",
+        "taglio capelli venerdì scorso 30000",
+        "matrimonio amico il 15 mar 100000"
       ],
       "section4Title": "Includi il luogo",
       "section4Tips": [
-        "coffee at Starbucks Gangnam 6500",
-        "20000 at Olive Young near home",
-        "※ The AI only recognises the name — open the entry to pin the exact spot."
+        "caffè a Starbucks Gangnam 6500",
+        "20000 a Olive Young vicino casa",
+        "※ L'AI riconosce solo il nome — apri la voce per fissare il punto esatto."
       ],
       "section5Title": "Spesa futura (pianificata)",
       "section5Tips": [
-        "Netflix 17000 next Tuesday",
-        "rent 180000 due on the 15th",
-        "friend's birthday gift 50000 on the 5th of next month"
+        "Netflix 17000 martedì prossimo",
+        "affitto 180000 scadenza 15",
+        "regalo compleanno amico 50000 il 5 del mese prossimo"
       ],
       "section6Title": "Ricevute / foto",
       "section6Tips": [
-        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
-        "Multi-line receipts work too"
+        "Tocca la 📷 a sinistra per caricare una ricevuta — l'AI estrae articoli, importo e data automaticamente",
+        "Funzionano anche ricevute multi-riga"
       ],
       "section7Title": "Suggerimenti categoria",
       "section7Tips": [
-        "\"Olive Young mask sheet 10000\" → Health & Beauty",
-        "\"taxi 12000\" → Transport",
-        "Wrong category? Edit it with the ✏️ button next to the entry"
+        "\"Olive Young maschera viso 10000\" → Salute e Bellezza",
+        "\"taxi 12000\" → Trasporti",
+        "Categoria sbagliata? Modificala con il pulsante ✏️ accanto alla voce"
       ],
       "tabsTitle": "Più di una chat",
       "tabsHint": "✏️ Usa le icone matita/cestino accanto a ogni movimento per modificare o eliminare singolarmente.",
       "notAllowedTitle": "Questi non funzioneranno",
       "notAllowed": [
-        "· Messages without an amount (e.g. \"went to a cafe today\") — include the amount",
-        "· Questions unrelated to your ledger (weather, news, etc.) — this is for ledger only",
-        "· Personal IDs (full card numbers, government IDs) — never type them"
+        "· Messaggi senza importo (es. \"sono stato in un bar oggi\") — includi l'importo",
+        "· Domande non correlate al tuo libro mastro (meteo, notizie, ecc.) — questo è solo per il libro mastro",
+        "· Documenti personali (numero completo della carta, documenti governativi) — non digitarli mai"
       ],
       "close": "Perfetto, iniziamo",
       "tabs": {
@@ -1070,5 +1070,57 @@
     "officerName": "Nome",
     "officerEmail": "Email",
     "officerDesc": "Puoi anche cercare rimedio presso: Commissione coreana di mediazione delle controversie sulla protezione delle informazioni personali (1833-6972, kopico.go.kr), Centro di segnalazione delle violazioni delle informazioni personali (118, privacy.kisa.or.kr), Ufficio dell'Ufficio del Procuratore Supremo Indagini Cyber (1301, spo.go.kr), Ufficio Cyber della Polizia nazionale coreana (182, ecrm.cyber.go.kr)."
+  },
+  "faq": {
+    "headerTitle": "FAQ · Aiuto",
+    "title": "Domande frequenti",
+    "subtitle": "Dai un'occhiata qui se qualcosa non è chiaro.",
+    "items": [
+      {
+        "q": "Moa AI Ledger è a pagamento?",
+        "a": "È gratuito per ora. Tutte le funzionalità principali sono disponibili senza costi durante la beta. Se in futuro verrà introdotto un piano a pagamento, gli utenti esistenti saranno avvisati in anticipo."
+      },
+      {
+        "q": "I miei dati del ledger sono al sicuro?",
+        "a": "Le password sono crittografate con bcrypt e ogni connessione avviene tramite HTTPS. Solo statistiche anonimizzate vengono inviate all'API Claude di Anthropic per la categorizzazione e gli insight dell'AI."
+      },
+      {
+        "q": "Posso usare lo stesso ledger su più dispositivi?",
+        "a": "Sì. Accedi con email e password ovunque — i tuoi dati rimangono sincronizzati. I browser mobile funzionano allo stesso modo."
+      },
+      {
+        "q": "Come funziona l'AI?",
+        "a": "Scrivi liberamente, ad esempio \"Starbucks 6500\", e Claude AI categorizza automaticamente la spesa, l'importo e la data. A fine mese, un coach AI ti mostra anche insight sui tuoi modelli di spesa. I risultati dell'AI sono a scopo informativo e potrebbero non essere accurati al 100%."
+      },
+      {
+        "q": "Può leggere le foto degli scontrini?",
+        "a": "Sì. Tocca l'icona della fotocamera nell'input della chat per caricare uno scontrino — l'AI estrae automaticamente gli articoli e gli importi e li aggiunge al tuo ledger."
+      },
+      {
+        "q": "Si sincronizza automaticamente con banche o società di carte?",
+        "a": "Non ancora. I collegamenti di open banking (Kakao Bank, Toss, ecc.) sono nella roadmap v2. Per ora, le voci chat o le foto degli scontrini sono il percorso più veloce."
+      },
+      {
+        "q": "Che cosa succede ai miei dati quando cancello il mio account?",
+        "a": "Tutte le voci del ledger, le foto e i dati personali vengono eliminati permanentemente e immediatamente al momento della cancellazione dell'account. Se le leggi applicabili (legge sul commercio elettronico, ecc.) richiedono la conservazione, i dati vengono conservati separatamente per quel periodo e poi distrutti."
+      },
+      {
+        "q": "Posso esportare i miei dati in CSV o Excel?",
+        "a": "Previsto per v1.5. Dopo la fine della beta, ogni utente avrà il diritto di portare i propri dati con sé."
+      },
+      {
+        "q": "Ho dimenticato la mia password",
+        "a": "Tocca \"Password dimenticata?\" sulla schermata di accesso — ti invieremo un link di ripristino via email. Controlla la cartella spam o promozioni se non lo vedi. Il link è valido per 60 minuti dopo l'invio."
+      },
+      {
+        "q": "Posso condividere un ledger con la mia famiglia o il mio partner?",
+        "a": "I ledger condivisi o di gruppo sono nella roadmap v2. Per ora, un ledger per account è consigliato."
+      },
+      {
+        "q": "Dove posso inviare feedback o domande?",
+        "a": "Invia un'email a {{email}}. Segnalazioni di bug, idee di miglioramento e richieste di nuove funzionalità sono sempre benvenute."
+      }
+    ],
+    "contactPrefix": "Ancora curioso? "
   }
 }
