@@ -26,7 +26,10 @@ class Settings(BaseSettings):
     jwt_access_ttl_min: int = 60
     jwt_refresh_ttl_days: int = 30
 
-    cors_origins: str = "http://localhost:5173"
+    # Production 은 Render env var 로 override.
+    # 기본값에 Capacitor 모바일 origin (https://localhost, capacitor://localhost) 포함 —
+    # env var 가 빠져도 안드로이드/iOS 앱은 동작하도록 안전망 확보.
+    cors_origins: str = "http://localhost:5173,https://localhost,capacitor://localhost"
 
     anthropic_api_key: str = ""
 
