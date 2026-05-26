@@ -17,7 +17,9 @@ import {
   Trash2,
   User as UserIcon,
 } from 'lucide-react'
+import { App as CapacitorApp } from '@capacitor/app'
 import { authApi, meApi } from '../services/api'
+import { isNative, openExternalCheckout } from '../services/platform'
 import { useAuth } from '../hooks/useAuth'
 import AppHeader from '../components/AppHeader'
 import i18n, { SUPPORTED_LOCALES } from '../i18n'
@@ -346,7 +348,12 @@ function BillingTab({
     try {
       // plan 미지정 — 백엔드가 설정된 variant 자동 선택, LS 페이지에서 월/연 선택 가능.
       const { data } = await meApi.lemonSqueezyCheckoutUrl()
-      window.location.href = data.url
+      toast('결제가 끝나면 앱으로 돌아와 주세요. 자동으로 갱신됩니다.', {
+        duration: 4000,
+        icon: '🪟',
+      })
+      // 네이티브(Android)면 Chrome Custom Tab, 웹이면 같은 탭 이동.
+      await openExternalCheckout(data.url)
     } catch (err: any) {
       const status = err?.response?.status
       if (status === 409) {
@@ -394,6 +401,33 @@ function BillingTab({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // LS 외부 체크아웃에서 돌아왔을 때 결제 상태 자동 refetch.
+  // 네이티브(Android): Capacitor App.resume — Chrome Custom Tab 이 닫히고 Activity 가
+  //   포그라운드로 돌아올 때 결정적으로 발화. (Samsung/MIUI 등 일부 OEM 에서 WebView 의
+  //   visibilitychange 가 안 터지는 케이스를 회피.)
+  // 웹: visibilitychange — 탭이 다시 보이면 발화.
+  // invalidateQueries 는 staleTime 을 무시하고 강제 refetch 한다.
+  useEffect(() => {
+    const refetchBilling = () =>
+      queryClient.invalidateQueries({ queryKey: ['me', 'billing'] })
+
+    if (isNative()) {
+      let remove: (() => void) | null = null
+      CapacitorApp.addListener('resume', refetchBilling).then((handle) => {
+        remove = () => handle.remove()
+      })
+      return () => {
+        remove?.()
+      }
+    }
+
+    const onVis = () => {
+      if (document.visibilityState === 'visible') refetchBilling()
+    }
+    document.addEventListener('visibilitychange', onVis)
+    return () => document.removeEventListener('visibilitychange', onVis)
+  }, [queryClient])
 
   const upgrade = async () => {
     const b = q.data

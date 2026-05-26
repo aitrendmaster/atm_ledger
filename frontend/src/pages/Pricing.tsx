@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { COMPANY } from '../config/company'
 import { meApi } from '../services/api'
+import { openExternalCheckout } from '../services/platform'
 import { isAxiosError } from 'axios'
 
 export default function Pricing() {
@@ -17,7 +18,9 @@ export default function Pricing() {
     try {
       // plan 미지정 — 백엔드가 설정된 variant 자동 선택. LS 페이지에서 월/연 선택 가능.
       const { data } = await meApi.lemonSqueezyCheckoutUrl()
-      window.location.href = data.url
+      toast(t('pricing.returnHint'), { duration: 4000, icon: '🪟' })
+      // 네이티브(Android)면 Chrome Custom Tab, 웹이면 같은 탭 이동.
+      await openExternalCheckout(data.url)
     } catch (err) {
       if (isAxiosError(err)) {
         const status = err.response?.status

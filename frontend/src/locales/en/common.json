@@ -619,6 +619,7 @@
     "paidCta": "Start Premium",
     "paidCtaYearly": "Annual ($35.99 · 2 months free)",
     "planSelectionHint": "You can choose monthly or annual on the next screen.",
+    "returnHint": "Return to the app once payment is done — we'll refresh automatically.",
     "betaActiveToast": "Premium features are free during the beta period.",
     "checkoutUnavailable": "Checkout is not yet enabled. We'll announce launch shortly.",
     "checkoutError": "We couldn't open checkout. Please try again in a moment.",
