@@ -5,15 +5,14 @@ Revises: b6e1f3c8d4a9
 Create Date: 2026-05-27 20:00:00.000000
 
 봇 가입 차단용 이메일 인증 시스템 도입.
-- email_verified (Boolean NOT NULL default False)
+- email_verified (Boolean, 기존 사용자 backfill 후 NOT NULL 로 승격)
 - email_verification_token (String 64, hashed, indexed)
 - email_verification_expires_at (DateTime UTC, nullable)
 
-기존 사용자 (운영자 + 정상 테스터) 는 backfill 로 email_verified=TRUE 처리하여
-이번 변경으로 인한 로그인 차단 경험 없도록 한다. 봇 5건도 같이 verified=true 가
-되지만 admin soft-delete 로 별도 정리.
-
-신규 가입자부터 email_verified=FALSE 로 들어오고 /auth/verify-email 통과 후 true 로 전환.
+3단계 절차로 PostgreSQL DEFAULT 캐스팅 이슈 회피:
+  1) ADD COLUMN ... NULL  (server_default 없음 → DEFAULT 절 자체가 SQL 에 들어가지 않음)
+  2) UPDATE 로 기존 사용자 전부 TRUE 로 backfill
+  3) ALTER COLUMN ... SET NOT NULL  (server_default 도 함께 부착해 신규 가입은 application default 적용)
 """
 from typing import Sequence, Union
 
@@ -28,17 +27,18 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # PostgreSQL Boolean 은 정수 0/1 을 자동 캐스팅하지 않음 — sa.text("false") 로 SQL FALSE 키워드 생성.
-    # asyncpg + SQLAlchemy 2 에서 가장 안전한 방식. SQLite 도 'false' 키워드 그대로 수용.
-    op.add_column(
+    # 1) email_verified — NULL 허용 상태로 추가 (DEFAULT 절 미포함).
+    op.add_column('users', sa.Column('email_verified', sa.Boolean(), nullable=True))
+    # 2) 기존 사용자 backfill — 운영자/테스터 UX 보존.
+    op.execute('UPDATE users SET email_verified = TRUE WHERE email_verified IS NULL')
+    # 3) NOT NULL 로 승격 + server_default 부착 (신규 행은 false).
+    op.alter_column(
         'users',
-        sa.Column(
-            'email_verified',
-            sa.Boolean(),
-            nullable=False,
-            server_default=sa.text("false"),
-        ),
+        'email_verified',
+        nullable=False,
+        server_default=sa.text('FALSE'),
     )
+
     op.add_column(
         'users',
         sa.Column('email_verification_token', sa.String(length=64), nullable=True),
@@ -53,8 +53,6 @@ def upgrade() -> None:
         ['email_verification_token'],
         unique=False,
     )
-    # 기존 사용자 backfill — 운영자/테스터 UX 보존. 신규 가입은 application default(False) 적용.
-    op.execute('UPDATE users SET email_verified = TRUE WHERE email_verified = FALSE')
 
 
 def downgrade() -> None:
