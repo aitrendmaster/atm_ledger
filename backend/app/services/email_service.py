@@ -70,3 +70,64 @@ def send_password_reset_email(to_email: str, reset_link: str, display_name: str 
     except Exception:
         logger.exception(f"Resend 비번 재설정 메일 발송 실패: to={to_email}")
         return False
+
+
+def send_verification_email(to_email: str, verify_link: str, display_name: str | None = None) -> bool:
+    """회원가입 후 이메일 인증 링크 발송. 미설정/실패 시 로그만 출력하고 False 반환.
+
+    봇 가입 차단 + 실제 사용자 본인 확인. 토큰은 호출처에서 발급 + DB 에 해시 저장.
+    링크 형식: {frontend_base_url}/#/verify-email?token=<raw_token>
+    """
+    settings = get_settings()
+    if not settings.resend_api_key:
+        logger.warning(
+            f"[DEV] RESEND_API_KEY 미설정 — 인증 메일 발송 생략. 수동 링크 전달:\n"
+            f"  to:   {to_email}\n"
+            f"  link: {verify_link}"
+        )
+        return False
+
+    try:
+        import resend  # type: ignore
+
+        resend.api_key = settings.resend_api_key
+        greeting = display_name or to_email.split("@", 1)[0]
+        html = f"""\
+<div style="font-family:system-ui,-apple-system,'Noto Sans KR',sans-serif;
+            max-width:520px;margin:0 auto;padding:24px;color:#2C2418;">
+  <h1 style="font-size:20px;margin:0 0 16px">Moa AI 가계부</h1>
+  <p style="margin:0 0 16px">{greeting} 님, 환영합니다!</p>
+  <p style="margin:0 0 20px">
+    가입을 완료하려면 아래 버튼을 눌러 이메일을 인증해 주세요.
+    인증 전에는 로그인이 제한됩니다. 링크는 24시간 동안만 유효합니다.
+  </p>
+  <p style="margin:0 0 28px;text-align:center">
+    <a href="{verify_link}"
+       style="display:inline-block;padding:12px 22px;background:#A0633C;color:#fff;
+              text-decoration:none;border-radius:10px;font-weight:600">
+      이메일 인증하기
+    </a>
+  </p>
+  <p style="font-size:12px;color:#7A7567;margin:0 0 8px">
+    버튼이 동작하지 않으면 아래 주소를 복사해 브라우저에 붙여 넣으세요.
+  </p>
+  <p style="font-size:12px;color:#7A7567;word-break:break-all;margin:0 0 24px">{verify_link}</p>
+  <hr style="border:none;border-top:1px solid #E8E2D5;margin:16px 0" />
+  <p style="font-size:12px;color:#7A7567;margin:0">
+    본인이 가입하지 않았다면 이 메일을 무시하셔도 됩니다.
+  </p>
+</div>
+"""
+        resend.Emails.send(
+            {
+                "from": settings.resend_from,
+                "to": [to_email],
+                "subject": "[Moa AI 가계부] 이메일 인증 안내",
+                "html": html,
+            }
+        )
+        logger.info(f"인증 메일 발송 완료: to={to_email}")
+        return True
+    except Exception:
+        logger.exception(f"Resend 인증 메일 발송 실패: to={to_email}")
+        return False

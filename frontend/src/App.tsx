@@ -14,6 +14,8 @@ import Admin from './pages/Admin'
 import FaqPage from './pages/FaqPage'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import VerifyEmail from './pages/VerifyEmail'
+import VerifyPending from './pages/VerifyPending'
 import MyPage from './pages/MyPage'
 import RecurringExpenses from './pages/RecurringExpenses'
 
@@ -34,6 +36,8 @@ export default function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/verify-pending" element={<VerifyPending />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/refund" element={<Refund />} />

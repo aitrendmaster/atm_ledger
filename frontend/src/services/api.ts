@@ -336,12 +336,22 @@ export interface SimpleResult {
   message: string | null
 }
 
+export interface SignupResult {
+  email: string
+  verification_sent: boolean
+  message: string
+}
+
 // ===== Auth =====
 export const authApi = {
   signup: (email: string, password: string, display_name?: string, extras?: SignupExtras) =>
-    api.post<TokenPair>('/auth/signup', { email, password, display_name, ...(extras || {}) }),
+    api.post<SignupResult>('/auth/signup', { email, password, display_name, ...(extras || {}) }),
   login: (email: string, password: string) =>
     api.post<TokenPair>('/auth/login', { email, password }),
+  verifyEmail: (token: string) =>
+    api.get<{ verified: boolean; email: string }>('/auth/verify-email', { params: { token } }),
+  resendVerification: (email: string) =>
+    api.post<SimpleResult>('/auth/resend-verification', { email }),
   me: () => api.get<User>('/auth/me'),
   updateMe: (
     patch: Partial<

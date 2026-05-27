@@ -240,7 +240,8 @@
     "noAccount": "Kein Konto?",
     "signupLink": "Registrieren",
     "forgotLink": "Passwort vergessen?",
-    "failed": "Anmeldung fehlgeschlagen"
+    "failed": "Anmeldung fehlgeschlagen",
+    "notVerified": "E-Mail-Bestätigung erforderlich. Bitte überprüfen Sie die E-Mail, die Sie bei der Anmeldung erhalten haben."
   },
   "signup": {
     "title": "Konto erstellen",
@@ -1126,5 +1127,26 @@
       }
     ],
     "contactPrefix": "Noch Fragen? "
+  },
+  "verifyPending": {
+    "title": "Überprüfen Sie Ihre E-Mail",
+    "body": "Wir haben einen Bestätigungslink an Ihre E-Mail gesendet. Öffnen Sie den Link, um die Einrichtung Ihres Kontos abzuschließen. Falls Sie ihn nicht sehen, überprüfen Sie den Spam-Ordner. Der Link ist 24 Stunden gültig.",
+    "resend": "Bestätigungs-E-Mail erneut senden",
+    "resendSuccess": "Bestätigungs-E-Mail erneut gesendet.",
+    "resendFailed": "Konnte nicht erneut gesendet werden. Bitte versuchen Sie es in einem Moment erneut.",
+    "emailRequired": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+    "emailPlaceholder": "E-Mail-Adresse",
+    "toLogin": "Zurück zur Anmeldung",
+    "hint": "Nach der Bestätigung melden Sie sich an, um Ihre Ausgaben zu verfolgen."
+  },
+  "verifyEmail": {
+    "pending": "Wird überprüft…",
+    "successTitle": "E-Mail bestätigt",
+    "successBody": "Sie können sich jetzt anmelden und Moa nutzen.",
+    "toLogin": "Zur Anmeldung",
+    "errorTitle": "Bestätigung fehlgeschlagen",
+    "failed": "Token ungültig oder abgelaufen.",
+    "noToken": "Kein Bestätigungstoken im Link.",
+    "resend": "Bestätigung erneut senden"
   }
 }

@@ -240,7 +240,8 @@
     "noAccount": "Sem conta?",
     "signupLink": "Cadastre-se",
     "forgotLink": "Esqueceu a senha?",
-    "failed": "Login falhou"
+    "failed": "Login falhou",
+    "notVerified": "Verificação de email necessária. Por favor, verifique o email que você recebeu ao se cadastrar."
   },
   "signup": {
     "title": "Criar conta",
@@ -836,7 +837,7 @@
     "freeCta": "Começar grátis",
     "paidPlan": "Premium",
     "paidBadge": "Recomendado",
-    "paidPriceMonthly": "$3.99",
+    "paidPriceMonthly": "$3,99",
     "perMonth": "/ mês",
     "paidPriceYearlyNote": "ou $35.99 / ano (24% de desconto) · preços auto-convertidos por país",
     "paidDesc": "IA ilimitada + coach mensal + OCR de recibos + exportação de dados. Tenha a experiência completa Moa.",
@@ -1126,5 +1127,26 @@
       }
     ],
     "contactPrefix": "Ainda curioso? "
+  },
+  "verifyPending": {
+    "title": "Verifique seu email",
+    "body": "Enviamos um link de verificação para seu email. Abra o link para finalizar a configuração da sua conta. Se não o encontrar, verifique a pasta de spam. O link é válido por 24 horas.",
+    "resend": "Reenviar email de verificação",
+    "resendSuccess": "Email de verificação reenviado.",
+    "resendFailed": "Não foi possível reenviar. Tente novamente em alguns instantes.",
+    "emailRequired": "Por favor, digite seu email.",
+    "emailPlaceholder": "Endereço de email",
+    "toLogin": "Voltar ao login",
+    "hint": "Após verificar, faça login para começar a acompanhar seus gastos."
+  },
+  "verifyEmail": {
+    "pending": "Verificando…",
+    "successTitle": "Email verificado",
+    "successBody": "Você já pode fazer login e começar a usar Moa.",
+    "toLogin": "Ir para login",
+    "errorTitle": "Falha na verificação",
+    "failed": "Token inválido ou expirado.",
+    "noToken": "Nenhum token de verificação encontrado no link.",
+    "resend": "Reenviar verificação"
   }
 }

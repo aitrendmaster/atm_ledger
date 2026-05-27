@@ -240,7 +240,8 @@
     "noAccount": "Inget konto?",
     "signupLink": "Registrera dig",
     "forgotLink": "Glömt lösenord?",
-    "failed": "Inloggning misslyckades"
+    "failed": "Inloggning misslyckades",
+    "notVerified": "E-postverifiering krävs. Kontrollera e-postmeddelandet du mottog vid registreringen."
   },
   "signup": {
     "title": "Skapa konto",
@@ -1126,5 +1127,26 @@
       }
     ],
     "contactPrefix": "Nyfiken på mer? "
+  },
+  "verifyPending": {
+    "title": "Kontrollera din e-post",
+    "body": "Vi har skickat en verifieringslänk till din e-post. Öppna länken för att slutföra kontoinställningarna. Om du inte ser den, kontrollera skräppostmappen. Länken är giltig i 24 timmar.",
+    "resend": "Skicka verifieringse-post igen",
+    "resendSuccess": "Verifieringse-post skickad igen.",
+    "resendFailed": "Kunde inte skicka igen. Försök igen om en stund.",
+    "emailRequired": "Ange din e-post.",
+    "emailPlaceholder": "E-postadress",
+    "toLogin": "Tillbaka till inloggning",
+    "hint": "Efter verifiering loggar du in för att börja spåra dina utgifter."
+  },
+  "verifyEmail": {
+    "pending": "Verifierar…",
+    "successTitle": "E-post verifierad",
+    "successBody": "Du kan nu logga in och börja använda Moa.",
+    "toLogin": "Gå till inloggning",
+    "errorTitle": "Verifiering misslyckades",
+    "failed": "Ogiltig eller utgången token.",
+    "noToken": "Ingen verifieringstoken i länken.",
+    "resend": "Skicka verifiering igen"
   }
 }

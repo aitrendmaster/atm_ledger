@@ -240,7 +240,8 @@
     "noAccount": "Belum ada akaun?",
     "signupLink": "Daftar",
     "forgotLink": "Terlupa kata laluan?",
-    "failed": "Log masuk gagal"
+    "failed": "Log masuk gagal",
+    "notVerified": "Pengesahan email diperlukan. Sila periksa e-mel yang anda terima semasa mendaftar."
   },
   "signup": {
     "title": "Cipta akaun",
@@ -1127,5 +1128,26 @@
       }
     ],
     "contactPrefix": "Masih ingin tahu? "
+  },
+  "verifyPending": {
+    "title": "Periksa e-mel anda",
+    "body": "Kami telah menghantar pautan pengesahan ke e-mel anda. Buka pautan untuk menyelesaikan penyediaan akaun anda. Jika anda tidak melihatnya, periksa folder spam. Pautan sah selama 24 jam.",
+    "resend": "Hantar semula e-mel pengesahan",
+    "resendSuccess": "E-mel pengesahan telah dihantar semula.",
+    "resendFailed": "Tidak dapat menghantar semula. Sila cuba lagi dalam sebentar.",
+    "emailRequired": "Sila masukkan e-mel anda.",
+    "emailPlaceholder": "Alamat e-mel",
+    "toLogin": "Kembali ke log masuk",
+    "hint": "Selepas pengesahan, log masuk untuk mula menjejaki perbelanjaan anda."
+  },
+  "verifyEmail": {
+    "pending": "Mengesahkan…",
+    "successTitle": "E-mel disahkan",
+    "successBody": "Anda kini boleh log masuk dan mula menggunakan Moa.",
+    "toLogin": "Pergi ke log masuk",
+    "errorTitle": "Pengesahan gagal",
+    "failed": "Token tidak sah atau telah tamat tempoh.",
+    "noToken": "Tiada token pengesahan dalam pautan.",
+    "resend": "Hantar semula pengesahan"
   }
 }

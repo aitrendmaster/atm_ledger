@@ -240,7 +240,8 @@
     "noAccount": "Pas de compte?",
     "signupLink": "S'inscrire",
     "forgotLink": "Mot de passe oublié?",
-    "failed": "Connexion échouée"
+    "failed": "Connexion échouée",
+    "notVerified": "Vérification d'email requise. Veuillez consulter l'email reçu lors de votre inscription."
   },
   "signup": {
     "title": "Créer un compte",
@@ -1126,5 +1127,26 @@
       }
     ],
     "contactPrefix": "Toujours curieux ? "
+  },
+  "verifyPending": {
+    "title": "Vérifiez votre email",
+    "body": "Nous avons envoyé un lien de vérification à votre email. Ouvrez le lien pour terminer la configuration de votre compte. Si vous ne le voyez pas, consultez votre dossier spam. Le lien est valide pendant 24 heures.",
+    "resend": "Renvoyer l'email de vérification",
+    "resendSuccess": "Email de vérification renvoyé.",
+    "resendFailed": "Impossible de renvoyer. Veuillez réessayer dans un instant.",
+    "emailRequired": "Veuillez entrer votre email.",
+    "emailPlaceholder": "Adresse email",
+    "toLogin": "Retour à la connexion",
+    "hint": "Après vérification, connectez-vous pour commencer à suivre vos dépenses."
+  },
+  "verifyEmail": {
+    "pending": "Vérification…",
+    "successTitle": "Email vérifié",
+    "successBody": "Vous pouvez maintenant vous connecter et commencer à utiliser Moa.",
+    "toLogin": "Aller à la connexion",
+    "errorTitle": "Vérification échouée",
+    "failed": "Token invalide ou expiré.",
+    "noToken": "Aucun token de vérification dans le lien.",
+    "resend": "Renvoyer la vérification"
   }
 }

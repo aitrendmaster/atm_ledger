@@ -240,7 +240,8 @@
     "noAccount": "Nessun account?",
     "signupLink": "Registrati",
     "forgotLink": "Password dimenticata?",
-    "failed": "Accesso non riuscito"
+    "failed": "Accesso non riuscito",
+    "notVerified": "Verifica email richiesta. Controlla l'email ricevuta al momento della registrazione."
   },
   "signup": {
     "title": "Crea account",
@@ -1126,5 +1127,26 @@
       }
     ],
     "contactPrefix": "Ancora curioso? "
+  },
+  "verifyPending": {
+    "title": "Controlla la tua email",
+    "body": "Abbiamo inviato un link di verifica alla tua email. Apri il link per completare la configurazione dell'account. Se non lo vedi, controlla la cartella spam. Il link è valido per 24 ore.",
+    "resend": "Rinvia email di verifica",
+    "resendSuccess": "Email di verifica rinviata.",
+    "resendFailed": "Impossibile inviare di nuovo. Riprova tra un momento.",
+    "emailRequired": "Inserisci la tua email.",
+    "emailPlaceholder": "Indirizzo email",
+    "toLogin": "Torna al login",
+    "hint": "Dopo la verifica, accedi per iniziare a tracciare le tue spese."
+  },
+  "verifyEmail": {
+    "pending": "Verifica in corso…",
+    "successTitle": "Email verificata",
+    "successBody": "Puoi ora accedere e iniziare a usare Moa.",
+    "toLogin": "Vai al login",
+    "errorTitle": "Verifica non riuscita",
+    "failed": "Token non valido o scaduto.",
+    "noToken": "Nessun token di verifica nel link.",
+    "resend": "Rinvia verifica"
   }
 }

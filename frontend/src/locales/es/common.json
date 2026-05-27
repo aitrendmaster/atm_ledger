@@ -240,7 +240,8 @@
     "noAccount": "¿Aún no tienes cuenta?",
     "signupLink": "Regístrate",
     "forgotLink": "¿Olvidaste tu contraseña?",
-    "failed": "No se pudo iniciar sesión"
+    "failed": "No se pudo iniciar sesión",
+    "notVerified": "Se requiere verificación de correo. Por favor, revisa el correo que recibiste al registrarte."
   },
   "signup": {
     "title": "Crear cuenta",
@@ -1127,5 +1128,26 @@
       }
     ],
     "contactPrefix": "¿Aún tienes dudas? "
+  },
+  "verifyPending": {
+    "title": "Revisa tu correo",
+    "body": "Hemos enviado un enlace de verificación a tu correo. Abre el enlace para terminar de configurar tu cuenta. Si no lo ves, revisa la carpeta de spam. El enlace es válido por 24 horas.",
+    "resend": "Reenviar correo de verificación",
+    "resendSuccess": "Correo de verificación reenviado.",
+    "resendFailed": "No pudimos reenviar. Por favor, intenta de nuevo en un momento.",
+    "emailRequired": "Por favor, ingresa tu correo.",
+    "emailPlaceholder": "Dirección de correo",
+    "toLogin": "Volver a iniciar sesión",
+    "hint": "Después de verificar, inicia sesión para empezar a rastrear tus gastos."
+  },
+  "verifyEmail": {
+    "pending": "Verificando…",
+    "successTitle": "Correo verificado",
+    "successBody": "Ahora puedes iniciar sesión y empezar a usar Moa.",
+    "toLogin": "Ir a iniciar sesión",
+    "errorTitle": "Verificación fallida",
+    "failed": "Token inválido o expirado.",
+    "noToken": "No hay token de verificación en el enlace.",
+    "resend": "Reenviar verificación"
   }
 }

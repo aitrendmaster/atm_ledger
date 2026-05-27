@@ -61,9 +61,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await loadMe()
     },
     async signup(email, password, displayName, extras) {
-      const r = await authApi.signup(email, password, displayName, extras)
-      tokenStore.set(r.data.access_token, r.data.refresh_token)
-      await loadMe()
+      // 가입은 토큰을 발급하지 않는다 — 이메일 인증 후 수동 로그인.
+      // 호출처(Signup.tsx)에서 응답을 기반으로 verify-pending 페이지로 이동.
+      await authApi.signup(email, password, displayName, extras)
     },
     async signinWithGoogle(idToken) {
       const r = await authApi.googleLogin(idToken)

@@ -240,7 +240,8 @@
     "noAccount": "Belum punya akun?",
     "signupLink": "Daftar",
     "forgotLink": "Lupa password?",
-    "failed": "Login gagal"
+    "failed": "Login gagal",
+    "notVerified": "Verifikasi email diperlukan. Silakan periksa email yang Anda terima saat mendaftar."
   },
   "signup": {
     "title": "Buat akun",
@@ -836,7 +837,7 @@
     "freeCta": "Mulai gratis",
     "paidPlan": "Premium",
     "paidBadge": "Rekomendasi",
-    "paidPriceMonthly": "$3.99",
+    "paidPriceMonthly": "$3,99",
     "perMonth": "/ bulan",
     "paidPriceYearlyNote": "atau $35.99 / tahun (hemat 24%) · harga otomatis dikonversi per negara",
     "paidDesc": "AI tak terbatas + pelatih review AI bulanan + OCR kuitansi + ekspor data. Dapatkan pengalaman Moa lengkap.",
@@ -1126,5 +1127,26 @@
       }
     ],
     "contactPrefix": "Masih penasaran? "
+  },
+  "verifyPending": {
+    "title": "Periksa email Anda",
+    "body": "Kami telah mengirimkan tautan verifikasi ke email Anda. Buka tautan untuk menyelesaikan pengaturan akun. Jika tidak menemukannya, periksa folder spam. Tautan berlaku selama 24 jam.",
+    "resend": "Kirim ulang email verifikasi",
+    "resendSuccess": "Email verifikasi telah dikirim ulang.",
+    "resendFailed": "Gagal mengirim ulang. Coba lagi dalam beberapa saat.",
+    "emailRequired": "Masukkan email Anda.",
+    "emailPlaceholder": "Alamat email",
+    "toLogin": "Kembali ke masuk",
+    "hint": "Setelah memverifikasi, masuk untuk mulai melacak pengeluaran Anda."
+  },
+  "verifyEmail": {
+    "pending": "Memverifikasi…",
+    "successTitle": "Email terverifikasi",
+    "successBody": "Anda sekarang dapat masuk dan mulai menggunakan Moa.",
+    "toLogin": "Ke halaman masuk",
+    "errorTitle": "Verifikasi gagal",
+    "failed": "Token tidak valid atau telah kadaluarsa.",
+    "noToken": "Tidak ada token verifikasi dalam tautan.",
+    "resend": "Kirim ulang verifikasi"
   }
 }

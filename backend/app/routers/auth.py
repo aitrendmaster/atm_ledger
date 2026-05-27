@@ -32,7 +32,7 @@ from ..schemas.auth import (
     UpdateProfileRequest,
     UserOut,
 )
-from ..services.email_service import send_password_reset_email
+from ..services.email_service import send_password_reset_email, send_verification_email
 
 
 def _user_out(u: User) -> UserOut:
@@ -72,8 +72,38 @@ def _issue_tokens(user_id: int) -> TokenPair:
     )
 
 
-@router.post("/signup", response_model=TokenPair, status_code=status.HTTP_201_CREATED)
-async def signup(body: SignupRequest, db: AsyncSession = Depends(get_db)):
+EMAIL_VERIFICATION_TTL_HOURS = 24
+
+
+def _hash_token(raw: str) -> str:
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def _issue_verification_token(user: User) -> str:
+    """raw token 생성 + user 에 sha256(token) + 만료 시각 기록. raw 반환 (한 번만 노출)."""
+    raw = secrets.token_urlsafe(32)
+    user.email_verification_token = _hash_token(raw)
+    user.email_verification_expires_at = datetime.now(timezone.utc) + timedelta(
+        hours=EMAIL_VERIFICATION_TTL_HOURS
+    )
+    return raw
+
+
+def _verification_link(raw_token: str) -> str:
+    settings = get_settings()
+    return f"{settings.frontend_base_url}/#/verify-email?token={raw_token}"
+
+
+@router.post("/signup", status_code=status.HTTP_201_CREATED)
+async def signup(
+    body: SignupRequest,
+    background_tasks: BackgroundTasks,
+    db: AsyncSession = Depends(get_db),
+):
+    """가입 — email_verified=False 로 생성 + 인증 메일 발송.
+
+    TokenPair 는 발급하지 않는다 (UX: 가입 직후 자동 로그인 X, 메일 인증 후 수동 로그인).
+    """
     try:
         res = await db.execute(select(User).where(User.email == body.email.lower()))
         if res.scalar_one_or_none():
@@ -91,11 +121,19 @@ async def signup(body: SignupRequest, db: AsyncSession = Depends(get_db)):
             country_code=country,
             currency_code=currency,
             locale=locale,
+            email_verified=False,
         )
+        raw_token = _issue_verification_token(user)
         db.add(user)
         await db.commit()
         await db.refresh(user)
-        return _issue_tokens(user.id)
+        verify_link = _verification_link(raw_token)
+        background_tasks.add_task(send_verification_email, user.email, verify_link, user.display_name)
+        return {
+            "email": user.email,
+            "verification_sent": True,
+            "message": "인증 메일을 발송했습니다. 메일함을 확인해 주세요.",
+        }
     except HTTPException:
         raise
     except Exception:
@@ -112,7 +150,54 @@ async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
     user = res.scalar_one_or_none()
     if not user or not user.password_hash or not verify_password(body.password, user.password_hash):
         raise HTTPException(status_code=401, detail="이메일 또는 비밀번호가 올바르지 않습니다.")
+    if not user.email_verified:
+        raise HTTPException(
+            status_code=403,
+            detail="이메일 인증이 필요합니다. 가입 시 받으신 메일의 인증 링크를 눌러 주세요.",
+        )
     return _issue_tokens(user.id)
+
+
+@router.get("/verify-email")
+async def verify_email(token: str, db: AsyncSession = Depends(get_db)):
+    """가입 시 받은 raw 토큰으로 인증 처리. 토큰은 1회용 — 사용 후 무효화."""
+    if not token or len(token) < 16:
+        raise HTTPException(status_code=400, detail="유효하지 않은 토큰입니다.")
+    hashed = _hash_token(token)
+    res = await db.execute(
+        select(User).where(User.email_verification_token == hashed)
+    )
+    user = res.scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=400, detail="유효하지 않거나 이미 사용된 토큰입니다.")
+    if user.email_verification_expires_at is not None:
+        expires = user.email_verification_expires_at
+        if expires.tzinfo is None:
+            expires = expires.replace(tzinfo=timezone.utc)
+        if expires < datetime.now(timezone.utc):
+            raise HTTPException(status_code=400, detail="만료된 토큰입니다. 인증 메일을 재발송해 주세요.")
+    user.email_verified = True
+    user.email_verification_token = None
+    user.email_verification_expires_at = None
+    await db.commit()
+    return {"verified": True, "email": user.email}
+
+
+@router.post("/resend-verification", response_model=SimpleResult)
+async def resend_verification(
+    body: PasswordResetRequestIn,
+    background_tasks: BackgroundTasks,
+    db: AsyncSession = Depends(get_db),
+):
+    """인증 메일 재발송. 이미 verified=true 면 no-op + 동일 응답 (계정 존재 여부 비공개)."""
+    res = await db.execute(select(User).where(User.email == body.email.lower()))
+    user = res.scalar_one_or_none()
+    if user and not user.email_verified:
+        raw_token = _issue_verification_token(user)
+        await db.commit()
+        verify_link = _verification_link(raw_token)
+        background_tasks.add_task(send_verification_email, user.email, verify_link, user.display_name)
+    return SimpleResult(ok=True, message="인증 메일을 재발송했습니다. 메일함을 확인해 주세요.")
 
 
 @router.post("/refresh", response_model=TokenPair)

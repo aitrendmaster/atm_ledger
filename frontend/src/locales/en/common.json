@@ -240,7 +240,29 @@
     "noAccount": "No account?",
     "signupLink": "Sign up",
     "forgotLink": "Forgot password?",
-    "failed": "Login failed"
+    "failed": "Login failed",
+    "notVerified": "Email verification required. Please check the email you received at signup."
+  },
+  "verifyPending": {
+    "title": "Check your email",
+    "body": "We've sent a verification link to your email. Open the link to finish setting up your account. If you don't see it, check the spam folder. The link is valid for 24 hours.",
+    "resend": "Resend verification email",
+    "resendSuccess": "Verification email resent.",
+    "resendFailed": "Couldn't resend. Please try again in a moment.",
+    "emailRequired": "Please enter your email.",
+    "emailPlaceholder": "Email address",
+    "toLogin": "Back to log in",
+    "hint": "After verifying, log in to start tracking your spending."
+  },
+  "verifyEmail": {
+    "pending": "Verifying…",
+    "successTitle": "Email verified",
+    "successBody": "You can now log in and start using Moa.",
+    "toLogin": "Go to log in",
+    "errorTitle": "Verification failed",
+    "failed": "Invalid or expired token.",
+    "noToken": "No verification token in the link.",
+    "resend": "Resend verification"
   },
   "signup": {
     "title": "Create account",

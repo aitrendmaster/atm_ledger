@@ -240,7 +240,8 @@
     "noAccount": "还没有账户?",
     "signupLink": "注册",
     "forgotLink": "忘记密码?",
-    "failed": "登录失败"
+    "failed": "登录失败",
+    "notVerified": "需要邮箱验证。请检查注册时收到的邮件。"
   },
   "signup": {
     "title": "创建账户",
@@ -353,7 +354,8 @@
       "reviewPlaceholder": "这里怎么样?",
       "photo": "照片",
       "photoUploading": "上传中…",
-      "photoTotal": "共 {{count}} 张照片"
+      "photoTotal": "共 {{count}} 张照片",
+      "sortRecent": "最近"
     },
     "categories": {
       "식비": "餐饮",
@@ -1094,5 +1096,26 @@
         "q": "我忘记密码了"
       }
     }
+  },
+  "verifyPending": {
+    "title": "检查您的邮箱",
+    "body": "我们已向您的邮箱发送验证链接。打开链接完成账户设置。如果没有看到邮件，请检查垃圾箱。链接24小时内有效。",
+    "resend": "重新发送验证邮件",
+    "resendSuccess": "验证邮件已重新发送。",
+    "resendFailed": "无法重新发送。请稍后再试。",
+    "emailRequired": "请输入邮箱地址。",
+    "emailPlaceholder": "邮箱地址",
+    "toLogin": "返回登录",
+    "hint": "验证后，登录即可开始追踪支出。"
+  },
+  "verifyEmail": {
+    "pending": "验证中…",
+    "successTitle": "邮箱已验证",
+    "successBody": "您现在可以登录并开始使用 Moa。",
+    "toLogin": "前往登录",
+    "errorTitle": "验证失败",
+    "failed": "无效或已过期的令牌。",
+    "noToken": "链接中没有验证令牌。",
+    "resend": "重新发送验证"
   }
 }

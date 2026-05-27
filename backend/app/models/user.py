@@ -90,6 +90,16 @@ class User(Base):
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False, server_default="0")
     # Soft delete. NULL 이면 활성, 값이 있으면 비활성 (로그인 차단, admin 목록에서 제외).
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # 이메일 인증 — 신규 가입 시 false, 토큰 검증 통과하면 true. 미인증 계정은 로그인 차단 (봇 방어).
+    # Alembic 마이그레이션에서 기존 사용자는 일괄 true 로 backfill (기존 운영자/테스터 UX 보존).
+    email_verified: Mapped[bool] = mapped_column(
+        Boolean, default=False, nullable=False, server_default="0"
+    )
+    # 토큰은 SHA-256 해시로 저장 (DB 노출 시 원본 토큰 비공개). 비교는 hashlib.sha256(token).
+    email_verification_token: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    email_verification_expires_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

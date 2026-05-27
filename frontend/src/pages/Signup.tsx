@@ -39,7 +39,8 @@ export default function Signup() {
     try {
       const extras = countryDefaults(country)
       await signup(email, password, displayName || undefined, extras)
-      nav('/app')
+      // 이메일 인증 필수 — 가입 직후 안내 페이지로 이동.
+      nav('/verify-pending', { state: { email } })
     } catch (err: any) {
       toast.error(err?.response?.data?.detail || t('signup.failed'))
     } finally {

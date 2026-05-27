@@ -21,6 +21,12 @@ export default function Login() {
       await signin(email, password)
       nav('/app')
     } catch (err: any) {
+      // 403 = email_verified 가 false. 재발송 안내 페이지로 유도 + 이메일 prefill.
+      if (err?.response?.status === 403) {
+        toast.error(err?.response?.data?.detail || t('login.notVerified'))
+        nav('/verify-pending', { state: { email } })
+        return
+      }
       toast.error(err?.response?.data?.detail || t('login.failed'))
     } finally {
       setLoading(false)

@@ -240,7 +240,8 @@
     "noAccount": "Geen account?",
     "signupLink": "Aanmelden",
     "forgotLink": "Wachtwoord vergeten?",
-    "failed": "Inloggen mislukt"
+    "failed": "Inloggen mislukt",
+    "notVerified": "E-mailverificatie vereist. Controleer alstublieft de e-mail die u bij aanmelding hebt ontvangen."
   },
   "signup": {
     "title": "Account maken",
@@ -1126,5 +1127,26 @@
       }
     ],
     "contactPrefix": "Nog nieuwsgierig? "
+  },
+  "verifyPending": {
+    "title": "Controleer je e-mail",
+    "body": "We hebben een verificatielink naar je e-mail gestuurd. Open de link om je account in te stellen. Als je het niet ziet, controleer dan de spam-map. De link is 24 uur geldig.",
+    "resend": "Verificatie-e-mail opnieuw verzenden",
+    "resendSuccess": "Verificatie-e-mail opnieuw verzonden.",
+    "resendFailed": "Kon niet opnieuw verzenden. Probeer het over een moment opnieuw.",
+    "emailRequired": "Voer je e-mailadres in.",
+    "emailPlaceholder": "E-mailadres",
+    "toLogin": "Terug naar inloggen",
+    "hint": "Na verificatie kun je inloggen en je uitgaven gaan bijhouden."
+  },
+  "verifyEmail": {
+    "pending": "Verifiëren…",
+    "successTitle": "E-mail geverifieerd",
+    "successBody": "Je kunt nu inloggen en Moa gaan gebruiken.",
+    "toLogin": "Ga naar inloggen",
+    "errorTitle": "Verificatie mislukt",
+    "failed": "Ongeldig of verlopen token.",
+    "noToken": "Geen verificatietoken in de link.",
+    "resend": "Verificatie opnieuw verzenden"
   }
 }

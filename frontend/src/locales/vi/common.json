@@ -240,7 +240,8 @@
     "noAccount": "Chưa có tài khoản?",
     "signupLink": "Đăng ký",
     "forgotLink": "Quên mật khẩu?",
-    "failed": "Đăng nhập thất bại"
+    "failed": "Đăng nhập thất bại",
+    "notVerified": "Cần xác minh email. Vui lòng kiểm tra email bạn nhận được khi đăng ký."
   },
   "signup": {
     "title": "Tạo tài khoản",
@@ -714,7 +715,7 @@
       "country": "Quốc gia",
       "region": "Vùng / Tiểu bang",
       "city": "Thành phố",
-      "coordinates": "Lat / Lng",
+      "coordinates": "Vĩ độ / Kinh độ",
       "ipLabel": "IP",
       "dataSource": "Nguồn dữ liệu",
       "fromCache": "Đã lưu (trong vòng 1 giờ)",
@@ -1127,5 +1128,26 @@
       }
     ],
     "contactPrefix": "Còn tò mò? "
+  },
+  "verifyPending": {
+    "title": "Kiểm tra email của bạn",
+    "body": "Chúng tôi đã gửi liên kết xác minh đến email của bạn. Mở liên kết để hoàn tất thiết lập tài khoản. Nếu không thấy, kiểm tra thư mục spam. Liên kết có hiệu lực trong 24 giờ.",
+    "resend": "Gửi lại email xác minh",
+    "resendSuccess": "Email xác minh đã được gửi lại.",
+    "resendFailed": "Không thể gửi lại. Vui lòng thử lại sau.",
+    "emailRequired": "Vui lòng nhập email của bạn.",
+    "emailPlaceholder": "Địa chỉ email",
+    "toLogin": "Quay lại đăng nhập",
+    "hint": "Sau khi xác minh, đăng nhập để bắt đầu theo dõi chi tiêu của bạn."
+  },
+  "verifyEmail": {
+    "pending": "Đang xác minh…",
+    "successTitle": "Email đã được xác minh",
+    "successBody": "Bây giờ bạn có thể đăng nhập và bắt đầu sử dụng Moa.",
+    "toLogin": "Đi đến đăng nhập",
+    "errorTitle": "Xác minh không thành công",
+    "failed": "Token không hợp lệ hoặc đã hết hạn.",
+    "noToken": "Không có token xác minh trong liên kết.",
+    "resend": "Gửi lại xác minh"
   }
 }
