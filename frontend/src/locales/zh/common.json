@@ -355,7 +355,9 @@
       "photo": "照片",
       "photoUploading": "上传中…",
       "photoTotal": "共 {{count}} 张照片",
-      "sortRecent": "最近"
+      "sortRecent": "最近",
+      "sortVisits": "访问次数",
+      "sortSpent": "支出"
     },
     "categories": {
       "식비": "餐饮",
@@ -1117,5 +1119,29 @@
     "failed": "无效或已过期的令牌。",
     "noToken": "链接中没有验证令牌。",
     "resend": "重新发送验证"
+  },
+  "accountDeletion": {
+    "retainedItem1": "电商法：支付和退款记录 — 5 年",
+    "retainedItem2": "通信隐私法：登录访问日志 — 3 个月",
+    "retainedNote": "保留的数据永不用于分析或营销，标识符密钥已匿名处理。",
+    "partialTitle": "仅删除部分数据（保留账户）",
+    "partialSubtitle": "如果您想删除特定数据而不关闭账户，请使用此选项。",
+    "partialMethod1Title": "方式 1 · 在应用中逐项删除（即时）",
+    "partialItem1": "账本条目：在日历中点击条目旁的垃圾图标",
+    "partialItem2": "反思笔记：在「回顾」标签页中点击笔记旁的 ×",
+    "partialItem3": "计划/待支出：在「计划」标签页中点击项目旁的删除",
+    "partialItem4": "收据或地点照片：在条目详情中点击照片旁的 ×",
+    "partialItem5": "地点评价和评分：在地点详情中清除评价文本或将评分设为 0",
+    "partialMethod2Title": "方式 2 · 通过邮件批量删除数据",
+    "partialMethod2Body": "如果您想一次删除某个日期范围或整个分类，请从注册邮箱发送邮件至 master@aitrend.kr，包含以下内容：\n• 您的注册邮箱（用于身份验证）\n• 您想删除的内容（例如「2024 年所有账本条目」、「所有地点数据」）",
+    "partialMethod2Note": "身份验证后在 7 个工作日内处理。您将在注册邮箱收到确认邮件。",
+    "timelineTitle": "处理时间",
+    "timelineInAppLabel": "应用内请求",
+    "timelineInAppValue": "即时停用 + 30 天内永久删除（整个账户）/ 即时永久删除（单项）",
+    "timelineEmailLabel": "邮件请求",
+    "timelineEmailValue": "身份验证后 7 个工作日内",
+    "backHome": "首页",
+    "privacyLink": "隐私政策",
+    "termsLink": "服务条款"
   }
 }
