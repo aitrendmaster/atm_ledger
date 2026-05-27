@@ -410,7 +410,7 @@
       "suggestion": "Cadangan bulan depan",
       "addToGoal": "Tambah ke janji bulan depan",
       "monthChange": "Berbanding bulan lepas",
-      "monthHeader": "Imbas {{month}}/{{year}}",
+      "monthHeader": "Imbasan {{monthName}} {{year}}",
       "monthTotal": "Jumlah {{amount}}",
       "types": {
         "regret": {
@@ -434,7 +434,7 @@
     },
     "balance": {
       "title": "Penyata baki",
-      "headerMonth": "Penyata baki {{month}}",
+      "headerMonth": "Lembaran Imbangan {{monthName}}",
       "subtitle": "Lihat sebulan dari sudut perakaunan",
       "income": "Pendapatan",
       "incomeRow": "Gaji",
@@ -454,7 +454,7 @@
       "healthyTip": "💡 20%+ adalah kadar simpanan sihat"
     },
     "plan": {
-      "monthLabel": "Rancangan {{month}}",
+      "monthLabel": "Rancangan {{monthName}}",
       "lastMonthPledge": "Janji bulan lepas · jaga juga bulan ini",
       "lastMonthSucceed": "Berjaya bulan lepas",
       "bigPictureTitle": "Gambaran {{mode}}",

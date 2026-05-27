@@ -423,7 +423,7 @@
       "addToGoal": "Lägg till nästa månads löfte",
       "monthChange": "Jämfört med förra månad",
       "lastMonthLabel": "Förra månad",
-      "monthHeader": "{{year}} · {{month}} översikt",
+      "monthHeader": "Tillbakablick {{monthName}} {{year}}",
       "monthTotal": "Totalt {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "Balansräkning",
-      "headerMonth": "Balans — {{month}}",
+      "headerMonth": "Balansräkning för {{monthName}}",
       "subtitle": "Din månad ur ett redovisningsperspektiv",
       "income": "Inkomst",
       "incomeRow": "Lön",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20%+ är en sund sparkvot"
     },
     "plan": {
-      "monthLabel": "{{month}} plan",
+      "monthLabel": "Plan för {{monthName}}",
       "lastMonthPledge": "Förra månadens löfte · fortsätt denna månad",
       "lastMonthSucceed": "Lyckades förra månaden",
       "bigPictureTitle": "{{mode}} sammanfattning",

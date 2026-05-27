@@ -423,7 +423,7 @@
       "addToGoal": "أضف إلى التزام الشهر القادم",
       "monthChange": "مقارنة بالشهر الماضي",
       "lastMonthLabel": "الشهر الماضي",
-      "monthHeader": "مراجعة {{year}} · {{month}}",
+      "monthHeader": "مراجعة {{monthName}} {{year}}",
       "monthTotal": "الإجمالي {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "قائمة الميزانية",
-      "headerMonth": "الرصيد — {{month}}",
+      "headerMonth": "الميزانية لشهر {{monthName}}",
       "subtitle": "شهرك من منظور محاسبي",
       "income": "الدخل",
       "incomeRow": "الراتب",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20% فأكثر معدل توفير صحي"
     },
     "plan": {
-      "monthLabel": "خطة {{month}}",
+      "monthLabel": "خطة {{monthName}}",
       "lastMonthPledge": "التعهد من الشهر الماضي · استمر فيه هذا الشهر",
       "lastMonthSucceed": "نجحت الشهر الماضي",
       "bigPictureTitle": "الصورة الكبرى {{mode}}",

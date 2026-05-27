@@ -1,6 +1,10 @@
 {
-  "app": { "name": "Moa AI Ledger" },
-  "lang": { "label": "Language" },
+  "app": {
+    "name": "Moa AI Ledger"
+  },
+  "lang": {
+    "label": "Language"
+  },
   "common": {
     "or": "or",
     "cancel": "Cancel",
@@ -159,10 +163,30 @@
       "point1": "Weekly, monthly, yearly cycles",
       "point2": "Auto-fills calendar to the end date",
       "point3": "Batch save edits in one go",
-      "row1": { "name": "Rent", "amount": "$1,400", "cycle": "25th monthly", "next": "Nov 25" },
-      "row2": { "name": "Netflix", "amount": "$15.49", "cycle": "28th monthly", "next": "Nov 28" },
-      "row3": { "name": "Insurance", "amount": "$48", "cycle": "30th monthly", "next": "Nov 30" },
-      "row4": { "name": "Gym", "amount": "$95", "cycle": "5th monthly", "next": "Dec 5" }
+      "row1": {
+        "name": "Rent",
+        "amount": "$1,400",
+        "cycle": "25th monthly",
+        "next": "Nov 25"
+      },
+      "row2": {
+        "name": "Netflix",
+        "amount": "$15.49",
+        "cycle": "28th monthly",
+        "next": "Nov 28"
+      },
+      "row3": {
+        "name": "Insurance",
+        "amount": "$48",
+        "cycle": "30th monthly",
+        "next": "Nov 30"
+      },
+      "row4": {
+        "name": "Gym",
+        "amount": "$95",
+        "cycle": "5th monthly",
+        "next": "Dec 5"
+      }
     },
     "compare": {
       "label": "Compare",
@@ -359,7 +383,15 @@
       "기타": "Other"
     },
     "calendar": {
-      "weekday": { "sun": "Sun", "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri", "sat": "Sat" },
+      "weekday": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      },
       "today": "Today",
       "noEntries": "No entries this month yet",
       "noEntriesDay": "No entries on this day",
@@ -391,18 +423,30 @@
       "addToGoal": "Add to next month's pledge",
       "monthChange": "Compared to last month",
       "lastMonthLabel": "Last month",
-      "monthHeader": "{{year}} · {{month}} review",
+      "monthHeader": "{{monthName}} {{year}} Review",
       "monthTotal": "Total {{amount}}",
       "types": {
-        "regret": { "label": "Regret", "placeholder": "e.g. spent too much on coffee" },
-        "praise": { "label": "Win",    "placeholder": "e.g. cleaned up subscriptions" },
-        "goal":   { "label": "Pledge", "placeholder": "e.g. keep cafe under $50" },
-        "insight":{ "label": "Insight","placeholder": "e.g. eating out drives cafe spend up" }
+        "regret": {
+          "label": "Regret",
+          "placeholder": "e.g. spent too much on coffee"
+        },
+        "praise": {
+          "label": "Win",
+          "placeholder": "e.g. cleaned up subscriptions"
+        },
+        "goal": {
+          "label": "Pledge",
+          "placeholder": "e.g. keep cafe under $50"
+        },
+        "insight": {
+          "label": "Insight",
+          "placeholder": "e.g. eating out drives cafe spend up"
+        }
       }
     },
     "balance": {
       "title": "Balance sheet",
-      "headerMonth": "Balance — {{month}}",
+      "headerMonth": "{{monthName}} Balance Sheet",
       "subtitle": "Your month from an accounting view",
       "income": "Income",
       "incomeRow": "Salary",
@@ -422,7 +466,7 @@
       "healthyTip": "💡 20%+ is a healthy saving rate"
     },
     "plan": {
-      "monthLabel": "{{month}} plan",
+      "monthLabel": "{{monthName}} Plan",
       "lastMonthPledge": "Last month's pledge · keep it going this month",
       "thisMonthPledgeForNext": "This month's pledge for next month",
       "lastMonthSucceed": "Made it last month",
@@ -485,11 +529,22 @@
       "summaryExampleLabel": "Example",
       "summaryExample": "today at Starbucks Bucheon I spent 6500",
       "section1Title": "One-line entry",
-      "section1Tips": ["Starbucks 6500", "lunch kimbap 4000", "spent 2,300 at the convenience store"],
+      "section1Tips": [
+        "Starbucks 6500",
+        "lunch kimbap 4000",
+        "spent 2,300 at the convenience store"
+      ],
       "section2Title": "Multiple at once",
-      "section2Tips": ["today lunch 8000, cafe 5500, taxi 9000", "groceries 32000 + movie 15000"],
+      "section2Tips": [
+        "today lunch 8000, cafe 5500, taxi 9000",
+        "groceries 32000 + movie 15000"
+      ],
       "section3Title": "Specify date / time",
-      "section3Tips": ["dinner with team yesterday 40000", "haircut last Friday 30000", "friend's wedding on Mar 15 100000"],
+      "section3Tips": [
+        "dinner with team yesterday 40000",
+        "haircut last Friday 30000",
+        "friend's wedding on Mar 15 100000"
+      ],
       "section4Title": "Include the place",
       "section4Tips": [
         "coffee at Starbucks Gangnam 6500",
@@ -497,9 +552,16 @@
         "※ The AI only recognises the name — open the entry to pin the exact spot."
       ],
       "section5Title": "Upcoming spend (planned)",
-      "section5Tips": ["Netflix 17000 next Tuesday", "rent 180000 due on the 15th", "friend's birthday gift 50000 on the 5th of next month"],
+      "section5Tips": [
+        "Netflix 17000 next Tuesday",
+        "rent 180000 due on the 15th",
+        "friend's birthday gift 50000 on the 5th of next month"
+      ],
       "section6Title": "Receipts / photos",
-      "section6Tips": ["Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically", "Multi-line receipts work too"],
+      "section6Tips": [
+        "Tap the 📷 on the left to upload a receipt — the AI extracts items, amount and date automatically",
+        "Multi-line receipts work too"
+      ],
       "section7Title": "Category hints",
       "section7Tips": [
         "\"Olive Young mask sheet 10000\" → Health & Beauty",
@@ -773,7 +835,9 @@
     "confirmDelete": "Delete this rule? All future occurrences disappear too.",
     "delete": "Delete",
     "fromStartDate": "From start date M/D",
-    "placeholders": { "description": "e.g. 16th loan interest" },
+    "placeholders": {
+      "description": "e.g. 16th loan interest"
+    },
     "headers": {
       "description": "Description",
       "amount": "Amount",
@@ -783,8 +847,21 @@
       "startDate": "Start date",
       "until": "End date (required)"
     },
-    "frequency": { "none": "None (one-off)", "monthly": "Monthly", "weekly": "Weekly", "yearly": "Yearly" },
-    "weekday": { "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri", "sat": "Sat", "sun": "Sun" },
+    "frequency": {
+      "none": "None (one-off)",
+      "monthly": "Monthly",
+      "weekly": "Weekly",
+      "yearly": "Yearly"
+    },
+    "weekday": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
     "validation": {
       "descriptionRequired": "Please add a description",
       "amountRequired": "Please add an amount",
@@ -825,16 +902,56 @@
     "compareTitle": "Free vs Premium",
     "compareFeature": "Feature",
     "compare": {
-      "aiInput": { "feature": "AI chat input", "free": "30 / month", "paid": "Unlimited" },
-      "adFree": { "feature": "Ad-free", "free": "✓", "paid": "✓" },
-      "reflectInsight": { "feature": "Monthly AI review coach", "free": "✗", "paid": "✓" },
-      "receiptOcr": { "feature": "Receipt photo OCR", "free": "5 / month", "paid": "Unlimited" },
-      "multilang": { "feature": "9 languages + multi-currency", "free": "✓", "paid": "✓" },
-      "placesMap": { "feature": "Place pins & reviews", "free": "✓", "paid": "✓" },
-      "recurring": { "feature": "Recurring & upcoming alerts", "free": "✓", "paid": "✓" },
-      "excelExport": { "feature": "Excel / CSV export", "free": "✗", "paid": "✓" },
-      "unlimitedHistory": { "feature": "Ledger history", "free": "12 months", "paid": "Unlimited" },
-      "priority": { "feature": "Priority support", "free": "✗", "paid": "✓" }
+      "aiInput": {
+        "feature": "AI chat input",
+        "free": "30 / month",
+        "paid": "Unlimited"
+      },
+      "adFree": {
+        "feature": "Ad-free",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "Monthly AI review coach",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "Receipt photo OCR",
+        "free": "5 / month",
+        "paid": "Unlimited"
+      },
+      "multilang": {
+        "feature": "9 languages + multi-currency",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "Place pins & reviews",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "Recurring & upcoming alerts",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "Excel / CSV export",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "Ledger history",
+        "free": "12 months",
+        "paid": "Unlimited"
+      },
+      "priority": {
+        "feature": "Priority support",
+        "free": "✗",
+        "paid": "✓"
+      }
     },
     "paymentTitle": "Payment methods",
     "paymentDesc": "Korean users pay via Toss Payments; international users pay via Paddle. Card details stay with the payment provider — Moa only displays the last 4 digits.",

@@ -423,7 +423,7 @@
       "addToGoal": "Ajouter à l'engagement du mois prochain",
       "monthChange": "Par rapport au mois dernier",
       "lastMonthLabel": "Mois dernier",
-      "monthHeader": "Bilan {{month}} {{year}}",
+      "monthHeader": "Bilan de {{monthName}} {{year}}",
       "monthTotal": "Total {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "Bilan comptable",
-      "headerMonth": "Bilan — {{month}}",
+      "headerMonth": "Bilan de {{monthName}}",
       "subtitle": "Votre mois d'un point de vue comptable",
       "income": "Revenus",
       "incomeRow": "Salaire",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20%+ est un taux d'épargne sain"
     },
     "plan": {
-      "monthLabel": "Plan {{month}}",
+      "monthLabel": "Plan de {{monthName}}",
       "lastMonthPledge": "Engagement du mois dernier · continuez ce mois-ci",
       "lastMonthSucceed": "Réussi le mois dernier",
       "bigPictureTitle": "Vue d'ensemble {{mode}}",

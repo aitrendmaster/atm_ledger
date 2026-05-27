@@ -410,7 +410,7 @@
       "suggestion": "来月の提案",
       "addToGoal": "来月の約束に追加",
       "monthChange": "前月比",
-      "monthHeader": "{{year}}年 {{month}}月の振り返り",
+      "monthHeader": "{{year}}年{{month}}月の振り返り",
       "monthTotal": "合計 {{amount}}",
       "types": {
         "regret": {
@@ -434,7 +434,7 @@
     },
     "balance": {
       "title": "残高表",
-      "headerMonth": "{{month}}月 残高表",
+      "headerMonth": "{{month}}月の貸借対照表",
       "subtitle": "会計の視点で1か月の流れ",
       "income": "収入",
       "incomeRow": "給料",
@@ -454,7 +454,7 @@
       "healthyTip": "💡 20% 以上が健全な貯蓄率"
     },
     "plan": {
-      "monthLabel": "{{month}}月 計画",
+      "monthLabel": "{{month}}月の計画",
       "lastMonthPledge": "先月の誓い · 今月も守ろう",
       "lastMonthSucceed": "先月達成",
       "bigPictureTitle": "{{mode}} 全体像",

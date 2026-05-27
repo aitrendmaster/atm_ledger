@@ -410,7 +410,7 @@
       "suggestion": "คำแนะนำเดือนหน้า",
       "addToGoal": "เพิ่มเป็นคำมั่นเดือนหน้า",
       "monthChange": "เปรียบเทียบกับเดือนก่อน",
-      "monthHeader": "ทบทวน {{month}}/{{year}}",
+      "monthHeader": "สรุปเดือน{{monthName}} {{year}}",
       "monthTotal": "รวม {{amount}}",
       "types": {
         "regret": {
@@ -434,7 +434,7 @@
     },
     "balance": {
       "title": "งบดุล",
-      "headerMonth": "งบดุลเดือน {{month}}",
+      "headerMonth": "งบดุลเดือน{{monthName}}",
       "subtitle": "มองภาพรวม 1 เดือนเชิงบัญชี",
       "income": "รายรับ",
       "incomeRow": "เงินเดือน",
@@ -454,7 +454,7 @@
       "healthyTip": "💡 20% ขึ้นไปคืออัตราออมที่ดี"
     },
     "plan": {
-      "monthLabel": "แผนเดือน {{month}}",
+      "monthLabel": "แผนเดือน{{monthName}}",
       "lastMonthPledge": "คำมั่นเดือนก่อน · เดือนนี้ก็รักษาไว้",
       "lastMonthSucceed": "ทำได้เดือนก่อน",
       "bigPictureTitle": "ภาพรวม {{mode}}",

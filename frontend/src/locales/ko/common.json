@@ -1,6 +1,10 @@
 {
-  "app": { "name": "Moa AI 가계부" },
-  "lang": { "label": "언어" },
+  "app": {
+    "name": "Moa AI 가계부"
+  },
+  "lang": {
+    "label": "언어"
+  },
   "common": {
     "or": "또는",
     "cancel": "취소",
@@ -159,10 +163,30 @@
       "point1": "주/월/연 단위 반복 규칙 지원",
       "point2": "종료일까지 자동으로 캘린더 채움",
       "point3": "수정·일괄 저장으로 한 번에 정리",
-      "row1": { "name": "월세", "amount": "600,000원", "cycle": "매월 25일", "next": "11/25" },
-      "row2": { "name": "넷플릭스", "amount": "13,500원", "cycle": "매월 28일", "next": "11/28" },
-      "row3": { "name": "실비보험", "amount": "42,000원", "cycle": "매월 30일", "next": "11/30" },
-      "row4": { "name": "헬스장", "amount": "85,000원", "cycle": "매월 5일", "next": "12/05" }
+      "row1": {
+        "name": "월세",
+        "amount": "600,000원",
+        "cycle": "매월 25일",
+        "next": "11/25"
+      },
+      "row2": {
+        "name": "넷플릭스",
+        "amount": "13,500원",
+        "cycle": "매월 28일",
+        "next": "11/28"
+      },
+      "row3": {
+        "name": "실비보험",
+        "amount": "42,000원",
+        "cycle": "매월 30일",
+        "next": "11/30"
+      },
+      "row4": {
+        "name": "헬스장",
+        "amount": "85,000원",
+        "cycle": "매월 5일",
+        "next": "12/05"
+      }
     },
     "compare": {
       "label": "Compare",
@@ -359,7 +383,15 @@
       "기타": "기타"
     },
     "calendar": {
-      "weekday": { "sun": "일", "mon": "월", "tue": "화", "wed": "수", "thu": "목", "fri": "금", "sat": "토" },
+      "weekday": {
+        "sun": "일",
+        "mon": "월",
+        "tue": "화",
+        "wed": "수",
+        "thu": "목",
+        "fri": "금",
+        "sat": "토"
+      },
       "today": "오늘",
       "noEntries": "이 달은 아직 기록이 없어",
       "noEntriesDay": "이 날은 기록이 없어",
@@ -394,10 +426,22 @@
       "monthHeader": "{{year}}년 {{month}}월 회고",
       "monthTotal": "총 {{amount}}",
       "types": {
-        "regret": { "label": "아쉬운 점", "placeholder": "예: 카페에 너무 많이 썼어" },
-        "praise": { "label": "잘한 점", "placeholder": "예: 구독 정리 잘했음" },
-        "goal": { "label": "다음달 약속", "placeholder": "예: 카페 5만원 이하로 줄이기" },
-        "insight": { "label": "깨달음", "placeholder": "예: 외식 많을수록 카페도 늘어" }
+        "regret": {
+          "label": "아쉬운 점",
+          "placeholder": "예: 카페에 너무 많이 썼어"
+        },
+        "praise": {
+          "label": "잘한 점",
+          "placeholder": "예: 구독 정리 잘했음"
+        },
+        "goal": {
+          "label": "다음달 약속",
+          "placeholder": "예: 카페 5만원 이하로 줄이기"
+        },
+        "insight": {
+          "label": "깨달음",
+          "placeholder": "예: 외식 많을수록 카페도 늘어"
+        }
       }
     },
     "balance": {
@@ -485,11 +529,22 @@
       "summaryExampleLabel": "예",
       "summaryExample": "오늘 스타벅스 부천역점에서 6500원 썼어",
       "section1Title": "한 줄로 지출 기록",
-      "section1Tips": ["스타벅스 6500원", "점심 김밥 4천원", "편의점에서 2,300원 썼어"],
+      "section1Tips": [
+        "스타벅스 6500원",
+        "점심 김밥 4천원",
+        "편의점에서 2,300원 썼어"
+      ],
       "section2Title": "여러 건 한꺼번에",
-      "section2Tips": ["오늘 점심 8천원, 카페 5천5백, 택시 9천원", "마트 32000 + 영화 15000"],
+      "section2Tips": [
+        "오늘 점심 8천원, 카페 5천5백, 택시 9천원",
+        "마트 32000 + 영화 15000"
+      ],
       "section3Title": "날짜 / 시점 명시",
-      "section3Tips": ["어제 저녁에 회식 4만원", "지난 금요일 미용실 3만원", "3월 15일 친구 결혼식 10만원"],
+      "section3Tips": [
+        "어제 저녁에 회식 4만원",
+        "지난 금요일 미용실 3만원",
+        "3월 15일 친구 결혼식 10만원"
+      ],
       "section4Title": "장소 같이 적기",
       "section4Tips": [
         "스타벅스 강남역점에서 커피 6500원",
@@ -497,9 +552,16 @@
         "※ AI는 장소 이름만 인식하고, 정확한 위치 핀은 항목을 눌러 직접 지정해줘"
       ],
       "section5Title": "앞으로 나갈 돈 (예정)",
-      "section5Tips": ["다음주 화요일 넷플릭스 17000원 나가", "15일에 관리비 18만원 예정", "내달 5일 친구 생일선물 5만원 살 거야"],
+      "section5Tips": [
+        "다음주 화요일 넷플릭스 17000원 나가",
+        "15일에 관리비 18만원 예정",
+        "내달 5일 친구 생일선물 5만원 살 거야"
+      ],
       "section6Title": "영수증 / 사진",
-      "section6Tips": ["왼쪽 📷 버튼으로 영수증 사진을 올리면 AI가 자동으로 항목·금액·날짜를 뽑아줘", "여러 줄 영수증도 한 번에 처리돼"],
+      "section6Tips": [
+        "왼쪽 📷 버튼으로 영수증 사진을 올리면 AI가 자동으로 항목·금액·날짜를 뽑아줘",
+        "여러 줄 영수증도 한 번에 처리돼"
+      ],
       "section7Title": "카테고리 힌트",
       "section7Tips": [
         "\"올리브영 마스크팩 1만원\" → 건강/뷰티 로 자동 분류",
@@ -773,7 +835,9 @@
     "confirmDelete": "이 반복 규칙을 삭제할까? 이미 표시된 미래 occurrence 도 모두 사라져.",
     "delete": "삭제",
     "fromStartDate": "시작일의 월/일",
-    "placeholders": { "description": "예: 16일 대출 이자" },
+    "placeholders": {
+      "description": "예: 16일 대출 이자"
+    },
     "headers": {
       "description": "설명",
       "amount": "금액",
@@ -789,7 +853,15 @@
       "weekly": "매주",
       "yearly": "매년"
     },
-    "weekday": { "mon": "월", "tue": "화", "wed": "수", "thu": "목", "fri": "금", "sat": "토", "sun": "일" },
+    "weekday": {
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토",
+      "sun": "일"
+    },
     "validation": {
       "descriptionRequired": "설명을 입력해줘",
       "amountRequired": "금액을 입력해줘",
@@ -830,16 +902,56 @@
     "compareTitle": "Free 와 Premium 비교",
     "compareFeature": "기능",
     "compare": {
-      "aiInput": { "feature": "AI 채팅 입력", "free": "월 30회", "paid": "무제한" },
-      "adFree": { "feature": "광고 없음", "free": "✓", "paid": "✓" },
-      "reflectInsight": { "feature": "월간 AI 회고 코칭", "free": "✗", "paid": "✓" },
-      "receiptOcr": { "feature": "영수증 사진 OCR", "free": "월 5장", "paid": "무제한" },
-      "multilang": { "feature": "9개 언어 + 다국가 통화", "free": "✓", "paid": "✓" },
-      "placesMap": { "feature": "장소 핀·후기 기록", "free": "✓", "paid": "✓" },
-      "recurring": { "feature": "반복지출·예정 알림", "free": "✓", "paid": "✓" },
-      "excelExport": { "feature": "엑셀·CSV 내보내기", "free": "✗", "paid": "✓" },
-      "unlimitedHistory": { "feature": "가계부 보관 기간", "free": "12개월", "paid": "무제한" },
-      "priority": { "feature": "우선 고객 지원", "free": "✗", "paid": "✓" }
+      "aiInput": {
+        "feature": "AI 채팅 입력",
+        "free": "월 30회",
+        "paid": "무제한"
+      },
+      "adFree": {
+        "feature": "광고 없음",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "reflectInsight": {
+        "feature": "월간 AI 회고 코칭",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "receiptOcr": {
+        "feature": "영수증 사진 OCR",
+        "free": "월 5장",
+        "paid": "무제한"
+      },
+      "multilang": {
+        "feature": "9개 언어 + 다국가 통화",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "placesMap": {
+        "feature": "장소 핀·후기 기록",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "recurring": {
+        "feature": "반복지출·예정 알림",
+        "free": "✓",
+        "paid": "✓"
+      },
+      "excelExport": {
+        "feature": "엑셀·CSV 내보내기",
+        "free": "✗",
+        "paid": "✓"
+      },
+      "unlimitedHistory": {
+        "feature": "가계부 보관 기간",
+        "free": "12개월",
+        "paid": "무제한"
+      },
+      "priority": {
+        "feature": "우선 고객 지원",
+        "free": "✗",
+        "paid": "✓"
+      }
     },
     "paymentTitle": "결제 수단",
     "paymentDesc": "한국 사용자는 Toss Payments, 해외 사용자는 Paddle 을 통해 안전하게 결제하실 수 있습니다. 카드 정보는 결제사 측에 저장되며 Moa 는 카드번호 끝 4자리만 표시용으로 보관합니다.",

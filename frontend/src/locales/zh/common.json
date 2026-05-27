@@ -407,7 +407,7 @@
       "suggestion": "下月建议",
       "addToGoal": "加入下月承诺",
       "monthChange": "对比上月",
-      "monthHeader": "{{year}}年 {{month}}月 复盘",
+      "monthHeader": "{{year}}年{{month}}月回顾",
       "monthTotal": "合计 {{amount}}",
       "types": {
         "regret": {
@@ -431,7 +431,7 @@
     },
     "balance": {
       "title": "对账表",
-      "headerMonth": "{{month}}月 对账表",
+      "headerMonth": "{{monthName}}收支表",
       "subtitle": "从会计视角看一个月",
       "income": "收入",
       "incomeRow": "工资",
@@ -451,7 +451,7 @@
       "healthyTip": "💡 20% 以上是健康的储蓄率"
     },
     "plan": {
-      "monthLabel": "{{month}}月 计划",
+      "monthLabel": "{{monthName}}计划",
       "lastMonthPledge": "上月承诺 · 本月也要守住",
       "lastMonthSucceed": "上月已达成",
       "bigPictureTitle": "{{mode}} 全景",

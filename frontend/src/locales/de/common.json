@@ -423,7 +423,7 @@
       "addToGoal": "Zum nächsten Versprechen hinzufügen",
       "monthChange": "Im Vergleich zum letzten Monat",
       "lastMonthLabel": "Letzter Monat",
-      "monthHeader": "{{year}} · {{month}} Rückblick",
+      "monthHeader": "{{monthName}} {{year}} Rückblick",
       "monthTotal": "Summe {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "Bilanz",
-      "headerMonth": "Bilanz — {{month}}",
+      "headerMonth": "{{monthName}}-Bilanz",
       "subtitle": "Dein Monat aus buchhalterischer Perspektive",
       "income": "Einnahmen",
       "incomeRow": "Gehalt",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20%+ ist eine gesunde Sparquote"
     },
     "plan": {
-      "monthLabel": "{{month}}-Plan",
+      "monthLabel": "{{monthName}}-Plan",
       "lastMonthPledge": "Vorsatz des letzten Monats · halte ihn diesen Monat",
       "lastMonthSucceed": "Letzten Monat geschafft",
       "bigPictureTitle": "{{mode}} Übersicht",

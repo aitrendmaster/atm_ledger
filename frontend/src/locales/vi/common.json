@@ -410,7 +410,7 @@
       "suggestion": "Đề xuất tháng tới",
       "addToGoal": "Thêm vào lời hứa tháng sau",
       "monthChange": "So với tháng trước",
-      "monthHeader": "Nhìn lại {{month}}/{{year}}",
+      "monthHeader": "Đánh giá tháng {{month}} năm {{year}}",
       "monthTotal": "Tổng {{amount}}",
       "types": {
         "regret": {

@@ -30,7 +30,15 @@ const CATEGORIES = {
 };
 
 export default function ChatLedger() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // 월 이름을 i18n 현재 언어로 자연스럽게 변환 ("5월", "May", "Mai", "五月", "tháng 5" 등)
+  const getMonthName = (monthNum) => {
+    try {
+      return new Date(2000, monthNum - 1, 1).toLocaleString(i18n.language || 'ko', { month: 'long' });
+    } catch {
+      return String(monthNum);
+    }
+  };
   const { user } = useAuth();
   // 사용자 통화. 신규 사용자는 가입 시 country_code 로부터 자동 설정됨. 기본 KRW.
   const currency = user?.currency_code || 'KRW';
@@ -796,12 +804,18 @@ export default function ChatLedger() {
                     <span className="text-xs opacity-60 w-10">{t('ledger.balance.income')}</span>
                     <input
                       type="number"
-                      value={incomeDraft}
-                      onChange={(e) => setIncomeDraft(Number(e.target.value) || 0)}
+                      inputMode="numeric"
+                      value={incomeDraft === 0 ? '' : incomeDraft}
+                      onChange={(e) => {
+                        const v = e.target.value.replace(/^0+(?=\d)/, '');
+                        setIncomeDraft(v === '' ? 0 : Number(v) || 0);
+                      }}
+                      onFocus={(e) => e.target.select()}
                       onBlur={() => {
                         const n = Math.max(0, Number(incomeDraft) || 0);
                         if (n !== (user?.monthly_income ?? 0)) updateProfile.mutate({ monthly_income: n });
                       }}
+                      placeholder="0"
                       className="flex-1 bg-transparent outline-none text-sm"
                       style={{ color: '#FFFDF8' }}
                     />
@@ -811,12 +825,18 @@ export default function ChatLedger() {
                     <span className="text-xs opacity-60 w-10">{t('ledger.stats.budget')}</span>
                     <input
                       type="number"
-                      value={budgetDraft}
-                      onChange={(e) => setBudgetDraft(Number(e.target.value) || 0)}
+                      inputMode="numeric"
+                      value={budgetDraft === 0 ? '' : budgetDraft}
+                      onChange={(e) => {
+                        const v = e.target.value.replace(/^0+(?=\d)/, '');
+                        setBudgetDraft(v === '' ? 0 : Number(v) || 0);
+                      }}
+                      onFocus={(e) => e.target.select()}
                       onBlur={() => {
                         const n = Math.max(0, Number(budgetDraft) || 0);
                         if (n !== (user?.monthly_budget ?? 0)) updateProfile.mutate({ monthly_budget: n });
                       }}
+                      placeholder="0"
                       className="flex-1 bg-transparent outline-none text-sm"
                       style={{ color: '#FFFDF8' }}
                     />
@@ -1053,7 +1073,7 @@ export default function ChatLedger() {
                         setPlacesMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
                       }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={14} style={{ color: '#7A7567' }} /></button>
                       <span className="text-xs font-medium" style={{ color: '#2C2418' }}>
-                        {t('ledger.reflect.monthHeader', { year: placesMonth.split('-')[0], month: parseInt(placesMonth.split('-')[1]) })}
+                        {t('ledger.reflect.monthHeader', { year: placesMonth.split('-')[0], month: parseInt(placesMonth.split('-')[1]), monthName: getMonthName(parseInt(placesMonth.split('-')[1])) })}
                       </span>
                       <button onClick={() => {
                         const d = new Date(placesMonth + '-01'); d.setMonth(d.getMonth() + 1);
@@ -1149,7 +1169,7 @@ export default function ChatLedger() {
                       }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={16} style={{ color: '#7A7567' }} /></button>
                       <div className="text-center">
                         <div className="text-base font-bold" style={{ color: '#2C2418' }}>
-                          {t('ledger.reflect.monthHeader', { year: selectedMonth.split('-')[0], month: parseInt(selectedMonth.split('-')[1]) })}
+                          {t('ledger.reflect.monthHeader', { year: selectedMonth.split('-')[0], month: parseInt(selectedMonth.split('-')[1]), monthName: getMonthName(parseInt(selectedMonth.split('-')[1])) })}
                         </div>
                         <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>
                           {t('ledger.reflect.monthTotal', { amount: `${getMonthData(selectedMonth).total.toLocaleString()} ${cur}` })}
@@ -1404,8 +1424,8 @@ export default function ChatLedger() {
               <div className="space-y-4">
                 <div className="flex gap-1 p-1 rounded-2xl" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
                   {[
-                    { id: 'current', label: t('ledger.plan.monthLabel', { month: now.getMonth() + 1 }) },
-                    { id: 'next',    label: t('ledger.plan.monthLabel', { month: now.getMonth() + 2 > 12 ? 1 : now.getMonth() + 2 }) },
+                    { id: 'current', label: t('ledger.plan.monthLabel', { month: now.getMonth() + 1, monthName: getMonthName(now.getMonth() + 1) }) },
+                    { id: 'next',    label: (() => { const m = now.getMonth() + 2 > 12 ? 1 : now.getMonth() + 2; return t('ledger.plan.monthLabel', { month: m, monthName: getMonthName(m) }); })() },
                   ].map(m => (
                     <button key={m.id} onClick={() => setPlanMode(m.id)}
                       className="flex-1 py-2 rounded-xl text-xs lg:text-sm font-medium"
@@ -1523,7 +1543,7 @@ export default function ChatLedger() {
               <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-sm font-medium flex items-center gap-2" style={{ color: '#2C2418' }}>
-                    <BarChart3 size={14} style={{ color: '#A0633C' }} /> {t('ledger.balance.headerMonth', { month: balMonthNum })}
+                    <BarChart3 size={14} style={{ color: '#A0633C' }} /> {t('ledger.balance.headerMonth', { month: balMonthNum, monthName: getMonthName(balMonthNum) })}
                   </h3>
                   <div className="flex items-center gap-1">
                     <button onClick={() => {

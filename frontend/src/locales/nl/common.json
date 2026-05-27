@@ -423,7 +423,7 @@
       "addToGoal": "Toevoegen aan volgende maands belofte",
       "monthChange": "Vergeleken met vorige maand",
       "lastMonthLabel": "Vorige maand",
-      "monthHeader": "{{year}} · {{month}} terugblik",
+      "monthHeader": "Terugblik {{monthName}} {{year}}",
       "monthTotal": "Totaal {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "Balans",
-      "headerMonth": "Balans — {{month}}",
+      "headerMonth": "Balans van {{monthName}}",
       "subtitle": "Je maand vanuit boekhoudkundig perspectief",
       "income": "Inkomsten",
       "incomeRow": "Salaris",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20%+ is een gezonde spaarquote"
     },
     "plan": {
-      "monthLabel": "{{month}} plan",
+      "monthLabel": "Plan voor {{monthName}}",
       "lastMonthPledge": "Vorige maand voornemen · zet het door deze maand",
       "lastMonthSucceed": "Vorige maand gehaald",
       "bigPictureTitle": "{{mode}} totaalplaatje",

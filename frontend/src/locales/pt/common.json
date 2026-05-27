@@ -423,7 +423,7 @@
       "addToGoal": "Adicionar ao compromisso do próximo mês",
       "monthChange": "Comparado ao mês anterior",
       "lastMonthLabel": "Mês passado",
-      "monthHeader": "Revisão {{year}} · {{month}}",
+      "monthHeader": "Retrospectiva de {{monthName}} {{year}}",
       "monthTotal": "Total {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "Balanço patrimonial",
-      "headerMonth": "Balanço — {{month}}",
+      "headerMonth": "Balanço de {{monthName}}",
       "subtitle": "Seu mês de uma perspectiva contábil",
       "income": "Receita",
       "incomeRow": "Salário",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20%+ é uma taxa de poupança saudável"
     },
     "plan": {
-      "monthLabel": "Plano de {{month}}",
+      "monthLabel": "Plano de {{monthName}}",
       "lastMonthPledge": "Promessa do mês passado · mantenha neste mês",
       "lastMonthSucceed": "Conseguiu no mês passado",
       "bigPictureTitle": "Visão geral de {{mode}}",

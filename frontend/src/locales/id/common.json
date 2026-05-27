@@ -423,7 +423,7 @@
       "addToGoal": "Tambahkan ke komitmen bulan depan",
       "monthChange": "Dibanding bulan lalu",
       "lastMonthLabel": "Bulan lalu",
-      "monthHeader": "Review {{year}} · {{month}}",
+      "monthHeader": "Tinjauan {{monthName}} {{year}}",
       "monthTotal": "Total {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "Neraca keuangan",
-      "headerMonth": "Neraca — {{month}}",
+      "headerMonth": "Neraca {{monthName}}",
       "subtitle": "Bulan Anda dari perspektif akuntansi",
       "income": "Pendapatan",
       "incomeRow": "Gaji",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20%+ adalah tingkat tabungan yang sehat"
     },
     "plan": {
-      "monthLabel": "Rencana {{month}}",
+      "monthLabel": "Rencana {{monthName}}",
       "lastMonthPledge": "Komitmen bulan lalu · lanjutkan bulan ini",
       "lastMonthSucceed": "Berhasil bulan lalu",
       "bigPictureTitle": "Gambaran besar {{mode}}",

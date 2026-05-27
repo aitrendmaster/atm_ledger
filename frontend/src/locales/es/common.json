@@ -410,7 +410,7 @@
       "suggestion": "El mes que viene",
       "addToGoal": "Añadir a la promesa del próximo mes",
       "monthChange": "Comparado con el mes anterior",
-      "monthHeader": "Reflexión de {{month}} {{year}}",
+      "monthHeader": "Revisión de {{monthName}} {{year}}",
       "monthTotal": "Total {{amount}}",
       "types": {
         "regret": {
@@ -434,7 +434,7 @@
     },
     "balance": {
       "title": "Hoja de balance",
-      "headerMonth": "Saldo — {{month}}",
+      "headerMonth": "Balance de {{monthName}}",
       "subtitle": "Tu mes desde la contabilidad",
       "income": "Ingresos",
       "incomeRow": "Salario",
@@ -454,7 +454,7 @@
       "healthyTip": "💡 20% o más es una tasa de ahorro saludable"
     },
     "plan": {
-      "monthLabel": "Plan de {{month}}",
+      "monthLabel": "Plan de {{monthName}}",
       "lastMonthPledge": "Promesa del mes pasado · cumple también este mes",
       "lastMonthSucceed": "Logrado el mes pasado",
       "bigPictureTitle": "Panorama de {{mode}}",

@@ -423,7 +423,7 @@
       "addToGoal": "Aggiungi all'impegno del mese prossimo",
       "monthChange": "Confrontato al mese scorso",
       "lastMonthLabel": "Mese scorso",
-      "monthHeader": "{{year}} · revisione {{month}}",
+      "monthHeader": "Bilancio di {{monthName}} {{year}}",
       "monthTotal": "Totale {{amount}}",
       "types": {
         "regret": {
@@ -446,7 +446,7 @@
     },
     "balance": {
       "title": "Prospetto contabile",
-      "headerMonth": "Saldo — {{month}}",
+      "headerMonth": "Bilancio di {{monthName}}",
       "subtitle": "Il tuo mese da una prospettiva contabile",
       "income": "Entrate",
       "incomeRow": "Stipendio",
@@ -466,7 +466,7 @@
       "healthyTip": "💡 20%+ è un tasso di risparmio sano"
     },
     "plan": {
-      "monthLabel": "Piano {{month}}",
+      "monthLabel": "Piano di {{monthName}}",
       "lastMonthPledge": "Impegno del mese scorso · continua così questo mese",
       "lastMonthSucceed": "Ce l'hai fatta il mese scorso",
       "bigPictureTitle": "Quadro generale {{mode}}",

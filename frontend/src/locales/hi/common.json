@@ -410,7 +410,7 @@
       "suggestion": "अगले महीने का सुझाव",
       "addToGoal": "अगले महीने के वादे में जोड़ें",
       "monthChange": "पिछले महीने से तुलना",
-      "monthHeader": "{{month}}/{{year}} की समीक्षा",
+      "monthHeader": "{{monthName}} {{year}} समीक्षा",
       "monthTotal": "कुल {{amount}}",
       "types": {
         "regret": {
@@ -434,7 +434,7 @@
     },
     "balance": {
       "title": "बैलेंस शीट",
-      "headerMonth": "{{month}} बैलेंस शीट",
+      "headerMonth": "{{monthName}} बैलेंस शीट",
       "subtitle": "लेखांकन दृष्टिकोण से महीना",
       "income": "आय",
       "incomeRow": "वेतन",
@@ -454,7 +454,7 @@
       "healthyTip": "💡 20%+ स्वस्थ बचत दर है"
     },
     "plan": {
-      "monthLabel": "{{month}} योजना",
+      "monthLabel": "{{monthName}} योजना",
       "lastMonthPledge": "पिछले महीने का वादा · इस माह भी निभाएँ",
       "lastMonthSucceed": "पिछले माह पूरा",
       "bigPictureTitle": "{{mode}} बड़ी तस्वीर",
