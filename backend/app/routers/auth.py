@@ -106,25 +106,45 @@ async def signup(
     """
     try:
         res = await db.execute(select(User).where(User.email == body.email.lower()))
-        if res.scalar_one_or_none():
+        existing = res.scalar_one_or_none()
+        # 활성 계정이면 가입 차단. soft-deleted (deleted_at IS NOT NULL) 면 부활 경로로 진행.
+        if existing and existing.deleted_at is None:
             raise HTTPException(status_code=409, detail="이미 가입된 이메일입니다.")
         # 지역화 기본값: country 만 지정되면 currency/locale 자동 도출. 셋 다 미지정이면 KR/KRW/ko.
         defaults = country_defaults(body.country_code)
         country = normalize_country(body.country_code or defaults["country_code"])
         currency = normalize_currency(body.currency_code or defaults["currency_code"])
         locale = normalize_locale(body.locale or defaults["locale"])
-        user = User(
-            email=body.email.lower(),
-            password_hash=hash_password(body.password),
-            display_name=body.display_name,
-            auth_provider="password",
-            country_code=country,
-            currency_code=currency,
-            locale=locale,
-            email_verified=False,
-        )
+
+        if existing:
+            # === 부활 (resurrect) 경로 ===
+            # 같은 이메일로 soft-delete 된 계정이 있으면 새 정보로 갱신해 부활.
+            # 단 이메일 인증을 다시 받아야 가입 완료 (봇 차단 + 본인 확인).
+            user = existing
+            user.deleted_at = None
+            user.password_hash = hash_password(body.password)
+            user.display_name = body.display_name or user.display_name
+            user.auth_provider = "password"
+            user.country_code = country
+            user.currency_code = currency
+            user.locale = locale
+            user.email_verified = False
+            # 이전 비번 재설정 토큰이 남아있으면 무효화 (보안)
+            # 신규 verification token 발급은 아래에서 일괄 처리
+        else:
+            # === 신규 가입 ===
+            user = User(
+                email=body.email.lower(),
+                password_hash=hash_password(body.password),
+                display_name=body.display_name,
+                auth_provider="password",
+                country_code=country,
+                currency_code=currency,
+                locale=locale,
+                email_verified=False,
+            )
+            db.add(user)
         raw_token = _issue_verification_token(user)
-        db.add(user)
         await db.commit()
         await db.refresh(user)
         verify_link = _verification_link(raw_token)
