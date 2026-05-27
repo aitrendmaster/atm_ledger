@@ -126,8 +126,15 @@ async def google_login(body: GoogleLoginIn, db: AsyncSession = Depends(get_db)):
             display_name=name,
             auth_provider="google",
             provider_sub=sub,
+            # Google 이 이미 email_verified=true 를 보장 (위 line 94 에서 검증). 추가 메일 인증 불필요.
+            email_verified=True,
         )
         db.add(user)
+    elif not user.email_verified:
+        # 기존 password 계정이 Google 로 연동되는 경우 — Google 이 메일 소유권을 보증하므로 verified=true 승격.
+        user.email_verified = True
+        user.email_verification_token = None
+        user.email_verification_expires_at = None
 
     if user.deleted_at is not None:
         raise HTTPException(status_code=403, detail="비활성화된 계정입니다.")

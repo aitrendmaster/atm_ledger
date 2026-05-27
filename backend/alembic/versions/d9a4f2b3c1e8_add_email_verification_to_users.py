@@ -28,15 +28,15 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # PostgreSQL Boolean 은 정수 0/1 을 자동 캐스팅하지 않음 → sa.false() 로 SQL FALSE 리터럴 생성.
-    # SQLite 도 동일하게 동작.
+    # PostgreSQL Boolean 은 정수 0/1 을 자동 캐스팅하지 않음 — sa.text("false") 로 SQL FALSE 키워드 생성.
+    # asyncpg + SQLAlchemy 2 에서 가장 안전한 방식. SQLite 도 'false' 키워드 그대로 수용.
     op.add_column(
         'users',
         sa.Column(
             'email_verified',
             sa.Boolean(),
             nullable=False,
-            server_default=sa.false(),
+            server_default=sa.text("false"),
         ),
     )
     op.add_column(
