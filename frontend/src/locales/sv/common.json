@@ -229,7 +229,8 @@
       "trust1": "30 sek registrering",
       "trust2": "Inget kort",
       "trust3": "Gratis beta"
-    }
+    },
+    "footerDataDeletion": "Ta bort data"
   },
   "login": {
     "subtitle": "Logga in och börja din huvudbok.",
@@ -721,7 +722,7 @@
       "annualDownload": "Ladda ned årlig",
       "paidOnlyNotice": "Excel-export är tillgänglig på Premium-planen. Uppgradera från fliken Fakturering för att använda det omedelbar.",
       "betaFreeNotice": "🎉 Excel-export är gratis under betaperioden.",
-      "gdprTitle": "All data (GDPR)",
+      "gdprTitle": "Alla data (GDPR)",
       "gdprDesc": "Ladda ned huvudbok + planerade + recensioner + fotometadata som JSON. Alltid tillgängligt på alla planer.",
       "gdprButton": "Alla data (JSON)",
       "trialExpired": "Din kostnadsfria provperiod har löpt ut. Uppgradera till Premium.",
@@ -737,7 +738,8 @@
       "confirmEmailPrompt": "Skriv din e-postadress för att bekräfta kontoborttagning.",
       "emailMismatch": "E-postadress stämde inte. Åtgärd avbruten.",
       "deleted": "Konto raderat.",
-      "deleteFailed": "Det gick inte att radera konto"
+      "deleteFailed": "Det gick inte att radera konto",
+      "policyLink": "Läs vår policy för databorttagning →"
     },
     "region": {
       "title": "Region / Språk / Valuta",

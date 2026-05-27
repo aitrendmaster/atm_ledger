@@ -77,6 +77,7 @@ export default function Privacy() {
         <Link to="/pricing" className="hover:text-atm-ink">{t('common.pricing')}</Link>
         <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
         <Link to="/refund" className="hover:text-atm-ink">{t('common.refund')}</Link>
+        <Link to="/account-deletion" className="hover:text-atm-ink">{t('landing.footerDataDeletion')}</Link>
         <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
       </footer>
     </div>

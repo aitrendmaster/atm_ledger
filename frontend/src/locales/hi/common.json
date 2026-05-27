@@ -229,7 +229,8 @@
     "bizCeo": "सीईओ",
     "bizNo": "व्यवसाय पंजीकरण",
     "bizMailOrder": "मेल-ऑर्डर",
-    "bizAddress": "पता"
+    "bizAddress": "पता",
+    "footerDataDeletion": "डेटा हटाएं"
   },
   "login": {
     "subtitle": "लॉग इन करके खाताबही शुरू करें।",
@@ -747,7 +748,8 @@
       "confirmEmailPrompt": "खाता हटाने की पुष्टि करने के लिए अपना ईमेल टाइप करें।",
       "emailMismatch": "ईमेल मेल नहीं खाया। ऑपरेशन रद्द किया गया।",
       "deleted": "खाता हटाया गया।",
-      "deleteFailed": "खाता हटाने में विफल"
+      "deleteFailed": "खाता हटाने में विफल",
+      "policyLink": "डेटा हटाने की नीति पढ़ें →"
     }
   },
   "appHeader": {

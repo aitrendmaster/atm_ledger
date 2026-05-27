@@ -229,7 +229,8 @@
       "trust1": "Pendaftaran 30 detik",
       "trust2": "Tanpa kartu",
       "trust3": "Beta gratis"
-    }
+    },
+    "footerDataDeletion": "Hapus data"
   },
   "login": {
     "subtitle": "Masuk dan mulai buku besar Anda.",
@@ -737,7 +738,8 @@
       "confirmEmailPrompt": "Ketik email Anda untuk mengonfirmasi penghapusan akun.",
       "emailMismatch": "Email tidak cocok. Operasi dibatalkan.",
       "deleted": "Akun dihapus.",
-      "deleteFailed": "Gagal menghapus akun"
+      "deleteFailed": "Gagal menghapus akun",
+      "policyLink": "Baca kebijakan penghapusan data →"
     },
     "region": {
       "title": "Wilayah / Bahasa / Mata Uang",

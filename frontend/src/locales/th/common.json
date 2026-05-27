@@ -229,7 +229,8 @@
     "bizCeo": "ประธานเจ้าหน้าที่บริหาร",
     "bizNo": "เลขประจำตัวประกอบการ",
     "bizMailOrder": "จำหน่ายทางไปรษณีย์",
-    "bizAddress": "ที่อยู่"
+    "bizAddress": "ที่อยู่",
+    "footerDataDeletion": "ลบข้อมูล"
   },
   "login": {
     "subtitle": "เข้าสู่ระบบเพื่อเริ่มสมุดบัญชี",
@@ -747,7 +748,8 @@
       "confirmEmailPrompt": "พิมพ์อีเมลของคุณเพื่อยืนยันการลบบัญชี",
       "emailMismatch": "อีเมลไม่ตรงกัน ยกเลิกการดำเนินการ",
       "deleted": "ลบบัญชีแล้ว",
-      "deleteFailed": "ลบบัญชีไม่สำเร็จ"
+      "deleteFailed": "ลบบัญชีไม่สำเร็จ",
+      "policyLink": "อ่านนโยบายการลบข้อมูล →"
     }
   },
   "appHeader": {
@@ -1014,7 +1016,7 @@
     },
     "companyInfoTitle": "ข้อมูลผู้ประกอบการ",
     "companyName": "บริษัท",
-    "companyCeo": "CEO",
+    "companyCeo": "ซีอีโอ",
     "companyBizNo": "เลขประจำตัวประกอบการ",
     "companyMailOrder": "เลขที่ใบอนุญาตธุรกิจสั่งซื้อทางจดหมาย",
     "companyAddress": "ที่อยู่",

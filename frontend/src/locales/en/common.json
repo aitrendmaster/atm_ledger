@@ -48,6 +48,7 @@
     "footerTagline": "Chat your money. Get insight.",
     "footerTerms": "Terms",
     "footerPrivacy": "Privacy",
+    "footerDataDeletion": "Delete data",
     "bizCeo": "CEO",
     "bizNo": "Business Reg.",
     "bizMailOrder": "Mail-order",
@@ -802,7 +803,8 @@
       "confirmEmailPrompt": "Type your email to confirm account deletion.",
       "emailMismatch": "Email did not match. Operation cancelled.",
       "deleted": "Account deleted.",
-      "deleteFailed": "Failed to delete account"
+      "deleteFailed": "Failed to delete account",
+      "policyLink": "Read the data deletion policy →"
     },
     "region": {
       "title": "Region / Language / Currency",

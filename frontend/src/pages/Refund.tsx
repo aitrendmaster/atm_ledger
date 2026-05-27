@@ -54,6 +54,7 @@ export default function Refund() {
         <Link to="/pricing" className="hover:text-atm-ink">{t('common.pricing')}</Link>
         <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
         <Link to="/privacy" className="hover:text-atm-ink">{t('landing.footerPrivacy')}</Link>
+        <Link to="/account-deletion" className="hover:text-atm-ink">{t('landing.footerDataDeletion')}</Link>
         <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
       </footer>
     </div>

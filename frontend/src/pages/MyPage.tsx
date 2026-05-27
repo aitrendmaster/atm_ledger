@@ -1028,6 +1028,14 @@ function DangerZone({ email, onDeleted }: { email: string; onDeleted: () => void
       >
         <Trash2 size={13} /> {t('mypage.dangerZone.deleteButton')}
       </button>
+      <p className="text-[11px] text-atm-muted mt-3">
+        <a
+          href="#/account-deletion"
+          className="underline hover:text-atm-ink"
+        >
+          {t('mypage.dangerZone.policyLink')}
+        </a>
+      </p>
     </div>
   )
 }

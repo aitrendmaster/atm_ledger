@@ -48,6 +48,7 @@
     "footerTagline": "대화로 기록하는 AI 가계부",
     "footerTerms": "이용약관",
     "footerPrivacy": "개인정보 처리방침",
+    "footerDataDeletion": "데이터 삭제",
     "bizCeo": "대표자",
     "bizNo": "사업자등록번호",
     "bizMailOrder": "통신판매업",
@@ -802,7 +803,8 @@
       "confirmEmailPrompt": "탈퇴하려면 본인 이메일을 입력해 주세요.",
       "emailMismatch": "이메일 불일치. 작업 취소.",
       "deleted": "탈퇴 처리되었습니다.",
-      "deleteFailed": "탈퇴 실패"
+      "deleteFailed": "탈퇴 실패",
+      "policyLink": "데이터 삭제 정책 자세히 보기 →"
     },
     "region": {
       "title": "지역 / 언어 / 통화",

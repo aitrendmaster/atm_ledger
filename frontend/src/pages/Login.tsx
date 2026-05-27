@@ -76,6 +76,8 @@ export default function Login() {
           <span>·</span>
           <Link to="/refund" className="hover:text-atm-ink">{t('common.refund')}</Link>
           <span>·</span>
+          <Link to="/account-deletion" className="hover:text-atm-ink">{t('landing.footerDataDeletion')}</Link>
+          <span>·</span>
           <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
         </div>
       </form>

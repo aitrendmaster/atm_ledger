@@ -229,7 +229,8 @@
       "trust1": "Cadastro em 30s",
       "trust2": "Sem cartão",
       "trust3": "Beta gratuito"
-    }
+    },
+    "footerDataDeletion": "Deletar dados"
   },
   "login": {
     "subtitle": "Faça login e comece seu livro.",
@@ -737,7 +738,8 @@
       "confirmEmailPrompt": "Digite seu email para confirmar a exclusão da conta.",
       "emailMismatch": "Email não corresponde. Operação cancelada.",
       "deleted": "Conta deletada.",
-      "deleteFailed": "Falha ao deletar conta"
+      "deleteFailed": "Falha ao deletar conta",
+      "policyLink": "Leia a política de exclusão de dados →"
     },
     "region": {
       "title": "Região / Idioma / Moeda",

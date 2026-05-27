@@ -229,7 +229,8 @@
       "trust1": "30-Sek. Anmeldung",
       "trust2": "Keine Zahlungsart",
       "trust3": "Kostenlose Beta"
-    }
+    },
+    "footerDataDeletion": "Daten löschen"
   },
   "login": {
     "subtitle": "Melde dich an und starte dein Ledger.",
@@ -737,7 +738,8 @@
       "confirmEmailPrompt": "Geben Sie Ihre E-Mail-Adresse ein, um die Kontolöschung zu bestätigen.",
       "emailMismatch": "E-Mail stimmt nicht überein. Vorgang abgebrochen.",
       "deleted": "Konto gelöscht.",
-      "deleteFailed": "Konto konnte nicht gelöscht werden"
+      "deleteFailed": "Konto konnte nicht gelöscht werden",
+      "policyLink": "Datenlöschrichtlinie lesen →"
     },
     "region": {
       "title": "Region / Sprache / Währung",

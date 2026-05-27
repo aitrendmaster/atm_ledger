@@ -229,7 +229,8 @@
       "trust1": "Registrazione in 30 sec",
       "trust2": "Senza carta",
       "trust3": "Beta gratuita"
-    }
+    },
+    "footerDataDeletion": "Elimina dati"
   },
   "login": {
     "subtitle": "Accedi e avvia il tuo registro.",
@@ -737,7 +738,8 @@
       "confirmEmailPrompt": "Digita la tua email per confermare l'eliminazione dell'account.",
       "emailMismatch": "L'email non corrisponde. Operazione annullata.",
       "deleted": "Account eliminato.",
-      "deleteFailed": "Impossibile eliminare l'account"
+      "deleteFailed": "Impossibile eliminare l'account",
+      "policyLink": "Leggi la policy di eliminazione dati →"
     },
     "region": {
       "title": "Regione / Lingua / Valuta",

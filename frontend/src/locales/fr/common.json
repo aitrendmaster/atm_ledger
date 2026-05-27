@@ -229,7 +229,8 @@
       "trust1": "Inscription en 30 sec",
       "trust2": "Sans carte",
       "trust3": "Bêta gratuite"
-    }
+    },
+    "footerDataDeletion": "Supprimer les données"
   },
   "login": {
     "subtitle": "Connectez-vous et commencez votre registre.",
@@ -602,7 +603,7 @@
       "title": "Compte",
       "email": "E-mail",
       "role": "Rôle",
-      "admin": "Admin",
+      "admin": "Administrateur",
       "user": "Membre"
     },
     "profile": {
@@ -737,7 +738,8 @@
       "confirmEmailPrompt": "Saisissez votre email pour confirmer la suppression du compte.",
       "emailMismatch": "L'email ne correspond pas. Opération annulée.",
       "deleted": "Compte supprimé.",
-      "deleteFailed": "La suppression du compte a échoué"
+      "deleteFailed": "La suppression du compte a échoué",
+      "policyLink": "Lire la politique de suppression des données →"
     },
     "region": {
       "title": "Région / Langue / Devise",

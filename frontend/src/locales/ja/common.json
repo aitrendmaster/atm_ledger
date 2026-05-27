@@ -22,7 +22,7 @@
   "nav": {
     "myAccount": "アカウント",
     "faq": "FAQ",
-    "admin": "Admin",
+    "admin": "管理",
     "logout": "ログアウト"
   },
   "landing": {
@@ -229,7 +229,8 @@
     "bizCeo": "代表者",
     "bizNo": "事業登録番号",
     "bizMailOrder": "通信販売",
-    "bizAddress": "住所"
+    "bizAddress": "住所",
+    "footerDataDeletion": "データを削除"
   },
   "login": {
     "subtitle": "ログインして家計簿を始めましょう。",
@@ -747,7 +748,8 @@
       "confirmEmailPrompt": "アカウント削除を確認するメールアドレスを入力してください。",
       "emailMismatch": "メールアドレスが一致しません。処理がキャンセルされました。",
       "deleted": "アカウントが削除されました。",
-      "deleteFailed": "アカウントの削除に失敗しました"
+      "deleteFailed": "アカウントの削除に失敗しました",
+      "policyLink": "データ削除ポリシーを読む →"
     }
   },
   "appHeader": {

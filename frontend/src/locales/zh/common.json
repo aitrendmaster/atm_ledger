@@ -229,7 +229,8 @@
     "bizCeo": "首席执行官",
     "bizNo": "营业执照号",
     "bizMailOrder": "邮购",
-    "bizAddress": "地址"
+    "bizAddress": "地址",
+    "footerDataDeletion": "删除数据"
   },
   "login": {
     "subtitle": "登录开始记账。",
@@ -1142,6 +1143,25 @@
     "timelineEmailValue": "身份验证后 7 个工作日内",
     "backHome": "首页",
     "privacyLink": "隐私政策",
-    "termsLink": "服务条款"
+    "termsLink": "服务条款",
+    "title": "删除账户和数据",
+    "subtitle": "永久删除你的 Moa AI Ledger 账户和相关数据的说明。",
+    "method1Title": "方法 1 · 应用内删除（即时）",
+    "method1Body": "如果你仍能登录，这是最快的方式。无需额外的身份验证。",
+    "method1Step1": "打开应用中的「我的」标签",
+    "method1Step2": "向下滚动并点击「删除账户」",
+    "method1Step3": "确认提示",
+    "method1Note": "请求删除后登录会被立即禁用；所有数据将在 30 天内永久删除。",
+    "method2Title": "方法 2 · 邮件请求（如果无法访问应用）",
+    "method2Body": "从你注册时使用的邮箱给我们发送邮件，我们会验证并处理请求。",
+    "method2Note": "请从注册时使用的相同邮箱发送，以便我们确认身份。将在 7 个工作日内处理。",
+    "deletedDataTitle": "将删除的数据",
+    "deletedItem1": "账户信息（邮箱、昵称、密码哈希、国家/货币/语言）",
+    "deletedItem2": "账本条目（金额、分类、日期、备注、收据照片）",
+    "deletedItem3": "月度总结、下月承诺、计划数据",
+    "deletedItem4": "保存的地点（收藏、评价、评分、照片）",
+    "deletedItem5": "订阅/支付令牌（Lemon Squeezy 客户 ID、Toss 账单密钥等）",
+    "deletedItem6": "推送令牌、基于 IP 的位置缓存",
+    "retainedDataTitle": "法律规定保留的数据"
   }
 }

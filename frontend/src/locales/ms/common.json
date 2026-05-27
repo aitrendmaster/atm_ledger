@@ -226,10 +226,11 @@
       "trust2": "Tiada kad",
       "trust3": "Beta percuma"
     },
-    "bizCeo": "CEO",
+    "bizCeo": "Ketua Eksekutif",
     "bizNo": "No. Daftar Perniagaan",
     "bizMailOrder": "Pesanan Mel",
-    "bizAddress": "Alamat"
+    "bizAddress": "Alamat",
+    "footerDataDeletion": "Padam data"
   },
   "login": {
     "subtitle": "Log masuk dan mula merekod.",
@@ -747,7 +748,8 @@
       "confirmEmailPrompt": "Taipkan e-mel anda untuk mengesahkan penghapusan akaun.",
       "emailMismatch": "E-mel tidak sepadan. Operasi dibatalkan.",
       "deleted": "Akaun telah dipadamkan.",
-      "deleteFailed": "Gagal memadamkan akaun"
+      "deleteFailed": "Gagal memadamkan akaun",
+      "policyLink": "Baca dasar penghapusan data →"
     }
   },
   "appHeader": {

@@ -229,7 +229,8 @@
       "trust1": "30 sec aanmelden",
       "trust2": "Geen betaalgegeven",
       "trust3": "Gratis bèta"
-    }
+    },
+    "footerDataDeletion": "Gegevens verwijderen"
   },
   "login": {
     "subtitle": "Log in en start je journaal.",
@@ -737,7 +738,8 @@
       "confirmEmailPrompt": "Typ uw e-mailadres om accountverwijdering te bevestigen.",
       "emailMismatch": "E-mailadres komt niet overeen. Bewerking geannuleerd.",
       "deleted": "Account verwijderd.",
-      "deleteFailed": "Account verwijderen mislukt"
+      "deleteFailed": "Account verwijderen mislukt",
+      "policyLink": "Lees het beleid voor gegevenswissing →"
     },
     "region": {
       "title": "Regio / Taal / Valuta",

@@ -229,7 +229,8 @@
     "bizCeo": "CEO",
     "bizNo": "Reg. empresarial",
     "bizMailOrder": "Venta por correo",
-    "bizAddress": "Dirección"
+    "bizAddress": "Dirección",
+    "footerDataDeletion": "Eliminar datos"
   },
   "login": {
     "subtitle": "Inicia sesión y empieza tu libro.",
@@ -747,7 +748,8 @@
       "confirmEmailPrompt": "Escribe tu correo electrónico para confirmar la eliminación de la cuenta.",
       "emailMismatch": "El correo electrónico no coincide. Operación cancelada.",
       "deleted": "Cuenta eliminada.",
-      "deleteFailed": "No se pudo eliminar la cuenta"
+      "deleteFailed": "No se pudo eliminar la cuenta",
+      "policyLink": "Lee la política de eliminación de datos →"
     }
   },
   "appHeader": {

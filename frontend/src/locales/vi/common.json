@@ -229,7 +229,8 @@
     "bizCeo": "CEO",
     "bizNo": "Đăng ký kinh doanh",
     "bizMailOrder": "Bán hàng qua đơn",
-    "bizAddress": "Địa chỉ"
+    "bizAddress": "Địa chỉ",
+    "footerDataDeletion": "Xóa dữ liệu"
   },
   "login": {
     "subtitle": "Đăng nhập và bắt đầu ghi sổ.",
@@ -747,7 +748,8 @@
       "confirmEmailPrompt": "Nhập email của bạn để xác nhận xóa tài khoản.",
       "emailMismatch": "Email không khớp. Thao tác đã bị hủy.",
       "deleted": "Tài khoản đã bị xóa.",
-      "deleteFailed": "Không thể xóa tài khoản"
+      "deleteFailed": "Không thể xóa tài khoản",
+      "policyLink": "Đọc chính sách xóa dữ liệu →"
     }
   },
   "appHeader": {
