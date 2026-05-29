@@ -1,11 +1,36 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
+import toast from 'react-hot-toast'
 
 const BASE = import.meta.env.VITE_API_BASE_URL || ''
 
+// 무료 티어(Render Hobby) 백엔드는 15분 유휴 후 잠들고, 깨어나는 데 ~55초 걸린다.
+// 콜드스타트를 견디도록 타임아웃을 넉넉히(60초) 잡는다. 웜 상태에선 영향 없음.
 export const api: AxiosInstance = axios.create({
   baseURL: BASE,
-  timeout: 30000,
+  timeout: 60000,
 })
+
+// 백엔드가 깨어나는 동안 1회만 띄우는 안내 토스트 (id 로 중복 방지).
+const WAKING_TOAST_ID = 'backend-waking'
+let wakingShown = false
+function showWakingToast() {
+  if (wakingShown) return
+  wakingShown = true
+  toast.loading('서버를 깨우는 중이에요… 최대 1분쯤 걸릴 수 있어요.', { id: WAKING_TOAST_ID })
+}
+function clearWakingToast() {
+  if (!wakingShown) return
+  wakingShown = false
+  toast.dismiss(WAKING_TOAST_ID)
+}
+
+/**
+ * 앱 로드 시 백엔드를 미리 깨워(무료 티어 콜드스타트) 첫 로그인 지연을 줄인다.
+ * 실패는 무시 — 단순 워밍업 핑.
+ */
+export function warmUp() {
+  api.get('/health').catch(() => {})
+}
 
 const ACCESS_KEY = 'atm_access'
 const REFRESH_KEY = 'atm_refresh'
@@ -51,7 +76,10 @@ async function tryRefresh(): Promise<string | null> {
 }
 
 api.interceptors.response.use(
-  (r) => r,
+  (r) => {
+    clearWakingToast()
+    return r
+  },
   async (err: AxiosError) => {
     const original = err.config as any
     if (err.response?.status === 401 && !original?._retry) {
@@ -62,6 +90,16 @@ api.interceptors.response.use(
         return api(original)
       }
     }
+    // 콜드스타트/일시 네트워크 지연 — 백엔드가 자다 깨어나는 경우 1회만 재시도.
+    // (ECONNABORTED=타임아웃, 응답 없음=네트워크. 사용자가 취소한 ERR_CANCELED 는 제외)
+    const isWakeable =
+      err.code === 'ECONNABORTED' || (!err.response && err.code !== 'ERR_CANCELED')
+    if (isWakeable && original && !original._wakeRetry) {
+      original._wakeRetry = true
+      showWakingToast()
+      return api(original)
+    }
+    clearWakingToast()
     return Promise.reject(err)
   },
 )

@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
 import App from './App'
+import { warmUp } from './services/api'
 import { AuthProvider } from './hooks/useAuth'
 import ErrorBoundary from './components/ErrorBoundary'
 import { initCapacitorNative } from './lib/capacitor-init'
@@ -43,3 +44,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 // 네이티브(Android/iOS) 빌드에서만 동작. 웹은 no-op.
 initCapacitorNative()
+
+// 무료 티어 백엔드 콜드스타트를 미리 깨워 첫 로그인 지연을 줄인다 (fire-and-forget).
+warmUp()
