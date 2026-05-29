@@ -167,38 +167,37 @@ export default function ChatLedger() {
   const nextMonth = `${nextMonthDate.getFullYear()}-${String(nextMonthDate.getMonth() + 1).padStart(2, '0')}`;
   const todayStr = now.toISOString().split('T')[0];
 
-  // 반복지출(월세·이자·구독료 등) 은 사용자가 "확정 지출" 로 인식하므로
-  // 카테고리 합계와 월 지출 합계 모두에 포함시킨다.
-  // 일회성 planned (recurrence === 'none') 만 "예정된 지출" 섹션에 별도 표시.
-  const isRecurringPlanned = (p) =>
-    p.is_recurring_instance === true ||
-    (p.recurrence && p.recurrence !== 'none');
-
+  // '사용 vs 예정' 분리 기준은 반복 여부가 아니라 '날짜'(오늘 기준)다.
+  //  - 오늘 이전(경과) 예정 → 이미 나간 돈으로 보고 '사용'(total)에 합산.
+  //  - 오늘 이후 예정(반복·일회성 모두) → '예정'(upcoming)으로 분리. 예정도 합산 지출에 포함.
+  // 이렇게 해야 상단 카드·캘린더 요약·대차표가 모두 같은 정의를 쓴다.
   const getMonthData = (monthKey) => {
     const monthEntries = entries.filter(e => e.date.startsWith(monthKey));
-    const monthRecurring = planned.filter(p => p.date.startsWith(monthKey) && isRecurringPlanned(p));
+    const monthPlanned = planned.filter(p => p.date.startsWith(monthKey));
+    const pastPlanned = monthPlanned.filter(p => p.date < todayStr);
+    const upcomingPlanned = monthPlanned.filter(p => p.date >= todayStr);
     const byCategory = {};
     Object.keys(CATEGORIES).forEach(cat => {
       const fromEntries = monthEntries.filter(e => e.category === cat).reduce((s, e) => s + e.amount, 0);
-      const fromRecurring = monthRecurring.filter(p => p.category === cat).reduce((s, p) => s + p.amount, 0);
-      byCategory[cat] = fromEntries + fromRecurring;
+      const fromPast = pastPlanned.filter(p => p.category === cat).reduce((s, p) => s + p.amount, 0);
+      byCategory[cat] = fromEntries + fromPast;
     });
     const total =
       monthEntries.reduce((s, e) => s + e.amount, 0) +
-      monthRecurring.reduce((s, p) => s + p.amount, 0);
-    return { total, byCategory, entries: monthEntries, recurring: monthRecurring };
+      pastPlanned.reduce((s, p) => s + p.amount, 0);
+    const upcoming = upcomingPlanned.reduce((s, p) => s + p.amount, 0);
+    return { total, upcoming, byCategory, entries: monthEntries, pastPlanned, upcomingPlanned };
   };
 
   const thisMonthData = getMonthData(thisMonth);
   const lastMonthData = getMonthData(lastMonth);
   const monthTotal = thisMonthData.total;
 
-  // 이번 달 일회성 예정지출 (반복은 위에서 이미 확정 지출로 합산했음)
-  const upcomingThisMonth = planned.filter(
-    (p) => p.date.startsWith(thisMonth) && p.date >= todayStr && !isRecurringPlanned(p),
-  );
+  // 이번 달 예정지출 = 오늘 이후 날짜의 planned 전부(반복 포함). getMonthData 와 동일 기준.
+  const upcomingThisMonth = thisMonthData.upcomingPlanned;
+  // 계획 탭 '다음 달' 모드는 다음 달 planned 전부(반복 포함)를 그대로 보여준다.
   const upcomingNextMonth = planned.filter((p) => p.date.startsWith(nextMonth));
-  const upcomingTotal = upcomingThisMonth.reduce((s, p) => s + p.amount, 0);
+  const upcomingTotal = thisMonthData.upcoming;
   // budget 이 설정 안 됐으면 income 으로 fallback (사용자가 "자유롭게 쓸 수 있는 돈" 을
   // 항상 0 으로 보고 혼란스러워하는 케이스 방지). 둘 다 0 이면 자연스럽게 음수.
   const trulyFreeBase = budget > 0 ? budget : income;
@@ -649,8 +648,10 @@ export default function ChatLedger() {
   );
   const calMonthStr = `${calMonth.getFullYear()}-${String(calMonth.getMonth() + 1).padStart(2, '0')}`;
   const calMonthEntries = entries.filter(e => e.date.startsWith(calMonthStr));
-  const calMonthSpent = calMonthEntries.reduce((s, e) => s + e.amount, 0);
-  const calMonthPlanned = planned.filter(p => p.date.startsWith(calMonthStr)).reduce((s, p) => s + p.amount, 0);
+  // 캘린더 요약도 상단 카드와 동일 기준: 사용 = 실제+경과 예정, 예정 = 오늘 이후 예정(반복 포함)
+  const calMonthData = getMonthData(calMonthStr);
+  const calMonthSpent = calMonthData.total;
+  const calMonthPlanned = calMonthData.upcoming;
   const calMonthDays = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 0).getDate();
 
   const calMonthListData = (() => {
@@ -1532,11 +1533,9 @@ export default function ChatLedger() {
             {/* === 대차대조표 탭 === */}
             {activeTab === 'balance' && (() => {
               const balData = getMonthData(balanceMonth);
-              const isCurrentMonth = balanceMonth === thisMonth;
-              const balUpcoming = isCurrentMonth
-                ? planned.filter(p => p.date.startsWith(balanceMonth) && p.date >= todayStr && !isRecurringPlanned(p))
-                : [];
-              const balUpcomingTotal = balUpcoming.reduce((s, p) => s + p.amount, 0);
+              // 예정 = 오늘 이후 planned 전부(반복 포함). 과거 달은 upcomingPlanned 가 비어 자연히 0.
+              const balUpcoming = balData.upcomingPlanned;
+              const balUpcomingTotal = balData.upcoming;
               const balYear = balanceMonth.split('-')[0];
               const balMonthNum = parseInt(balanceMonth.split('-')[1]);
               return (
