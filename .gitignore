@@ -25,3 +25,12 @@ frontend/*.tsbuildinfo
 # IDE
 .idea/
 .vscode/
+
+# Python 캐시 (전역)
+__pycache__/
+*.pyc
+
+# 로컬 스크래치 / 비공개 (public 리포 — 커밋 금지)
+scripts/_test_*
+scripts/make_play_screenshots.py
+/dev-journey.md
