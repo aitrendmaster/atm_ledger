@@ -3,12 +3,20 @@ import os
 import secrets
 from datetime import datetime, timedelta, timezone
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
 from loguru import logger
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..config import get_settings
+from ..ratelimit import (
+    client_ip,
+    limit,
+    password_reset_limiter,
+    resend_limiter,
+    signup_limiter,
+)
+from ..services import turnstile_service
 from ..constants.countries import (
     country_defaults,
     normalize_country,
@@ -94,17 +102,29 @@ def _verification_link(raw_token: str) -> str:
     return f"{settings.frontend_base_url}/#/verify-email?token={raw_token}"
 
 
-@router.post("/signup", status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/signup",
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(limit(signup_limiter))],
+)
 async def signup(
     body: SignupRequest,
     background_tasks: BackgroundTasks,
+    request: Request,
     db: AsyncSession = Depends(get_db),
 ):
     """가입 — email_verified=False 로 생성 + 인증 메일 발송.
 
+    봇 차단: ① IP rate limit(dependencies) ② Cloudflare Turnstile 검증.
     TokenPair 는 발급하지 않는다 (UX: 가입 직후 자동 로그인 X, 메일 인증 후 수동 로그인).
     """
     try:
+        # Cloudflare Turnstile — 자동 가입(봇) 차단. 미설정이면 통과.
+        if not await turnstile_service.verify(body.turnstile_token, remote_ip=client_ip(request)):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="자동가입 방지 검증에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+            )
         res = await db.execute(select(User).where(User.email == body.email.lower()))
         existing = res.scalar_one_or_none()
         # 활성 계정이면 가입 차단. soft-deleted (deleted_at IS NOT NULL) 면 부활 경로로 진행.
@@ -203,7 +223,11 @@ async def verify_email(token: str, db: AsyncSession = Depends(get_db)):
     return {"verified": True, "email": user.email}
 
 
-@router.post("/resend-verification", response_model=SimpleResult)
+@router.post(
+    "/resend-verification",
+    response_model=SimpleResult,
+    dependencies=[Depends(limit(resend_limiter))],
+)
 async def resend_verification(
     body: PasswordResetRequestIn,
     background_tasks: BackgroundTasks,
@@ -349,7 +373,11 @@ def _hash_token(raw: str) -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
-@router.post("/password-reset/request", response_model=SimpleResult)
+@router.post(
+    "/password-reset/request",
+    response_model=SimpleResult,
+    dependencies=[Depends(limit(password_reset_limiter))],
+)
 async def password_reset_request(
     body: PasswordResetRequestIn,
     background: BackgroundTasks,

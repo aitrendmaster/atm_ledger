@@ -11,6 +11,8 @@ class SignupRequest(BaseModel):
     country_code: str | None = Field(default=None, max_length=2)
     currency_code: str | None = Field(default=None, max_length=3)
     locale: str | None = Field(default=None, max_length=10)
+    # Cloudflare Turnstile 위젯 토큰. TURNSTILE_SECRET_KEY 설정 시 필수(봇 가입 차단).
+    turnstile_token: str | None = Field(default=None, max_length=2048)
 
 
 class LoginRequest(BaseModel):

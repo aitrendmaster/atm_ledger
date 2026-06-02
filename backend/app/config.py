@@ -95,6 +95,18 @@ class Settings(BaseSettings):
     lemonsqueezy_variant_id_monthly: str = ""
     lemonsqueezy_variant_id_yearly: str = ""
 
+    # 단건 상품(전자책 등) variant → entitlement SKU 매핑. "변형UUID=sku" 콤마 구분.
+    # 전자책이 늘어나면 코드 수정 없이 이 값만 추가한다.
+    # 예: "b6a94278-8844-4725-ac83-c9b3afccda8c=atmbook:book-001,77ff...=atmbook:book-002"
+    # ※ 키는 bare UUID 로 넣을 것(체크아웃 URL 통째 X).
+    lemonsqueezy_variant_sku_map: str = ""
+
+    # atmbook 전자책 구매 시 교차 지급하는 moa365 무료 이용 개월 수.
+    ebook_cross_grant_months: int = 6
+    # 교차 지급 comp 누적 상한(개월). 여러 전자책 반복 구매로 무한 누적되는 것을 방지.
+    # 0 이면 무제한. 기본 12개월(지금부터 최대 1년치까지만 쌓임).
+    ebook_cross_grant_max_months: int = 12
+
     # 베타 기간 무료 모드. true 면:
     # - 모든 사용자가 paid 와 동일한 권한 (엑셀 익스포트 등)
     # - 트라이얼 만료/구독 게이트 우회
@@ -107,6 +119,12 @@ class Settings(BaseSettings):
 
     # 공식 문의 연락처 (Landing/FAQ/Footer 등에 노출용)
     support_email: str = "master@aitrend.kr"
+
+    # Cloudflare Turnstile (무료 CAPTCHA) — 봇 자동 가입 차단.
+    # 미설정이면 검증 우회(가입 정상 동작). 설정 시 가입 폼이 위젯 토큰을 함께 보내야 함.
+    # 발급: Cloudflare 대시보드 > Turnstile > 위젯 추가 → Site key(프론트) / Secret key(백엔드)
+    turnstile_secret_key: str = ""
+    turnstile_site_key: str = ""
 
     @property
     def cors_origins_list(self) -> List[str]:
@@ -124,6 +142,19 @@ class Settings(BaseSettings):
     @property
     def admin_email_set(self) -> set[str]:
         return {e.strip().lower() for e in self.admin_emails.split(",") if e.strip()}
+
+    @property
+    def ls_variant_sku(self) -> dict[str, str]:
+        """`lemonsqueezy_variant_sku_map` 문자열을 {variant_id: sku} 딕셔너리로 파싱."""
+        out: dict[str, str] = {}
+        for pair in (self.lemonsqueezy_variant_sku_map or "").split(","):
+            pair = pair.strip()
+            if "=" in pair:
+                vid, sku = pair.split("=", 1)
+                vid, sku = vid.strip(), sku.strip()
+                if vid and sku:
+                    out[vid] = sku
+        return out
 
 
 @lru_cache

@@ -571,6 +571,66 @@ async def admin_hard_delete(
     )
 
 
+# ---------- 봇/미인증 계정 일괄 정리 ----------
+
+
+@router.post("/cleanup-unverified")
+async def admin_cleanup_unverified(
+    days: int = Query(default=7, ge=1, le=365, description="가입 후 N일 경과한 미인증 계정만 대상"),
+    dry_run: bool = Query(default=True, description="True 면 삭제하지 않고 대상 개수·샘플만 반환"),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """봇 추정 미인증 계정을 안전하게 일괄 하드삭제.
+
+    대상 조건(모두 충족):
+      - email_verified = False  (인증 안 됨 → 로그인 불가 = 활동 0)
+      - auth_provider = 'password'  (Google 가입은 자동 인증되므로 제외)
+      - created_at < now - days  (최근 가입자는 보호)
+      - deleted_at IS NULL
+    안전장치:
+      - dry_run 기본 True — 먼저 개수/샘플 확인 후 dry_run=false 로 실제 삭제.
+      - entries 가 1건이라도 있으면 제외(이론상 없지만 방어).
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    entries_subq = (
+        select(func.count(Entry.id)).where(Entry.user_id == User.id).scalar_subquery()
+    )
+    stmt = (
+        select(User)
+        .where(
+            User.email_verified.is_(False),
+            User.auth_provider == "password",
+            User.deleted_at.is_(None),
+            User.created_at < cutoff,
+            User.is_admin.is_(False),
+            entries_subq == 0,
+        )
+        .order_by(User.created_at.asc())
+    )
+    targets = (await db.execute(stmt)).scalars().all()
+    count = len(targets)
+    sample = [t.email for t in targets[:20]]
+
+    if dry_run:
+        return {
+            "dry_run": True,
+            "days": days,
+            "would_delete": count,
+            "sample": sample,
+            "message": f"미인증 {days}일 경과 계정 {count}건이 삭제 대상입니다. 실제 삭제하려면 dry_run=false 로 다시 호출하세요.",
+        }
+
+    deleted = 0
+    for t in targets:
+        await db.delete(t)
+        deleted += 1
+    await _audit(db, me, "cleanup_unverified", payload={"days": days, "deleted": deleted})
+    await db.commit()
+    logger.warning(f"admin_cleanup_unverified by={me.email} days={days} deleted={deleted}")
+    return {"dry_run": False, "days": days, "deleted": deleted, "sample": sample}
+
+
 # ---------- 감사 로그 ----------
 
 
