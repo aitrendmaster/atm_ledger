@@ -80,17 +80,48 @@ export function formatCurrency(
   }
 }
 
-/** 짧게 압축 표시: 12,345 → "12.3k", 1,234,567 → "1.2M". 통화 심볼은 prefix. */
+/**
+ * "압축(compact)" 임계값 — 이 값 미만이면 풀 표시, 이상이면 Intl compact 표기.
+ * KRW·JPY 등 소액 단위가 큰 통화는 1만(10,000) 미만까지 풀 표시해야 자연스럽고,
+ * USD·EUR 등은 1,000 미만을 풀 표시한다.
+ * (이 분기가 없으면 $10 → "0.0k" 처럼 0 으로 뭉개지는 버그가 발생.)
+ */
+const COMPACT_THRESHOLDS: Record<string, number> = {
+  KRW: 10_000, JPY: 10_000, VND: 10_000, IDR: 10_000,
+}
+const DEFAULT_COMPACT_THRESHOLD = 1_000
+
+/**
+ * 달력 셀·요약 카드용 짧은 금액 표기. 통화·로케일에 맞춰 Intl 이 자동 압축한다.
+ * - 소액(임계값 미만): 풀 표시  → USD $10 → "$10.00", KRW ₩4,500 → "₩4,500"
+ * - 고액(임계값 이상): compact → USD $1,500 → "$1.5K", KRW ₩45,000 → "₩4.5만"
+ * 어떤 통화·언어에서도 0 으로 뭉개지지 않는다.
+ */
 export function compactCurrency(
   amount: number,
   code: string | null | undefined = 'KRW',
 ): string {
   const info = currencyInfo(code)
+  const cur = (code || 'KRW').toUpperCase()
   const safe = Number.isFinite(amount) ? amount : 0
-  const abs = Math.abs(safe)
-  let display: string
-  if (abs >= 1_000_000) display = (safe / 1_000_000).toFixed(1) + 'M'
-  else if (abs >= 1_000) display = (safe / 1_000).toFixed(1) + 'k'
-  else display = String(Math.round(safe))
-  return `${info.symbol}${display}`
+  const threshold = COMPACT_THRESHOLDS[cur] ?? DEFAULT_COMPACT_THRESHOLD
+  try {
+    if (Math.abs(safe) < threshold) {
+      return new Intl.NumberFormat(info.locale, {
+        style: 'currency',
+        currency: cur,
+        minimumFractionDigits: info.decimals,
+        maximumFractionDigits: info.decimals,
+      }).format(safe)
+    }
+    return new Intl.NumberFormat(info.locale, {
+      style: 'currency',
+      currency: cur,
+      notation: 'compact',
+      maximumFractionDigits: 1,
+    }).format(safe)
+  } catch {
+    // 알 수 없는 통화 코드 → 심볼 + 반올림 숫자
+    return `${info.symbol}${Math.round(safe).toLocaleString(info.locale)}`
+  }
 }

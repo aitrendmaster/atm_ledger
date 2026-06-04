@@ -5,7 +5,7 @@ import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, 
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { absolutizePhotoUrl } from '../services/ledgerMappers';
 import GoogleMap from '../components/GoogleMap';
-import { currencySymbol, formatCurrency } from '../utils/currency';
+import { compactCurrency, currencySymbol, formatCurrency } from '../utils/currency';
 import { useAuth } from '../hooks/useAuth';
 import {
   useEntries, usePlanned, useReflections,
@@ -913,19 +913,19 @@ export default function ChatLedger() {
                   <div className="p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
                     <div className="text-[10px] mb-0.5" style={{ color: '#7A7567' }}>{t('ledger.stats.monthSpent')}</div>
                     <div className="text-base font-bold tabular-nums" style={{ color: '#2C2418' }}>
-                      {(calMonthSpent / 10000).toFixed(1)}<span className="text-xs opacity-60">{t('ledger.moneyUnit.tenK')}</span>
+                      {compactCurrency(calMonthSpent, currency)}
                     </div>
                   </div>
                   <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FFF8EC' }}>
                     <div className="text-[10px] mb-0.5" style={{ color: '#A0633C' }}>{t('ledger.stats.upcoming')}</div>
                     <div className="text-base font-bold tabular-nums" style={{ color: '#A0633C' }}>
-                      {(calMonthPlanned / 10000).toFixed(1)}<span className="text-xs opacity-60">{t('ledger.moneyUnit.tenK')}</span>
+                      {compactCurrency(calMonthPlanned, currency)}
                     </div>
                   </div>
                   <div className="p-3 rounded-2xl" style={{ backgroundColor: '#E8EEE6' }}>
                     <div className="text-[10px] mb-0.5" style={{ color: '#6B8E6B' }}>{t('ledger.stats.dailyAvg')}</div>
                     <div className="text-base font-bold tabular-nums" style={{ color: '#6B8E6B' }}>
-                      {calMonthSpent > 0 ? Math.round(calMonthSpent / calMonthDays / 1000) : 0}<span className="text-xs opacity-60">{t('ledger.moneyUnit.thousand')}</span>
+                      {compactCurrency(calMonthSpent > 0 ? calMonthSpent / calMonthDays : 0, currency)}
                     </div>
                   </div>
                 </div>
@@ -960,13 +960,13 @@ export default function ChatLedger() {
                               color: d.isToday ? '#A0633C' : i % 7 === 0 ? '#E07856' : i % 7 === 6 ? '#5B7C99' : '#2C2418'
                             }}>{d.day}</div>
                             {d.totalSpent > 0 && (
-                              <div className="text-[8px] font-medium" style={{ color: '#2C2418' }}>
-                                {Math.round(d.totalSpent / 1000)}k
+                              <div className="text-[8px] font-medium truncate" style={{ color: '#2C2418' }}>
+                                {compactCurrency(d.totalSpent, currency)}
                               </div>
                             )}
                             {d.totalPlanned > 0 && (
-                              <div className="text-[8px] font-medium" style={{ color: '#A0633C' }}>
-                                +{Math.round(d.totalPlanned / 1000)}k
+                              <div className="text-[8px] font-medium truncate" style={{ color: '#A0633C' }}>
+                                +{compactCurrency(d.totalPlanned, currency)}
                               </div>
                             )}
                             {d.planned.length > 0 && (
@@ -1346,7 +1346,7 @@ export default function ChatLedger() {
                     <div className="rounded-3xl p-6" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
                       <h3 className="text-sm font-medium mb-1" style={{ color: '#2C2418' }}>{t('ledger.year.last12Title')}</h3>
                       <p className="text-xs mb-4" style={{ color: '#7A7567' }}>
-                        {t('ledger.year.yearSummary', { total: `${annualData.yearTotal.toLocaleString()} ${cur}`, avg: `${annualData.yearAvg.toLocaleString()} ${cur}` })}
+                        {t('ledger.year.yearSummary', { total: fmtAmt(annualData.yearTotal), avg: fmtAmt(annualData.yearAvg) })}
                       </p>
                       <div className="flex items-end gap-1 h-32 mb-3">
                         {annualData.months.map((m, i) => {
@@ -1354,7 +1354,7 @@ export default function ChatLedger() {
                           const h = (m.total / max) * 100;
                           return (
                             <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                              <div className="text-[8px]" style={{ color: '#7A7567' }}>{m.total > 0 ? Math.round(m.total / 10000) + t('ledger.moneyUnit.tenK') : ''}</div>
+                              <div className="text-[8px]" style={{ color: '#7A7567' }}>{m.total > 0 ? compactCurrency(m.total, currency) : ''}</div>
                               <div className="w-full rounded-t-md transition-all" style={{
                                 height: `${h}%`, minHeight: m.total > 0 ? '4px' : '2px',
                                 backgroundColor: m.isCurrent ? '#A0633C' : (m.total > annualData.yearAvg ? '#E07856' : '#D4CDC0'),
@@ -1373,12 +1373,12 @@ export default function ChatLedger() {
                               <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FDF0EA' }}>
                                 <div className="text-[10px]" style={{ color: '#E07856' }}>{t('ledger.year.mostSpent')}</div>
                                 <div className="text-base font-bold mt-0.5" style={{ color: '#2C2418' }}>{t('ledger.year.yearMonth', { year: max.year, month: max.month })}</div>
-                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{max.total.toLocaleString()} {cur}</div>
+                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{fmtAmt(max.total)}</div>
                               </div>
                               <div className="p-3 rounded-2xl" style={{ backgroundColor: '#E8EEE6' }}>
                                 <div className="text-[10px]" style={{ color: '#6B8E6B' }}>{t('ledger.year.mostSaved')}</div>
                                 <div className="text-base font-bold mt-0.5" style={{ color: '#2C2418' }}>{t('ledger.year.yearMonth', { year: min.year, month: min.month })}</div>
-                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{min.total.toLocaleString()} {cur}</div>
+                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{fmtAmt(min.total)}</div>
                               </div>
                             </>
                           );
@@ -1402,9 +1402,9 @@ export default function ChatLedger() {
                                 <div className="flex justify-between items-baseline">
                                   <div className="flex items-center gap-1.5">
                                     <span className="text-sm font-medium" style={{ color: '#2C2418' }}>{t(`ledger.categories.${cat}`, cat)}</span>
-                                    <span className="text-[10px]" style={{ color: '#7A7567' }}>{monthly.toLocaleString()} {cur}</span>
+                                    <span className="text-[10px]" style={{ color: '#7A7567' }}>{fmtAmt(monthly)}</span>
                                   </div>
-                                  <span className="text-sm font-medium tabular-nums" style={{ color: '#2C2418' }}>{total.toLocaleString()} {cur}</span>
+                                  <span className="text-sm font-medium tabular-nums" style={{ color: '#2C2418' }}>{fmtAmt(total)}</span>
                                 </div>
                                 <div className="h-1.5 rounded-full overflow-hidden mt-1" style={{ backgroundColor: '#F5F1EA' }}>
                                   <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: CATEGORIES[cat].color }} />

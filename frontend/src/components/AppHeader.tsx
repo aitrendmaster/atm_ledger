@@ -43,7 +43,8 @@ export default function AppHeader({
   const { user, signout } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const displayTitle = title || 'Moa AI 가계부'
+  // 브랜드명은 번역하지 않고 모든 언어에서 "Moa 365" 로 통일 (i18n app.name 값도 동일).
+  const displayTitle = title || t('app.name', { defaultValue: 'Moa 365' })
 
   // ESC 키로 메뉴 닫기 + body 스크롤 잠금
   useEffect(() => {
