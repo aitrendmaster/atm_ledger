@@ -14,6 +14,7 @@ import {
   FileText,
   History,
   Key,
+  MapPin,
   Plus,
   Search,
   ShieldAlert,
@@ -25,7 +26,7 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react'
-import type { AdminUserSort, AnnouncementLevel } from '../services/api'
+import type { AdminUserSort, AnnouncementLevel, PlaceSort } from '../services/api'
 import { adminApi } from '../services/api'
 import { useAuth } from '../hooks/useAuth'
 import AppHeader from '../components/AppHeader'
@@ -58,6 +59,10 @@ export default function Admin() {
     level: AnnouncementLevel
     active: boolean
   }>({ title: '', body: '', level: 'info', active: true })
+  // 장소 콘텐츠
+  const [placesOpen, setPlacesOpen] = useState(false)
+  const [placeSort, setPlaceSort] = useState<PlaceSort>('visit_count')
+  const [placeDetailId, setPlaceDetailId] = useState<number | null>(null)
 
   const statsQ = useQuery({
     queryKey: ['admin', 'stats'],
@@ -83,6 +88,13 @@ export default function Admin() {
     staleTime: 0,
   })
 
+  const detailUsageQ = useQuery({
+    queryKey: ['admin', 'user-ai-usage', detailUserId],
+    queryFn: () => adminApi.userAiUsage(detailUserId!).then(r => r.data),
+    enabled: Boolean(user?.is_admin) && detailUserId !== null,
+    staleTime: 0,
+  })
+
   const auditQ = useQuery({
     queryKey: ['admin', 'audit'],
     queryFn: () => adminApi.audit(50).then(r => r.data),
@@ -95,6 +107,27 @@ export default function Admin() {
     queryFn: () => adminApi.aiUsageSummary().then(r => r.data),
     enabled: Boolean(user?.is_admin),
     staleTime: 30_000,
+  })
+
+  const placesQ = useQuery({
+    queryKey: ['admin', 'places', placeSort],
+    queryFn: () => adminApi.places({ sort: placeSort }).then(r => r.data),
+    enabled: Boolean(user?.is_admin) && placesOpen,
+    staleTime: 0,
+  })
+
+  const placeReportsQ = useQuery({
+    queryKey: ['admin', 'place-reports'],
+    queryFn: () => adminApi.placeReports('open').then(r => r.data),
+    enabled: Boolean(user?.is_admin) && placesOpen,
+    staleTime: 0,
+  })
+
+  const placeDetailQ = useQuery({
+    queryKey: ['admin', 'place-detail', placeDetailId],
+    queryFn: () => adminApi.placeDetail(placeDetailId!).then(r => r.data),
+    enabled: Boolean(user?.is_admin) && placeDetailId !== null,
+    staleTime: 0,
   })
 
   const annoListQ = useQuery({
@@ -201,6 +234,106 @@ export default function Admin() {
       toast.error(err?.response?.data?.detail || '영구 삭제 실패')
     } finally {
       setBusyId(null)
+    }
+  }
+
+  const refreshDetail = (id: number) => {
+    refreshAdminData()
+    queryClient.invalidateQueries({ queryKey: ['admin', 'user-detail', id] })
+    queryClient.invalidateQueries({ queryKey: ['admin', 'user-ai-usage', id] })
+  }
+
+  const handleGrantComp = async (id: number, email: string, days: number) => {
+    const note = window.prompt(`${email} 에게 ${days}일 이용권을 부여합니다.\n사유/메모(선택):`, '') ?? undefined
+    setBusyId(id)
+    try {
+      const r = await adminApi.grantComp(id, { days, note: note || undefined })
+      toast.success(r.data.message || '이용권 부여 완료')
+      refreshDetail(id)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '이용권 부여 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const handleRevokeComp = async (id: number, email: string) => {
+    if (!window.confirm(`${email} 의 운영자 제공 이용권을 회수할까요?`)) return
+    setBusyId(id)
+    try {
+      const r = await adminApi.revokeComp(id)
+      toast.success(r.data.message || '이용권 회수 완료')
+      refreshDetail(id)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '이용권 회수 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const handleSetAiLimit = async (id: number, current: number | null) => {
+    const input = window.prompt(
+      'AI 일일 호출 상한을 입력하세요.\n· 비워두면 전역 기본값 사용\n· 0 = 차단',
+      current === null ? '' : String(current),
+    )
+    if (input === null) return
+    const trimmed = input.trim()
+    const limit = trimmed === '' ? null : Number(trimmed)
+    if (limit !== null && (!Number.isInteger(limit) || limit < 0)) {
+      toast.error('0 이상의 정수 또는 빈 값이어야 합니다.')
+      return
+    }
+    setBusyId(id)
+    try {
+      const r = await adminApi.setAiLimit(id, limit)
+      toast.success(r.data.message || 'AI 한도 설정 완료')
+      refreshDetail(id)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || 'AI 한도 설정 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const handleRevokeSessions = async (id: number, email: string) => {
+    if (!window.confirm(`${email} 의 모든 세션을 무효화(강제 로그아웃)할까요?\n해당 사용자는 다시 로그인해야 합니다.`)) return
+    setBusyId(id)
+    try {
+      const r = await adminApi.revokeSessions(id)
+      toast.success(r.data.message || '세션 무효화 완료')
+      refreshDetail(id)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '세션 무효화 실패')
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const refreshPlaces = () => {
+    queryClient.invalidateQueries({ queryKey: ['admin', 'places'] })
+    queryClient.invalidateQueries({ queryKey: ['admin', 'place-reports'] })
+    if (placeDetailId !== null) {
+      queryClient.invalidateQueries({ queryKey: ['admin', 'place-detail', placeDetailId] })
+    }
+  }
+
+  const handleModerateReview = async (reviewId: number, newStatus: string) => {
+    try {
+      const r = await adminApi.moderateReview(reviewId, newStatus)
+      toast.success(r.data.message || '리뷰 상태 변경 완료')
+      refreshPlaces()
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '리뷰 모더레이션 실패')
+    }
+  }
+
+  const handleResolveReport = async (reportId: number, newStatus: string) => {
+    try {
+      const r = await adminApi.resolveReport(reportId, newStatus)
+      toast.success(r.data.message || '신고 처리 완료')
+      refreshPlaces()
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || '신고 처리 실패')
     }
   }
 
@@ -826,6 +959,92 @@ export default function Admin() {
           )}
         </section>
 
+        {/* 장소 콘텐츠 */}
+        <section>
+          <button
+            type="button"
+            onClick={() => setPlacesOpen((o) => !o)}
+            className="flex items-center gap-2 mb-3 text-sm font-semibold text-atm-muted uppercase tracking-wide hover:text-atm-ink"
+          >
+            <MapPin size={14} />
+            장소 콘텐츠 {placesOpen ? '▾' : '▸'}
+          </button>
+          {placesOpen && (
+            <div className="space-y-3">
+              {/* 신고 큐 */}
+              {(placeReportsQ.data ?? []).length > 0 && (
+                <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3">
+                  <div className="text-xs font-semibold text-amber-800 mb-2">미처리 신고 ({placeReportsQ.data!.length})</div>
+                  <div className="space-y-1.5">
+                    {placeReportsQ.data!.map((rep) => (
+                      <div key={rep.id} className="flex items-center justify-between text-sm gap-2">
+                        <span className="text-amber-900 truncate">리뷰 #{rep.place_review_id} · {rep.reason || '사유 없음'}</span>
+                        <div className="flex gap-1 shrink-0">
+                          <button onClick={() => handleResolveReport(rep.id, 'resolved')} className="px-2 py-0.5 text-xs border border-emerald-300 text-emerald-700 rounded hover:bg-emerald-50">처리</button>
+                          <button onClick={() => handleResolveReport(rep.id, 'dismissed')} className="px-2 py-0.5 text-xs border border-stone-300 rounded hover:bg-stone-50">기각</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-atm-muted">정렬</span>
+                <select
+                  value={placeSort}
+                  onChange={(e) => setPlaceSort(e.target.value as PlaceSort)}
+                  className="text-sm border border-stone-200 rounded-lg px-2 py-1"
+                >
+                  <option value="visit_count">방문 많은순</option>
+                  <option value="review_count">리뷰 많은순</option>
+                  <option value="rating">평점 높은순</option>
+                  <option value="name">이름순</option>
+                  <option value="recent">최근 등록순</option>
+                </select>
+              </div>
+
+              <div className="bg-white border border-stone-200 rounded-2xl overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-stone-50 text-xs text-atm-muted">
+                    <tr>
+                      <th className="text-left px-4 py-2.5 font-medium">장소</th>
+                      <th className="text-left px-4 py-2.5 font-medium">주소</th>
+                      <th className="text-right px-4 py-2.5 font-medium">방문</th>
+                      <th className="text-right px-4 py-2.5 font-medium">리뷰</th>
+                      <th className="text-right px-4 py-2.5 font-medium">평점</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(placesQ.data ?? []).map((p) => (
+                      <tr
+                        key={p.id}
+                        className="border-t border-stone-100 hover:bg-stone-50 cursor-pointer"
+                        onClick={() => setPlaceDetailId(p.id)}
+                      >
+                        <td className="px-4 py-2 text-atm-ink font-medium">{p.name}</td>
+                        <td className="px-4 py-2 text-atm-muted text-xs truncate max-w-xs">{p.address || '—'}</td>
+                        <td className="px-4 py-2 text-right text-atm-ink">{p.visit_count}</td>
+                        <td className="px-4 py-2 text-right text-atm-ink">{p.review_count}</td>
+                        <td className="px-4 py-2 text-right text-atm-muted">{p.avg_rating ?? '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {placesQ.data && placesQ.data.length === 0 && (
+                  <div className="px-4 py-6 text-center text-sm text-atm-muted">장소 데이터가 없습니다.</div>
+                )}
+                {placesQ.isLoading && (
+                  <div className="px-4 py-6 text-center text-sm text-atm-muted">불러오는 중…</div>
+                )}
+              </div>
+              <p className="text-[11px] text-atm-muted">
+                ※ 현재 리뷰는 모두 비공개(개인 기록). 커뮤니티 공개는 별도 동의·약관 후 진행됩니다.
+              </p>
+            </div>
+          )}
+        </section>
+
         {(statsQ.isError || usersQ.isError) && (
           <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm">
             데이터 조회 실패. 새로고침해 보세요.
@@ -943,6 +1162,109 @@ export default function Admin() {
                       </div>
                     )}
 
+                    {/* 이용권 / 구독 */}
+                    <div className="pt-4 border-t border-stone-200">
+                      <h4 className="text-xs font-semibold text-atm-muted uppercase tracking-wide mb-2">
+                        이용권 · 구독
+                      </h4>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm mb-3">
+                        <div className="text-atm-muted">현재 상태</div>
+                        <div className="text-atm-ink">
+                          <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold ${d.plan_active ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}>
+                            {d.plan_active ? '이용 가능' : '잠금(만료)'}
+                          </span>
+                          <span className="ml-1.5 text-xs">{d.subscription_tier}</span>
+                        </div>
+                        <div className="text-atm-muted">구독 만료</div>
+                        <div className="text-atm-ink">{d.subscription_expires_at ? fmtDate(d.subscription_expires_at) : '—'}{d.subscription_status ? ` (${d.subscription_status})` : ''}</div>
+                        <div className="text-atm-muted">운영 이용권</div>
+                        <div className="text-atm-ink">
+                          {d.admin_comp_until ? `~${fmtDate(d.admin_comp_until)}` : '없음'}
+                          {d.admin_comp_note ? <span className="text-atm-muted text-xs"> · {d.admin_comp_note}</span> : null}
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        <span className="text-[11px] text-atm-muted mr-1">유료급 권한 부여:</span>
+                        {[7, 30, 90, 365].map((days) => (
+                          <button
+                            key={days}
+                            type="button"
+                            disabled={busyId === d.id}
+                            onClick={() => handleGrantComp(d.id, d.email, days)}
+                            className="px-2.5 py-1 text-xs border border-emerald-300 text-emerald-700 rounded-lg hover:bg-emerald-50 disabled:opacity-50"
+                          >
+                            +{days}일
+                          </button>
+                        ))}
+                        {d.admin_comp_until && (
+                          <button
+                            type="button"
+                            disabled={busyId === d.id}
+                            onClick={() => handleRevokeComp(d.id, d.email)}
+                            className="px-2.5 py-1 text-xs border border-stone-300 text-atm-ink rounded-lg hover:bg-stone-50 disabled:opacity-50"
+                          >
+                            회수
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* AI 사용량 · 한도 */}
+                    <div className="pt-4 border-t border-stone-200">
+                      <h4 className="text-xs font-semibold text-atm-muted uppercase tracking-wide mb-2">
+                        AI 사용량 · 한도
+                      </h4>
+                      <div className="grid grid-cols-3 gap-2 text-sm mb-2">
+                        {(['today', 'last_7d', 'last_30d'] as const).map((k) => {
+                          const b = detailUsageQ.data?.[k]
+                          const label = k === 'today' ? '오늘' : k === 'last_7d' ? '7일' : '30일'
+                          return (
+                            <div key={k} className="bg-stone-50 rounded-lg p-2">
+                              <div className="text-[10px] text-atm-muted">{label}</div>
+                              <div className="text-atm-ink font-semibold">{b ? b.calls : '—'}<span className="text-[10px] text-atm-muted font-normal"> 회</span></div>
+                              <div className="text-[10px] text-atm-muted">${b ? b.estimated_cost_usd.toFixed(3) : '—'}</div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <span className="text-atm-muted text-xs">일일 한도: <span className="text-atm-ink font-medium">{d.ai_daily_limit === null ? '전역 기본값' : d.ai_daily_limit}</span></span>
+                        <button
+                          type="button"
+                          disabled={busyId === d.id}
+                          onClick={() => handleSetAiLimit(d.id, d.ai_daily_limit)}
+                          className="px-2.5 py-1 text-xs border border-stone-300 rounded-lg hover:bg-stone-50 disabled:opacity-50"
+                        >
+                          한도 설정
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 활동 · 세션 */}
+                    <div className="pt-4 border-t border-stone-200">
+                      <h4 className="text-xs font-semibold text-atm-muted uppercase tracking-wide mb-2">
+                        활동 · 세션
+                      </h4>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm mb-3">
+                        <div className="text-atm-muted">마지막 활동</div>
+                        <div className="text-atm-ink">{d.last_active_at ? fmtDate(d.last_active_at) : '—'}</div>
+                        <div className="text-atm-muted">기록 기간</div>
+                        <div className="text-atm-ink">{d.first_entry_date || '—'} ~ {d.last_entry_date || '—'}</div>
+                        <div className="text-atm-muted">이메일 인증</div>
+                        <div className="text-atm-ink">{d.email_verified ? '완료' : '미인증'}</div>
+                      </div>
+                      {d.id !== user.id && (
+                        <button
+                          type="button"
+                          disabled={busyId === d.id}
+                          onClick={() => handleRevokeSessions(d.id, d.email)}
+                          className="px-3 py-1.5 text-xs border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 disabled:opacity-50"
+                        >
+                          강제 로그아웃 (세션 무효화)
+                        </button>
+                      )}
+                    </div>
+
                     {/* GDPR 액션 */}
                     <div className="pt-4 border-t border-stone-200">
                       <h4 className="text-xs font-semibold text-atm-muted uppercase tracking-wide mb-2">
@@ -977,6 +1299,85 @@ export default function Admin() {
                 )
               })()}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 장소 상세 모달 */}
+      {placeDetailId !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          onClick={() => setPlaceDetailId(null)}
+        >
+          <div
+            className="w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-xl p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-semibold text-atm-ink flex items-center gap-2">
+                <MapPin size={16} className="text-atm-accent" /> 장소 상세
+              </h3>
+              <button type="button" onClick={() => setPlaceDetailId(null)} className="text-atm-muted hover:text-atm-ink">
+                <X size={16} />
+              </button>
+            </div>
+            {placeDetailQ.isLoading && <div className="text-sm text-atm-muted">불러오는 중…</div>}
+            {placeDetailQ.data && (() => {
+              const p = placeDetailQ.data
+              return (
+                <>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <div className="text-atm-muted">이름</div>
+                    <div className="text-atm-ink font-medium">{p.name}</div>
+                    <div className="text-atm-muted">주소</div>
+                    <div className="text-atm-ink">{p.address || '—'}</div>
+                    <div className="text-atm-muted">좌표</div>
+                    <div className="text-atm-ink">{p.lat != null && p.lng != null ? `${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}` : '—'}</div>
+                    <div className="text-atm-muted">방문 / 리뷰 / 평점</div>
+                    <div className="text-atm-ink">{p.visit_count} / {p.review_count} / {p.avg_rating ?? '—'}</div>
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-semibold text-atm-muted uppercase tracking-wide mb-2">리뷰 ({p.reviews.length})</h4>
+                    <div className="space-y-2">
+                      {p.reviews.map((rv) => (
+                        <div key={rv.id} className="border border-stone-200 rounded-xl p-3 text-sm">
+                          <div className="flex items-center justify-between gap-2 mb-1">
+                            <span className="text-atm-muted text-xs truncate">{rv.user_email || `user#${rv.user_id}`}</span>
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-stone-100 text-atm-muted">{rv.visibility}</span>
+                              <span className={`text-[10px] px-1.5 py-0.5 rounded ${rv.status === 'visible' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}>{rv.status}</span>
+                            </div>
+                          </div>
+                          <div className="text-atm-ink">
+                            {rv.rating != null ? '★'.repeat(rv.rating) : ''} {rv.body || <span className="text-atm-muted">(내용 없음)</span>}
+                          </div>
+                          {rv.photos.length > 0 && (
+                            <div className="flex gap-1.5 mt-2">
+                              {rv.photos.slice(0, 4).map((url, i) => (
+                                <img key={i} src={url} alt="" className="w-12 h-12 rounded object-cover" />
+                              ))}
+                            </div>
+                          )}
+                          <div className="flex gap-1.5 mt-2">
+                            {(['visible', 'hidden', 'flagged', 'removed'] as const).map((s) => (
+                              <button
+                                key={s}
+                                onClick={() => handleModerateReview(rv.id, s)}
+                                disabled={rv.status === s}
+                                className="px-2 py-0.5 text-[11px] border border-stone-300 rounded hover:bg-stone-50 disabled:opacity-40"
+                              >
+                                {s}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                      {p.reviews.length === 0 && <div className="text-sm text-atm-muted">리뷰가 없습니다.</div>}
+                    </div>
+                  </div>
+                </>
+              )
+            })()}
           </div>
         </div>
       )}

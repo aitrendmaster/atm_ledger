@@ -12,11 +12,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..config import get_settings
 from ..database import get_db
-from ..deps import get_admin_user
+from ..deps import _plan_active, get_admin_user
 from ..models.admin_audit import AdminAudit
 from ..models.ai_usage import AIUsage
 from ..models.announcement import Announcement
 from ..models.entry import Entry, EntryPhoto
+from ..models.place import Place, PlaceReview, PlaceReviewReport
 from ..models.planned import Planned
 from ..models.reflection import Reflection
 from ..models.user import User
@@ -26,18 +27,29 @@ from ..schemas.admin import (
     AdminEntrySummary,
     AdminMeOut,
     AdminStats,
+    AdminUserAiUsage,
     AdminUserDetail,
     AdminUserRow,
     AIUsageBucket,
     AIUsageModelRow,
     AIUsageSummary,
+    GrantCompIn,
     ResetPasswordIn,
     SetAdminIn,
+    SetAiLimitIn,
 )
 from ..schemas.announcement import (
     AnnouncementCreate,
     AnnouncementOut,
     AnnouncementUpdate,
+)
+from ..schemas.place import (
+    AdminPlaceDetail,
+    AdminPlaceReport,
+    AdminPlaceReview,
+    AdminPlaceRow,
+    ModerateReviewIn,
+    ResolveReportIn,
 )
 from ..security import hash_password
 
@@ -204,6 +216,10 @@ async def admin_users(
             entries_count=int(ec or 0),
             planned_count=int(pc or 0),
             reflections_count=int(rc or 0),
+            subscription_tier=u.subscription_tier or "free",
+            plan_active=_plan_active(u),
+            last_active_at=u.last_active_at,
+            admin_comp_until=u.admin_comp_until,
         )
         for u, ec, pc, rc in rows
     ]
@@ -275,6 +291,15 @@ async def admin_user_detail(
         for e in recent_rows
     ]
 
+    date_range = (
+        await db.execute(
+            select(func.min(Entry.date), func.max(Entry.date)).where(
+                Entry.user_id == user_id
+            )
+        )
+    ).one()
+    first_date, last_date = date_range
+
     return AdminUserDetail(
         id=u.id,
         email=u.email,
@@ -292,6 +317,22 @@ async def admin_user_detail(
         entries_amount_total=int(amount_total or 0),
         entries_by_category=by_category,
         recent_entries=recent_entries,
+        email_verified=bool(u.email_verified),
+        country_code=u.country_code,
+        currency_code=u.currency_code,
+        locale=u.locale,
+        subscription_tier=u.subscription_tier or "free",
+        subscription_status=u.subscription_status,
+        subscription_expires_at=u.subscription_expires_at,
+        admin_comp_until=u.admin_comp_until,
+        admin_comp_note=u.admin_comp_note,
+        plan_active=_plan_active(u),
+        ai_daily_limit=u.ai_daily_limit,
+        last_active_at=u.last_active_at,
+        card_brand=u.toss_card_brand,
+        card_last4=u.toss_card_last4,
+        first_entry_date=first_date,
+        last_entry_date=last_date,
     )
 
 
@@ -383,6 +424,108 @@ async def admin_soft_delete(
     await db.commit()
     logger.info(f"admin_soft_delete by={me.email} target={target.email}")
     return AdminActionResult(ok=True, message=f"{target.email} 비활성화 완료 (soft delete)")
+
+
+# ---------- 이용권(comp) / AI 한도 / 세션 / 사용량 ----------
+
+
+@router.post("/users/{user_id}/grant", response_model=AdminActionResult)
+async def admin_grant_comp(
+    body: GrantCompIn,
+    user_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """운영자 제공 이용권(comp) 부여 — 결제 없이 유료급 권한을 기간 단위로.
+
+    days(지금부터 N일) 또는 until(절대 만료시각) 중 하나 필수.
+    결제(Toss/LS)와 분리된 admin_comp_until 컬럼만 사용 → 자동청구·스케줄러 영향 없음.
+    """
+    target = await _load_target(db, user_id)
+    now = datetime.now(timezone.utc)
+    if body.until is not None:
+        until = body.until if body.until.tzinfo else body.until.replace(tzinfo=timezone.utc)
+    elif body.days is not None:
+        until = now + timedelta(days=body.days)
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="days 또는 until 중 하나는 필수입니다."
+        )
+    if until <= now:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="만료시각은 미래여야 합니다."
+        )
+    target.admin_comp_until = until
+    target.admin_comp_note = body.note
+    await _audit(
+        db, me, "grant_comp", target=target,
+        payload={"until": until.isoformat(), "days": body.days, "note": body.note},
+    )
+    await db.commit()
+    logger.info(f"admin_grant_comp by={me.email} target={target.email} until={until.isoformat()}")
+    return AdminActionResult(ok=True, message=f"{target.email} 이용권 부여 (~{until.date().isoformat()})")
+
+
+@router.delete("/users/{user_id}/grant", response_model=AdminActionResult)
+async def admin_revoke_comp(
+    user_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """운영자 제공 이용권 회수 — 즉시 만료(트라이얼/구독 없으면 다시 잠금)."""
+    target = await _load_target(db, user_id)
+    target.admin_comp_until = None
+    target.admin_comp_note = None
+    await _audit(db, me, "revoke_comp", target=target)
+    await db.commit()
+    logger.info(f"admin_revoke_comp by={me.email} target={target.email}")
+    return AdminActionResult(ok=True, message=f"{target.email} 이용권 회수 완료")
+
+
+@router.patch("/users/{user_id}/ai-limit", response_model=AdminActionResult)
+async def admin_set_ai_limit(
+    body: SetAiLimitIn,
+    user_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """사용자별 AI 일일 호출 상한 설정. null=전역 기본값 사용, 0=차단."""
+    target = await _load_target(db, user_id)
+    target.ai_daily_limit = body.limit
+    await _audit(db, me, "set_ai_limit", target=target, payload={"limit": body.limit})
+    await db.commit()
+    return AdminActionResult(ok=True, message=f"{target.email} AI 일일 한도 = {body.limit}")
+
+
+@router.post("/users/{user_id}/revoke-sessions", response_model=AdminActionResult)
+async def admin_revoke_sessions(
+    user_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """강제 로그아웃 — token_valid_after=now 로 설정해 기존 발급 토큰 전부 무효화."""
+    target = await _load_target(db, user_id)
+    target.token_valid_after = datetime.now(timezone.utc)
+    await _audit(db, me, "revoke_sessions", target=target)
+    await db.commit()
+    logger.info(f"admin_revoke_sessions by={me.email} target={target.email}")
+    return AdminActionResult(ok=True, message=f"{target.email} 모든 세션 무효화 (강제 로그아웃)")
+
+
+@router.get("/users/{user_id}/ai-usage", response_model=AdminUserAiUsage)
+async def admin_user_ai_usage(
+    user_id: int = Path(..., ge=1),
+    _: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """특정 사용자의 AI 사용량(today/7d/30d). 전역 _bucket 재사용."""
+    now = datetime.now(timezone.utc)
+    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    return AdminUserAiUsage(
+        today=await _bucket(db, "today", today_start, user_id=user_id),
+        last_7d=await _bucket(db, "last_7d", now - timedelta(days=7), user_id=user_id),
+        last_30d=await _bucket(db, "last_30d", now - timedelta(days=30), user_id=user_id),
+    )
 
 
 # ---------- GDPR: Hard delete + 사용자 데이터 익스포트 ----------
@@ -828,7 +971,12 @@ async def admin_announcement_delete(
 # ---------- AI 사용량 ----------
 
 
-async def _bucket(db: AsyncSession, label: str, since: datetime) -> AIUsageBucket:
+async def _bucket(
+    db: AsyncSession, label: str, since: datetime, user_id: int | None = None
+) -> AIUsageBucket:
+    base = [AIUsage.created_at >= since]
+    if user_id is not None:
+        base.append(AIUsage.user_id == user_id)
     row = (
         await db.execute(
             select(
@@ -836,24 +984,14 @@ async def _bucket(db: AsyncSession, label: str, since: datetime) -> AIUsageBucke
                 func.coalesce(func.sum(AIUsage.input_tokens), 0),
                 func.coalesce(func.sum(AIUsage.output_tokens), 0),
                 func.coalesce(func.sum(AIUsage.estimated_cost_mc), 0),
-                func.coalesce(
-                    func.sum(
-                        func.case((AIUsage.status == "error", 1), else_=0)
-                        if hasattr(func, "case")
-                        else 0
-                    ),
-                    0,
-                ),
-            ).where(AIUsage.created_at >= since)
+            ).where(*base)
         )
     ).one()
-    calls, in_tok, out_tok, cost_mc, _ = row
+    calls, in_tok, out_tok, cost_mc = row
     # Error count via simpler query (cross-DB safe).
     errors = (
         await db.execute(
-            select(func.count(AIUsage.id)).where(
-                AIUsage.created_at >= since, AIUsage.status == "error"
-            )
+            select(func.count(AIUsage.id)).where(*base, AIUsage.status == "error")
         )
     ).scalar_one()
     return AIUsageBucket(
@@ -922,3 +1060,163 @@ async def admin_ai_usage_summary(
         by_model=by_model,
         recent_errors=[e for e in recent_errors if e],
     )
+
+
+# ---------- 장소 콘텐츠 (조회 + 모더레이션) ----------
+
+PlaceSort = Literal["review_count", "visit_count", "rating", "name", "recent"]
+
+
+def _avg_rating(rating_sum: int, review_count: int) -> float | None:
+    return round(rating_sum / review_count, 2) if review_count else None
+
+
+@router.get("/places", response_model=list[AdminPlaceRow])
+async def admin_places(
+    q: str | None = Query(default=None, max_length=200, description="장소명 부분일치"),
+    sort: PlaceSort = Query(default="visit_count"),
+    limit: int = Query(default=100, le=500),
+    offset: int = Query(default=0, ge=0),
+    _: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    stmt = select(Place)
+    if q:
+        stmt = stmt.where(func.lower(Place.name).like(f"%{q.strip().lower()}%"))
+    if sort == "review_count":
+        stmt = stmt.order_by(Place.review_count.desc(), Place.id.desc())
+    elif sort == "visit_count":
+        stmt = stmt.order_by(Place.visit_count.desc(), Place.id.desc())
+    elif sort == "rating":
+        stmt = stmt.order_by(Place.rating_sum.desc(), Place.id.desc())
+    elif sort == "name":
+        stmt = stmt.order_by(Place.name.asc())
+    elif sort == "recent":
+        stmt = stmt.order_by(Place.created_at.desc())
+    stmt = stmt.limit(limit).offset(offset)
+    rows = (await db.execute(stmt)).scalars().all()
+    return [
+        AdminPlaceRow(
+            id=p.id, name=p.name, lat=p.lat, lng=p.lng, address=p.address,
+            category=p.category, review_count=p.review_count, visit_count=p.visit_count,
+            avg_rating=_avg_rating(p.rating_sum, p.review_count),
+        )
+        for p in rows
+    ]
+
+
+@router.get("/places/{place_id}", response_model=AdminPlaceDetail)
+async def admin_place_detail(
+    place_id: int = Path(..., ge=1),
+    _: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    p = (await db.execute(select(Place).where(Place.id == place_id))).scalar_one_or_none()
+    if not p:
+        raise HTTPException(status_code=404, detail="place not found")
+
+    review_rows = (
+        await db.execute(
+            select(PlaceReview, User.email)
+            .outerjoin(User, User.id == PlaceReview.user_id)
+            .where(PlaceReview.place_id == place_id)
+            .order_by(PlaceReview.created_at.desc())
+            .limit(200)
+        )
+    ).all()
+
+    # 사진은 원천 entry_id → EntryPhoto 조인으로 표시 (커뮤니티 전용 사진 테이블은 향후).
+    entry_ids = [r.entry_id for r, _email in review_rows if r.entry_id is not None]
+    photos_by_entry: dict[int, list[str]] = {}
+    if entry_ids:
+        photo_rows = (
+            await db.execute(
+                select(EntryPhoto.entry_id, EntryPhoto.url).where(
+                    EntryPhoto.entry_id.in_(entry_ids)
+                )
+            )
+        ).all()
+        for eid, url in photo_rows:
+            photos_by_entry.setdefault(eid, []).append(url)
+
+    reviews = [
+        AdminPlaceReview(
+            id=r.id, user_id=r.user_id, user_email=email, entry_id=r.entry_id,
+            rating=r.rating, body=r.body, mood=r.mood,
+            visibility=r.visibility, status=r.status, created_at=r.created_at,
+            photos=photos_by_entry.get(r.entry_id, []) if r.entry_id else [],
+        )
+        for r, email in review_rows
+    ]
+    return AdminPlaceDetail(
+        id=p.id, name=p.name, lat=p.lat, lng=p.lng, address=p.address,
+        category=p.category, review_count=p.review_count, visit_count=p.visit_count,
+        avg_rating=_avg_rating(p.rating_sum, p.review_count),
+        google_place_id=p.google_place_id, rating_sum=p.rating_sum,
+        created_at=p.created_at, reviews=reviews,
+    )
+
+
+@router.patch("/place-reviews/{review_id}", response_model=AdminActionResult)
+async def admin_moderate_review(
+    body: ModerateReviewIn,
+    review_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """장소 리뷰 모더레이션 — visible/hidden/flagged/removed."""
+    r = (await db.execute(select(PlaceReview).where(PlaceReview.id == review_id))).scalar_one_or_none()
+    if not r:
+        raise HTTPException(status_code=404, detail="review not found")
+    prev = r.status
+    r.status = body.status
+    await _audit(
+        db, me, "place_review_moderate",
+        payload={"review_id": review_id, "from": prev, "to": body.status},
+    )
+    await db.commit()
+    return AdminActionResult(ok=True, message=f"리뷰 #{review_id} → {body.status}")
+
+
+@router.get("/place-reports", response_model=list[AdminPlaceReport])
+async def admin_place_reports(
+    status_filter: str = Query(default="open", alias="status", max_length=16),
+    limit: int = Query(default=100, le=500),
+    offset: int = Query(default=0, ge=0),
+    _: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    stmt = select(PlaceReviewReport)
+    if status_filter:
+        stmt = stmt.where(PlaceReviewReport.status == status_filter)
+    stmt = stmt.order_by(PlaceReviewReport.created_at.desc()).limit(limit).offset(offset)
+    rows = (await db.execute(stmt)).scalars().all()
+    return [
+        AdminPlaceReport(
+            id=r.id, place_review_id=r.place_review_id,
+            reporter_user_id=r.reporter_user_id, reason=r.reason,
+            status=r.status, created_at=r.created_at, resolved_at=r.resolved_at,
+        )
+        for r in rows
+    ]
+
+
+@router.patch("/place-reports/{report_id}", response_model=AdminActionResult)
+async def admin_resolve_report(
+    body: ResolveReportIn,
+    report_id: int = Path(..., ge=1),
+    me: User = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    r = (await db.execute(select(PlaceReviewReport).where(PlaceReviewReport.id == report_id))).scalar_one_or_none()
+    if not r:
+        raise HTTPException(status_code=404, detail="report not found")
+    r.status = body.status
+    r.resolved_by_id = me.id
+    r.resolved_at = datetime.now(timezone.utc)
+    await _audit(
+        db, me, "place_report_resolve",
+        payload={"report_id": report_id, "status": body.status},
+    )
+    await db.commit()
+    return AdminActionResult(ok=True, message=f"신고 #{report_id} → {body.status}")

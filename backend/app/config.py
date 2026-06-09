@@ -120,6 +120,10 @@ class Settings(BaseSettings):
     # 공식 문의 연락처 (Landing/FAQ/Footer 등에 노출용)
     support_email: str = "master@aitrend.kr"
 
+    # AI(Claude) 사용자별 일일 호출 상한 — 비용·폭주 방어 기본값.
+    # None = 무제한. 사용자별 User.ai_daily_limit 가 있으면 그 값이 우선.
+    ai_daily_call_limit: int | None = None
+
     # Cloudflare Turnstile (무료 CAPTCHA) — 봇 자동 가입 차단.
     # 미설정이면 검증 우회(가입 정상 동작). 설정 시 가입 폼이 위젯 토큰을 함께 보내야 함.
     # 발급: Cloudflare 대시보드 > Turnstile > 위젯 추가 → Site key(프론트) / Secret key(백엔드)

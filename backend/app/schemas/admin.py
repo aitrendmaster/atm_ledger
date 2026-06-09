@@ -13,6 +13,11 @@ class AdminUserRow(BaseModel):
     entries_count: int
     planned_count: int
     reflections_count: int
+    # 운영 메타
+    subscription_tier: str = "free"
+    plan_active: bool = True
+    last_active_at: datetime | None = None
+    admin_comp_until: datetime | None = None
 
 
 class AdminStats(BaseModel):
@@ -72,6 +77,35 @@ class AdminUserDetail(BaseModel):
     entries_amount_total: int
     entries_by_category: dict[str, int]
     recent_entries: list[AdminEntrySummary]
+    # ----- 운영/구독/활동 -----
+    email_verified: bool = True
+    country_code: str | None = None
+    currency_code: str | None = None
+    locale: str | None = None
+    subscription_tier: str = "free"
+    subscription_status: str | None = None
+    subscription_expires_at: datetime | None = None
+    admin_comp_until: datetime | None = None
+    admin_comp_note: str | None = None
+    plan_active: bool = True
+    ai_daily_limit: int | None = None
+    last_active_at: datetime | None = None
+    card_brand: str | None = None
+    card_last4: str | None = None
+    first_entry_date: str | None = None
+    last_entry_date: str | None = None
+
+
+class GrantCompIn(BaseModel):
+    """운영자 이용권 부여. days 또는 until 중 하나 필수."""
+    days: int | None = Field(default=None, ge=1, le=3650)
+    until: datetime | None = None
+    note: str | None = Field(default=None, max_length=255)
+
+
+class SetAiLimitIn(BaseModel):
+    """사용자별 AI 일일 호출 상한. null=전역 기본값, 0=차단."""
+    limit: int | None = Field(default=None, ge=0, le=100000)
 
 
 class AdminAuditRow(BaseModel):
@@ -107,3 +141,10 @@ class AIUsageSummary(BaseModel):
     last_30d: AIUsageBucket
     by_model: list[AIUsageModelRow]
     recent_errors: list[str]
+
+
+class AdminUserAiUsage(BaseModel):
+    """특정 사용자의 AI 사용량 버킷(today/7d/30d)."""
+    today: AIUsageBucket
+    last_7d: AIUsageBucket
+    last_30d: AIUsageBucket

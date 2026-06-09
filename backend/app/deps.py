@@ -32,7 +32,32 @@ async def get_current_user(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="user not found")
     if user.deleted_at is not None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="account disabled")
+    # 강제 로그아웃: token_valid_after 이후로만 발급된 토큰 허용 (admin revoke-sessions).
+    if user.token_valid_after is not None:
+        iat = payload.get("iat")
+        if iat is not None and int(iat) < int(user.token_valid_after.timestamp()):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="session revoked"
+            )
+    await _touch_last_active(db, user)
     return user
+
+
+# 활동시각 갱신 최소 간격(초) — write 증폭 방지용 staleness 가드.
+_ACTIVE_TOUCH_INTERVAL = 600
+
+
+async def _touch_last_active(db: AsyncSession, user: User) -> None:
+    """마지막 활동시각 best-effort 갱신. 10분 이내 재갱신은 skip. 실패해도 무시."""
+    now = datetime.now(timezone.utc)
+    last = user.last_active_at
+    if last is not None and (now - last).total_seconds() < _ACTIVE_TOUCH_INTERVAL:
+        return
+    try:
+        user.last_active_at = now
+        await db.commit()
+    except Exception:
+        await db.rollback()
 
 
 def is_admin_email(email: str) -> bool:
@@ -66,6 +91,9 @@ def _plan_active(user: User) -> bool:
     if settings.beta_free_mode:
         return True
     now = datetime.now(timezone.utc)
+    # 운영자 제공 이용권(comp)
+    if user.admin_comp_until is not None and user.admin_comp_until > now:
+        return True
     if user.subscription_tier == "paid" and (
         user.subscription_expires_at is None or user.subscription_expires_at > now
     ):

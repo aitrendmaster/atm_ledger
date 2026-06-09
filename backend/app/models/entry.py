@@ -18,11 +18,15 @@ class Entry(Base):
     category: Mapped[str] = mapped_column(String(40), nullable=False, index=True)
     date: Mapped[str] = mapped_column(String(10), nullable=False, index=True)  # YYYY-MM-DD
 
-    # 장소 (선택)
+    # 장소 (선택) — 비정규화 컬럼은 백워드 호환 위해 유지(프론트 무변경).
     place_name: Mapped[str | None] = mapped_column(String(120), nullable=True, index=True)
     place_lat: Mapped[float | None] = mapped_column(Float, nullable=True)
     place_lng: Mapped[float | None] = mapped_column(Float, nullable=True)
     place_address: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # canonical Place 링크 (장소-커뮤니티 예비). place 삭제 시 SET NULL.
+    place_id: Mapped[int | None] = mapped_column(
+        ForeignKey("places.id", ondelete="SET NULL"), nullable=True, index=True
+    )
 
     # 후기
     rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
