@@ -17,6 +17,7 @@ from .routers import (
     ai,
     announcements,
     auth,
+    entitlements,
     entries,
     geocode,
     lemonsqueezy_webhook,
@@ -147,6 +148,7 @@ if settings.storage_backend == "local":
 app.include_router(auth.router)
 app.include_router(oauth.router)
 app.include_router(me.router)
+app.include_router(entitlements.router)
 app.include_router(toss_webhook.router)
 app.include_router(lemonsqueezy_webhook.router)
 app.include_router(entries.router)

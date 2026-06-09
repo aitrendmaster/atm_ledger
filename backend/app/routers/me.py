@@ -25,7 +25,7 @@ from ..models.entry import Entry
 from ..models.planned import Planned
 from ..models.reflection import Reflection
 from ..models.user import User
-from ..services import lemonsqueezy_service, toss_service
+from ..services import entitlement_service, lemonsqueezy_service, toss_service
 from ..services.geo_service import (
     apply_geo_to_user,
     cached_geo_is_fresh,
@@ -137,7 +137,7 @@ def _customer_key_for(user: User) -> str:
     return user.toss_customer_key or f"moa-user-{user.id}"
 
 
-def _billing_status(user: User) -> BillingStatus:
+def _billing_status(user: User, comp_until: datetime | None = None) -> BillingStatus:
     now = datetime.now(timezone.utc)
     free_trial_ends = (user.created_at or now) + timedelta(days=FREE_TRIAL_DAYS)
     settings = get_settings()
@@ -188,6 +188,18 @@ def _billing_status(user: User) -> BillingStatus:
             days_remaining=days,
             **common,
         )
+
+    # 교차 지급 comp — atmbook 전자책 구매로 받은 moa365:subscription(cross_grant) 권한.
+    # 실제 결제(Toss/LS) 없이도 유료 기능 개방. comp 기간엔 자동청구 없음(빌링키 미발급).
+    if comp_until is not None and comp_until > now:
+        return BillingStatus(
+            tier="paid",
+            active=True,
+            paid_until=comp_until,
+            days_remaining=max(0, (comp_until - now).days),
+            **common,
+        )
+
     active = now < free_trial_ends
     days_remaining = max(0, (free_trial_ends - now).days)
     return BillingStatus(
@@ -200,8 +212,12 @@ def _billing_status(user: User) -> BillingStatus:
 
 
 @router.get("/billing", response_model=BillingStatus)
-async def my_billing(user: User = Depends(get_current_user)):
-    return _billing_status(user)
+async def my_billing(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    comp_until = await entitlement_service.comp_subscription_until(db, user.id)
+    return _billing_status(user, comp_until=comp_until)
 
 
 class TossConfirmIn(BaseModel):
@@ -414,10 +430,11 @@ async def my_billing_cancel_mock(
 # ---------- Excel export ----------
 
 
-def _paid_or_trial_active(user: User) -> bool:
+async def _paid_or_trial_active(user: User, db: AsyncSession) -> bool:
     # _billing_status() 가 베타 모드면 active=True 로 반환하므로 자동 통과.
-    s = _billing_status(user)
-    return s.active
+    # comp(교차지급) 권한도 active 로 인정.
+    comp_until = await entitlement_service.comp_subscription_until(db, user.id)
+    return _billing_status(user, comp_until=comp_until).active
 
 
 @router.get("/export.xlsx")
@@ -433,7 +450,7 @@ async def my_export_xlsx(
     무료 트라이얼 기간(가입 후 31일) 또는 paid 인 동안만 허용 — 명세상 데이터 내보내기는 유료 기능.
     GDPR `/auth/me/export` (JSON) 는 항상 가능 (그것과 별개).
     """
-    if not _paid_or_trial_active(user):
+    if not await _paid_or_trial_active(user, db):
         raise HTTPException(
             status_code=status.HTTP_402_PAYMENT_REQUIRED,
             detail="엑셀 내보내기는 유료 플랜에서 제공됩니다.",
