@@ -125,6 +125,8 @@ class BillingStatus(BaseModel):
     last_billing_error: str | None = None
     # 베타 기간 무료 모드 — 활성 시 모든 사용자가 유료 권한, UI 는 결제 비활성
     beta_free_mode: bool = False
+    # 운영자 제공 이용권(comp) 만료시각 — 값이 있고 미래면 결제 없이 유료급 권한.
+    admin_comp_until: datetime | None = None
     # Lemon Squeezy (MoR — 글로벌 카드/페이팔) 연동 상태
     lemonsqueezy_configured: bool = False
     lemonsqueezy_subscription_id: str | None = None
@@ -159,6 +161,7 @@ def _billing_status(user: User) -> BillingStatus:
         card_last4=user.toss_card_last4,
         last_billing_error=user.last_billing_error,
         beta_free_mode=beta,
+        admin_comp_until=user.admin_comp_until,
         lemonsqueezy_configured=ls_on,
         lemonsqueezy_subscription_id=user.lemonsqueezy_subscription_id,
         lemonsqueezy_renews_at=user.lemonsqueezy_renews_at,
@@ -173,6 +176,16 @@ def _billing_status(user: User) -> BillingStatus:
             active=True,
             paid_until=None,
             days_remaining=9999,
+            **common,
+        )
+
+    # 운영자 제공 이용권(comp) — 결제 없이 유료급 권한. 실제 paid 보다 먼저 평가.
+    if user.admin_comp_until is not None and user.admin_comp_until > now:
+        return BillingStatus(
+            tier="comp",
+            active=True,
+            paid_until=user.admin_comp_until,
+            days_remaining=max(0, (user.admin_comp_until - now).days),
             **common,
         )
 

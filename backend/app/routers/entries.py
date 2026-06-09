@@ -9,6 +9,7 @@ from ..models.entry import Entry
 from ..models.user import User
 from ..schemas.entry import EntryCreate, EntryOut, EntryUpdate
 from ..services.notifier import maybe_notify_budget_exceeded
+from ..services.place_service import link_entry_to_place
 
 router = APIRouter(prefix="/entries", tags=["entries"])
 
@@ -37,6 +38,12 @@ async def create_entry(
     db.add(entry)
     await db.commit()
     await db.refresh(entry)
+    # 장소-커뮤니티 예비: canonical Place 매칭/생성 + place_id·집계 갱신 (best-effort)
+    try:
+        await link_entry_to_place(db, entry)
+    except Exception:
+        logger.exception("[entries] 장소 연동 실패 — entry 저장은 정상")
+        await db.rollback()
     # 이번 달 누적 지출이 예산을 처음 돌파하면 1회 푸시 알림 (FCM 미설정/토큰 없으면 no-op)
     try:
         await maybe_notify_budget_exceeded(db, user.id)

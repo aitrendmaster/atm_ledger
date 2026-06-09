@@ -100,6 +100,16 @@ class User(Base):
     email_verification_expires_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    # 운영자 제공 이용권(comp) — 결제와 분리. admin_comp_until > now 면 페이월 통과.
+    # subscription_* (Toss/LS) 와 독립이라 자동청구·스케줄러 영향 없음.
+    admin_comp_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    admin_comp_note: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # 사용자별 AI 일일 호출 상한 (null = 전역 기본값 ai_daily_call_limit 사용, 0 = 차단)
+    ai_daily_limit: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # 마지막 활동 시각 — 인증 요청 시 best-effort 갱신(10분 staleness 가드)
+    last_active_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # 이 시각 이전 발급(iat)된 토큰을 무효화 — admin 강제 로그아웃용
+    token_valid_after: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

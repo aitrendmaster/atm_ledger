@@ -207,6 +207,10 @@ export interface AdminUserRow {
   entries_count: number
   planned_count: number
   reflections_count: number
+  subscription_tier: string
+  plan_active: boolean
+  last_active_at: string | null
+  admin_comp_until: string | null
 }
 
 export interface AdminActionResult {
@@ -240,6 +244,73 @@ export interface AdminUserDetail {
   entries_amount_total: number
   entries_by_category: Record<string, number>
   recent_entries: AdminEntrySummary[]
+  email_verified: boolean
+  country_code: string | null
+  currency_code: string | null
+  locale: string | null
+  subscription_tier: string
+  subscription_status: string | null
+  subscription_expires_at: string | null
+  admin_comp_until: string | null
+  admin_comp_note: string | null
+  plan_active: boolean
+  ai_daily_limit: number | null
+  last_active_at: string | null
+  card_brand: string | null
+  card_last4: string | null
+  first_entry_date: string | null
+  last_entry_date: string | null
+}
+
+export interface AdminUserAiUsage {
+  today: AIUsageBucket
+  last_7d: AIUsageBucket
+  last_30d: AIUsageBucket
+}
+
+export type PlaceSort = 'review_count' | 'visit_count' | 'rating' | 'name' | 'recent'
+
+export interface AdminPlaceRow {
+  id: number
+  name: string
+  lat: number | null
+  lng: number | null
+  address: string | null
+  category: string | null
+  review_count: number
+  visit_count: number
+  avg_rating: number | null
+}
+
+export interface AdminPlaceReview {
+  id: number
+  user_id: number
+  user_email: string | null
+  entry_id: number | null
+  rating: number | null
+  body: string | null
+  mood: string | null
+  visibility: string
+  status: string
+  created_at: string
+  photos: string[]
+}
+
+export interface AdminPlaceDetail extends AdminPlaceRow {
+  google_place_id: string | null
+  rating_sum: number
+  created_at: string
+  reviews: AdminPlaceReview[]
+}
+
+export interface AdminPlaceReport {
+  id: number
+  place_review_id: number
+  reporter_user_id: number | null
+  reason: string | null
+  status: string
+  created_at: string
+  resolved_at: string | null
 }
 
 export type AnnouncementLevel = 'info' | 'warning' | 'critical'
@@ -604,6 +675,34 @@ export const adminApi = {
     api.delete<AdminActionResult>(`/admin/announcements/${id}`),
   // AI usage
   aiUsageSummary: () => api.get<AIUsageSummary>('/admin/ai-usage/summary'),
+  userAiUsage: (userId: number) =>
+    api.get<AdminUserAiUsage>(`/admin/users/${userId}/ai-usage`),
+  // 이용권(comp) / AI 한도 / 세션
+  grantComp: (userId: number, body: { days?: number; until?: string; note?: string }) =>
+    api.post<AdminActionResult>(`/admin/users/${userId}/grant`, body),
+  revokeComp: (userId: number) =>
+    api.delete<AdminActionResult>(`/admin/users/${userId}/grant`),
+  setAiLimit: (userId: number, limit: number | null) =>
+    api.patch<AdminActionResult>(`/admin/users/${userId}/ai-limit`, { limit }),
+  revokeSessions: (userId: number) =>
+    api.post<AdminActionResult>(`/admin/users/${userId}/revoke-sessions`),
+  // 장소 콘텐츠
+  places: (params: { q?: string; sort?: PlaceSort; limit?: number; offset?: number } = {}) =>
+    api.get<AdminPlaceRow[]>('/admin/places', {
+      params: {
+        q: params.q || undefined,
+        sort: params.sort || 'visit_count',
+        limit: params.limit ?? 100,
+        offset: params.offset ?? 0,
+      },
+    }),
+  placeDetail: (id: number) => api.get<AdminPlaceDetail>(`/admin/places/${id}`),
+  moderateReview: (id: number, reviewStatus: string) =>
+    api.patch<AdminActionResult>(`/admin/place-reviews/${id}`, { status: reviewStatus }),
+  placeReports: (reportStatus = 'open') =>
+    api.get<AdminPlaceReport[]>('/admin/place-reports', { params: { status: reportStatus } }),
+  resolveReport: (id: number, reportStatus: string) =>
+    api.patch<AdminActionResult>(`/admin/place-reports/${id}`, { status: reportStatus }),
 }
 
 // ===== Announcements (public) =====
