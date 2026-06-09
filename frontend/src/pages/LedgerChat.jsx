@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
-import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut, Banknote } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut, Banknote, Mic, MicOff } from 'lucide-react';
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { absolutizePhotoUrl } from '../services/ledgerMappers';
 import GoogleMap from '../components/GoogleMap';
@@ -80,6 +80,42 @@ export default function ChatLedger() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [pendingImage, setPendingImage] = useState(null);
+
+  // ===== 음성 입력 (Web Speech API) — 출퇴근길 한 마디로 기록 =====
+  const recognitionRef = useRef(null);
+  const [listening, setListening] = useState(false);
+  const voiceSupported = typeof window !== 'undefined'
+    && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const localeToSpeechLang = (lng) => {
+    const map = { ko: 'ko-KR', en: 'en-US', ja: 'ja-JP', zh: 'zh-CN', es: 'es-ES', th: 'th-TH', vi: 'vi-VN', ms: 'ms-MY', hi: 'hi-IN' };
+    return map[(lng || 'ko').split('-')[0]] || 'ko-KR';
+  };
+  const toggleVoice = () => {
+    if (!voiceSupported) return;
+    if (listening) { recognitionRef.current?.stop(); return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SR();
+    rec.lang = localeToSpeechLang(i18n.language);
+    rec.interimResults = true;
+    rec.continuous = false;
+    const base = input.trim() ? input.trim() + ' ' : '';
+    let finalText = '';
+    rec.onresult = (e) => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const tr = e.results[i][0].transcript;
+        if (e.results[i].isFinal) finalText += tr;
+        else interim += tr;
+      }
+      setInput((base + finalText + interim).replace(/\s+/g, ' '));
+    };
+    rec.onerror = () => setListening(false);
+    rec.onend = () => setListening(false);
+    recognitionRef.current = rec;
+    setListening(true);
+    try { rec.start(); } catch { setListening(false); }
+  };
+  useEffect(() => () => { try { recognitionRef.current?.stop(); } catch { /* noop */ } }, []);
   const [activeTab, setActiveTab] = useState('calendar');
   const [reflectMode, setReflectMode] = useState('monthly');
 
@@ -87,6 +123,25 @@ export default function ChatLedger() {
   // ?tab=calendar 가 있으면 캘린더 탭 활성화 + 탭 영역으로 스크롤,
   // 쿼리가 없으면 페이지 최상단(채팅 영역)으로 스크롤.
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  // ===== 결제/구독 상태 — 무료 체험(가입 후 31일) 만료 시 잠금 =====
+  const [billing, setBilling] = useState(null);
+  useEffect(() => {
+    let alive = true;
+    meApi.billing().then((r) => { if (alive) setBilling(r.data); }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
+  // active=false(만료된 free) && 비관리자 → 잠금. 베타무료·paid·트라이얼이면 active=true 라 잠금 안 됨.
+  const locked = !!billing && billing.active === false && !user?.is_admin;
+  // 만료 후 첫 진입 시 1회 결제 페이지로 자동 랜딩. 이후엔 읽기 전용 열람 허용(루프 방지).
+  useEffect(() => {
+    if (locked && !sessionStorage.getItem('moa_paywall_landed')) {
+      sessionStorage.setItem('moa_paywall_landed', '1');
+      navigate('/me?tab=billing');
+    }
+  }, [locked]);
+  const goUpgrade = () => navigate('/me?tab=billing');
   const chatTopRef = useRef(null);
   const tabsRef = useRef(null);
   useEffect(() => {
@@ -166,6 +221,10 @@ export default function ChatLedger() {
   const nextMonthDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
   const nextMonth = `${nextMonthDate.getFullYear()}-${String(nextMonthDate.getMonth() + 1).padStart(2, '0')}`;
   const todayStr = now.toISOString().split('T')[0];
+
+  // ===== 오늘 요약 (일간 hook) — 매일 들여다볼 작은 이유 =====
+  const todayEntries = entries.filter((e) => e.date === todayStr);
+  const todaySpent = todayEntries.reduce((s, e) => s + e.amount, 0);
 
   // '사용 vs 예정' 분리 기준은 반복 여부가 아니라 '날짜'(오늘 기준)다.
   //  - 오늘 이전(경과) 예정 → 이미 나간 돈으로 보고 '사용'(total)에 합산.
@@ -428,6 +487,7 @@ export default function ChatLedger() {
   };
 
   const handleSend = async () => {
+    if (locked) { goUpgrade(); return; }
     if (!input.trim() && !pendingImage) return;
     setMessages(prev => [...prev, { role: 'user', text: input || '영수증', image: pendingImage?.preview, time: new Date() }]);
     const cur = input, curImg = pendingImage;
@@ -708,6 +768,40 @@ export default function ChatLedger() {
           <p className="text-xs md:text-sm mt-1" style={{ color: '#7A7567' }}>{t('ledger.todayTagline', { month: now.getMonth() + 1, day: now.getDate() })}</p>
         </header>
 
+        {/* ===== 무료 체험 만료 페이월 배너 / 일간 hook 카드 ===== */}
+        {locked ? (
+          <div className="mb-4 md:mb-6 rounded-2xl px-5 py-4 flex items-center gap-3"
+            style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+            <span className="text-2xl leading-none">🔒</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-bold">{t('ledger.paywall.title')}</div>
+              <div className="text-xs mt-0.5 opacity-80">{t('ledger.paywall.desc')}</div>
+            </div>
+            <button onClick={goUpgrade}
+              className="shrink-0 px-4 py-2 rounded-xl text-sm font-bold active:scale-[0.98]"
+              style={{ backgroundColor: '#E07856', color: '#FFFDF8' }}>
+              {t('ledger.paywall.cta')}
+            </button>
+          </div>
+        ) : (
+          <div className="mb-4 md:mb-6 rounded-2xl px-5 py-4 flex items-center gap-3"
+            style={{ backgroundColor: todaySpent === 0 ? '#E8EEE6' : '#FFFDF8', border: '1px solid #E8E2D5' }}>
+            <span className="text-2xl leading-none">{todaySpent === 0 ? '👏' : '✍️'}</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-bold" style={{ color: '#2C2418' }}>
+                {todaySpent === 0
+                  ? t('ledger.daily.zeroTitle')
+                  : t('ledger.daily.spentTitle', { amount: fmtAmt(todaySpent) })}
+              </div>
+              <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>
+                {todaySpent === 0
+                  ? t('ledger.daily.zeroDesc')
+                  : t('ledger.daily.spentDesc', { count: todayEntries.length })}
+              </div>
+            </div>
+          </div>
+        )}
+
         <div ref={chatTopRef} className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
           <div className="lg:col-span-3 flex flex-col rounded-3xl overflow-hidden" style={{
             backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5',
@@ -748,21 +842,33 @@ export default function ChatLedger() {
                 </div>
               )}
               <div className="flex items-end gap-2">
-                <button onClick={() => fileInputRef.current?.click()} className="p-3 rounded-2xl" title={t('ledger.receiptUploadTitle')} style={{ backgroundColor: '#F5F1EA' }}>
+                <button onClick={() => locked ? goUpgrade() : fileInputRef.current?.click()} disabled={locked} className="p-3 rounded-2xl disabled:opacity-40" title={t('ledger.receiptUploadTitle')} style={{ backgroundColor: '#F5F1EA' }}>
                   <Camera size={20} style={{ color: '#A0633C' }} />
                 </button>
                 <button onClick={() => setShowInputGuide(true)} className="p-3 rounded-2xl" title={t('ledger.guideTitle')} style={{ backgroundColor: '#F5F1EA' }}>
                   <Lightbulb size={20} style={{ color: '#A0633C' }} />
                 </button>
+                {voiceSupported && (
+                  <button onClick={() => locked ? goUpgrade() : toggleVoice()} disabled={locked}
+                    className={`p-3 rounded-2xl disabled:opacity-40 ${listening ? 'animate-pulse' : ''}`}
+                    title={t('ledger.voiceTitle')}
+                    style={{ backgroundColor: listening ? '#E07856' : '#F5F1EA' }}>
+                    {listening
+                      ? <MicOff size={20} style={{ color: '#FFFDF8' }} />
+                      : <Mic size={20} style={{ color: '#A0633C' }} />}
+                  </button>
+                )}
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
-                <textarea value={input} onChange={(e) => setInput(e.target.value)}
+                <textarea value={locked ? '' : input} onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-                  placeholder={t('ledger.input.placeholder')} rows={1}
-                  className="flex-1 px-4 py-3 rounded-2xl resize-none outline-none text-sm lg:text-[15px]"
+                  onFocusCapture={() => { if (locked) goUpgrade(); }}
+                  disabled={locked}
+                  placeholder={locked ? t('ledger.paywall.inputLocked') : t('ledger.input.placeholder')} rows={1}
+                  className="flex-1 px-4 py-3 rounded-2xl resize-none outline-none text-sm lg:text-[15px] disabled:cursor-not-allowed"
                   style={{ backgroundColor: '#F5F1EA', color: '#2C2418', maxHeight: '120px' }} />
-                <button onClick={handleSend} disabled={loading || (!input.trim() && !pendingImage)}
+                <button onClick={handleSend} disabled={!locked && (loading || (!input.trim() && !pendingImage))}
                   className="p-3 rounded-2xl"
-                  style={{ backgroundColor: (input.trim() || pendingImage) ? '#2C2418' : '#D4CDC0', color: '#FFFDF8' }}>
+                  style={{ backgroundColor: locked ? '#E07856' : (input.trim() || pendingImage) ? '#2C2418' : '#D4CDC0', color: '#FFFDF8' }}>
                   <Send size={20} />
                 </button>
               </div>

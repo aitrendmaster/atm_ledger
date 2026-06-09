@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..database import get_db
-from ..deps import get_current_user
+from ..deps import get_current_user, require_active_plan
 from ..models.reflection import Reflection
 from ..models.user import User
 from ..schemas.reflection import ReflectionCreate, ReflectionOut
@@ -28,7 +28,7 @@ async def list_reflections(
 @router.post("", response_model=ReflectionOut, status_code=201)
 async def create_reflection(
     body: ReflectionCreate,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
     db: AsyncSession = Depends(get_db),
 ):
     r = Reflection(user_id=user.id, **body.model_dump())
@@ -41,7 +41,7 @@ async def create_reflection(
 @router.delete("/{reflection_id}", status_code=204)
 async def delete_reflection(
     reflection_id: int,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
     db: AsyncSession = Depends(get_db),
 ):
     res = await db.execute(

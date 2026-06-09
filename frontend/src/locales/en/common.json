@@ -1,6 +1,7 @@
 {
   "app": {
-    "name": "Moa 365"
+    "name": "Moa 365",
+    "tagline": "The ledger you finish in one line."
   },
   "lang": {
     "label": "Language"
@@ -45,7 +46,7 @@
     "uspCoachDesc": "Record regrets, wins and next month's pledge — the AI coach compares with last month and offers warm insights.",
     "cta2Heading": "Start today and notice the difference this month.",
     "cta2Subtitle": "Signup in 30 seconds. No credit card. Free during beta.",
-    "footerTagline": "Chat your money. Get insight.",
+    "footerTagline": "The ledger you finish in one line.",
     "footerTerms": "Terms",
     "footerPrivacy": "Privacy",
     "footerDataDeletion": "Delete data",
@@ -55,15 +56,17 @@
     "bizAddress": "Address",
     "hero": {
       "badge": "Free beta · AI ledger",
-      "headline1": "This time,",
-      "headline2": "the ledger that sticks.",
+      "headline1": "One line of chat,",
+      "headline2": "and your ledger's done.",
       "subtitle": "No spreadsheets. No receipts. Just type \"latte $5\" and Moa sorts it out, then walks you through your month with you.",
       "ctaPrimary": "Start for free",
       "ctaLogin": "Log in",
       "ctaApp": "Open ledger →",
       "trust1": "30-sec signup",
       "trust2": "No card",
-      "trust3": "Free beta"
+      "trust3": "Free beta",
+      "trust4": "No bank link",
+      "privacy": "🔒 We never connect to your bank or card. Only what you type is stored in your account — and it's never used to train AI."
     },
     "problem": {
       "label": "Why Moa",
@@ -356,6 +359,19 @@
     "receiptLabel": "Receipt",
     "receiptUploadTitle": "Attach receipt photo",
     "guideTitle": "Try writing it this way",
+    "voiceTitle": "Voice input (e.g. \"lunch 8 dollars today\")",
+    "daily": {
+      "zeroTitle": "Nothing spent yet today! 👏",
+      "zeroDesc": "A no-spend day is a great record too.",
+      "spentTitle": "You spent {{amount}} today",
+      "spentDesc": "{{count}} logged today. Want to jot down one more line?"
+    },
+    "paywall": {
+      "title": "Your free trial has ended",
+      "desc": "You can still view your records, but new entries, AI and logging are on a paid plan.",
+      "cta": "Upgrade",
+      "inputLocked": "Free trial ended — upgrade to keep logging"
+    },
     "actions": {
       "edit": "Edit",
       "delete": "Delete"

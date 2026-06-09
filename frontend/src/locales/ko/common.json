@@ -1,6 +1,7 @@
 {
   "app": {
-    "name": "Moa 365"
+    "name": "Moa 365",
+    "tagline": "대화 한 줄로 끝나는 가계부"
   },
   "lang": {
     "label": "언어"
@@ -45,7 +46,7 @@
     "uspCoachDesc": "아쉬운 점·잘한 점·다음 달 약속을 기록하면 AI 코치가 지난 달과 비교해 따뜻한 인사이트를 줍니다.",
     "cta2Heading": "지금 시작해도 첫 달부터 달라집니다.",
     "cta2Subtitle": "가입은 30초. 신용카드 불필요. 베타 기간 무료.",
-    "footerTagline": "대화로 기록하는 AI 가계부",
+    "footerTagline": "대화 한 줄로 끝나는 가계부",
     "footerTerms": "이용약관",
     "footerPrivacy": "개인정보 처리방침",
     "footerDataDeletion": "데이터 삭제",
@@ -55,15 +56,17 @@
     "bizAddress": "주소",
     "hero": {
       "badge": "베타 무료 · AI 가계부",
-      "headline1": "이번엔 진짜",
-      "headline2": "끝까지 가는 가계부.",
+      "headline1": "대화 한 줄로",
+      "headline2": "끝나는 가계부.",
       "subtitle": "엑셀도, 영수증도 필요 없어요. \"스벅 6500원\" 한 줄 던지면, Moa가 알아서 분류하고 한 달을 같이 돌아봐 줍니다.",
       "ctaPrimary": "무료로 시작하기",
       "ctaLogin": "로그인",
       "ctaApp": "가계부 열기 →",
       "trust1": "30초 가입",
       "trust2": "카드 등록 X",
-      "trust3": "베타 무료"
+      "trust3": "베타 무료",
+      "trust4": "은행 미연결",
+      "privacy": "🔒 은행·카드사와 연결하지 않아요. 당신이 입력한 내용만 당신 계정에 저장되고, AI 학습에는 사용하지 않습니다."
     },
     "problem": {
       "label": "Why Moa",
@@ -356,6 +359,19 @@
     "receiptLabel": "영수증",
     "receiptUploadTitle": "영수증 사진 첨부",
     "guideTitle": "이렇게 적어보세요",
+    "voiceTitle": "음성으로 입력 (예: \"오늘 점심 8천원\")",
+    "daily": {
+      "zeroTitle": "오늘은 아직 0원! 👏",
+      "zeroDesc": "지출이 없는 하루도 훌륭한 기록이에요.",
+      "spentTitle": "오늘 {{amount}} 썼어요",
+      "spentDesc": "오늘 {{count}}건 기록했어요. 한 줄로 가볍게 더 적어볼까요?"
+    },
+    "paywall": {
+      "title": "무료 체험이 종료됐어요",
+      "desc": "기록은 계속 볼 수 있지만, 새 입력·AI·기록 기능은 유료 플랜에서 이용할 수 있어요.",
+      "cta": "업그레이드",
+      "inputLocked": "무료 체험 종료 — 업그레이드 후 계속 기록할 수 있어요"
+    },
     "actions": {
       "edit": "수정",
       "delete": "삭제"

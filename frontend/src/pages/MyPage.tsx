@@ -42,7 +42,14 @@ export default function MyPage() {
   const { user, signout, refresh } = useAuth()
   const queryClient = useQueryClient()
   const nav = useNavigate()
-  const [tab, setTab] = useState<Tab>('general')
+  // ?tab=billing 등으로 진입하면 해당 탭을 바로 연다 (만료 사용자 결제 자동 랜딩용).
+  const initialTab = ((): Tab => {
+    const q = new URLSearchParams(window.location.search).get('tab')
+    return (['general', 'billing', 'privacy', 'location', 'export'] as const).includes(q as Tab)
+      ? (q as Tab)
+      : 'general'
+  })()
+  const [tab, setTab] = useState<Tab>(initialTab)
 
   // i18n.changeLanguage 가 호출되면 t() 가 새 값을 반환하도록 컴포넌트 안에서 매번 생성.
   const TABS: { key: Tab; label: string; icon: typeof UserIcon }[] = [

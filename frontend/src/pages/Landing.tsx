@@ -87,7 +87,12 @@ export default function Landing() {
               <span>{t('landing.hero.trust2')}</span>
               <span>·</span>
               <span>{t('landing.hero.trust3')}</span>
+              <span>·</span>
+              <span className="text-atm-accent/80">{t('landing.hero.trust4')}</span>
             </div>
+            <p className="mt-4 max-w-md text-xs leading-relaxed text-atm-bg/45 [word-break:keep-all]">
+              {t('landing.hero.privacy')}
+            </p>
           </div>
 
           <div className="flex justify-center md:justify-end">

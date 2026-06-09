@@ -90,6 +90,20 @@ api.interceptors.response.use(
         return api(original)
       }
     }
+    // 402 = 무료 체험 종료(유료 전용 동작 잠금). 결제 페이지로 자동 랜딩.
+    // GET 조회는 게이트가 없으므로 402 가 나지 않는다 → 읽기 전용 열람은 그대로 가능.
+    if (err.response?.status === 402) {
+      clearWakingToast()
+      toast.error('무료 체험이 종료되었어요. 계속하려면 업그레이드가 필요해요.', { id: 'paywall' })
+      if (
+        typeof window !== 'undefined' &&
+        !window.location.pathname.startsWith('/me') &&
+        !window.location.pathname.startsWith('/pricing')
+      ) {
+        window.location.assign('/me?tab=billing')
+      }
+      return Promise.reject(err)
+    }
     // 콜드스타트/일시 네트워크 지연 — 백엔드가 자다 깨어나는 경우 1회만 재시도.
     // (ECONNABORTED=타임아웃, 응답 없음=네트워크. 사용자가 취소한 ERR_CANCELED 는 제외)
     const isWakeable =

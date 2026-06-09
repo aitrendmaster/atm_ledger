@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..database import get_db
-from ..deps import get_current_user
+from ..deps import get_current_user, require_active_plan
 from ..models.entry import Entry, EntryPhoto
 from ..models.user import User
 from ..schemas.entry import PhotoOut
@@ -19,7 +19,7 @@ ALLOWED_TYPES = {"image/jpeg", "image/jpg", "image/png", "image/webp"}
 async def upload_photo(
     entry_id: int,
     file: UploadFile = File(...),
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
     db: AsyncSession = Depends(get_db),
 ):
     res = await db.execute(select(Entry).where(Entry.id == entry_id, Entry.user_id == user.id))
@@ -45,7 +45,7 @@ async def upload_photo(
 async def delete_photo(
     entry_id: int,
     photo_id: int,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
     db: AsyncSession = Depends(get_db),
 ):
     res = await db.execute(

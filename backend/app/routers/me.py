@@ -36,7 +36,7 @@ from ..services.xlsx_export import build_annual_xlsx, build_monthly_xlsx
 
 router = APIRouter(prefix="/me", tags=["me"])
 
-FREE_TRIAL_DAYS = 30
+FREE_TRIAL_DAYS = 31
 PAID_MONTHLY_USD = 4
 PAID_MONTHLY_DAYS = 30
 
@@ -430,7 +430,7 @@ async def my_export_xlsx(
 ):
     """가계부 내역을 엑셀(.xlsx) 로 다운로드.
 
-    무료 트라이얼 기간(가입 후 30일) 또는 paid 인 동안만 허용 — 명세상 데이터 내보내기는 유료 기능.
+    무료 트라이얼 기간(가입 후 31일) 또는 paid 인 동안만 허용 — 명세상 데이터 내보내기는 유료 기능.
     GDPR `/auth/me/export` (JSON) 는 항상 가능 (그것과 별개).
     """
     if not _paid_or_trial_active(user):

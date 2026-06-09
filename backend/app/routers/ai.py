@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from ..deps import get_current_user
+from ..deps import get_current_user, require_active_plan
 from ..models.user import User
 from ..schemas.ai import (
     InsightRequest,
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 
 
 @router.post("/parse", response_model=ParseResponse)
-async def parse(body: ParseRequest, user: User = Depends(get_current_user)):
+async def parse(body: ParseRequest, user: User = Depends(require_active_plan)):
     result = await ai_service.parse_expense(
         body.text,
         body.image.data if body.image else None,
@@ -39,7 +39,7 @@ async def insight(body: InsightRequest, _: User = Depends(get_current_user)):
 @router.post("/insight-from-stats", response_model=InsightResponse)
 async def insight_from_stats(
     payload: dict,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
 ):
     """클라이언트가 집계한 stats 를 받아 인사이트만 생성."""
     month = payload.get("month", "")

@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..database import get_db
-from ..deps import get_current_user
+from ..deps import get_current_user, require_active_plan
 from ..models.entry import Entry
 from ..models.user import User
 from ..schemas.entry import EntryCreate, EntryOut, EntryUpdate
@@ -30,7 +30,7 @@ async def list_entries(
 @router.post("", response_model=EntryOut, status_code=201)
 async def create_entry(
     body: EntryCreate,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
     db: AsyncSession = Depends(get_db),
 ):
     entry = Entry(user_id=user.id, **body.model_dump())
@@ -49,7 +49,7 @@ async def create_entry(
 async def update_entry(
     entry_id: int,
     body: EntryUpdate,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
     db: AsyncSession = Depends(get_db),
 ):
     res = await db.execute(select(Entry).where(Entry.id == entry_id, Entry.user_id == user.id))
@@ -66,7 +66,7 @@ async def update_entry(
 @router.delete("/{entry_id}", status_code=204)
 async def delete_entry(
     entry_id: int,
-    user: User = Depends(get_current_user),
+    user: User = Depends(require_active_plan),
     db: AsyncSession = Depends(get_db),
 ):
     res = await db.execute(select(Entry).where(Entry.id == entry_id, Entry.user_id == user.id))
