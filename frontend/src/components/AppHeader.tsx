@@ -100,19 +100,19 @@ export default function AppHeader({
   // 모바일 sticky bar (absolute variant 만)
   const mobileStickyBar = variant === 'absolute' && (
     <header
-      className="md:hidden sticky top-0 z-40 bg-atm-card/95 backdrop-blur-sm
-                 border-b border-stone-200 px-4 h-14
+      className="md:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-sm
+                 border-b border-line px-4 h-14
                  flex items-center justify-between
                  pt-[env(safe-area-inset-top)]"
     >
-      <span className="text-base font-semibold text-atm-ink truncate">{displayTitle}</span>
+      <span className="text-base font-semibold text-ink truncate">{displayTitle}</span>
       {user && (
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
           aria-label={t('appHeader.menu', { defaultValue: '메뉴' })}
-          className="w-11 h-11 -mr-2 flex items-center justify-center text-atm-ink
-                     active:bg-stone-100 rounded-lg"
+          className="w-11 h-11 -mr-2 flex items-center justify-center text-ink
+                     active:bg-sunken rounded-lg"
         >
           <MoreVertical size={20} />
         </button>
@@ -126,8 +126,8 @@ export default function AppHeader({
       type="button"
       onClick={() => setMenuOpen(true)}
       aria-label={t('appHeader.menu', { defaultValue: '메뉴' })}
-      className="md:hidden w-11 h-11 -mr-2 flex items-center justify-center text-atm-ink
-                 active:bg-stone-100 rounded-lg"
+      className="md:hidden w-11 h-11 -mr-2 flex items-center justify-center text-ink
+                 active:bg-sunken rounded-lg"
     >
       <MoreVertical size={20} />
     </button>
@@ -147,8 +147,8 @@ export default function AppHeader({
             <Link
               to="/faq"
               title="FAQ"
-              className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200
-                         rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-surface border border-line
+                         rounded-pill text-xs text-ink-secondary hover:bg-sunken"
             >
               <HelpCircle size={14} /> <span>FAQ</span>
             </Link>
@@ -156,8 +156,8 @@ export default function AppHeader({
           <Link
             to="/recurring"
             title={t('appHeader.recurring', { defaultValue: '반복 지출' })}
-            className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200
-                       rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-surface border border-line
+                       rounded-pill text-xs text-ink-secondary hover:bg-sunken"
           >
             <RefreshCw size={14} />{' '}
             <span>{t('appHeader.recurring', { defaultValue: '반복 지출' })}</span>
@@ -165,8 +165,8 @@ export default function AppHeader({
           <Link
             to="/me"
             title={t('appHeader.myAccount', { defaultValue: '내 계정' })}
-            className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200
-                       rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-surface border border-line
+                       rounded-pill text-xs text-ink-secondary hover:bg-sunken"
           >
             <UserIcon size={14} />{' '}
             <span>{t('appHeader.myAccount', { defaultValue: '내 계정' })}</span>
@@ -175,8 +175,8 @@ export default function AppHeader({
             <Link
               to="/admin"
               title={t('appHeader.admin', { defaultValue: '관리자' })}
-              className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200
-                         rounded-lg text-xs text-atm-accent hover:bg-stone-50"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-surface border border-line
+                         rounded-pill text-xs text-record hover:bg-sunken"
             >
               <ShieldCheck size={14} />{' '}
               <span>{t('appHeader.admin', { defaultValue: '관리자' })}</span>
@@ -186,8 +186,8 @@ export default function AppHeader({
             type="button"
             onClick={signout}
             title={t('appHeader.logout', { defaultValue: '로그아웃' })}
-            className="flex items-center gap-1 px-2.5 py-1.5 bg-white border border-stone-200
-                       rounded-lg text-xs text-atm-muted hover:bg-stone-50"
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-surface border border-line
+                       rounded-pill text-xs text-ink-secondary hover:bg-sunken"
           >
             <LogOut size={14} />{' '}
             <span>{t('appHeader.logout', { defaultValue: '로그아웃' })}</span>
@@ -211,12 +211,12 @@ export default function AppHeader({
       <div
         role="menu"
         className="md:hidden fixed right-0 top-0 bottom-0 z-50
-                   w-72 max-w-[80vw] bg-white shadow-xl
+                   w-72 max-w-[80vw] bg-surface shadow-xl
                    flex flex-col
                    pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
       >
-        <div className="flex items-center justify-between px-4 h-14 border-b border-stone-200">
-          <span className="font-semibold text-atm-ink">
+        <div className="flex items-center justify-between px-4 h-14 border-b border-line">
+          <span className="font-semibold text-ink">
             {t('appHeader.menu', { defaultValue: '메뉴' })}
           </span>
           <button
@@ -235,11 +235,11 @@ export default function AppHeader({
               to={item.to!}
               role="menuitem"
               onClick={() => setMenuOpen(false)}
-              className={`flex items-center gap-3 px-4 h-12 text-sm hover:bg-stone-50 active:bg-stone-100 ${
-                item.accent ? 'text-atm-accent' : 'text-atm-ink'
+              className={`flex items-center gap-3 px-4 h-12 text-sm hover:bg-sunken active:bg-sunken ${
+                item.accent ? 'text-record' : 'text-ink'
               }`}
             >
-              <item.icon size={18} className="text-atm-muted" />
+              <item.icon size={18} className="text-ink-secondary" />
               <span>{item.label}</span>
             </Link>
           ))}
@@ -251,11 +251,11 @@ export default function AppHeader({
                 setMenuOpen(false)
                 signout()
               }}
-              className="w-full flex items-center gap-3 px-4 h-12 text-sm text-atm-ink
-                         hover:bg-stone-50 active:bg-stone-100
-                         border-t border-stone-100 mt-2"
+              className="w-full flex items-center gap-3 px-4 h-12 text-sm text-ink
+                         hover:bg-sunken active:bg-sunken
+                         border-t border-line mt-2"
             >
-              <LogOut size={18} className="text-atm-muted" />
+              <LogOut size={18} className="text-ink-secondary" />
               <span>{t('appHeader.logout', { defaultValue: '로그아웃' })}</span>
             </button>
           )}

@@ -18,12 +18,12 @@ export default function MockInsightPanel({
   return (
     <div className="flex flex-col h-full">
       <div className="px-4 pt-8 pb-3 flex items-center gap-2">
-        <Sparkles className="w-4 h-4 text-atm-accent" />
-        <h3 className="text-sm font-bold text-atm-ink">{monthLabel}</h3>
+        <Sparkles className="w-4 h-4 text-record" />
+        <h3 className="text-sm font-bold text-ink">{monthLabel}</h3>
       </div>
 
       <div className="px-3 pb-3">
-        <div className="bg-atm-ink text-atm-bg rounded-2xl p-3">
+        <div className="bg-ink text-ink-ondark rounded-2xl p-3">
           <div className="text-[9px] font-mono tracking-[0.2em] uppercase opacity-60 mb-0.5">
             이번 달 합계
           </div>
@@ -32,34 +32,34 @@ export default function MockInsightPanel({
       </div>
 
       <div className="px-3 pb-4 flex-1 space-y-2">
-        <div className="bg-white border border-stone-200 rounded-2xl p-3">
+        <div className="bg-surface border border-line rounded-2xl p-3">
           <div className="flex items-center gap-1.5 mb-1">
             <TrendingDown className="w-3 h-3 text-emerald-600" />
             <span className="text-[10px] font-mono tracking-wider uppercase text-emerald-600">
               잘한 점
             </span>
           </div>
-          <p className="text-[11px] leading-relaxed text-atm-ink">{strength}</p>
+          <p className="text-[11px] leading-relaxed text-ink">{strength}</p>
         </div>
 
-        <div className="bg-white border border-stone-200 rounded-2xl p-3">
+        <div className="bg-surface border border-line rounded-2xl p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <TrendingUp className="w-3 h-3 text-atm-accent" />
-            <span className="text-[10px] font-mono tracking-wider uppercase text-atm-accent">
+            <TrendingUp className="w-3 h-3 text-record" />
+            <span className="text-[10px] font-mono tracking-wider uppercase text-record">
               아쉬운 점
             </span>
           </div>
-          <p className="text-[11px] leading-relaxed text-atm-ink">{weakness}</p>
+          <p className="text-[11px] leading-relaxed text-ink">{weakness}</p>
         </div>
 
-        <div className="bg-atm-accent/10 border border-atm-accent/20 rounded-2xl p-3">
+        <div className="bg-record/10 border border-record/20 rounded-2xl p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <Target className="w-3 h-3 text-atm-accent" />
-            <span className="text-[10px] font-mono tracking-wider uppercase text-atm-accent">
+            <Target className="w-3 h-3 text-record" />
+            <span className="text-[10px] font-mono tracking-wider uppercase text-record">
               다음 달 조언
             </span>
           </div>
-          <p className="text-[11px] leading-relaxed text-atm-ink">{advice}</p>
+          <p className="text-[11px] leading-relaxed text-ink">{advice}</p>
         </div>
       </div>
     </div>

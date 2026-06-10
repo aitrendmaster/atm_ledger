@@ -367,7 +367,7 @@
     "guideTitle": "이렇게 적어보세요",
     "voiceTitle": "음성으로 입력 (예: \"오늘 점심 8천원\")",
     "daily": {
-      "zeroTitle": "오늘은 아직 0원! 👏",
+      "zeroTitle": "오늘은 아직 0원!",
       "zeroDesc": "지출이 없는 하루도 훌륭한 기록이에요.",
       "spentTitle": "오늘 {{amount}} 썼어요",
       "spentDesc": "오늘 {{count}}건 기록했어요. 한 줄로 가볍게 더 적어볼까요?"
@@ -389,10 +389,36 @@
     "tabs": {
       "chat": "채팅",
       "calendar": "캘린더",
+      "journey": "여정",
       "places": "장소",
       "reflect": "회고",
       "plan": "계획",
       "balance": "대차표"
+    },
+    "journey": {
+      "boardTitle": "{{month}} 스탬프 보드",
+      "emptyInvite": "아직 한 줄도 없어요. 오늘 쓴 돈 하나만 적어볼까요?",
+      "earned": "획득",
+      "notEarned": "미획득",
+      "hiddenHint": "아침 해보다 부지런한 사람에게.",
+      "statRecordedDays": "이번 달 기록",
+      "statStreak": "연속 기록",
+      "statSpent": "이번 달 지출",
+      "statBoard": "스탬프 보드",
+      "daysUnit": "일",
+      "streakUnit": "일째",
+      "toastEarned": "{{name}} 획득!",
+      "toastBoardProgress": "{{month}}월 보드 {{earned}}/{{total}} — 여정 탭에서 모아볼 수 있어요",
+      "stamps": {
+        "start": "출발 도장",
+        "streak7": "7일 연속",
+        "streak14": "14일 연속",
+        "steady20": "꾸준함 20",
+        "saving1": "첫 아낌",
+        "saving5": "아낌 5회",
+        "forward": "전진 도장",
+        "review": "돌아보기"
+      }
     },
     "stats": {
       "thisMonthFlow": "이번 달 흐름",
@@ -407,7 +433,7 @@
       "won": "원"
     },
     "input": {
-      "placeholder": "스벅 부천역점 6500원…",
+      "placeholder": "오늘 한 줄을 적어보세요",
       "send": "보내기",
       "retry": "다시 적어줄래?",
       "tryAgain": "다시 시도해줘.",
@@ -415,12 +441,12 @@
       "guideButton": "어떤 말이 가능해? 사용 가이드 보기"
     },
     "messages": {
-      "welcome": "오늘 쓴 돈, 하나만 적어볼까? 말하듯 한 줄이면 돼 📒",
-      "welcomeHint": "평소에 말하듯 적으면 돼. 예를 들어 \"오늘 점심 김밥 4천원\" 같이 보내봐. 입력창 옆 💡 버튼을 누르면 어떤 말이 가능한지 가이드를 볼 수 있어. 캘린더 / 장소 / 회고 / 계획 / 대차표 탭에서 한 달을 정리할 수도 있고, 각 항목 옆 ✏️·🗑 아이콘으로 개별 수정·삭제도 가능해.",
+      "welcome": "오늘 쓴 돈, 하나만 적어볼까? 말하듯 한 줄이면 돼.",
+      "welcomeHint": "평소에 말하듯 적으면 돼. 예를 들어 \"오늘 점심 김밥 4천원\" 같이 보내봐. 입력창 옆 전구 버튼을 누르면 어떤 말이 가능한지 가이드를 볼 수 있어. 캘린더 / 장소 / 회고 / 계획 / 대차표 탭에서 한 달을 정리할 수도 있고, 각 항목 옆 연필·휴지통 아이콘으로 개별 수정·삭제도 가능해.",
       "recorded": "기록했어 ✓ ({{count}}건)",
-      "placeRecognized": "📍 \"{{name}}\" 장소가 인식됐어. 정확한 위치는 항목을 눌러 직접 골라줘.",
-      "recurringRecorded": "🔁 {{count}}건은 반복 지출로 등록했어요. [반복 지출 관리] 페이지에서 수정·삭제할 수 있어요.",
-      "askRecurrenceEnd": "🔁 반복 지출로 인식했어요. 언제까지 계속될까요? 예: 2027-12-31 / 24개월 / 5년간"
+      "placeRecognized": "\"{{name}}\" 장소가 인식됐어. 정확한 위치는 항목을 눌러 직접 골라줘.",
+      "recurringRecorded": "{{count}}건은 반복 지출로 등록했어요. [반복 지출 관리] 페이지에서 수정·삭제할 수 있어요.",
+      "askRecurrenceEnd": "반복 지출로 인식했어요. 언제까지 계속될까요? 예: 2027-12-31 / 24개월 / 5년간"
     },
     "place": {
       "title": "나의 지출 지도",
@@ -902,6 +928,7 @@
   "bottomNav": {
     "home": "홈",
     "calendar": "캘린더",
+    "journey": "여정",
     "recurring": "반복",
     "me": "MY",
     "label": "주 네비게이션"

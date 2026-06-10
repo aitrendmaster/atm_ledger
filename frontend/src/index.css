@@ -1,14 +1,17 @@
-/* Pretendard (동적 서브셋 — CJK 포함, 경량). 오프라인(Capacitor) 시 시스템 폰트로 graceful fallback. */
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css');
+/* Pretendard Variable — self-host (npm i pretendard, Vite 가 woff2 번들링).
+   CDN 사용 금지 (브랜드 플레이북 HANDOFF §0). 오프라인(Capacitor)에서도 동작. */
+@import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+/* moa365 크림 벤토 디자인 토큰 — 모든 색·라운드·모션의 single source */
+@import './styles/tokens.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html, body, #root { height: 100%; }
 body {
-  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-  background: #FBF8F3;
-  color: #2E2A24;
+  font-family: var(--font-sans);
+  background: var(--bg-base);
+  color: var(--ink-primary);
   -webkit-font-smoothing: antialiased;
   /* iOS Safari + Capacitor 노치/홈 인디케이터 대응 — 본문은 기본 inset 0,
      fixed/sticky 요소는 각자 env(safe-area-inset-*) 패딩으로 흡수. */
@@ -19,3 +22,6 @@ body {
 /* Capacitor iOS/Android wrapping 시 status bar 색상은 theme-color meta + native plugin 으로 제어.
    tap highlight 는 모바일 hover lock 회피를 위해 제거. */
 * { -webkit-tap-highlight-color: transparent; }
+
+/* 접근성 — 모든 인터랙티브 요소 공통 포커스 링 (HANDOFF §5) */
+:focus-visible { outline: 2px solid var(--journey); outline-offset: 2px; }

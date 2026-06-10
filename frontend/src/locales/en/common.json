@@ -367,7 +367,7 @@
     "guideTitle": "Try writing it this way",
     "voiceTitle": "Voice input (e.g. \"lunch 8 dollars today\")",
     "daily": {
-      "zeroTitle": "Nothing spent yet today! 👏",
+      "zeroTitle": "Nothing spent yet today!",
       "zeroDesc": "A no-spend day is a great record too.",
       "spentTitle": "You spent {{amount}} today",
       "spentDesc": "{{count}} logged today. Want to jot down one more line?"
@@ -389,10 +389,36 @@
     "tabs": {
       "chat": "Chat",
       "calendar": "Calendar",
+      "journey": "Journey",
       "places": "Places",
       "reflect": "Review",
       "plan": "Plan",
       "balance": "Balance"
+    },
+    "journey": {
+      "boardTitle": "{{month}} stamp board",
+      "emptyInvite": "No lines yet. How about jotting down just one thing you spent today?",
+      "earned": "earned",
+      "notEarned": "not earned",
+      "hiddenHint": "For someone earlier than the morning sun.",
+      "statRecordedDays": "Days recorded",
+      "statStreak": "Streak",
+      "statSpent": "Spent this month",
+      "statBoard": "Stamp board",
+      "daysUnit": " days",
+      "streakUnit": " days",
+      "toastEarned": "{{name}} earned!",
+      "toastBoardProgress": "Board {{earned}}/{{total}} — see it in the Journey tab",
+      "stamps": {
+        "start": "First record",
+        "streak7": "7-day streak",
+        "streak14": "14-day streak",
+        "steady20": "Steady 20",
+        "saving1": "First saving",
+        "saving5": "5 savings",
+        "forward": "Forward",
+        "review": "Look back"
+      }
     },
     "stats": {
       "thisMonthFlow": "This month",
@@ -407,7 +433,7 @@
       "won": ""
     },
     "input": {
-      "placeholder": "Starbucks $5…",
+      "placeholder": "Write today's one line",
       "send": "Send",
       "retry": "Could you rephrase?",
       "tryAgain": "Please try again.",
@@ -415,12 +441,12 @@
       "guideButton": "What can I type? See guide"
     },
     "messages": {
-      "welcome": "Today's spending — jot just one down. One line, the way you'd talk 📒",
-      "welcomeHint": "Just type the way you'd talk — e.g. \"lunch kimbap 4 today\". Tap the 💡 button next to the input to see what you can say. Use the Calendar / Places / Review / Plan / Balance tabs to wrap up the month, and the ✏️·🗑 icons on each row to edit or delete an entry.",
+      "welcome": "Today's spending — jot just one down. One line, the way you'd talk.",
+      "welcomeHint": "Just type the way you'd talk — e.g. \"lunch kimbap 4 today\". Tap the bulb button next to the input to see what you can say. Use the Calendar / Places / Review / Plan / Balance tabs to wrap up the month, and the pencil and trash icons on each row to edit or delete an entry.",
       "recorded": "Saved ✓ ({{count}} item(s))",
-      "placeRecognized": "📍 \"{{name}}\" detected. Open the entry to pick the exact spot.",
-      "recurringRecorded": "🔁 {{count}} saved as recurring. Edit or delete them on the [Recurring expenses] page.",
-      "askRecurrenceEnd": "🔁 Got it as a recurring expense. When should it end? e.g., 2027-12-31 / 24 months / 5 years"
+      "placeRecognized": "\"{{name}}\" detected. Open the entry to pick the exact spot.",
+      "recurringRecorded": "{{count}} saved as recurring. Edit or delete them on the [Recurring expenses] page.",
+      "askRecurrenceEnd": "Got it as a recurring expense. When should it end? e.g., 2027-12-31 / 24 months / 5 years"
     },
     "place": {
       "title": "My spending map",
@@ -902,6 +928,7 @@
   "bottomNav": {
     "home": "Home",
     "calendar": "Calendar",
+    "journey": "Journey",
     "recurring": "Recurring",
     "me": "Me",
     "label": "Primary navigation"

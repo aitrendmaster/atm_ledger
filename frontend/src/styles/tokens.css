@@ -1,0 +1,92 @@
+/* ============================================================
+   moa365 Design Tokens — "크림 벤토" 프로덕트 UI 시스템
+   Source of truth: moa365-brand-playbook.md Part 11
+   규칙: 컴포넌트 코드에서 hex 직접 사용 금지. 반드시 var() 또는
+   tailwind 토큰 클래스만 사용한다.
+   ============================================================ */
+
+:root {
+  /* ---------- Surface ---------- */
+  --bg-base: #F6F4EF;        /* 앱 배경 (웜 크림) */
+  --surface: #FFFFFF;        /* 카드 */
+  --surface-sunken: #F1EEE7; /* 칩, 보조 영역, 프로그레스 트랙 */
+  --line: #E5E1D7;           /* 보더 */
+
+  /* ---------- Ink ---------- */
+  --ink-primary: #111111;    /* 제목, 강조, 유저 말풍선/다크 카드 배경 */
+  --ink-secondary: #5A6068;  /* 본문 보조 */
+  --ink-tertiary: #8A8F98;   /* 캡션 (화이트 카드 위) */
+  --ink-faint: #A8A296;      /* 캡션·플레이스홀더 (크림 배경 위) */
+  --ink-on-dark: #FFFFFF;
+  --ink-on-dark-muted: #9CA1A8;
+
+  /* ---------- Semantic accents (그라데이션 양 끝값) ---------- */
+  --record-from: #FF6B2C;  --record-to: #FFA63D;   /* 기록·연속 */
+  --saving-from: #9BE15D;  --saving-to: #00C48C;   /* 아낌·절약 */
+  --journey-from: #01DCE3; --journey-to: #2D7DFF;  /* 목적지·전진 */
+  --insight-from: #A78BFA; --insight-to: #7B61FF;  /* 리뷰·회고 */
+  --memorial-from: #FF7AA8; --memorial-to: #FF4D7D; /* 기념 — 스탬프 전용, UI 본문 사용 금지 */
+  --hidden-from: #26292F;  --hidden-to: #0E0F12;   /* 히든 티켓 */
+
+  /* 단색이 필요할 때의 대표값 (텍스트 컬러 등) */
+  --record: #FF6B2C;
+  --saving-text: #00A878;   /* 그린 텍스트는 명도 보정값 사용 */
+  --journey: #2D7DFF;
+  --insight: #7B61FF;
+
+  /* 아낌 전용 연그린 틴트 — StampToast 아낌 응답 배경에만 허용 (HANDOFF 3-10) */
+  --tint-saving: #EAF8EE;
+
+  /* ---------- Gradient presets (135° 좌상→우하 통일) ---------- */
+  --grad-record:  linear-gradient(135deg, var(--record-from),  var(--record-to));
+  --grad-saving:  linear-gradient(135deg, var(--saving-from),  var(--saving-to));
+  --grad-journey: linear-gradient(135deg, var(--journey-from), var(--journey-to));
+  --grad-insight: linear-gradient(135deg, var(--insight-from), var(--insight-to));
+  --grad-memorial:linear-gradient(135deg, var(--memorial-from),var(--memorial-to));
+  --grad-hidden:  linear-gradient(135deg, var(--hidden-from),  var(--hidden-to));
+
+  /* ---------- Radius ---------- */
+  --radius-card: 20px;
+  --radius-card-lg: 26px;   /* 히어로 벤토(스탬프 보드 등) */
+  --radius-pill: 999px;     /* 칩, 입력 바, 버튼, 말풍선 */
+
+  /* ---------- Shadow (카드 공통 1종만) ---------- */
+  --shadow-soft: 0 4px 8px rgba(26, 26, 26, 0.07);
+
+  /* ---------- Typography ---------- */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo",
+               "Noto Sans KR", sans-serif;
+  /* 웨이트 대비를 크게 가져간다: 800 vs 300 */
+  --fw-display: 800;  /* 타이틀, 숫자(금액·%·일수) */
+  --fw-strong: 700;
+  --fw-body: 500;
+  --fw-regular: 400;
+  --fw-caption: 300;
+
+  /* ---------- Motion ---------- */
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-stamp: 420ms;                              /* 도장 찍힘 */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* 오버슈트 스프링 */
+
+  /* ---------- Layout ---------- */
+  --space-page: 20px;        /* 화면 좌우 패딩 */
+  --touch-target: 44px;      /* 최소 터치 타깃 */
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes stamp-in {
+  0%   { transform: scale(1.4) rotate(var(--stamp-rot, 0deg)); opacity: 0; }
+  100% { transform: scale(1)   rotate(var(--stamp-rot, 0deg)); opacity: 1; }
+}
+@keyframes fade-up {
+  from { transform: translateY(8px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-stamp: 0ms; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

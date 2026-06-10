@@ -1,7 +1,16 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut, Banknote, Mic, MicOff } from 'lucide-react';
+import { Send, Camera, TrendingUp, TrendingDown, Coffee, ShoppingBag, Utensils, Car, Home, Heart, Sparkles, X, Target, Trash2, RefreshCw, MessageCircle, Calendar, MapPin, Star, ThumbsUp, ThumbsDown, Minus, BookOpen, Bell, Plane, Gift, Plus, AlertCircle, Wallet, Clock, ChevronLeft, ChevronRight, Check, Grid, List as ListIcon, Lightbulb, PenLine, Compass, BarChart3, Quote, ExternalLink, Image as ImageIcon, Upload, LogOut, Banknote, Mic, MicOff, Lock, Stamp as StampIcon } from 'lucide-react';
+import JourneyTab from '../components/journey/JourneyTab';
+import { Stamp } from '../components/stamp/Stamp';
+import { computeMonthlyStamps } from '../components/journey/stamps';
+
+// 스탬프명 i18n 폴백 (JourneyTab 의 captions 와 동일 키)
+const STAMP_FALLBACK = {
+  start: '출발 도장', streak7: '7일 연속', streak14: '14일 연속', steady20: '꾸준함 20',
+  saving1: '첫 아낌', saving5: '아낌 5회', forward: '전진 도장', review: '돌아보기',
+};
 import { aiApi, geocodeApi, meApi } from '../services/api';
 import { absolutizePhotoUrl } from '../services/ledgerMappers';
 import GoogleMap from '../components/GoogleMap';
@@ -17,8 +26,8 @@ import {
 } from '../hooks/useLedgerData';
 
 const CATEGORIES = {
-  '식비': { icon: Utensils, color: '#E07856', bg: '#FDF0EA' },
-  '카페/간식': { icon: Coffee, color: '#A0633C', bg: '#F5E9DD' },
+  '식비': { icon: Utensils, color: 'var(--record)', bg: '#FDF0EA' },
+  '카페/간식': { icon: Coffee, color: 'var(--record)', bg: '#F5E9DD' },
   '쇼핑': { icon: ShoppingBag, color: '#8B5A8C', bg: '#F0E6F1' },
   '교통': { icon: Car, color: '#5B7C99', bg: '#E5ECF2' },
   '주거/공과금': { icon: Home, color: '#6B8E6B', bg: '#E8EEE6' },
@@ -26,7 +35,7 @@ const CATEGORIES = {
   '여행/이벤트': { icon: Plane, color: '#5B7C99', bg: '#E5ECF2' },
   '경조사/선물': { icon: Gift, color: '#C7657B', bg: '#F8E5E9' },
   '금융/대출': { icon: Banknote, color: '#4A5B7A', bg: '#E4E8EE' },
-  '기타': { icon: Sparkles, color: '#7A7567', bg: '#EFECE6' },
+  '기타': { icon: Sparkles, color: 'var(--ink-secondary)', bg: '#EFECE6' },
 };
 
 export default function ChatLedger() {
@@ -146,8 +155,8 @@ export default function ChatLedger() {
   const tabsRef = useRef(null);
   useEffect(() => {
     const tabParam = searchParams.get('tab');
-    if (tabParam === 'calendar') {
-      setActiveTab('calendar');
+    if (tabParam === 'calendar' || tabParam === 'journey') {
+      setActiveTab(tabParam);
       requestAnimationFrame(() => tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     } else {
       requestAnimationFrame(() => chatTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
@@ -202,6 +211,34 @@ export default function ChatLedger() {
     try { localStorage.setItem('moa_chat_guide_seen', '1'); } catch {}
     setShowInputGuide(false);
   };
+
+  // ===== 스탬프 획득 토스트 — 획득은 홈 채팅 흐름에서, 보관은 여정 탭에서 (playbook Part 10-6) =====
+  // 서버 영속화 전: 획득 판정은 entries/reflections 파생, 노출 여부만 localStorage 로 추적.
+  useEffect(() => {
+    if (entries.length === 0) return;
+    const { stamps, stats } = computeMonthlyStamps(entries, reflections, new Date());
+    const earnedIds = stamps.filter((s) => s.earned).map((s) => s.id);
+    let seen = null;
+    try { seen = JSON.parse(localStorage.getItem('moa_stamps_seen') || 'null'); } catch { /* noop */ }
+    if (!Array.isArray(seen)) {
+      // 최초 1회는 조용히 시드 — 기존 사용자에게 과거 스탬프 폭탄 방지
+      try { localStorage.setItem('moa_stamps_seen', JSON.stringify(earnedIds)); } catch { /* noop */ }
+      return;
+    }
+    const fresh = stamps.filter((s) => s.earned && !seen.includes(s.id));
+    if (fresh.length === 0) return;
+    try {
+      localStorage.setItem('moa_stamps_seen', JSON.stringify([...new Set([...seen, ...earnedIds])]));
+    } catch { /* noop */ }
+    try { navigator.vibrate?.(30); } catch { /* noop */ } // 햅틱 1회 — 획득 순간에만
+    setMessages((prev) => [
+      ...prev,
+      ...fresh.map((s) => ({
+        role: 'stamp', stamp: s, time: new Date(),
+        boardEarned: stats.earnedCount, boardTotal: stats.totalSlots,
+      })),
+    ]);
+  }, [entries, reflections]);
   // 장소 위치 검색 (모달 안)
   const [placeSearchQuery, setPlaceSearchQuery] = useState('');
   const [placeSearchResults, setPlaceSearchResults] = useState([]);
@@ -661,7 +698,7 @@ export default function ChatLedger() {
   // 회고 카테고리 3종 — insight(깨달음) 는 좁은 모바일 가로폭 UX 문제로 UI 에서 제거 (DB 행은 보존).
   // 클라이언트 표시 필터 monthReflections 에서 알려지지 않은 type 은 무시.
   const REFLECT_TYPES = {
-    regret: { label: t('ledger.reflect.types.regret.label'),   icon: TrendingDown, color: '#E07856', bg: '#FDF0EA', placeholder: t('ledger.reflect.types.regret.placeholder') },
+    regret: { label: t('ledger.reflect.types.regret.label'),   icon: TrendingDown, color: 'var(--record)', bg: '#FDF0EA', placeholder: t('ledger.reflect.types.regret.placeholder') },
     praise: { label: t('ledger.reflect.types.praise.label'),   icon: ThumbsUp,     color: '#6B8E6B', bg: '#E8EEE6', placeholder: t('ledger.reflect.types.praise.placeholder') },
     goal:   { label: t('ledger.reflect.types.goal.label'),     icon: Target,       color: '#8B5A8C', bg: '#F0E6F1', placeholder: t('ledger.reflect.types.goal.placeholder') },
   };
@@ -738,62 +775,63 @@ export default function ChatLedger() {
   })();
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#F5F1EA', fontFamily: "'Noto Sans KR', system-ui, sans-serif" }}>
+    <div className="min-h-screen bg-cream font-sans">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Caveat:wght@500;700&display=swap');
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse-soft { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
         @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
         @keyframes pin-drop { 0% { transform: translateY(-30px) scale(0.5); opacity: 0; } 60% { transform: translateY(2px) scale(1.1); } 100% { transform: translateY(0) scale(1); opacity: 1; } }
-        .msg-in { animation: fadeUp 0.3s ease-out; }
+        .msg-in { animation: fade-up var(--dur-base) var(--ease-out) both; }
         .typing-dot { animation: pulse-soft 1.4s infinite; }
         .typing-dot:nth-child(2) { animation-delay: 0.2s; }
         .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-        .shimmer { background: linear-gradient(90deg, #F5F1EA 0%, #EDE6D8 50%, #F5F1EA 100%); background-size: 1000px 100%; animation: shimmer 2s linear infinite; }
-        .pin { animation: pin-drop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: bottom center; cursor: pointer; transition: transform 0.2s; }
+        .shimmer { background: linear-gradient(90deg, var(--surface-sunken) 0%, var(--line) 50%, var(--surface-sunken) 100%); background-size: 1000px 100%; animation: shimmer 2s linear infinite; }
+        .pin { animation: pin-drop 0.5s var(--ease-spring); transform-origin: bottom center; cursor: pointer; transition: transform var(--dur-fast); }
         .pin:hover { transform: scale(1.15) translateY(-2px); }
-        .handwritten { font-family: 'Caveat', cursive; }
+        .handwritten { font-weight: 800; letter-spacing: -0.01em; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #D4CDC0; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
       `}</style>
 
       {/* 모바일 sticky bar + 데스크탑 우상단 버튼들 — 헤더가 자체 렌더링 (md:hidden / hidden md:flex) */}
       <div className="max-w-7xl mx-auto px-4 pb-20 md:pb-8 pt-3 md:pt-8 lg:p-8 lg:pb-8">
         <header className="mb-4 md:mb-6 lg:mb-8">
           <div className="flex flex-col md:flex-row md:items-baseline md:gap-3">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold" style={{ color: '#2C2418' }}>{t('ledger.title')}</h1>
-            <span className="handwritten text-lg md:text-2xl lg:text-3xl" style={{ color: '#A0633C' }}>{t('ledger.monthSuffix', { month: now.getMonth() + 1 })}</span>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold" style={{ color: 'var(--ink-primary)' }}>{t('ledger.title')}</h1>
+            <span className="handwritten text-lg md:text-2xl lg:text-3xl" style={{ color: 'var(--record)' }}>{t('ledger.monthSuffix', { month: now.getMonth() + 1 })}</span>
           </div>
-          <p className="text-xs md:text-sm mt-1" style={{ color: '#7A7567' }}>{t('ledger.todayTagline', { month: now.getMonth() + 1, day: now.getDate() })}</p>
+          <p className="text-xs md:text-sm mt-1" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.todayTagline', { month: now.getMonth() + 1, day: now.getDate() })}</p>
         </header>
 
         {/* ===== 무료 체험 만료 페이월 배너 / 일간 hook 카드 ===== */}
         {locked ? (
-          <div className="mb-4 md:mb-6 rounded-2xl px-5 py-4 flex items-center gap-3"
-            style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
-            <span className="text-2xl leading-none">🔒</span>
+          <div className="mb-4 md:mb-6 bg-surface rounded-card shadow-soft px-5 py-4 flex items-center gap-3">
+            <span className="shrink-0 w-[26px] h-[26px] rounded-pill bg-grad-record flex items-center justify-center">
+              <Lock size={14} className="text-ink-ondark" />
+            </span>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-bold">{t('ledger.paywall.title')}</div>
-              <div className="text-xs mt-0.5 opacity-80">{t('ledger.paywall.desc')}</div>
+              <div className="text-sm font-bold text-ink">{t('ledger.paywall.title')}</div>
+              <div className="text-xs mt-0.5 text-ink-tertiary">{t('ledger.paywall.desc')}</div>
             </div>
             <button onClick={goUpgrade}
-              className="shrink-0 px-4 py-2 rounded-xl text-sm font-bold active:scale-[0.98]"
-              style={{ backgroundColor: '#E07856', color: '#FFFDF8' }}>
+              className="shrink-0 px-4 py-2 rounded-pill text-sm font-bold active:scale-[0.96] bg-grad-record text-ink-ondark">
               {t('ledger.paywall.cta')}
             </button>
           </div>
         ) : (
-          <div className="mb-4 md:mb-6 rounded-2xl px-5 py-4 flex items-center gap-3"
-            style={{ backgroundColor: todaySpent === 0 ? '#E8EEE6' : '#FFFDF8', border: '1px solid #E8E2D5' }}>
-            <span className="text-2xl leading-none">{todaySpent === 0 ? '👏' : '✍️'}</span>
+          <div className="mb-4 md:mb-6 bg-surface rounded-card shadow-soft px-5 py-4 flex items-center gap-3">
+            <span className={`shrink-0 w-[26px] h-[26px] rounded-pill flex items-center justify-center ${todaySpent === 0 ? 'bg-grad-saving' : 'bg-grad-record'}`}>
+              {todaySpent === 0
+                ? <Check size={14} className="text-ink-ondark" />
+                : <PenLine size={14} className="text-ink-ondark" />}
+            </span>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-bold" style={{ color: '#2C2418' }}>
+              <div className="text-sm font-bold" style={{ color: 'var(--ink-primary)' }}>
                 {todaySpent === 0
                   ? t('ledger.daily.zeroTitle')
                   : t('ledger.daily.spentTitle', { amount: fmtAmt(todaySpent) })}
               </div>
-              <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--ink-tertiary)' }}>
                 {todaySpent === 0
                   ? t('ledger.daily.zeroDesc')
                   : t('ledger.daily.spentDesc', { count: todayEntries.length })}
@@ -803,87 +841,134 @@ export default function ChatLedger() {
         )}
 
         <div ref={chatTopRef} className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
-          <div className="lg:col-span-3 flex flex-col rounded-3xl overflow-hidden" style={{
-            backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5',
+          <div className="lg:col-span-3 flex flex-col overflow-hidden" style={{
             height: 'calc(100vh - 180px)', minHeight: '500px',
           }}>
-            <div className="flex-1 overflow-y-auto p-5 lg:p-6 space-y-4">
+            <div className="flex-1 overflow-y-auto py-2 px-1 space-y-4">
               {messages.map((m, i) => (
                 <div key={i} className={`msg-in flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] ${m.role === 'user' ? 'order-2' : ''}`}>
-                    {m.image && <img src={m.image} alt="r" className="rounded-2xl mb-2 max-h-48 object-cover" />}
-                    <div className="px-4 py-3 rounded-2xl text-sm lg:text-[15px] leading-relaxed whitespace-pre-wrap"
-                      style={{
-                        backgroundColor: m.role === 'user' ? '#2C2418' : '#F5F1EA',
-                        color: m.role === 'user' ? '#FFFDF8' : '#2C2418',
-                        borderBottomRightRadius: m.role === 'user' ? '6px' : '16px',
-                        borderBottomLeftRadius: m.role === 'user' ? '16px' : '6px',
-                      }}>{m.text}</div>
+                  <div className={`${m.role === 'user' ? 'max-w-[80%] order-2' : 'max-w-[75%]'}`}>
+                    {m.image && <img src={m.image} alt="r" className="rounded-card mb-2 max-h-48 object-cover" />}
+                    {m.role === 'stamp' ? (
+                      /* StampToast — 획득 토스트, 채팅 인라인 (HANDOFF 3-10) */
+                      <div className="px-4 py-3 bg-surface rounded-card shadow-soft flex items-center gap-3 animate-stamp-in">
+                        <Stamp category={m.stamp.category} size={48} icon={m.stamp.icon} seed={m.stamp.id}
+                          aria-label={t(`ledger.journey.stamps.${m.stamp.key}`, { defaultValue: STAMP_FALLBACK[m.stamp.key] || m.stamp.key })} />
+                        <div className="min-w-0">
+                          <div className="text-sm font-bold text-ink">
+                            {t('ledger.journey.toastEarned', {
+                              name: t(`ledger.journey.stamps.${m.stamp.key}`, { defaultValue: STAMP_FALLBACK[m.stamp.key] || m.stamp.key }),
+                              defaultValue: '{{name}} 획득!',
+                            })}
+                          </div>
+                          <div className="text-[13px] text-ink-tertiary mt-0.5">
+                            {t('ledger.journey.toastBoardProgress', {
+                              month: now.getMonth() + 1, earned: m.boardEarned, total: m.boardTotal,
+                              defaultValue: '{{month}}월 보드 {{earned}}/{{total}} — 여정 탭에서 확인해보세요',
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    ) : m.role === 'user' ? (
+                      /* ChatBubbleUser — 유저의 한 줄 = 도장의 잉크색 (HANDOFF 3-1) */
+                      <div className="px-5 py-3 bg-ink text-ink-ondark rounded-pill font-medium text-[15px] leading-relaxed whitespace-pre-wrap">
+                        {m.text}
+                      </div>
+                    ) : (
+                      /* AiResponseCard — 화이트 카드 + 텍스트. 아바타·캐릭터 금지 (HANDOFF 3-2) */
+                      <div className="px-4 py-3 bg-surface rounded-card shadow-soft text-sm lg:text-[15px] text-ink leading-relaxed whitespace-pre-wrap">
+                        {m.text}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
               {loading && (
                 <div className="flex justify-start msg-in">
-                  <div className="px-4 py-3 rounded-2xl flex gap-1.5" style={{ backgroundColor: '#F5F1EA' }}>
-                    <span className="typing-dot w-2 h-2 rounded-full" style={{ backgroundColor: '#A0633C' }}></span>
-                    <span className="typing-dot w-2 h-2 rounded-full" style={{ backgroundColor: '#A0633C' }}></span>
-                    <span className="typing-dot w-2 h-2 rounded-full" style={{ backgroundColor: '#A0633C' }}></span>
+                  <div className="px-4 py-3 bg-surface rounded-card shadow-soft flex gap-1.5">
+                    <span className="typing-dot w-2 h-2 rounded-pill" style={{ backgroundColor: 'var(--record)' }}></span>
+                    <span className="typing-dot w-2 h-2 rounded-pill" style={{ backgroundColor: 'var(--record)' }}></span>
+                    <span className="typing-dot w-2 h-2 rounded-pill" style={{ backgroundColor: 'var(--record)' }}></span>
                   </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
-            <div className="p-4 border-t" style={{ borderColor: '#E8E2D5' }}>
+            <div className="pt-3">
               {pendingImage && (
-                <div className="mb-3 flex items-center gap-2 p-2 rounded-xl" style={{ backgroundColor: '#F5F1EA' }}>
+                <div className="mb-3 flex items-center gap-2 p-2 bg-surface rounded-card shadow-soft">
                   <img src={pendingImage.preview} alt="p" className="w-12 h-12 rounded-lg object-cover" />
-                  <span className="text-sm flex-1" style={{ color: '#7A7567' }}>{t('ledger.receiptLabel')}</span>
-                  <button onClick={() => setPendingImage(null)}><X size={16} style={{ color: '#7A7567' }} /></button>
+                  <span className="text-sm flex-1 text-ink-secondary">{t('ledger.receiptLabel')}</span>
+                  <button onClick={() => setPendingImage(null)} className="min-w-touch min-h-touch flex items-center justify-center"><X size={16} className="text-ink-secondary" /></button>
                 </div>
               )}
+              {/* QuickChip — 최근 사용 카테고리 기반 빠른 입력 (HANDOFF 3-4) */}
+              {!locked && (() => {
+                const recentCats = [];
+                for (const e of [...entries].sort((a, b) => b.date.localeCompare(a.date))) {
+                  if (!recentCats.includes(e.category)) recentCats.push(e.category);
+                  if (recentCats.length >= 4) break;
+                }
+                if (recentCats.length === 0) return null;
+                return (
+                  <div className="mb-2.5 flex gap-2 overflow-x-auto">
+                    {recentCats.map((cat) => (
+                      <button key={cat} type="button"
+                        onClick={() => setInput((prev) => (prev.trim() ? prev : `${cat.split('/')[0]} `))}
+                        className="shrink-0 bg-surface border border-line rounded-pill h-[34px] px-4 text-[13px] text-ink-secondary active:scale-[0.96]">
+                        {cat.split('/')[0]}
+                      </button>
+                    ))}
+                  </div>
+                );
+              })()}
               <div className="flex items-end gap-2">
-                <button onClick={() => locked ? goUpgrade() : fileInputRef.current?.click()} disabled={locked} className="p-3 rounded-2xl disabled:opacity-40" title={t('ledger.receiptUploadTitle')} style={{ backgroundColor: '#F5F1EA' }}>
-                  <Camera size={20} style={{ color: '#A0633C' }} />
+                <button onClick={() => locked ? goUpgrade() : fileInputRef.current?.click()} disabled={locked}
+                  className="w-[44px] h-[44px] flex items-center justify-center bg-surface border border-line rounded-pill disabled:opacity-40 active:scale-[0.96]"
+                  title={t('ledger.receiptUploadTitle')}>
+                  <Camera size={19} className="text-ink-secondary" />
                 </button>
-                <button onClick={() => setShowInputGuide(true)} className="p-3 rounded-2xl" title={t('ledger.guideTitle')} style={{ backgroundColor: '#F5F1EA' }}>
-                  <Lightbulb size={20} style={{ color: '#A0633C' }} />
+                <button onClick={() => setShowInputGuide(true)}
+                  className="w-[44px] h-[44px] flex items-center justify-center bg-surface border border-line rounded-pill active:scale-[0.96]"
+                  title={t('ledger.guideTitle')}>
+                  <Lightbulb size={19} className="text-ink-secondary" />
                 </button>
                 {voiceSupported && (
                   <button onClick={() => locked ? goUpgrade() : toggleVoice()} disabled={locked}
-                    className={`p-3 rounded-2xl disabled:opacity-40 ${listening ? 'animate-pulse' : ''}`}
-                    title={t('ledger.voiceTitle')}
-                    style={{ backgroundColor: listening ? '#E07856' : '#F5F1EA' }}>
+                    className={`w-[44px] h-[44px] flex items-center justify-center rounded-pill disabled:opacity-40 active:scale-[0.96] ${listening ? 'bg-grad-record animate-pulse' : 'bg-surface border border-line'}`}
+                    title={t('ledger.voiceTitle')}>
                     {listening
-                      ? <MicOff size={20} style={{ color: '#FFFDF8' }} />
-                      : <Mic size={20} style={{ color: '#A0633C' }} />}
+                      ? <MicOff size={19} className="text-ink-ondark" />
+                      : <Mic size={19} className="text-ink-secondary" />}
                   </button>
                 )}
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+                {/* InputBar — "오늘 한 줄을 적어보세요" (HANDOFF 3-5) */}
                 <textarea value={locked ? '' : input} onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
                   onFocusCapture={() => { if (locked) goUpgrade(); }}
                   disabled={locked}
                   placeholder={locked ? t('ledger.paywall.inputLocked') : t('ledger.input.placeholder')} rows={1}
-                  className="flex-1 px-4 py-3 rounded-2xl resize-none outline-none text-sm lg:text-[15px] disabled:cursor-not-allowed"
-                  style={{ backgroundColor: '#F5F1EA', color: '#2C2418', maxHeight: '120px' }} />
+                  className="flex-1 px-5 py-3 bg-surface border-[1.5px] border-line rounded-pill resize-none outline-none text-sm lg:text-[15px] text-ink placeholder:text-ink-faint disabled:cursor-not-allowed"
+                  style={{ maxHeight: '120px' }} />
+                {/* 전송 — 원형 bg-grad-record, 터치 타깃 44px (HANDOFF 3-5) */}
                 <button onClick={handleSend} disabled={!locked && (loading || (!input.trim() && !pendingImage))}
-                  className="p-3 rounded-2xl"
-                  style={{ backgroundColor: locked ? '#E07856' : (input.trim() || pendingImage) ? '#2C2418' : '#D4CDC0', color: '#FFFDF8' }}>
-                  <Send size={20} />
+                  className="w-[44px] h-[44px] flex items-center justify-center rounded-pill bg-grad-record text-ink-ondark disabled:opacity-40 active:scale-[0.96]">
+                  <Send size={18} />
                 </button>
               </div>
               <div className="flex items-center justify-between mt-2 px-1">
-                <button onClick={() => setShowInputGuide(true)} className="text-[11px] flex items-center gap-1 hover:opacity-80"
-                  style={{ color: '#A0633C' }}>
+                <button onClick={() => setShowInputGuide(true)} className="text-[11px] flex items-center gap-1 hover:opacity-80 text-record">
                   <Lightbulb size={11} /> {t('ledger.input.guideButton')}
                 </button>
-                <span className="text-[10px]" style={{ color: '#A8A296' }}>{t('ledger.input.shortcuts')}</span>
+                <span className="text-[10px] text-ink-faint">{t('ledger.input.shortcuts')}</span>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-2 space-y-4 lg:space-y-5">
-            <div className="rounded-3xl p-6" style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+            {/* 다크 강조 카드 — 화면당 1개 (시선 앵커, HANDOFF §1-4) */}
+            <div className="bg-ink text-ink-ondark rounded-card shadow-soft p-6">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs uppercase tracking-wider opacity-60">{t('ledger.stats.thisMonthFlow')}</span>
                 <button onClick={() => setShowBudgetEdit(!showBudgetEdit)} className="text-xs opacity-60 hover:opacity-100 flex items-center gap-1">
@@ -892,7 +977,7 @@ export default function ChatLedger() {
               </div>
               <div className="text-xs opacity-60 mb-1 flex items-center gap-1"><Wallet size={11} /> {t('ledger.stats.freeMoney')}</div>
               {trulyFreeBase > 0 ? (
-                <div className="text-4xl font-bold" style={{ color: trulyFree < 0 ? '#FFB18C' : '#FFFDF8' }}>
+                <div className="text-4xl font-display" style={{ color: trulyFree < 0 ? 'var(--record-to)' : 'var(--ink-on-dark)' }}>
                   {trulyFree.toLocaleString()}<span className="text-xl opacity-60 ml-1">{cur}</span>
                 </div>
               ) : (
@@ -900,7 +985,7 @@ export default function ChatLedger() {
                   type="button"
                   onClick={() => setShowBudgetEdit(true)}
                   className="text-sm opacity-80 hover:opacity-100 underline text-left"
-                  style={{ color: '#FFB18C' }}
+                  style={{ color: 'var(--record-to)' }}
                 >
                   {t('ledger.stats.setBudgetHint', { defaultValue: '예산 또는 수입을 설정하면 표시돼요 →' })}
                 </button>
@@ -924,7 +1009,7 @@ export default function ChatLedger() {
                       }}
                       placeholder="0"
                       className="flex-1 bg-transparent outline-none text-sm"
-                      style={{ color: '#FFFDF8' }}
+                      style={{ color: 'var(--surface)' }}
                     />
                     <span className="text-xs opacity-60">{cur}</span>
                   </div>
@@ -945,7 +1030,7 @@ export default function ChatLedger() {
                       }}
                       placeholder="0"
                       className="flex-1 bg-transparent outline-none text-sm"
-                      style={{ color: '#FFFDF8' }}
+                      style={{ color: 'var(--surface)' }}
                     />
                     <span className="text-xs opacity-60">{cur}</span>
                   </div>
@@ -956,59 +1041,66 @@ export default function ChatLedger() {
                 <div className="flex justify-between opacity-80"><span>{t('ledger.stats.spent')}</span><span className="tabular-nums">- {monthTotal.toLocaleString()} {cur}</span></div>
                 <div className="flex justify-between opacity-80">
                   <span className="flex items-center gap-1"><Clock size={10} /> {t('ledger.stats.upcoming')} ({upcomingThisMonth.length})</span>
-                  <span className="tabular-nums" style={{ color: '#FFB18C' }}>- {upcomingTotal.toLocaleString()} {cur}</span>
+                  <span className="tabular-nums" style={{ color: 'var(--record-to)' }}>- {upcomingTotal.toLocaleString()} {cur}</span>
                 </div>
               </div>
-              <div className="mt-4 h-3 rounded-full overflow-hidden flex" style={{ backgroundColor: 'rgba(255,253,248,0.15)' }}>
-                <div className="h-full" style={{ width: `${budget > 0 ? Math.min(100, (monthTotal / budget) * 100) : 0}%`, backgroundColor: '#A8C99A' }} />
-                <div className="h-full" style={{ width: `${budget > 0 ? Math.max(0, Math.min(100 - (monthTotal / budget) * 100, (upcomingTotal / budget) * 100)) : 0}%`, backgroundColor: '#E0A856' }} />
+              <div className="mt-4 h-[10px] rounded-pill overflow-hidden flex" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}>
+                <div className="h-full" style={{ width: `${budget > 0 ? Math.min(100, (monthTotal / budget) * 100) : 0}%`, background: 'var(--grad-journey)' }} />
+                <div className="h-full" style={{ width: `${budget > 0 ? Math.max(0, Math.min(100 - (monthTotal / budget) * 100, (upcomingTotal / budget) * 100)) : 0}%`, backgroundColor: 'var(--record-to)' }} />
               </div>
             </div>
 
-            {/* 탭 — 5개 */}
-            <div ref={tabsRef} className="flex gap-1 p-1 rounded-2xl overflow-x-auto" style={{ backgroundColor: '#EDE6D8' }}>
+            {/* 탭 — 6개 (여정 = 스탬프 보드) */}
+            <div ref={tabsRef} className="flex gap-1 p-1 bg-sunken rounded-pill overflow-x-auto">
               {[
                 { id: 'calendar', icon: Calendar },
+                { id: 'journey',  icon: StampIcon },
                 { id: 'places',   icon: MapPin },
                 { id: 'reflect',  icon: PenLine },
                 { id: 'plan',     icon: Compass },
                 { id: 'balance',  icon: BarChart3 },
               ].map(tab => (
                 <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                  className="flex-1 py-2 px-1 rounded-xl text-[11px] lg:text-xs font-medium transition-all whitespace-nowrap flex items-center justify-center gap-1"
-                  style={{
-                    backgroundColor: activeTab === tab.id ? '#FFFDF8' : 'transparent',
-                    color: activeTab === tab.id ? '#2C2418' : '#7A7567',
-                    boxShadow: activeTab === tab.id ? '0 1px 2px rgba(44, 36, 24, 0.06)' : 'none',
-                  }}>
+                  className={`flex-1 py-2 px-1 rounded-pill text-[11px] lg:text-xs transition-all whitespace-nowrap flex items-center justify-center gap-1
+                    ${activeTab === tab.id ? 'bg-surface text-ink font-bold shadow-soft' : 'text-ink-faint font-medium'}`}>
                   <tab.icon size={11} />
-                  {t(`ledger.tabs.${tab.id}`)}
+                  {t(`ledger.tabs.${tab.id}`, { defaultValue: tab.id === 'journey' ? '여정' : tab.id })}
                 </button>
               ))}
             </div>
 
+            {/* === 여정 탭 — 월간 스탬프 보드 + 통계 벤토 === */}
+            {activeTab === 'journey' && (
+              <JourneyTab
+                entries={entries}
+                reflections={reflections}
+                monthTotal={monthTotal}
+                fmtAmt={fmtAmt}
+              />
+            )}
+
             {/* === 캘린더 탭 === */}
             {activeTab === 'calendar' && (
-              <div className="rounded-3xl p-5 lg:p-6" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+              <div className="rounded-card p-5 lg:p-6" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-1">
                     <button onClick={() => setCalMonth(new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1))} className="p-2 rounded-lg hover:bg-stone-50">
-                      <ChevronLeft size={16} style={{ color: '#7A7567' }} />
+                      <ChevronLeft size={16} style={{ color: 'var(--ink-secondary)' }} />
                     </button>
-                    <h3 className="text-sm font-medium px-1" style={{ color: '#2C2418' }}>
+                    <h3 className="text-sm font-medium px-1" style={{ color: 'var(--ink-primary)' }}>
                       {t('ledger.calendar.monthYear', { year: calMonth.getFullYear(), month: calMonth.getMonth() + 1 })}
                     </h3>
                     <button onClick={() => setCalMonth(new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1))} className="p-2 rounded-lg hover:bg-stone-50">
-                      <ChevronRight size={16} style={{ color: '#7A7567' }} />
+                      <ChevronRight size={16} style={{ color: 'var(--ink-secondary)' }} />
                     </button>
                   </div>
-                  <div className="flex gap-0.5 p-0.5 rounded-lg" style={{ backgroundColor: '#F5F1EA' }}>
+                  <div className="flex gap-0.5 p-0.5 rounded-lg" style={{ backgroundColor: 'var(--surface-sunken)' }}>
                     <button onClick={() => setCalViewMode('grid')} className="p-1.5 rounded-md"
-                      style={{ backgroundColor: calViewMode === 'grid' ? '#FFFDF8' : 'transparent', color: calViewMode === 'grid' ? '#2C2418' : '#7A7567' }}>
+                      style={{ backgroundColor: calViewMode === 'grid' ? 'var(--surface)' : 'transparent', color: calViewMode === 'grid' ? 'var(--ink-primary)' : 'var(--ink-secondary)' }}>
                       <Grid size={13} />
                     </button>
                     <button onClick={() => setCalViewMode('list')} className="p-1.5 rounded-md"
-                      style={{ backgroundColor: calViewMode === 'list' ? '#FFFDF8' : 'transparent', color: calViewMode === 'list' ? '#2C2418' : '#7A7567' }}>
+                      style={{ backgroundColor: calViewMode === 'list' ? 'var(--surface)' : 'transparent', color: calViewMode === 'list' ? 'var(--ink-primary)' : 'var(--ink-secondary)' }}>
                       <ListIcon size={13} />
                     </button>
                   </div>
@@ -1016,15 +1108,15 @@ export default function ChatLedger() {
 
                 {/* 약식 현황 */}
                 <div className="grid grid-cols-3 gap-2 mb-4">
-                  <div className="p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
-                    <div className="text-[10px] mb-0.5" style={{ color: '#7A7567' }}>{t('ledger.stats.monthSpent')}</div>
-                    <div className="text-base font-bold tabular-nums" style={{ color: '#2C2418' }}>
+                  <div className="p-3 rounded-2xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
+                    <div className="text-[10px] mb-0.5" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.stats.monthSpent')}</div>
+                    <div className="text-base font-bold tabular-nums" style={{ color: 'var(--ink-primary)' }}>
                       {compactCurrency(calMonthSpent, currency)}
                     </div>
                   </div>
-                  <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FFF8EC' }}>
-                    <div className="text-[10px] mb-0.5" style={{ color: '#A0633C' }}>{t('ledger.stats.upcoming')}</div>
-                    <div className="text-base font-bold tabular-nums" style={{ color: '#A0633C' }}>
+                  <div className="p-3 rounded-2xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
+                    <div className="text-[10px] mb-0.5" style={{ color: 'var(--record)' }}>{t('ledger.stats.upcoming')}</div>
+                    <div className="text-base font-bold tabular-nums" style={{ color: 'var(--record)' }}>
                       {compactCurrency(calMonthPlanned, currency)}
                     </div>
                   </div>
@@ -1048,7 +1140,7 @@ export default function ChatLedger() {
                         t('ledger.calendar.weekday.fri'),
                         t('ledger.calendar.weekday.sat'),
                       ].map((d, i) => (
-                        <div key={d} className="text-center text-[10px] py-1" style={{ color: i === 0 ? '#E07856' : i === 6 ? '#5B7C99' : '#7A7567' }}>{d}</div>
+                        <div key={d} className="text-center text-[10px] py-1" style={{ color: i === 0 ? 'var(--record)' : i === 6 ? '#5B7C99' : 'var(--ink-secondary)' }}>{d}</div>
                       ))}
                     </div>
                     <div className="grid grid-cols-7 gap-1">
@@ -1059,26 +1151,26 @@ export default function ChatLedger() {
                           <button key={i} onClick={() => setSelectedDateStr(d.date)}
                             className="aspect-square relative rounded-lg p-1 flex flex-col text-left transition-all hover:scale-105"
                             style={{
-                              backgroundColor: d.isToday ? '#F5E9DD' : hasActivity ? '#FAF7F0' : 'transparent',
-                              border: d.isToday ? '1.5px solid #A0633C' : '1px solid transparent',
+                              backgroundColor: d.isToday ? '#F5E9DD' : hasActivity ? 'var(--bg-base)' : 'transparent',
+                              border: d.isToday ? '1.5px solid var(--record)' : '1px solid transparent',
                             }}>
                             <div className="text-[10px] font-medium" style={{
-                              color: d.isToday ? '#A0633C' : i % 7 === 0 ? '#E07856' : i % 7 === 6 ? '#5B7C99' : '#2C2418'
+                              color: d.isToday ? 'var(--record)' : i % 7 === 0 ? 'var(--record)' : i % 7 === 6 ? '#5B7C99' : 'var(--ink-primary)'
                             }}>{d.day}</div>
                             {d.totalSpent > 0 && (
-                              <div className="text-[8px] font-medium truncate" style={{ color: '#2C2418' }}>
+                              <div className="text-[8px] font-medium truncate" style={{ color: 'var(--ink-primary)' }}>
                                 {compactCurrency(d.totalSpent, currency)}
                               </div>
                             )}
                             {d.totalPlanned > 0 && (
-                              <div className="text-[8px] font-medium truncate" style={{ color: '#A0633C' }}>
+                              <div className="text-[8px] font-medium truncate" style={{ color: 'var(--record)' }}>
                                 +{compactCurrency(d.totalPlanned, currency)}
                               </div>
                             )}
                             {d.planned.length > 0 && (
                               <div className="flex flex-wrap gap-0.5 mt-auto">
                                 {d.planned.slice(0, 4).map((p, j) => (
-                                  <div key={j} className="w-1 h-1 rounded-full" style={{ backgroundColor: CATEGORIES[p.category]?.color || '#7A7567' }} />
+                                  <div key={j} className="w-1 h-1 rounded-full" style={{ backgroundColor: CATEGORIES[p.category]?.color || 'var(--ink-secondary)' }} />
                                 ))}
                               </div>
                             )}
@@ -1092,7 +1184,7 @@ export default function ChatLedger() {
                 {calViewMode === 'list' && (
                   <div className="space-y-3 max-h-96 overflow-y-auto">
                     {calMonthListData.length === 0 ? (
-                      <div className="py-8 text-center text-sm" style={{ color: '#7A7567' }}>{t('ledger.calendar.noEntries')}</div>
+                      <div className="py-8 text-center text-sm" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.calendar.noEntries')}</div>
                     ) : (
                       calMonthListData.map(([date, items]) => {
                         const dt = new Date(date);
@@ -1111,11 +1203,11 @@ export default function ChatLedger() {
                           <div key={date}>
                             <button onClick={() => setSelectedDateStr(date)} className="w-full flex items-baseline justify-between mb-1.5 px-1 hover:opacity-80">
                               <div className="flex items-baseline gap-1.5">
-                                <span className="text-base font-bold" style={{ color: isToday ? '#A0633C' : '#2C2418' }}>{dt.getDate()}</span>
-                                <span className="text-xs" style={{ color: dt.getDay() === 0 ? '#E07856' : dt.getDay() === 6 ? '#5B7C99' : '#7A7567' }}>{dayOfWeek}</span>
-                                {isToday && <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: '#F5E9DD', color: '#A0633C' }}>{t('ledger.calendar.today')}</span>}
+                                <span className="text-base font-bold" style={{ color: isToday ? 'var(--record)' : 'var(--ink-primary)' }}>{dt.getDate()}</span>
+                                <span className="text-xs" style={{ color: dt.getDay() === 0 ? 'var(--record)' : dt.getDay() === 6 ? '#5B7C99' : 'var(--ink-secondary)' }}>{dayOfWeek}</span>
+                                {isToday && <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: '#F5E9DD', color: 'var(--record)' }}>{t('ledger.calendar.today')}</span>}
                               </div>
-                              <span className="text-xs tabular-nums" style={{ color: '#7A7567' }}>{t('ledger.calendar.dayTotal', { amount: `${dayTotal.toLocaleString()} ${cur}` })}</span>
+                              <span className="text-xs tabular-nums" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.calendar.dayTotal', { amount: `${dayTotal.toLocaleString()} ${cur}` })}</span>
                             </button>
                             <div className="space-y-1">
                               {items.map(item => {
@@ -1128,24 +1220,24 @@ export default function ChatLedger() {
                                       if (item.place) setSelectedPlaceName(item.place.name);
                                     }}
                                     className="w-full flex items-center gap-2.5 py-2 px-3 rounded-xl text-left hover:opacity-80"
-                                    style={{ backgroundColor: isPlanned ? '#FFF8EC' : '#FAF7F0' }}>
+                                    style={{ backgroundColor: isPlanned ? 'var(--surface-sunken)' : 'var(--bg-base)' }}>
                                     <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[item.category]?.bg }}>
                                       <Icon size={12} style={{ color: CATEGORIES[item.category]?.color }} />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                       <div className="flex items-center gap-1.5">
-                                        <span className="text-xs font-medium truncate" style={{ color: '#2C2418' }}>{item.description}</span>
-                                        {isPlanned && <span className="text-[9px] px-1 py-0.5 rounded" style={{ backgroundColor: '#F0E0B8', color: '#A0633C' }}>{t('ledger.dayModal.plannedTag')}</span>}
-                                        {item.place && <MapPin size={9} style={{ color: '#A0633C' }} />}
+                                        <span className="text-xs font-medium truncate" style={{ color: 'var(--ink-primary)' }}>{item.description}</span>
+                                        {isPlanned && <span className="text-[9px] px-1 py-0.5 rounded" style={{ backgroundColor: 'var(--line)', color: 'var(--record)' }}>{t('ledger.dayModal.plannedTag')}</span>}
+                                        {item.place && <MapPin size={9} style={{ color: 'var(--record)' }} />}
                                         {item.photos?.length > 0 && <ImageIcon size={9} style={{ color: '#8B5A8C' }} />}
                                         {item.rating && (
                                           <span className="text-[9px] flex items-center gap-0.5">
-                                            <Star size={8} fill="#E0A856" stroke="#E0A856" /> {item.rating}
+                                            <Star size={8} fill="var(--record-to)" stroke="var(--record-to)" /> {item.rating}
                                           </span>
                                         )}
                                       </div>
                                     </div>
-                                    <span className="text-xs font-semibold tabular-nums" style={{ color: isPlanned ? '#A0633C' : '#2C2418' }}>
+                                    <span className="text-xs font-semibold tabular-nums" style={{ color: isPlanned ? 'var(--record)' : 'var(--ink-primary)' }}>
                                       {item.amount.toLocaleString()} {cur}
                                     </span>
                                   </button>
@@ -1164,31 +1256,31 @@ export default function ChatLedger() {
             {/* === 장소 탭 === */}
             {activeTab === 'places' && (
               <div className="space-y-4">
-                <div className="rounded-3xl p-5 lg:p-6" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                  <h3 className="text-sm font-medium flex items-center gap-2 mb-1" style={{ color: '#2C2418' }}>
-                    <MapPin size={14} style={{ color: '#A0633C' }} /> {t('ledger.place.title')}
+                <div className="rounded-card p-5 lg:p-6" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
+                  <h3 className="text-sm font-medium flex items-center gap-2 mb-1" style={{ color: 'var(--ink-primary)' }}>
+                    <MapPin size={14} style={{ color: 'var(--record)' }} /> {t('ledger.place.title')}
                   </h3>
-                  <p className="text-xs mb-3" style={{ color: '#7A7567' }}>
+                  <p className="text-xs mb-3" style={{ color: 'var(--ink-secondary)' }}>
                     {t('ledger.place.intro', { count: placesMap.length })}
                   </p>
 
                   {/* 월 선택 + 정렬 옵션 */}
-                  <div className="flex items-center justify-between gap-2 mb-3 p-2 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
+                  <div className="flex items-center justify-between gap-2 mb-3 p-2 rounded-2xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
                     <div className="flex items-center gap-1">
                       <button onClick={() => {
                         const d = new Date(placesMonth + '-01'); d.setMonth(d.getMonth() - 1);
                         setPlacesMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
-                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={14} style={{ color: '#7A7567' }} /></button>
-                      <span className="text-xs font-medium" style={{ color: '#2C2418' }}>
+                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={14} style={{ color: 'var(--ink-secondary)' }} /></button>
+                      <span className="text-xs font-medium" style={{ color: 'var(--ink-primary)' }}>
                         {t('ledger.reflect.monthHeader', { year: placesMonth.split('-')[0], month: parseInt(placesMonth.split('-')[1]), monthName: getMonthName(parseInt(placesMonth.split('-')[1])) })}
                       </span>
                       <button onClick={() => {
                         const d = new Date(placesMonth + '-01'); d.setMonth(d.getMonth() + 1);
                         const nk = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
                         if (nk <= thisMonth) setPlacesMonth(nk);
-                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={14} style={{ color: '#7A7567' }} /></button>
+                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={14} style={{ color: 'var(--ink-secondary)' }} /></button>
                     </div>
-                    <div className="flex gap-0.5 p-0.5 rounded-xl" style={{ backgroundColor: '#FFFDF8' }}>
+                    <div className="flex gap-0.5 p-0.5 rounded-xl" style={{ backgroundColor: 'var(--surface)' }}>
                       {[
                         { id: 'recent', label: t('ledger.place.sortRecent') },
                         { id: 'visits', label: t('ledger.place.sortVisits') },
@@ -1197,8 +1289,8 @@ export default function ChatLedger() {
                         <button key={opt.id} onClick={() => setPlacesSortMode(opt.id)}
                           className="px-2 py-1 rounded-lg text-[10px] font-medium"
                           style={{
-                            backgroundColor: placesSortMode === opt.id ? '#2C2418' : 'transparent',
-                            color: placesSortMode === opt.id ? '#FFFDF8' : '#7A7567',
+                            backgroundColor: placesSortMode === opt.id ? 'var(--ink-primary)' : 'transparent',
+                            color: placesSortMode === opt.id ? 'var(--surface)' : 'var(--ink-secondary)',
                           }}>{opt.label}</button>
                       ))}
                     </div>
@@ -1208,40 +1300,40 @@ export default function ChatLedger() {
                     const pinned = placesMap.filter(p => typeof p.lat === 'number' && typeof p.lng === 'number');
                     if (pinned.length === 0) {
                       return (
-                        <div className="rounded-2xl p-6 text-xs text-center" style={{ backgroundColor: '#F0EBE0', color: '#7A7567' }}>
+                        <div className="rounded-2xl p-6 text-xs text-center" style={{ backgroundColor: 'var(--surface-sunken)', color: 'var(--ink-secondary)' }}>
                           {t('ledger.place.emptyPins')}
                         </div>
                       );
                     }
-                    const mapPlaces = pinned.map(p => ({ ...p, color: CATEGORIES[p.category]?.color || '#7A7567' }));
+                    const mapPlaces = pinned.map(p => ({ ...p, color: CATEGORIES[p.category]?.color || 'var(--ink-secondary)' }));
                     return <GoogleMap places={mapPlaces} onPinClick={(p) => setSelectedPlaceName(p.name)} userGeo={userGeo} height={280} />;
                   })()}
 
                   <div className="mt-4 space-y-2 max-h-96 overflow-y-auto">
-                    <div className="text-xs font-medium" style={{ color: '#7A7567' }}>{t('ledger.place.frequent')}</div>
+                    <div className="text-xs font-medium" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.place.frequent')}</div>
                     {placesMap.map(p => {
                       const Icon = CATEGORIES[p.category]?.icon || Sparkles;
                       return (
                         <button key={p.name} onClick={() => setSelectedPlaceName(p.name)}
                           className="w-full flex items-center gap-3 p-3 rounded-2xl text-left hover:bg-stone-50 transition-colors"
-                          style={{ backgroundColor: '#FAF7F0' }}>
+                          style={{ backgroundColor: 'var(--bg-base)' }}>
                           <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[p.category]?.bg }}>
                             <Icon size={16} style={{ color: CATEGORIES[p.category]?.color }} />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-sm font-medium truncate" style={{ color: '#2C2418' }}>{p.name}</span>
+                              <span className="text-sm font-medium truncate" style={{ color: 'var(--ink-primary)' }}>{p.name}</span>
                               {p.allPhotos.length > 0 && (
                                 <span className="text-[10px] px-1.5 py-0.5 rounded-full flex items-center gap-0.5" style={{ backgroundColor: '#F0E6F1', color: '#8B5A8C' }}>
                                   <ImageIcon size={9} /> {p.allPhotos.length}
                                 </span>
                               )}
                               {p.mood === 'again' && <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: '#E8EEE6', color: '#6B8E6B' }}>{t('ledger.place.againGo')}</span>}
-                              {p.mood === 'avoid' && <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: '#FDF0EA', color: '#E07856' }}>{t('ledger.place.avoid')}</span>}
+                              {p.mood === 'avoid' && <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: '#FDF0EA', color: 'var(--record)' }}>{t('ledger.place.avoid')}</span>}
                             </div>
-                            <div className="text-xs mt-0.5 flex items-center gap-2" style={{ color: '#7A7567' }}>
+                            <div className="text-xs mt-0.5 flex items-center gap-2" style={{ color: 'var(--ink-secondary)' }}>
                               <span>{t('ledger.placeModal.visitCount', { count: p.visitCount })} · {p.totalSpent.toLocaleString()} {cur}</span>
-                              {p.avgRating > 0 && <span className="flex items-center gap-0.5"><Star size={10} fill="#E0A856" stroke="#E0A856" />{p.avgRating.toFixed(1)}</span>}
+                              {p.avgRating > 0 && <span className="flex items-center gap-0.5"><Star size={10} fill="var(--record-to)" stroke="var(--record-to)" />{p.avgRating.toFixed(1)}</span>}
                             </div>
                           </div>
                         </button>
@@ -1255,30 +1347,30 @@ export default function ChatLedger() {
             {/* === 회고 탭 === */}
             {activeTab === 'reflect' && (
               <div className="space-y-4">
-                <div className="flex gap-1 p-1 rounded-2xl" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+                <div className="flex gap-1 p-1 rounded-2xl" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
                   {[{ id: 'monthly', label: t('ledger.reflect.monthly') }, { id: 'annual', label: t('ledger.reflect.annual') }].map(m => (
                     <button key={m.id} onClick={() => setReflectMode(m.id)}
                       className="flex-1 py-2 rounded-xl text-xs lg:text-sm font-medium"
                       style={{
-                        backgroundColor: reflectMode === m.id ? '#2C2418' : 'transparent',
-                        color: reflectMode === m.id ? '#FFFDF8' : '#7A7567',
+                        backgroundColor: reflectMode === m.id ? 'var(--ink-primary)' : 'transparent',
+                        color: reflectMode === m.id ? 'var(--surface)' : 'var(--ink-secondary)',
                       }}>{m.label}</button>
                   ))}
                 </div>
 
                 {reflectMode === 'monthly' && (
                   <>
-                    <div className="flex items-center justify-between p-3 rounded-2xl" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+                    <div className="flex items-center justify-between p-3 rounded-2xl" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
                       <button onClick={() => {
                         const d = new Date(selectedMonth + '-01'); d.setMonth(d.getMonth() - 1);
                         setSelectedMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
                         setAiInsight(null);
-                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={16} style={{ color: '#7A7567' }} /></button>
+                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={16} style={{ color: 'var(--ink-secondary)' }} /></button>
                       <div className="text-center">
-                        <div className="text-base font-bold" style={{ color: '#2C2418' }}>
+                        <div className="text-base font-bold" style={{ color: 'var(--ink-primary)' }}>
                           {t('ledger.reflect.monthHeader', { year: selectedMonth.split('-')[0], month: parseInt(selectedMonth.split('-')[1]), monthName: getMonthName(parseInt(selectedMonth.split('-')[1])) })}
                         </div>
-                        <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>
+                        <div className="text-xs mt-0.5" style={{ color: 'var(--ink-secondary)' }}>
                           {t('ledger.reflect.monthTotal', { amount: `${getMonthData(selectedMonth).total.toLocaleString()} ${cur}` })}
                         </div>
                       </div>
@@ -1286,20 +1378,20 @@ export default function ChatLedger() {
                         const d = new Date(selectedMonth + '-01'); d.setMonth(d.getMonth() + 1);
                         const nk = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
                         if (nk <= thisMonth) { setSelectedMonth(nk); setAiInsight(null); }
-                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={16} style={{ color: '#7A7567' }} /></button>
+                      }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={16} style={{ color: 'var(--ink-secondary)' }} /></button>
                     </div>
 
-                    <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+                    <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h3 className="text-sm font-medium flex items-center gap-2" style={{ color: '#2C2418' }}>
-                            <Sparkles size={14} style={{ color: '#A0633C' }} /> {t('ledger.reflect.aiCoachTitle')}
+                          <h3 className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--ink-primary)' }}>
+                            <Sparkles size={14} style={{ color: 'var(--record)' }} /> {t('ledger.reflect.aiCoachTitle')}
                           </h3>
-                          <p className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{t('ledger.reflect.aiCoachSubtitle')}</p>
+                          <p className="text-xs mt-0.5" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.reflect.aiCoachSubtitle')}</p>
                         </div>
                         <button onClick={() => generateMonthInsight(selectedMonth)} disabled={aiLoading}
                           className="text-xs px-3 py-1.5 rounded-xl font-medium"
-                          style={{ backgroundColor: aiLoading ? '#D4CDC0' : '#2C2418', color: '#FFFDF8' }}>
+                          style={{ backgroundColor: aiLoading ? 'var(--line)' : 'var(--ink-primary)', color: 'var(--surface)' }}>
                           {aiLoading ? t('ledger.reflect.aiAnalyzing') : aiInsight ? t('ledger.reflect.aiRegenerate') : t('ledger.reflect.aiStart')}
                         </button>
                       </div>
@@ -1313,29 +1405,29 @@ export default function ChatLedger() {
                       )}
                       {aiInsight && !aiLoading && (
                         <div className="space-y-3">
-                          <div className="p-3 rounded-2xl flex items-start gap-2" style={{ backgroundColor: '#F5F1EA' }}>
-                            <Quote size={14} style={{ color: '#A0633C' }} className="flex-shrink-0 mt-0.5" />
-                            <p className="text-sm" style={{ color: '#2C2418' }}>{aiInsight.summary}</p>
+                          <div className="p-3 rounded-2xl flex items-start gap-2" style={{ backgroundColor: 'var(--surface-sunken)' }}>
+                            <Quote size={14} style={{ color: 'var(--record)' }} className="flex-shrink-0 mt-0.5" />
+                            <p className="text-sm" style={{ color: 'var(--ink-primary)' }}>{aiInsight.summary}</p>
                           </div>
                           {aiInsight.praise && (
                             <div className="p-3 rounded-2xl" style={{ backgroundColor: '#E8EEE6' }}>
                               <div className="flex items-center gap-1.5 mb-1"><ThumbsUp size={12} style={{ color: '#6B8E6B' }} /><span className="text-xs font-medium" style={{ color: '#6B8E6B' }}>{t('ledger.reflect.praise')}</span></div>
-                              <p className="text-sm" style={{ color: '#2C2418' }}>{aiInsight.praise}</p>
+                              <p className="text-sm" style={{ color: 'var(--ink-primary)' }}>{aiInsight.praise}</p>
                             </div>
                           )}
                           {aiInsight.concern && (
                             <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FDF0EA' }}>
-                              <div className="flex items-center gap-1.5 mb-1"><AlertCircle size={12} style={{ color: '#E07856' }} /><span className="text-xs font-medium" style={{ color: '#E07856' }}>{t('ledger.reflect.concern')}</span></div>
-                              <p className="text-sm" style={{ color: '#2C2418' }}>{aiInsight.concern}</p>
+                              <div className="flex items-center gap-1.5 mb-1"><AlertCircle size={12} style={{ color: 'var(--record)' }} /><span className="text-xs font-medium" style={{ color: 'var(--record)' }}>{t('ledger.reflect.concern')}</span></div>
+                              <p className="text-sm" style={{ color: 'var(--ink-primary)' }}>{aiInsight.concern}</p>
                             </div>
                           )}
                           {aiInsight.suggestion && (
                             <div className="p-3 rounded-2xl" style={{ backgroundColor: '#F0E6F1' }}>
                               <div className="flex items-center gap-1.5 mb-1"><Lightbulb size={12} style={{ color: '#8B5A8C' }} /><span className="text-xs font-medium" style={{ color: '#8B5A8C' }}>{t('ledger.reflect.suggestion')}</span></div>
-                              <p className="text-sm" style={{ color: '#2C2418' }}>{aiInsight.suggestion}</p>
+                              <p className="text-sm" style={{ color: 'var(--ink-primary)' }}>{aiInsight.suggestion}</p>
                               <button onClick={() => addReflection(selectedMonth, 'goal', aiInsight.suggestion)}
                                 className="mt-2 text-xs px-2 py-1 rounded-lg flex items-center gap-1"
-                                style={{ backgroundColor: '#8B5A8C', color: '#FFFDF8' }}>
+                                style={{ backgroundColor: '#8B5A8C', color: 'var(--surface)' }}>
                                 <Plus size={10} /> {t('ledger.reflect.addToGoal')}
                               </button>
                             </div>
@@ -1343,12 +1435,12 @@ export default function ChatLedger() {
                         </div>
                       )}
                       {!aiInsight && !aiLoading && (
-                        <div className="py-6 text-center text-sm" style={{ color: '#7A7567' }}>{t('ledger.reflect.aiEmpty')}</div>
+                        <div className="py-6 text-center text-sm" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.reflect.aiEmpty')}</div>
                       )}
                     </div>
 
-                    <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                      <h3 className="text-sm font-medium mb-3" style={{ color: '#2C2418' }}>{t('ledger.reflect.monthChange')}</h3>
+                    <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
+                      <h3 className="text-sm font-medium mb-3" style={{ color: 'var(--ink-primary)' }}>{t('ledger.reflect.monthChange')}</h3>
                       <div className="space-y-2">
                         {categoryInsights.filter(c => c.current > 0 || c.prev > 0).slice(0, 6).map(c => {
                           const Icon = CATEGORIES[c.category].icon;
@@ -1360,15 +1452,15 @@ export default function ChatLedger() {
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-baseline">
-                                  <span className="text-sm font-medium" style={{ color: '#2C2418' }}>{t(`ledger.categories.${c.category}`, c.category)}</span>
-                                  <span className="text-sm tabular-nums" style={{ color: '#2C2418' }}>{c.current.toLocaleString()} {cur}</span>
+                                  <span className="text-sm font-medium" style={{ color: 'var(--ink-primary)' }}>{t(`ledger.categories.${c.category}`, c.category)}</span>
+                                  <span className="text-sm tabular-nums" style={{ color: 'var(--ink-primary)' }}>{c.current.toLocaleString()} {cur}</span>
                                 </div>
                                 <div className="flex items-center gap-2 mt-0.5">
-                                  <span className="text-[10px]" style={{ color: '#7A7567' }}>{t('ledger.reflect.lastMonthLabel', 'Last month')} {c.prev.toLocaleString()} {cur}</span>
+                                  <span className="text-[10px]" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.reflect.lastMonthLabel', 'Last month')} {c.prev.toLocaleString()} {cur}</span>
                                   {c.pct !== null && Math.abs(c.pct) >= 5 && (
                                     <span className="text-[10px] px-1.5 py-0.5 rounded-full flex items-center gap-0.5" style={{
                                       backgroundColor: isIncrease ? '#FDF0EA' : '#E8EEE6',
-                                      color: isIncrease ? '#E07856' : '#6B8E6B',
+                                      color: isIncrease ? 'var(--record)' : '#6B8E6B',
                                     }}>
                                       {isIncrease ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
                                       {isIncrease ? '+' : ''}{Math.round(c.pct)}%
@@ -1382,18 +1474,18 @@ export default function ChatLedger() {
                       </div>
                     </div>
 
-                    <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                      <h3 className="text-sm font-medium mb-1" style={{ color: '#2C2418' }}>{t('ledger.reflect.noteTitle')}</h3>
-                      <p className="text-xs mb-3" style={{ color: '#7A7567' }}>{t('ledger.reflect.noteHint')}</p>
+                    <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
+                      <h3 className="text-sm font-medium mb-1" style={{ color: 'var(--ink-primary)' }}>{t('ledger.reflect.noteTitle')}</h3>
+                      <p className="text-xs mb-3" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.reflect.noteHint')}</p>
 
-                      <div className="mb-3 p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
+                      <div className="mb-3 p-3 rounded-2xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
                         <div className="flex gap-1 mb-2 overflow-x-auto">
                           {Object.entries(REFLECT_TYPES).map(([key, info]) => (
                             <button key={key} onClick={() => setNewReflection({ ...newReflection, type: key })}
                               className="px-2 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1 whitespace-nowrap"
                               style={{
                                 backgroundColor: newReflection.type === key ? info.bg : 'transparent',
-                                color: newReflection.type === key ? info.color : '#7A7567',
+                                color: newReflection.type === key ? info.color : 'var(--ink-secondary)',
                               }}>
                               <info.icon size={10} />{info.label}
                             </button>
@@ -1402,15 +1494,15 @@ export default function ChatLedger() {
                         <textarea value={newReflection.text} onChange={(e) => setNewReflection({ ...newReflection, text: e.target.value })}
                           placeholder={REFLECT_TYPES[newReflection.type].placeholder} rows={2}
                           className="w-full px-3 py-2 rounded-xl text-sm resize-none outline-none handwritten text-base"
-                          style={{ backgroundColor: 'white', color: '#2C2418', border: '1px solid #E8E2D5' }} />
+                          style={{ backgroundColor: 'white', color: 'var(--ink-primary)', border: '1px solid var(--line)' }} />
                         <button onClick={() => addReflection(selectedMonth, newReflection.type, newReflection.text)} disabled={!newReflection.text.trim()}
                           className="mt-2 w-full py-2 rounded-xl text-sm font-medium"
-                          style={{ backgroundColor: newReflection.text.trim() ? '#2C2418' : '#D4CDC0', color: '#FFFDF8' }}>{t('common.save')}</button>
+                          style={{ backgroundColor: newReflection.text.trim() ? 'var(--ink-primary)' : 'var(--line)', color: 'var(--surface)' }}>{t('common.save')}</button>
                       </div>
 
                       <div className="space-y-2">
                         {monthReflections.length === 0 ? (
-                          <div className="py-6 text-center text-sm" style={{ color: '#7A7567' }}>{t('ledger.reflect.empty')}</div>
+                          <div className="py-6 text-center text-sm" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.reflect.empty')}</div>
                         ) : (
                           monthReflections.map(r => {
                             const info = REFLECT_TYPES[r.type];
@@ -1429,13 +1521,13 @@ export default function ChatLedger() {
                                         </span>
                                       )}
                                       {goalEval && goalEval.achieved === false && (
-                                        <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: 'white', color: '#E07856' }}>{t('ledger.reflect.missed')}</span>
+                                        <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: 'white', color: 'var(--record)' }}>{t('ledger.reflect.missed')}</span>
                                       )}
                                     </div>
-                                    <p className="handwritten text-base mt-0.5" style={{ color: '#2C2418' }}>"{r.text}"</p>
+                                    <p className="handwritten text-base mt-0.5" style={{ color: 'var(--ink-primary)' }}>"{r.text}"</p>
                                   </div>
                                   <button onClick={() => deleteReflection(r.id)} className="opacity-0 group-hover:opacity-100">
-                                    <X size={12} style={{ color: '#7A7567' }} />
+                                    <X size={12} style={{ color: 'var(--ink-secondary)' }} />
                                   </button>
                                 </div>
                               </div>
@@ -1449,9 +1541,9 @@ export default function ChatLedger() {
 
                 {reflectMode === 'annual' && (
                   <>
-                    <div className="rounded-3xl p-6" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                      <h3 className="text-sm font-medium mb-1" style={{ color: '#2C2418' }}>{t('ledger.year.last12Title')}</h3>
-                      <p className="text-xs mb-4" style={{ color: '#7A7567' }}>
+                    <div className="rounded-card p-6" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
+                      <h3 className="text-sm font-medium mb-1" style={{ color: 'var(--ink-primary)' }}>{t('ledger.year.last12Title')}</h3>
+                      <p className="text-xs mb-4" style={{ color: 'var(--ink-secondary)' }}>
                         {t('ledger.year.yearSummary', { total: fmtAmt(annualData.yearTotal), avg: fmtAmt(annualData.yearAvg) })}
                       </p>
                       <div className="flex items-end gap-1 h-32 mb-3">
@@ -1460,12 +1552,12 @@ export default function ChatLedger() {
                           const h = (m.total / max) * 100;
                           return (
                             <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                              <div className="text-[8px]" style={{ color: '#7A7567' }}>{m.total > 0 ? compactCurrency(m.total, currency) : ''}</div>
+                              <div className="text-[8px]" style={{ color: 'var(--ink-secondary)' }}>{m.total > 0 ? compactCurrency(m.total, currency) : ''}</div>
                               <div className="w-full rounded-t-md transition-all" style={{
                                 height: `${h}%`, minHeight: m.total > 0 ? '4px' : '2px',
-                                backgroundColor: m.isCurrent ? '#A0633C' : (m.total > annualData.yearAvg ? '#E07856' : '#D4CDC0'),
+                                backgroundColor: m.isCurrent ? 'var(--record)' : (m.total > annualData.yearAvg ? 'var(--record)' : 'var(--line)'),
                               }} />
-                              <div className="text-[9px]" style={{ color: m.isCurrent ? '#A0633C' : '#7A7567', fontWeight: m.isCurrent ? 500 : 400 }}>{m.label}</div>
+                              <div className="text-[9px]" style={{ color: m.isCurrent ? 'var(--record)' : 'var(--ink-secondary)', fontWeight: m.isCurrent ? 500 : 400 }}>{m.label}</div>
                             </div>
                           );
                         })}
@@ -1477,14 +1569,14 @@ export default function ChatLedger() {
                           return (
                             <>
                               <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FDF0EA' }}>
-                                <div className="text-[10px]" style={{ color: '#E07856' }}>{t('ledger.year.mostSpent')}</div>
-                                <div className="text-base font-bold mt-0.5" style={{ color: '#2C2418' }}>{t('ledger.year.yearMonth', { year: max.year, month: max.month })}</div>
-                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{fmtAmt(max.total)}</div>
+                                <div className="text-[10px]" style={{ color: 'var(--record)' }}>{t('ledger.year.mostSpent')}</div>
+                                <div className="text-base font-bold mt-0.5" style={{ color: 'var(--ink-primary)' }}>{t('ledger.year.yearMonth', { year: max.year, month: max.month })}</div>
+                                <div className="text-xs mt-0.5" style={{ color: 'var(--ink-secondary)' }}>{fmtAmt(max.total)}</div>
                               </div>
                               <div className="p-3 rounded-2xl" style={{ backgroundColor: '#E8EEE6' }}>
                                 <div className="text-[10px]" style={{ color: '#6B8E6B' }}>{t('ledger.year.mostSaved')}</div>
-                                <div className="text-base font-bold mt-0.5" style={{ color: '#2C2418' }}>{t('ledger.year.yearMonth', { year: min.year, month: min.month })}</div>
-                                <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>{fmtAmt(min.total)}</div>
+                                <div className="text-base font-bold mt-0.5" style={{ color: 'var(--ink-primary)' }}>{t('ledger.year.yearMonth', { year: min.year, month: min.month })}</div>
+                                <div className="text-xs mt-0.5" style={{ color: 'var(--ink-secondary)' }}>{fmtAmt(min.total)}</div>
                               </div>
                             </>
                           );
@@ -1492,8 +1584,8 @@ export default function ChatLedger() {
                       </div>
                     </div>
 
-                    <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                      <h3 className="text-sm font-medium mb-3" style={{ color: '#2C2418' }}>{t('ledger.year.yearCategoriesTitle')}</h3>
+                    <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
+                      <h3 className="text-sm font-medium mb-3" style={{ color: 'var(--ink-primary)' }}>{t('ledger.year.yearCategoriesTitle')}</h3>
                       <div className="space-y-3">
                         {Object.entries(annualData.categoryYearTotals).filter(([_, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([cat, total]) => {
                           const Icon = CATEGORIES[cat].icon;
@@ -1507,12 +1599,12 @@ export default function ChatLedger() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-baseline">
                                   <div className="flex items-center gap-1.5">
-                                    <span className="text-sm font-medium" style={{ color: '#2C2418' }}>{t(`ledger.categories.${cat}`, cat)}</span>
-                                    <span className="text-[10px]" style={{ color: '#7A7567' }}>{fmtAmt(monthly)}</span>
+                                    <span className="text-sm font-medium" style={{ color: 'var(--ink-primary)' }}>{t(`ledger.categories.${cat}`, cat)}</span>
+                                    <span className="text-[10px]" style={{ color: 'var(--ink-secondary)' }}>{fmtAmt(monthly)}</span>
                                   </div>
-                                  <span className="text-sm font-medium tabular-nums" style={{ color: '#2C2418' }}>{fmtAmt(total)}</span>
+                                  <span className="text-sm font-medium tabular-nums" style={{ color: 'var(--ink-primary)' }}>{fmtAmt(total)}</span>
                                 </div>
-                                <div className="h-1.5 rounded-full overflow-hidden mt-1" style={{ backgroundColor: '#F5F1EA' }}>
+                                <div className="h-1.5 rounded-full overflow-hidden mt-1" style={{ backgroundColor: 'var(--surface-sunken)' }}>
                                   <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: CATEGORIES[cat].color }} />
                                 </div>
                               </div>
@@ -1529,21 +1621,21 @@ export default function ChatLedger() {
             {/* === 계획 탭 === */}
             {activeTab === 'plan' && (
               <div className="space-y-4">
-                <div className="flex gap-1 p-1 rounded-2xl" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+                <div className="flex gap-1 p-1 rounded-2xl" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
                   {[
                     { id: 'current', label: t('ledger.plan.monthLabel', { month: now.getMonth() + 1, monthName: getMonthName(now.getMonth() + 1) }) },
                     { id: 'next',    label: (() => { const m = now.getMonth() + 2 > 12 ? 1 : now.getMonth() + 2; return t('ledger.plan.monthLabel', { month: m, monthName: getMonthName(m) }); })() },
                   ].map(m => (
                     <button key={m.id} onClick={() => setPlanMode(m.id)}
                       className="flex-1 py-2 rounded-xl text-xs lg:text-sm font-medium"
-                      style={{ backgroundColor: planMode === m.id ? '#2C2418' : 'transparent', color: planMode === m.id ? '#FFFDF8' : '#7A7567' }}>
+                      style={{ backgroundColor: planMode === m.id ? 'var(--ink-primary)' : 'transparent', color: planMode === m.id ? 'var(--surface)' : 'var(--ink-secondary)' }}>
                       {m.label}
                     </button>
                   ))}
                 </div>
 
                 {planMode === 'current' && lastMonthGoals.filter(g => g.text).length > 0 && (
-                  <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '2px solid #8B5A8C' }}>
+                  <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '2px solid #8B5A8C' }}>
                     <div className="flex items-center gap-2 mb-3">
                       <Target size={14} style={{ color: '#8B5A8C' }} />
                       <h3 className="text-sm font-medium" style={{ color: '#8B5A8C' }}>{t('ledger.plan.lastMonthPledge')}</h3>
@@ -1552,7 +1644,7 @@ export default function ChatLedger() {
                       {lastMonthGoals.map(g => (
                         <div key={g.id} className="p-3 rounded-2xl flex items-start gap-2" style={{ backgroundColor: '#F0E6F1' }}>
                           <Quote size={12} style={{ color: '#8B5A8C' }} className="flex-shrink-0 mt-1" />
-                          <p className="handwritten text-base flex-1" style={{ color: '#2C2418' }}>"{g.text}"</p>
+                          <p className="handwritten text-base flex-1" style={{ color: 'var(--ink-primary)' }}>"{g.text}"</p>
                           {g.achieved === true && <span className="text-[10px] px-1.5 py-0.5 rounded-full flex items-center gap-0.5" style={{ backgroundColor: '#6B8E6B', color: 'white' }}><Check size={9} /> {t('ledger.plan.lastMonthSucceed')}</span>}
                         </div>
                       ))}
@@ -1561,7 +1653,7 @@ export default function ChatLedger() {
                 )}
 
                 {planMode === 'next' && thisMonthGoals.filter(g => g.text).length > 0 && (
-                  <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '2px solid #8B5A8C' }}>
+                  <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '2px solid #8B5A8C' }}>
                     <div className="flex items-center gap-2 mb-3">
                       <Target size={14} style={{ color: '#8B5A8C' }} />
                       <h3 className="text-sm font-medium" style={{ color: '#8B5A8C' }}>{t('ledger.plan.thisMonthPledgeForNext')}</h3>
@@ -1570,31 +1662,31 @@ export default function ChatLedger() {
                       {thisMonthGoals.map(g => (
                         <div key={g.id} className="p-3 rounded-2xl flex items-start gap-2" style={{ backgroundColor: '#F0E6F1' }}>
                           <Quote size={12} style={{ color: '#8B5A8C' }} className="flex-shrink-0 mt-1" />
-                          <p className="handwritten text-base flex-1" style={{ color: '#2C2418' }}>"{g.text}"</p>
+                          <p className="handwritten text-base flex-1" style={{ color: 'var(--ink-primary)' }}>"{g.text}"</p>
                         </div>
                       ))}
                     </div>
                   </div>
                 )}
 
-                <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                  <h3 className="text-sm font-medium mb-1" style={{ color: '#2C2418' }}>{t('ledger.plan.bigPictureTitle', { mode: planMode === 'current' ? t('ledger.plan.modeCurrent') : t('ledger.plan.modeNext') })}</h3>
-                  <p className="text-xs mb-4" style={{ color: '#7A7567' }}>{t('ledger.plan.bigPictureSubtitle')}</p>
+                <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
+                  <h3 className="text-sm font-medium mb-1" style={{ color: 'var(--ink-primary)' }}>{t('ledger.plan.bigPictureTitle', { mode: planMode === 'current' ? t('ledger.plan.modeCurrent') : t('ledger.plan.modeNext') })}</h3>
+                  <p className="text-xs mb-4" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.plan.bigPictureSubtitle')}</p>
                   <div className="grid grid-cols-2 gap-2 mb-4">
-                    <div className="p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
-                      <div className="text-[10px]" style={{ color: '#7A7567' }}>{t('ledger.plan.currentUsage')}</div>
-                      <div className="text-lg font-bold tabular-nums" style={{ color: '#2C2418' }}>
+                    <div className="p-3 rounded-2xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
+                      <div className="text-[10px]" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.plan.currentUsage')}</div>
+                      <div className="text-lg font-bold tabular-nums" style={{ color: 'var(--ink-primary)' }}>
                         {(planMode === 'current' ? balanceSheet.totalSpent : 0).toLocaleString()}<span className="text-xs opacity-60">{cur}</span>
                       </div>
                     </div>
-                    <div className="p-3 rounded-2xl" style={{ backgroundColor: '#FFF8EC' }}>
-                      <div className="text-[10px]" style={{ color: '#A0633C' }}>{t('ledger.plan.plannedAmount')}</div>
-                      <div className="text-lg font-bold tabular-nums" style={{ color: '#A0633C' }}>
+                    <div className="p-3 rounded-2xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
+                      <div className="text-[10px]" style={{ color: 'var(--record)' }}>{t('ledger.plan.plannedAmount')}</div>
+                      <div className="text-lg font-bold tabular-nums" style={{ color: 'var(--record)' }}>
                         {balanceSheet.totalPlanned.toLocaleString()}<span className="text-xs opacity-60">{cur}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="p-4 rounded-2xl" style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+                  <div className="p-4 rounded-2xl" style={{ backgroundColor: 'var(--ink-primary)', color: 'var(--surface)' }}>
                     <div className="text-[10px] opacity-60 mb-1">{t('ledger.plan.totalProjected')}</div>
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-bold">{balanceSheet.totalProjected.toLocaleString()}<span className="text-sm opacity-60">{cur}</span></span>
@@ -1603,11 +1695,11 @@ export default function ChatLedger() {
                     <div className="h-2 rounded-full overflow-hidden mt-2" style={{ backgroundColor: 'rgba(255,253,248,0.15)' }}>
                       <div className="h-full rounded-full" style={{
                         width: `${Math.min(100, (balanceSheet.totalProjected / budget) * 100)}%`,
-                        backgroundColor: balanceSheet.totalProjected > budget ? '#FFB18C' : '#A8C99A',
+                        backgroundColor: balanceSheet.totalProjected > budget ? 'var(--record-to)' : 'var(--saving-to)',
                       }} />
                     </div>
                     {balanceSheet.totalProjected > budget && (
-                      <div className="text-[10px] mt-2 flex items-center gap-1" style={{ color: '#FFB18C' }}>
+                      <div className="text-[10px] mt-2 flex items-center gap-1" style={{ color: 'var(--record-to)' }}>
                         <AlertCircle size={10} /> {t('ledger.plan.overBy', { amount: `${(balanceSheet.totalProjected - budget).toLocaleString()} ${cur}` })}
                       </div>
                     )}
@@ -1615,19 +1707,19 @@ export default function ChatLedger() {
                 </div>
 
                 {planMode === 'next' && (
-                  <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
-                    <h3 className="text-sm font-medium mb-1" style={{ color: '#2C2418' }}>{t('ledger.plan.nextMonthPledge')}</h3>
-                    <p className="text-xs mb-3" style={{ color: '#7A7567' }}>{t('ledger.plan.letterToSelf')}</p>
+                  <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
+                    <h3 className="text-sm font-medium mb-1" style={{ color: 'var(--ink-primary)' }}>{t('ledger.plan.nextMonthPledge')}</h3>
+                    <p className="text-xs mb-3" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.plan.letterToSelf')}</p>
                     <div className="p-3 rounded-2xl" style={{ backgroundColor: '#F0E6F1' }}>
                       <textarea value={newReflection.type === 'goal' && newReflection.text || ''}
                         onChange={(e) => setNewReflection({ type: 'goal', text: e.target.value })}
                         placeholder={t('ledger.plan.nextPledgePlaceholder')} rows={3}
                         className="w-full px-3 py-2 rounded-xl text-sm resize-none outline-none handwritten text-base"
-                        style={{ backgroundColor: 'white', color: '#2C2418', border: '1px solid #E8E2D5' }} />
+                        style={{ backgroundColor: 'white', color: 'var(--ink-primary)', border: '1px solid var(--line)' }} />
                       <button onClick={() => { addReflection(nextMonth, 'goal', newReflection.text); setNewReflection({ type: 'regret', text: '' }); }}
                         disabled={!newReflection.text?.trim()}
                         className="mt-2 w-full py-2 rounded-xl text-sm font-medium"
-                        style={{ backgroundColor: newReflection.text?.trim() ? '#8B5A8C' : '#D4CDC0', color: '#FFFDF8' }}>
+                        style={{ backgroundColor: newReflection.text?.trim() ? '#8B5A8C' : 'var(--line)', color: 'var(--surface)' }}>
                         <Target size={12} className="inline mr-1" /> {t('ledger.plan.saveAsGoal')}
                       </button>
                     </div>
@@ -1645,77 +1737,77 @@ export default function ChatLedger() {
               const balYear = balanceMonth.split('-')[0];
               const balMonthNum = parseInt(balanceMonth.split('-')[1]);
               return (
-              <div className="rounded-3xl p-5" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+              <div className="rounded-card p-5" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-medium flex items-center gap-2" style={{ color: '#2C2418' }}>
-                    <BarChart3 size={14} style={{ color: '#A0633C' }} /> {t('ledger.balance.headerMonth', { month: balMonthNum, monthName: getMonthName(balMonthNum) })}
+                  <h3 className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--ink-primary)' }}>
+                    <BarChart3 size={14} style={{ color: 'var(--record)' }} /> {t('ledger.balance.headerMonth', { month: balMonthNum, monthName: getMonthName(balMonthNum) })}
                   </h3>
                   <div className="flex items-center gap-1">
                     <button onClick={() => {
                       const d = new Date(balanceMonth + '-01'); d.setMonth(d.getMonth() - 1);
                       setBalanceMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
-                    }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={14} style={{ color: '#7A7567' }} /></button>
-                    <span className="text-xs" style={{ color: '#7A7567' }}>{balYear}</span>
+                    }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronLeft size={14} style={{ color: 'var(--ink-secondary)' }} /></button>
+                    <span className="text-xs" style={{ color: 'var(--ink-secondary)' }}>{balYear}</span>
                     <button onClick={() => {
                       const d = new Date(balanceMonth + '-01'); d.setMonth(d.getMonth() + 1);
                       const nk = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
                       if (nk <= thisMonth) setBalanceMonth(nk);
-                    }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={14} style={{ color: '#7A7567' }} /></button>
+                    }} className="p-1 rounded-lg hover:bg-stone-50"><ChevronRight size={14} style={{ color: 'var(--ink-secondary)' }} /></button>
                   </div>
                 </div>
-                <p className="text-xs mb-4" style={{ color: '#7A7567' }}>{t('ledger.balance.subtitle')}</p>
+                <p className="text-xs mb-4" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.balance.subtitle')}</p>
 
                 <div className="mb-4">
                   <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: '#6B8E6B', borderColor: '#E8EEE6' }}>📈 {t('ledger.balance.income')}</div>
                   <div className="flex justify-between py-2 px-3 rounded-xl" style={{ backgroundColor: '#E8EEE6' }}>
-                    <span className="text-sm" style={{ color: '#2C2418' }}>{t('ledger.balance.incomeRow')}</span>
+                    <span className="text-sm" style={{ color: 'var(--ink-primary)' }}>{t('ledger.balance.incomeRow')}</span>
                     <span className="text-sm font-semibold tabular-nums" style={{ color: '#6B8E6B' }}>+ {income.toLocaleString()} {cur}</span>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: '#E07856', borderColor: '#FDF0EA' }}>📉 {t('ledger.balance.expenseByCategory')}</div>
+                  <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: 'var(--record)', borderColor: '#FDF0EA' }}>📉 {t('ledger.balance.expenseByCategory')}</div>
                   <div className="space-y-1">
                     {Object.entries(balData.byCategory).filter(([_, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([cat, amount]) => {
                       const Icon = CATEGORIES[cat].icon;
                       return (
-                        <div key={cat} className="flex justify-between py-1.5 px-3 rounded-xl items-center" style={{ backgroundColor: '#FAF7F0' }}>
-                          <div className="flex items-center gap-2"><Icon size={12} style={{ color: CATEGORIES[cat].color }} /><span className="text-sm" style={{ color: '#2C2418' }}>{t(`ledger.categories.${cat}`, cat)}</span></div>
-                          <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {amount.toLocaleString()} {cur}</span>
+                        <div key={cat} className="flex justify-between py-1.5 px-3 rounded-xl items-center" style={{ backgroundColor: 'var(--bg-base)' }}>
+                          <div className="flex items-center gap-2"><Icon size={12} style={{ color: CATEGORIES[cat].color }} /><span className="text-sm" style={{ color: 'var(--ink-primary)' }}>{t(`ledger.categories.${cat}`, cat)}</span></div>
+                          <span className="text-sm tabular-nums" style={{ color: 'var(--record)' }}>- {amount.toLocaleString()} {cur}</span>
                         </div>
                       );
                     })}
                   </div>
                   <div className="flex justify-between mt-2 py-2 px-3 rounded-xl font-medium" style={{ backgroundColor: '#FDF0EA' }}>
-                    <span className="text-sm" style={{ color: '#2C2418' }}>{t('ledger.balance.expenseSubtotal')}</span>
-                    <span className="text-sm tabular-nums" style={{ color: '#E07856' }}>- {balData.total.toLocaleString()} {cur}</span>
+                    <span className="text-sm" style={{ color: 'var(--ink-primary)' }}>{t('ledger.balance.expenseSubtotal')}</span>
+                    <span className="text-sm tabular-nums" style={{ color: 'var(--record)' }}>- {balData.total.toLocaleString()} {cur}</span>
                   </div>
                 </div>
 
                 {balUpcomingTotal > 0 && (
                   <div className="mb-4">
-                    <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: '#A0633C', borderColor: '#F5E9DD' }}>⏰ {t('ledger.balance.plannedHeader')}</div>
-                    <div className="flex justify-between py-2 px-3 rounded-xl" style={{ backgroundColor: '#FFF8EC' }}>
-                      <span className="text-sm" style={{ color: '#2C2418' }}>{t('ledger.balance.plannedRow', { count: balUpcoming.length })}</span>
-                      <span className="text-sm tabular-nums" style={{ color: '#A0633C' }}>- {balUpcomingTotal.toLocaleString()} {cur}</span>
+                    <div className="text-xs font-medium mb-2 pb-1 border-b" style={{ color: 'var(--record)', borderColor: '#F5E9DD' }}>⏰ {t('ledger.balance.plannedHeader')}</div>
+                    <div className="flex justify-between py-2 px-3 rounded-xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
+                      <span className="text-sm" style={{ color: 'var(--ink-primary)' }}>{t('ledger.balance.plannedRow', { count: balUpcoming.length })}</span>
+                      <span className="text-sm tabular-nums" style={{ color: 'var(--record)' }}>- {balUpcomingTotal.toLocaleString()} {cur}</span>
                     </div>
                   </div>
                 )}
 
-                <div className="pt-3 border-t-2" style={{ borderColor: '#2C2418' }}>
-                  <div className="text-xs font-medium mb-2" style={{ color: '#2C2418' }}>{t('ledger.balance.netLine')}</div>
+                <div className="pt-3 border-t-2" style={{ borderColor: 'var(--ink-primary)' }}>
+                  <div className="text-xs font-medium mb-2" style={{ color: 'var(--ink-primary)' }}>{t('ledger.balance.netLine')}</div>
                   <div className="p-4 rounded-2xl text-center" style={{ backgroundColor: (income - balData.total - balUpcomingTotal) > 0 ? '#E8EEE6' : '#FDF0EA' }}>
-                    <div className="text-3xl font-bold tabular-nums" style={{ color: (income - balData.total - balUpcomingTotal) > 0 ? '#6B8E6B' : '#E07856' }}>
+                    <div className="text-3xl font-bold tabular-nums" style={{ color: (income - balData.total - balUpcomingTotal) > 0 ? '#6B8E6B' : 'var(--record)' }}>
                       {(income - balData.total - balUpcomingTotal).toLocaleString()}<span className="text-base opacity-60 ml-1">{cur}</span>
                     </div>
-                    <div className="text-xs mt-1" style={{ color: '#7A7567' }}>
+                    <div className="text-xs mt-1" style={{ color: 'var(--ink-secondary)' }}>
                       {(income - balData.total - balUpcomingTotal) > 0 ? t('ledger.balance.savingPossible') : t('ledger.balance.needIncome')}
                     </div>
                   </div>
-                  <div className="mt-3 p-3 rounded-2xl" style={{ backgroundColor: '#F5F1EA' }}>
+                  <div className="mt-3 p-3 rounded-2xl" style={{ backgroundColor: 'var(--surface-sunken)' }}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span style={{ color: '#7A7567' }}>{t('ledger.balance.savingRate')}</span>
-                      <span className="font-medium" style={{ color: '#2C2418' }}>
+                      <span style={{ color: 'var(--ink-secondary)' }}>{t('ledger.balance.savingRate')}</span>
+                      <span className="font-medium" style={{ color: 'var(--ink-primary)' }}>
                         {income > 0 ? Math.max(0, Math.round(((income - balData.total - balUpcomingTotal) / income) * 100)) : 0}%
                       </span>
                     </div>
@@ -1725,7 +1817,7 @@ export default function ChatLedger() {
                         backgroundColor: '#6B8E6B',
                       }} />
                     </div>
-                    <div className="text-[10px] mt-1.5" style={{ color: '#7A7567' }}>{t('ledger.balance.healthyTip')}</div>
+                    <div className="text-[10px] mt-1.5" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.balance.healthyTip')}</div>
                   </div>
                 </div>
               </div>
@@ -1738,24 +1830,24 @@ export default function ChatLedger() {
         {selectedDate && (
           <div className="fixed inset-0 z-50 flex items-end lg:items-center justify-center p-0 lg:p-4"
             style={{ backgroundColor: 'rgba(44, 36, 24, 0.5)' }} onClick={() => setSelectedDateStr(null)}>
-            <div className="w-full lg:max-w-md rounded-t-3xl lg:rounded-3xl overflow-hidden max-h-[85vh] flex flex-col"
-              style={{ backgroundColor: '#FFFDF8' }} onClick={(e) => e.stopPropagation()}>
-              <div className="p-5 border-b" style={{ borderColor: '#E8E2D5' }}>
+            <div className="w-full lg:max-w-md rounded-t-3xl lg:rounded-card overflow-hidden max-h-[85vh] flex flex-col"
+              style={{ backgroundColor: 'var(--surface)' }} onClick={(e) => e.stopPropagation()}>
+              <div className="p-5 border-b" style={{ borderColor: 'var(--line)' }}>
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-lg font-bold" style={{ color: '#2C2418' }}>
+                    <h3 className="text-lg font-bold" style={{ color: 'var(--ink-primary)' }}>
                       {t('ledger.dayModal.header', { month: selectedDate.date ? new Date(selectedDate.date).getMonth() + 1 : '', day: selectedDate.day })}
                     </h3>
-                    <div className="text-xs mt-0.5" style={{ color: '#7A7567' }}>
+                    <div className="text-xs mt-0.5" style={{ color: 'var(--ink-secondary)' }}>
                       {t('ledger.dayModal.spentLine', { spent: `${selectedDate.totalSpent.toLocaleString()} ${cur}`, planned: `${selectedDate.totalPlanned.toLocaleString()} ${cur}` })}
                     </div>
                   </div>
-                  <button onClick={() => setSelectedDateStr(null)} className="p-2 -mr-2"><X size={20} style={{ color: '#7A7567' }} /></button>
+                  <button onClick={() => setSelectedDateStr(null)} className="p-2 -mr-2"><X size={20} style={{ color: 'var(--ink-secondary)' }} /></button>
                 </div>
               </div>
               <div className="flex-1 overflow-y-auto p-5 space-y-2">
                 {selectedDate.spent.length === 0 && selectedDate.planned.length === 0 ? (
-                  <div className="py-8 text-center text-sm" style={{ color: '#7A7567' }}>{t('ledger.dayModal.empty')}</div>
+                  <div className="py-8 text-center text-sm" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.dayModal.empty')}</div>
                 ) : (
                   <>
                     {selectedDate.planned.map(p => {
@@ -1767,7 +1859,7 @@ export default function ChatLedger() {
                             key={p.id}
                             draft={editingDayItem.draft}
                             categories={CATEGORIES}
-                            bg="#FFF8EC"
+                            bg="var(--surface-sunken)"
                             onChange={(next) => setEditingDayItem({ ...editingDayItem, draft: next })}
                             onCancel={cancelEditDayItem}
                             onSave={saveEditDayItem}
@@ -1777,26 +1869,26 @@ export default function ChatLedger() {
                         );
                       }
                       return (
-                        <div key={p.id} className="flex items-center gap-3 p-3 rounded-2xl group" style={{ backgroundColor: '#FFF8EC' }}>
+                        <div key={p.id} className="flex items-center gap-3 p-3 rounded-2xl group" style={{ backgroundColor: 'var(--surface-sunken)' }}>
                           <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: CATEGORIES[p.category]?.bg }}>
                             <Icon size={16} style={{ color: CATEGORIES[p.category]?.color }} />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-1.5">
-                              <span className="text-sm font-medium truncate" style={{ color: '#2C2418' }}>{p.description}</span>
-                              <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: '#F0E0B8', color: '#A0633C' }}>{t('ledger.dayModal.plannedTag')}</span>
+                              <span className="text-sm font-medium truncate" style={{ color: 'var(--ink-primary)' }}>{p.description}</span>
+                              <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--line)', color: 'var(--record)' }}>{t('ledger.dayModal.plannedTag')}</span>
                             </div>
-                            <div className="text-xs" style={{ color: '#7A7567' }}>{t(`ledger.categories.${p.category}`, p.category)}</div>
+                            <div className="text-xs" style={{ color: 'var(--ink-secondary)' }}>{t(`ledger.categories.${p.category}`, p.category)}</div>
                           </div>
-                          <span className="text-sm font-semibold tabular-nums" style={{ color: '#A0633C' }}>{p.amount.toLocaleString()} {cur}</span>
+                          <span className="text-sm font-semibold tabular-nums" style={{ color: 'var(--record)' }}>{p.amount.toLocaleString()} {cur}</span>
                           <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity">
                             <button onClick={() => startEditDayItem(p, 'planned')} title={t('common.edit')}
                               className="p-1.5 rounded-lg hover:bg-white">
-                              <PenLine size={13} style={{ color: '#7A7567' }} />
+                              <PenLine size={13} style={{ color: 'var(--ink-secondary)' }} />
                             </button>
                             <button onClick={() => removeDayItem(p, 'planned')} title={t('common.delete')}
                               className="p-1.5 rounded-lg hover:bg-white">
-                              <Trash2 size={13} style={{ color: '#E07856' }} />
+                              <Trash2 size={13} style={{ color: 'var(--record)' }} />
                             </button>
                           </div>
                         </div>
@@ -1811,7 +1903,7 @@ export default function ChatLedger() {
                             key={e.id}
                             draft={editingDayItem.draft}
                             categories={CATEGORIES}
-                            bg="#FAF7F0"
+                            bg="var(--bg-base)"
                             onChange={(next) => setEditingDayItem({ ...editingDayItem, draft: next })}
                             onCancel={cancelEditDayItem}
                             onSave={saveEditDayItem}
@@ -1823,7 +1915,7 @@ export default function ChatLedger() {
                       return (
                         <div key={e.id}
                           className="w-full flex items-start gap-3 p-3 rounded-2xl group"
-                          style={{ backgroundColor: '#FAF7F0' }}>
+                          style={{ backgroundColor: 'var(--bg-base)' }}>
                           <button
                             onClick={() => {
                               if (e.place) { setSelectedDateStr(null); setSelectedPlaceName(e.place.name); }
@@ -1834,8 +1926,8 @@ export default function ChatLedger() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className="text-sm font-medium truncate" style={{ color: '#2C2418' }}>{e.description}</span>
-                                {e.place && <MapPin size={10} style={{ color: '#A0633C' }} />}
+                                <span className="text-sm font-medium truncate" style={{ color: 'var(--ink-primary)' }}>{e.description}</span>
+                                {e.place && <MapPin size={10} style={{ color: 'var(--record)' }} />}
                                 {e.photos?.length > 0 && (
                                   <span className="text-[9px] px-1 py-0.5 rounded flex items-center gap-0.5" style={{ backgroundColor: '#F0E6F1', color: '#8B5A8C' }}>
                                     <ImageIcon size={8} /> {e.photos.length}
@@ -1843,12 +1935,12 @@ export default function ChatLedger() {
                                 )}
                                 {e.rating && (
                                   <span className="text-[10px] flex items-center gap-0.5">
-                                    <Star size={9} fill="#E0A856" stroke="#E0A856" />{e.rating}
+                                    <Star size={9} fill="var(--record-to)" stroke="var(--record-to)" />{e.rating}
                                   </span>
                                 )}
                               </div>
-                              <div className="text-xs" style={{ color: '#7A7567' }}>{t(`ledger.categories.${e.category}`, e.category)}{e.place && ` · ${e.place.name}`}</div>
-                              {e.review && <div className="handwritten text-sm mt-1" style={{ color: '#2C2418' }}>"{e.review}"</div>}
+                              <div className="text-xs" style={{ color: 'var(--ink-secondary)' }}>{t(`ledger.categories.${e.category}`, e.category)}{e.place && ` · ${e.place.name}`}</div>
+                              {e.review && <div className="handwritten text-sm mt-1" style={{ color: 'var(--ink-primary)' }}>"{e.review}"</div>}
                               {e.photos?.length > 0 && (
                                 <div className="flex gap-1 mt-2">
                                   {e.photos.slice(0, 3).map((ph, j) => (
@@ -1858,15 +1950,15 @@ export default function ChatLedger() {
                               )}
                             </div>
                           </button>
-                          <span className="text-sm font-semibold tabular-nums" style={{ color: '#2C2418' }}>{e.amount.toLocaleString()} {cur}</span>
+                          <span className="text-sm font-semibold tabular-nums" style={{ color: 'var(--ink-primary)' }}>{e.amount.toLocaleString()} {cur}</span>
                           <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity">
                             <button onClick={() => startEditDayItem(e, 'spent')} title={t('common.edit')}
                               className="p-1.5 rounded-lg hover:bg-white">
-                              <PenLine size={13} style={{ color: '#7A7567' }} />
+                              <PenLine size={13} style={{ color: 'var(--ink-secondary)' }} />
                             </button>
                             <button onClick={() => removeDayItem(e, 'spent')} title={t('common.delete')}
                               className="p-1.5 rounded-lg hover:bg-white">
-                              <Trash2 size={13} style={{ color: '#E07856' }} />
+                              <Trash2 size={13} style={{ color: 'var(--record)' }} />
                             </button>
                           </div>
                         </div>
@@ -1884,26 +1976,26 @@ export default function ChatLedger() {
           <div className="fixed inset-0 z-50 flex items-end lg:items-center justify-center p-0 lg:p-4"
             style={{ backgroundColor: 'rgba(44, 36, 24, 0.5)' }}
             onClick={() => { setSelectedPlaceName(null); setEditingEntry(null); }}>
-            <div className="w-full lg:max-w-2xl rounded-t-3xl lg:rounded-3xl overflow-hidden max-h-[90vh] flex flex-col"
-              style={{ backgroundColor: '#FFFDF8' }} onClick={(e) => e.stopPropagation()}>
+            <div className="w-full lg:max-w-2xl rounded-t-3xl lg:rounded-card overflow-hidden max-h-[90vh] flex flex-col"
+              style={{ backgroundColor: 'var(--surface)' }} onClick={(e) => e.stopPropagation()}>
 
               {/* 헤더 */}
-              <div className="p-5 lg:p-6 border-b flex-shrink-0" style={{ borderColor: '#E8E2D5' }}>
+              <div className="p-5 lg:p-6 border-b flex-shrink-0" style={{ borderColor: 'var(--line)' }}>
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold truncate" style={{ color: '#2C2418' }}>{selectedPlace.name}</h3>
+                    <h3 className="text-lg font-bold truncate" style={{ color: 'var(--ink-primary)' }}>{selectedPlace.name}</h3>
                     {selectedPlace.address && (
-                      <div className="text-xs mt-0.5 truncate" style={{ color: '#7A7567' }}>{selectedPlace.address}</div>
+                      <div className="text-xs mt-0.5 truncate" style={{ color: 'var(--ink-secondary)' }}>{selectedPlace.address}</div>
                     )}
-                    <div className="flex items-center gap-2 mt-1 text-xs flex-wrap" style={{ color: '#7A7567' }}>
+                    <div className="flex items-center gap-2 mt-1 text-xs flex-wrap" style={{ color: 'var(--ink-secondary)' }}>
                       <span>{t('ledger.placeModal.visitCount', { count: selectedPlace.visitCount })}</span>
                       <span>·</span>
                       <span>{t('ledger.placeModal.totalSpent', { amount: `${selectedPlace.totalSpent.toLocaleString()} ${cur}` })}</span>
-                      {selectedPlace.avgRating > 0 && (<><span>·</span><span className="flex items-center gap-0.5"><Star size={11} fill="#E0A856" stroke="#E0A856" />{selectedPlace.avgRating.toFixed(1)}</span></>)}
+                      {selectedPlace.avgRating > 0 && (<><span>·</span><span className="flex items-center gap-0.5"><Star size={11} fill="var(--record-to)" stroke="var(--record-to)" />{selectedPlace.avgRating.toFixed(1)}</span></>)}
                     </div>
                   </div>
                   <button onClick={() => { setSelectedPlaceName(null); setEditingEntry(null); }} className="p-2 -mr-2">
-                    <X size={20} style={{ color: '#7A7567' }} />
+                    <X size={20} style={{ color: 'var(--ink-secondary)' }} />
                   </button>
                 </div>
 
@@ -1925,8 +2017,8 @@ export default function ChatLedger() {
                 <div className="flex gap-2 mt-3">
                   {[
                     { id: 'again',  label: t('ledger.placeModal.moodAgainWant'), icon: ThumbsUp,   color: '#6B8E6B', bg: '#E8EEE6' },
-                    { id: 'normal', label: t('ledger.placeModal.moodNormal'),    icon: Minus,      color: '#7A7567', bg: '#EFECE6' },
-                    { id: 'avoid',  label: t('ledger.placeModal.moodAvoid'),     icon: ThumbsDown, color: '#E07856', bg: '#FDF0EA' },
+                    { id: 'normal', label: t('ledger.placeModal.moodNormal'),    icon: Minus,      color: 'var(--ink-secondary)', bg: '#EFECE6' },
+                    { id: 'avoid',  label: t('ledger.placeModal.moodAvoid'),     icon: ThumbsDown, color: 'var(--record)', bg: '#FDF0EA' },
                   ].map(m => {
                     const MoodIcon = m.icon;
                     const isActive = selectedPlace.mood === m.id;
@@ -1938,8 +2030,8 @@ export default function ChatLedger() {
                         }}
                         className="flex-1 py-2 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-medium transition-all"
                         style={{
-                          backgroundColor: isActive ? m.bg : '#FAF7F0',
-                          color: isActive ? m.color : '#7A7567',
+                          backgroundColor: isActive ? m.bg : 'var(--bg-base)',
+                          color: isActive ? m.color : 'var(--ink-secondary)',
                           border: isActive ? `1px solid ${m.color}` : '1px solid transparent',
                         }}>
                         <MoodIcon size={12} />{m.label}
@@ -1957,7 +2049,7 @@ export default function ChatLedger() {
                       name: selectedPlace.name,
                       lat: selectedPlace.lat,
                       lng: selectedPlace.lng,
-                      color: CATEGORIES[selectedPlace.category]?.color || '#A0633C',
+                      color: CATEGORIES[selectedPlace.category]?.color || 'var(--record)',
                     }]}
                     height={200}
                     rounded={false}
@@ -1977,17 +2069,17 @@ export default function ChatLedger() {
                       setPlaceSearchedOnce(false);
                     }}
                     className="absolute top-2 right-2 px-2.5 py-1 rounded-full text-[11px] font-medium z-10"
-                    style={{ backgroundColor: 'rgba(255,253,248,0.95)', color: '#A0633C', border: '1px solid #E8E2D5' }}
+                    style={{ backgroundColor: 'rgba(255,253,248,0.95)', color: 'var(--record)', border: '1px solid var(--line)' }}
                   >
                     {t('ledger.place.resetPin')}
                   </button>
                 </div>
               ) : (
-                <div className="p-4 border-b" style={{ borderColor: '#E8E2D5', backgroundColor: '#FAF7F0' }}>
-                  <div className="text-xs font-medium mb-2 flex items-center gap-1.5" style={{ color: '#2C2418' }}>
-                    <MapPin size={12} style={{ color: '#A0633C' }} />
+                <div className="p-4 border-b" style={{ borderColor: 'var(--line)', backgroundColor: 'var(--bg-base)' }}>
+                  <div className="text-xs font-medium mb-2 flex items-center gap-1.5" style={{ color: 'var(--ink-primary)' }}>
+                    <MapPin size={12} style={{ color: 'var(--record)' }} />
                     {t('ledger.place.pickLocation')}
-                    <span className="text-[10px] font-normal" style={{ color: '#7A7567' }}>
+                    <span className="text-[10px] font-normal" style={{ color: 'var(--ink-secondary)' }}>
                       {t('ledger.place.aiHint')}
                     </span>
                   </div>
@@ -1999,7 +2091,7 @@ export default function ChatLedger() {
                       onChange={(e) => setPlaceSearchQuery(e.target.value)}
                       placeholder={t('ledger.place.searchPlaceholder', { name: selectedPlace.name })}
                       className="flex-1 px-3 py-2 rounded-lg text-sm focus:outline-none"
-                      style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+                      style={{ backgroundColor: 'white', border: '1px solid var(--line)', color: 'var(--ink-primary)' }}
                       onKeyDown={async (e) => {
                         if (e.key === 'Enter') {
                           e.preventDefault();
@@ -2026,13 +2118,13 @@ export default function ChatLedger() {
                         setPlaceSearchBusy(false);
                       }}
                       className="px-3 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
-                      style={{ backgroundColor: '#A0633C', color: 'white' }}
+                      style={{ backgroundColor: 'var(--record)', color: 'white' }}
                     >
                       {placeSearchBusy ? t('ledger.place.searchBusy') : t('ledger.place.search')}
                     </button>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] mb-2" style={{ color: '#7A7567' }}>
+                  <div className="flex items-center justify-between text-[11px] mb-2" style={{ color: 'var(--ink-secondary)' }}>
                     <span>
                       {geoStatus === 'granted' && userGeo && t('ledger.place.viewboxGps')}
                       {geoStatus === 'ip' && userGeo && t('ledger.place.viewboxIp', { label: geoLabel || 'IP' })}
@@ -2045,7 +2137,7 @@ export default function ChatLedger() {
                         type="button"
                         onClick={() => requestUserGeo()}
                         className="underline"
-                        style={{ color: '#A0633C' }}
+                        style={{ color: 'var(--record)' }}
                       >
                         {geoStatus === 'ip' ? t('ledger.place.moreAccurate') : t('ledger.place.useMyLocationGps')}
                       </button>
@@ -2053,7 +2145,7 @@ export default function ChatLedger() {
                   </div>
 
                   {placeSearchedOnce && !placeSearchBusy && placeSearchResults.length === 0 && (
-                    <div className="text-xs text-center py-3" style={{ color: '#7A7567' }}>
+                    <div className="text-xs text-center py-3" style={{ color: 'var(--ink-secondary)' }}>
                       {t('ledger.place.noResults')}
                     </div>
                   )}
@@ -2077,15 +2169,15 @@ export default function ChatLedger() {
                             setPlaceSearchedOnce(false);
                           }}
                           className="w-full text-left p-2.5 rounded-lg text-xs"
-                          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5' }}
+                          style={{ backgroundColor: 'white', border: '1px solid var(--line)' }}
                         >
-                          <div className="font-medium truncate" style={{ color: '#2C2418' }}>
+                          <div className="font-medium truncate" style={{ color: 'var(--ink-primary)' }}>
                             {r.name || r.address}
                           </div>
-                          <div className="flex items-center gap-2 mt-0.5 text-[10px]" style={{ color: '#7A7567' }}>
+                          <div className="flex items-center gap-2 mt-0.5 text-[10px]" style={{ color: 'var(--ink-secondary)' }}>
                             {r.address && <span className="truncate">{r.address}</span>}
                             {typeof r.distance_km === 'number' && (
-                              <span style={{ color: '#A0633C' }}>· {r.distance_km}km</span>
+                              <span style={{ color: 'var(--record)' }}>· {r.distance_km}km</span>
                             )}
                           </div>
                         </button>
@@ -2097,8 +2189,8 @@ export default function ChatLedger() {
 
               {/* 사진 갤러리 */}
               {selectedPlace.allPhotos.length > 0 && (
-                <div className="p-4 border-b" style={{ borderColor: '#E8E2D5' }}>
-                  <div className="text-xs font-medium mb-2 flex items-center gap-1.5" style={{ color: '#7A7567' }}>
+                <div className="p-4 border-b" style={{ borderColor: 'var(--line)' }}>
+                  <div className="text-xs font-medium mb-2 flex items-center gap-1.5" style={{ color: 'var(--ink-secondary)' }}>
                     <ImageIcon size={11} /> {t('ledger.place.photoTotal', { count: selectedPlace.allPhotos.length })}
                   </div>
                   <div className="flex gap-2 overflow-x-auto pb-1">
@@ -2111,37 +2203,37 @@ export default function ChatLedger() {
 
               {/* 방문 기록 + 리뷰 */}
               <div className="flex-1 overflow-y-auto p-5 lg:p-6 space-y-3">
-                <div className="text-xs font-medium" style={{ color: '#7A7567' }}>{t('ledger.place.visitTitle')}</div>
+                <div className="text-xs font-medium" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.place.visitTitle')}</div>
                 {selectedPlace.visits.sort((a, b) => b.date.localeCompare(a.date)).map(v => (
-                  <div key={v.id} className="p-3 rounded-2xl" style={{ backgroundColor: '#FAF7F0' }}>
+                  <div key={v.id} className="p-3 rounded-2xl" style={{ backgroundColor: 'var(--bg-base)' }}>
                     <div className="flex justify-between items-baseline mb-2">
-                      <div className="text-xs" style={{ color: '#7A7567' }}>{v.date}</div>
-                      <div className="text-sm font-semibold tabular-nums" style={{ color: '#2C2418' }}>{v.amount.toLocaleString()} {cur}</div>
+                      <div className="text-xs" style={{ color: 'var(--ink-secondary)' }}>{v.date}</div>
+                      <div className="text-sm font-semibold tabular-nums" style={{ color: 'var(--ink-primary)' }}>{v.amount.toLocaleString()} {cur}</div>
                     </div>
 
                     {/* 별점 */}
                     <div className="flex items-center gap-2 mb-2">
                       {[1, 2, 3, 4, 5].map(n => (
                         <button key={n} onClick={() => updateEntry(v.id, { rating: n })}>
-                          <Star size={18} fill={n <= (v.rating || 0) ? '#E0A856' : 'none'} stroke={n <= (v.rating || 0) ? '#E0A856' : '#D4CDC0'} />
+                          <Star size={18} fill={n <= (v.rating || 0) ? 'var(--record-to)' : 'none'} stroke={n <= (v.rating || 0) ? 'var(--record-to)' : 'var(--line)'} />
                         </button>
                       ))}
-                      {v.rating && <span className="text-xs ml-1" style={{ color: '#7A7567' }}>{t('ledger.place.rating', { n: v.rating })}</span>}
+                      {v.rating && <span className="text-xs ml-1" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.place.rating', { n: v.rating })}</span>}
                     </div>
 
                     {/* 리뷰 */}
                     {editingEntry === v.id ? (
                       <textarea defaultValue={v.review || ''} autoFocus rows={2}
                         className="w-full px-3 py-2 rounded-xl text-sm resize-none outline-none handwritten text-base mb-2"
-                        style={{ backgroundColor: 'white', color: '#2C2418', border: '1px solid #E8E2D5' }}
+                        style={{ backgroundColor: 'white', color: 'var(--ink-primary)', border: '1px solid var(--line)' }}
                         onBlur={(e) => { updateEntry(v.id, { review: e.target.value || null }); setEditingEntry(null); }}
                         placeholder={t('ledger.place.reviewPlaceholder')} />
                     ) : (
                       <button onClick={() => setEditingEntry(v.id)} className="w-full text-left p-2 rounded-xl hover:bg-white mb-2">
                         {v.review ? (
-                          <p className="handwritten text-base" style={{ color: '#2C2418' }}>"{v.review}"</p>
+                          <p className="handwritten text-base" style={{ color: 'var(--ink-primary)' }}>"{v.review}"</p>
                         ) : (
-                          <p className="text-xs italic" style={{ color: '#A8A296' }}>{t('ledger.place.addReview')}</p>
+                          <p className="text-xs italic" style={{ color: 'var(--ink-faint)' }}>{t('ledger.place.addReview')}</p>
                         )}
                       </button>
                     )}
@@ -2153,7 +2245,7 @@ export default function ChatLedger() {
                           <img src={v.photos[idx]} alt="" className="w-16 h-16 rounded-lg object-cover" />
                           <button onClick={() => removePhoto(v.id, meta.id)}
                             className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                            style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+                            style={{ backgroundColor: 'var(--ink-primary)', color: 'var(--surface)' }}>
                             <X size={10} />
                           </button>
                         </div>
@@ -2161,7 +2253,7 @@ export default function ChatLedger() {
                       <button onClick={() => { setPhotoUploadEntry(v.id); photoInputRef.current?.click(); }}
                         disabled={uploadPhotoMut.isPending}
                         className="w-16 h-16 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: 'white', border: '1px dashed #D4CDC0', color: '#7A7567', opacity: uploadPhotoMut.isPending ? 0.5 : 1 }}>
+                        style={{ backgroundColor: 'white', border: '1px dashed var(--line)', color: 'var(--ink-secondary)', opacity: uploadPhotoMut.isPending ? 0.5 : 1 }}>
                         <div className="flex flex-col items-center gap-0.5">
                           <Upload size={14} />
                           <span className="text-[9px]">{uploadPhotoMut.isPending ? t('ledger.place.photoUploading') : t('ledger.place.photo')}</span>
@@ -2215,25 +2307,25 @@ function InputGuideModal({ onClose }) {
   return (
     <div className="fixed inset-0 z-[60] flex items-end lg:items-center justify-center p-0 lg:p-4"
       style={{ backgroundColor: 'rgba(44, 36, 24, 0.55)' }} onClick={onClose}>
-      <div className="w-full lg:max-w-2xl rounded-t-3xl lg:rounded-3xl overflow-hidden max-h-[90vh] flex flex-col"
-        style={{ backgroundColor: '#FFFDF8' }} onClick={(e) => e.stopPropagation()}>
+      <div className="w-full lg:max-w-2xl rounded-t-3xl lg:rounded-card overflow-hidden max-h-[90vh] flex flex-col"
+        style={{ backgroundColor: 'var(--surface)' }} onClick={(e) => e.stopPropagation()}>
         <div className="p-5 lg:p-6 border-b flex items-start justify-between flex-shrink-0"
-          style={{ borderColor: '#E8E2D5', backgroundColor: '#FFFDF8' }}>
+          style={{ borderColor: 'var(--line)', backgroundColor: 'var(--surface)' }}>
           <div>
-            <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: '#2C2418' }}>
-              <Lightbulb size={18} style={{ color: '#A0633C' }} /> {t('ledger.inputGuide.title')}
+            <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: 'var(--ink-primary)' }}>
+              <Lightbulb size={18} style={{ color: 'var(--record)' }} /> {t('ledger.inputGuide.title')}
             </h3>
-            <p className="text-xs mt-1" style={{ color: '#7A7567' }}>
+            <p className="text-xs mt-1" style={{ color: 'var(--ink-secondary)' }}>
               {t('ledger.inputGuide.subtitle')}
             </p>
           </div>
-          <button onClick={onClose} className="p-2 -mr-2 -mt-1"><X size={20} style={{ color: '#7A7567' }} /></button>
+          <button onClick={onClose} className="p-2 -mr-2 -mt-1"><X size={20} style={{ color: 'var(--ink-secondary)' }} /></button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-5 lg:p-6 space-y-4">
           <div className="rounded-2xl p-4" style={{ backgroundColor: '#F5E9DD' }}>
-            <div className="text-xs font-medium mb-1" style={{ color: '#A0633C' }}>{t('ledger.inputGuide.summaryTitle')}</div>
-            <p className="text-sm leading-relaxed" style={{ color: '#2C2418' }}>
+            <div className="text-xs font-medium mb-1" style={{ color: 'var(--record)' }}>{t('ledger.inputGuide.summaryTitle')}</div>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-primary)' }}>
               {t('ledger.inputGuide.summaryBody')}<br />
               {t('ledger.inputGuide.summaryExampleLabel')}: <span className="handwritten text-base">"{t('ledger.inputGuide.summaryExample')}"</span>
             </p>
@@ -2243,17 +2335,17 @@ function InputGuideModal({ onClose }) {
             const Icon = sec.icon;
             const tips = Array.isArray(sec.tips) ? sec.tips : [];
             return (
-              <div key={sec.idx} className="rounded-2xl p-4" style={{ backgroundColor: '#FAF7F0', border: '1px solid #E8E2D5' }}>
+              <div key={sec.idx} className="rounded-2xl p-4" style={{ backgroundColor: 'var(--bg-base)', border: '1px solid var(--line)' }}>
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F5E9DD' }}>
-                    <Icon size={14} style={{ color: '#A0633C' }} />
+                    <Icon size={14} style={{ color: 'var(--record)' }} />
                   </div>
-                  <h4 className="text-sm font-semibold" style={{ color: '#2C2418' }}>{sec.title}</h4>
+                  <h4 className="text-sm font-semibold" style={{ color: 'var(--ink-primary)' }}>{sec.title}</h4>
                 </div>
                 <ul className="space-y-1.5 pl-1">
                   {tips.map((tip, i) => (
-                    <li key={i} className="text-sm flex items-start gap-2" style={{ color: '#2C2418' }}>
-                      <span className="mt-1 w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: '#A0633C' }} />
+                    <li key={i} className="text-sm flex items-start gap-2" style={{ color: 'var(--ink-primary)' }}>
+                      <span className="mt-1 w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: 'var(--record)' }} />
                       <span>{tip}</span>
                     </li>
                   ))}
@@ -2262,28 +2354,28 @@ function InputGuideModal({ onClose }) {
             );
           })}
 
-          <div className="rounded-2xl p-4" style={{ backgroundColor: '#FFFDF8', border: '1px solid #E8E2D5' }}>
+          <div className="rounded-2xl p-4" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)' }}>
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8EEE6' }}>
                 <Compass size={14} style={{ color: '#6B8E6B' }} />
               </div>
-              <h4 className="text-sm font-semibold" style={{ color: '#2C2418' }}>{t('ledger.inputGuide.tabsTitle')}</h4>
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--ink-primary)' }}>{t('ledger.inputGuide.tabsTitle')}</h4>
             </div>
             <ul className="space-y-1.5 pl-1">
               {tabs.map((tab) => (
-                <li key={tab.key} className="text-sm" style={{ color: '#2C2418' }}>
-                  <span style={{ color: '#7A7567' }}>{tab.desc}</span>
+                <li key={tab.key} className="text-sm" style={{ color: 'var(--ink-primary)' }}>
+                  <span style={{ color: 'var(--ink-secondary)' }}>{tab.desc}</span>
                 </li>
               ))}
             </ul>
-            <p className="text-xs mt-3" style={{ color: '#7A7567' }}>
+            <p className="text-xs mt-3" style={{ color: 'var(--ink-secondary)' }}>
               {t('ledger.inputGuide.tabsHint')}
             </p>
           </div>
 
           <div className="rounded-2xl p-4" style={{ backgroundColor: '#FDF0EA' }}>
-            <div className="text-xs font-medium mb-1" style={{ color: '#E07856' }}>{t('ledger.inputGuide.notAllowedTitle')}</div>
-            <ul className="text-xs space-y-1 pl-1" style={{ color: '#2C2418' }}>
+            <div className="text-xs font-medium mb-1" style={{ color: 'var(--record)' }}>{t('ledger.inputGuide.notAllowedTitle')}</div>
+            <ul className="text-xs space-y-1 pl-1" style={{ color: 'var(--ink-primary)' }}>
               {(Array.isArray(notAllowed) ? notAllowed : []).map((line, i) => (
                 <li key={i}>{line}</li>
               ))}
@@ -2291,10 +2383,10 @@ function InputGuideModal({ onClose }) {
           </div>
         </div>
 
-        <div className="p-4 border-t flex justify-end flex-shrink-0" style={{ borderColor: '#E8E2D5', backgroundColor: '#FFFDF8' }}>
+        <div className="p-4 border-t flex justify-end flex-shrink-0" style={{ borderColor: 'var(--line)', backgroundColor: 'var(--surface)' }}>
           <button onClick={onClose}
             className="px-5 py-2 rounded-xl text-sm font-medium"
-            style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+            style={{ backgroundColor: 'var(--ink-primary)', color: 'var(--surface)' }}>
             {t('ledger.inputGuide.close')}
           </button>
         </div>
@@ -2306,42 +2398,42 @@ function InputGuideModal({ onClose }) {
 function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave, t, cur }) {
   const set = (patch) => onChange({ ...draft, ...patch });
   return (
-    <div className="p-3 rounded-2xl space-y-2" style={{ backgroundColor: bg, border: '1px solid #E8E2D5' }}>
+    <div className="p-3 rounded-2xl space-y-2" style={{ backgroundColor: bg, border: '1px solid var(--line)' }}>
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.name')}</span>
+        <span className="text-[10px] font-medium" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.entryEdit.name')}</span>
         <input
           autoFocus
           value={draft.description}
           onChange={(e) => set({ description: e.target.value })}
           className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none"
-          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+          style={{ backgroundColor: 'white', border: '1px solid var(--line)', color: 'var(--ink-primary)' }}
           placeholder={t('ledger.entryEdit.namePlaceholder')}
         />
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.amount')}</span>
+        <span className="text-[10px] font-medium" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.entryEdit.amount')}</span>
         <input
           type="number"
           inputMode="numeric"
           value={draft.amount}
           onChange={(e) => set({ amount: e.target.value })}
           className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none tabular-nums"
-          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+          style={{ backgroundColor: 'white', border: '1px solid var(--line)', color: 'var(--ink-primary)' }}
         />
-        <span className="text-xs" style={{ color: '#7A7567' }}>{cur}</span>
+        <span className="text-xs" style={{ color: 'var(--ink-secondary)' }}>{cur}</span>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-medium" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.date')}</span>
+        <span className="text-[10px] font-medium" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.entryEdit.date')}</span>
         <input
           type="date"
           value={draft.date}
           onChange={(e) => set({ date: e.target.value })}
           className="flex-1 px-2 py-1.5 rounded-lg text-sm outline-none"
-          style={{ backgroundColor: 'white', border: '1px solid #E8E2D5', color: '#2C2418' }}
+          style={{ backgroundColor: 'white', border: '1px solid var(--line)', color: 'var(--ink-primary)' }}
         />
       </div>
       <div className="flex items-start gap-2">
-        <span className="text-[10px] font-medium pt-1.5" style={{ color: '#7A7567' }}>{t('ledger.entryEdit.category')}</span>
+        <span className="text-[10px] font-medium pt-1.5" style={{ color: 'var(--ink-secondary)' }}>{t('ledger.entryEdit.category')}</span>
         <div className="flex-1 flex flex-wrap gap-1">
           {Object.keys(categories).map((cat) => {
             const active = draft.category === cat;
@@ -2353,8 +2445,8 @@ function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave, t, c
                 className="text-[11px] px-2 py-1 rounded-full"
                 style={{
                   backgroundColor: active ? info.bg : 'white',
-                  color: active ? info.color : '#7A7567',
-                  border: `1px solid ${active ? info.color : '#E8E2D5'}`,
+                  color: active ? info.color : 'var(--ink-secondary)',
+                  border: `1px solid ${active ? info.color : 'var(--line)'}`,
                 }}
               >
                 {t(`ledger.categories.${cat}`, cat)}
@@ -2366,12 +2458,12 @@ function EntryEditCard({ draft, categories, bg, onChange, onCancel, onSave, t, c
       <div className="flex justify-end gap-2 pt-1">
         <button onClick={onCancel}
           className="px-3 py-1.5 rounded-lg text-xs font-medium"
-          style={{ backgroundColor: 'white', color: '#7A7567', border: '1px solid #E8E2D5' }}>
+          style={{ backgroundColor: 'white', color: 'var(--ink-secondary)', border: '1px solid var(--line)' }}>
           {t('ledger.entryEdit.cancel')}
         </button>
         <button onClick={onSave}
           className="px-3 py-1.5 rounded-lg text-xs font-medium"
-          style={{ backgroundColor: '#2C2418', color: '#FFFDF8' }}>
+          style={{ backgroundColor: 'var(--ink-primary)', color: 'var(--surface)' }}>
           {t('ledger.entryEdit.save')}
         </button>
       </div>
@@ -2385,7 +2477,7 @@ function SimpleMap({ places, onPinClick, CATEGORIES, t }) {
   const pinned = places.filter(p => typeof p.lat === 'number' && typeof p.lng === 'number');
   if (pinned.length === 0) {
     return (
-      <div className="rounded-2xl p-6 text-xs text-center" style={{ backgroundColor: '#F0EBE0', color: '#7A7567' }}>
+      <div className="rounded-2xl p-6 text-xs text-center" style={{ backgroundColor: 'var(--surface-sunken)', color: 'var(--ink-secondary)' }}>
         {t ? t('ledger.place.emptyPins') : ''}
       </div>
     );
@@ -2400,18 +2492,18 @@ function SimpleMap({ places, onPinClick, CATEGORIES, t }) {
   const projectY = (lat) => SVG_H - ((lat - bounds.minLat) / (bounds.maxLat - bounds.minLat)) * SVG_H;
 
   return (
-    <div className="relative rounded-2xl overflow-hidden" style={{ backgroundColor: '#F0EBE0' }}>
+    <div className="relative rounded-2xl overflow-hidden" style={{ backgroundColor: 'var(--surface-sunken)' }}>
       <svg viewBox={`0 0 ${SVG_W} ${SVG_H}`} className="w-full h-auto" style={{ display: 'block' }}>
         <defs>
           <pattern id="grid-mini" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E8E2D5" strokeWidth="0.5" />
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--line)" strokeWidth="0.5" />
           </pattern>
         </defs>
         <rect width={SVG_W} height={SVG_H} fill="url(#grid-mini)" />
-        <path d="M 0 160 Q 200 140 300 180 T 600 160" stroke="#D4CDC0" strokeWidth="2" fill="none" opacity="0.4" />
+        <path d="M 0 160 Q 200 140 300 180 T 600 160" stroke="var(--line)" strokeWidth="2" fill="none" opacity="0.4" />
         {pinned.map((p, i) => {
           const x = projectX(p.lng), y = projectY(p.lat);
-          const catColor = CATEGORIES[p.category]?.color || '#7A7567';
+          const catColor = CATEGORIES[p.category]?.color || 'var(--ink-secondary)';
           const size = Math.min(24, 14 + Math.sqrt(p.totalSpent / 5000));
           return (
             <g key={p.name} className="pin" style={{ animationDelay: `${i * 80}ms` }} onClick={() => onPinClick(p)}>
@@ -2420,7 +2512,7 @@ function SimpleMap({ places, onPinClick, CATEGORIES, t }) {
                 d={`M ${x} ${y - size} C ${x - size * 0.6} ${y - size}, ${x - size * 0.6} ${y - size * 0.3}, ${x} ${y} C ${x + size * 0.6} ${y - size * 0.3}, ${x + size * 0.6} ${y - size}, ${x} ${y - size} Z`}
                 fill={catColor} stroke="white" strokeWidth="2" />
               <circle cx={x} cy={y - size * 0.6} r={size * 0.25} fill="white" />
-              {p.avgRating >= 4 && <circle cx={x + size * 0.5} cy={y - size + 3} r="5" fill="#E0A856" stroke="white" strokeWidth="1.5" />}
+              {p.avgRating >= 4 && <circle cx={x + size * 0.5} cy={y - size + 3} r="5" fill="var(--record-to)" stroke="white" strokeWidth="1.5" />}
             </g>
           );
         })}

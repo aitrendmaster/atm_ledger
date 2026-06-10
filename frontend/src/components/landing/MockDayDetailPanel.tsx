@@ -42,12 +42,12 @@ export default function MockDayDetailPanel({
   return (
     <div className="flex flex-col h-full">
       <div className="px-4 pt-8 pb-3">
-        <div className="text-[9px] font-mono tracking-[0.2em] uppercase text-atm-muted mb-1">
+        <div className="text-[9px] font-mono tracking-[0.2em] uppercase text-ink-tertiary mb-1">
           오늘 쓴 돈
         </div>
         <div className="flex items-baseline justify-between">
-          <h3 className="text-sm font-bold text-atm-ink">{dateLabel}</h3>
-          <span className="text-base font-bold text-atm-ink font-mono">{total}</span>
+          <h3 className="text-sm font-bold text-ink">{dateLabel}</h3>
+          <span className="text-base font-bold text-ink font-mono">{total}</span>
         </div>
       </div>
 
@@ -57,7 +57,7 @@ export default function MockDayDetailPanel({
           return (
             <div
               key={i}
-              className="bg-white border border-stone-200 rounded-2xl px-3 py-2.5 flex items-center gap-2.5"
+              className="bg-surface border border-line rounded-2xl px-3 py-2.5 flex items-center gap-2.5"
             >
               <div
                 className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
@@ -66,10 +66,10 @@ export default function MockDayDetailPanel({
                 <Icon className="w-4 h-4" style={{ color: row.color }} />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-[11px] font-bold text-atm-ink truncate">{row.place}</div>
-                <div className="text-[10px] text-atm-muted">{row.category}</div>
+                <div className="text-[11px] font-bold text-ink truncate">{row.place}</div>
+                <div className="text-[10px] text-ink-tertiary">{row.category}</div>
               </div>
-              <span className="text-[11px] font-mono text-atm-ink whitespace-nowrap">
+              <span className="text-[11px] font-mono text-ink whitespace-nowrap">
                 {row.amount}
               </span>
             </div>

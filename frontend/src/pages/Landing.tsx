@@ -13,6 +13,9 @@ import {
   Check,
   X,
   Minus,
+  Briefcase,
+  GraduationCap,
+  Plane,
   type LucideIcon,
 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
@@ -44,32 +47,36 @@ export default function Landing() {
   const { t } = useTranslation()
 
   return (
-    <div className="min-h-screen bg-atm-bg text-atm-ink">
+    <div className="min-h-screen bg-cream text-ink">
       <AnnouncementBar />
       <AppHeader />
 
-      {/* ===== Hero (dark) ===== */}
-      <section className="relative bg-atm-ink text-atm-bg overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(224,120,86,0.18),transparent_55%)]" aria-hidden />
+      {/* ===== Hero (dark) — 브랜드 표면은 다크 유지, 액센트만 Record 그라데이션 (playbook 11-1) ===== */}
+      <section className="relative bg-ink text-white overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{ background: 'radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--record) 16%, transparent), transparent 55%)' }}
+          aria-hidden
+        />
         <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-28 grid md:grid-cols-[1.15fr_1fr] gap-12 md:gap-16 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/15 rounded-full text-xs text-atm-bg/85 mb-6 backdrop-blur">
-              <Sparkles size={14} className="text-atm-accent" />
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/15 rounded-pill text-xs text-white/85 mb-6 backdrop-blur">
+              <Sparkles size={14} className="text-record" />
               {t('landing.hero.badge')}
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-5 [word-break:keep-all]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display leading-[1.1] tracking-tight mb-5 [word-break:keep-all]">
               {t('landing.hero.headline1')}
               <br />
-              <span className="text-atm-accent">{t('landing.hero.headline2')}</span>
+              <span className="bg-grad-record bg-clip-text text-transparent">{t('landing.hero.headline2')}</span>
             </h1>
-            <p className="text-atm-bg/75 text-base sm:text-lg leading-relaxed max-w-xl mb-8 [word-break:keep-all]">
+            <p className="text-white/75 text-base sm:text-lg leading-relaxed max-w-xl mb-8 [word-break:keep-all]">
               {t('landing.hero.subtitle')}
             </p>
             <div className="flex flex-wrap gap-3">
               {user ? (
                 <Link
                   to="/app"
-                  className="px-6 py-3.5 bg-atm-accent text-white rounded-xl font-bold hover:opacity-90 transition active:scale-[0.98]"
+                  className="px-6 py-3.5 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
                 >
                   {t('landing.hero.ctaApp')}
                 </Link>
@@ -77,29 +84,29 @@ export default function Landing() {
                 <>
                   <Link
                     to="/signup"
-                    className="px-6 py-3.5 bg-atm-accent text-white rounded-xl font-bold hover:opacity-90 transition active:scale-[0.98]"
+                    className="px-6 py-3.5 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
                   >
                     {t('landing.hero.ctaPrimary')}
                   </Link>
                   <Link
                     to="/login"
-                    className="px-6 py-3.5 bg-white/10 border border-white/20 text-atm-bg rounded-xl font-bold hover:bg-white/20 transition active:scale-[0.98]"
+                    className="px-6 py-3.5 bg-white/10 border border-white/20 text-white rounded-pill font-bold hover:bg-white/20 transition active:scale-[0.98]"
                   >
                     {t('landing.hero.ctaLogin')}
                   </Link>
                 </>
               )}
             </div>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-mono tracking-wider uppercase text-atm-bg/55">
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-mono tracking-wider uppercase text-white/55">
               <span>{t('landing.hero.trust1')}</span>
               <span>·</span>
               <span>{t('landing.hero.trust2')}</span>
               <span>·</span>
               <span>{t('landing.hero.trust3')}</span>
               <span>·</span>
-              <span className="text-atm-accent/80">{t('landing.hero.trust4')}</span>
+              <span className="text-record/80">{t('landing.hero.trust4')}</span>
             </div>
-            <p className="mt-7 max-w-md text-xs leading-relaxed text-atm-bg/45 [word-break:keep-all]">
+            <p className="mt-7 max-w-md text-xs leading-relaxed text-white/45 [word-break:keep-all]">
               {t('landing.hero.privacy')}
             </p>
           </div>
@@ -124,13 +131,13 @@ export default function Landing() {
       {/* ===== Problem ===== */}
       <section className="px-6 py-20 md:py-24 max-w-5xl mx-auto">
         <header className="text-center mb-12">
-          <div className="text-xs font-mono tracking-[0.25em] uppercase text-atm-accent mb-3">
+          <div className="text-xs font-mono tracking-[0.25em] uppercase text-record mb-3">
             {t('landing.problem.label')}
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 [word-break:keep-all]">
+          <h2 className="text-3xl md:text-4xl font-display mb-4 [word-break:keep-all]">
             {t('landing.problem.title')}
           </h2>
-          <p className="text-atm-muted max-w-2xl mx-auto leading-relaxed [word-break:keep-all]">
+          <p className="text-ink-secondary max-w-2xl mx-auto leading-relaxed [word-break:keep-all]">
             {t('landing.problem.subtitle')}
           </p>
         </header>
@@ -139,13 +146,13 @@ export default function Landing() {
           {(['card1', 'card2', 'card3'] as const).map((k) => (
             <div
               key={k}
-              className="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm"
+              className="bg-surface border border-line rounded-card p-5 shadow-soft"
             >
-              <div className="text-3xl text-atm-accent mb-2 font-serif leading-none">"</div>
-              <p className="text-sm leading-relaxed text-atm-ink mb-3 [word-break:keep-all]">
+              <div className="text-3xl text-record mb-2 font-serif leading-none">"</div>
+              <p className="text-sm leading-relaxed text-ink mb-3 [word-break:keep-all]">
                 {t(`landing.problem.${k}.quote`)}
               </p>
-              <div className="text-xs font-mono tracking-wider text-atm-muted">
+              <div className="text-xs font-mono tracking-wider text-ink-secondary">
                 — {t(`landing.problem.${k}.meta`)}
               </div>
             </div>
@@ -236,7 +243,7 @@ export default function Landing() {
       />
 
       {/* Feature 05 — signature with extra message box */}
-      <section className="relative bg-gradient-to-b from-atm-bg via-white to-atm-bg px-6 py-20 md:py-24">
+      <section className="relative bg-cream px-6 py-20 md:py-24">
         <div className="max-w-6xl mx-auto grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-16 items-center">
           <div>
             <FeatureHeader
@@ -250,12 +257,12 @@ export default function Landing() {
             <FeaturePoints
               pointKeys={['landing.feature5.point1', 'landing.feature5.point2', 'landing.feature5.point3']}
             />
-            <div className="mt-6 bg-insight/10 border border-insight/25 rounded-2xl p-4">
+            <div className="mt-6 bg-insight/10 border border-insight/25 rounded-card p-4">
               <div className="text-sm font-bold text-insight mb-1 flex items-center gap-1.5">
                 <Sparkles size={14} />
                 {t('landing.feature5.messageTitle')}
               </div>
-              <p className="text-sm text-atm-ink leading-relaxed [word-break:keep-all]">
+              <p className="text-sm text-ink leading-relaxed [word-break:keep-all]">
                 {t('landing.feature5.messageSub')}
               </p>
             </div>
@@ -339,39 +346,39 @@ export default function Landing() {
       />
 
       {/* ===== Compare table ===== */}
-      <section className="px-6 py-20 md:py-24 bg-white border-y border-stone-200">
+      <section className="px-6 py-20 md:py-24 bg-surface border-y border-line">
         <div className="max-w-5xl mx-auto">
           <header className="text-center mb-10">
-            <div className="text-xs font-mono tracking-[0.25em] uppercase text-atm-accent mb-3">
+            <div className="text-xs font-mono tracking-[0.25em] uppercase text-record mb-3">
               {t('landing.compare.label')}
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 [word-break:keep-all]">
+            <h2 className="text-3xl md:text-4xl font-display mb-3 [word-break:keep-all]">
               {t('landing.compare.title')}
             </h2>
-            <p className="text-atm-muted [word-break:keep-all]">{t('landing.compare.subtitle')}</p>
+            <p className="text-ink-secondary [word-break:keep-all]">{t('landing.compare.subtitle')}</p>
           </header>
 
           <div className="overflow-x-auto -mx-6 px-6">
             <table className="w-full min-w-[640px] text-sm">
               <thead>
-                <tr className="border-b-2 border-atm-ink">
-                  <th className="text-left py-3 px-3 text-atm-muted font-mono text-xs tracking-wider uppercase">
+                <tr className="border-b-2 border-ink">
+                  <th className="text-left py-3 px-3 text-ink-secondary font-mono text-xs tracking-wider uppercase">
                     {t('landing.compare.colFeature')}
                   </th>
                   <th className="text-center py-3 px-3">
-                    <span className="inline-block px-2.5 py-1 bg-atm-accent text-white rounded-md text-xs font-bold">
+                    <span className="inline-block px-2.5 py-1 bg-grad-record text-white rounded-md text-xs font-bold">
                       Moa
                     </span>
                   </th>
-                  <th className="text-center py-3 px-3 text-atm-muted font-mono text-xs tracking-wider uppercase">
+                  <th className="text-center py-3 px-3 text-ink-secondary font-mono text-xs tracking-wider uppercase">
                     {t('landing.compare.colOther')}
                   </th>
-                  <th className="text-center py-3 px-3 text-atm-muted font-mono text-xs tracking-wider uppercase">
+                  <th className="text-center py-3 px-3 text-ink-secondary font-mono text-xs tracking-wider uppercase">
                     {t('landing.compare.colExcel')}
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-100">
+              <tbody className="divide-y divide-line">
                 {([
                   ['row1', 'check', 'cross', 'cross'],
                   ['row2', 'check', 'partial', 'cross'],
@@ -383,7 +390,7 @@ export default function Landing() {
                   ['row8', 'check', 'cross', 'check'],
                 ] as const).map(([rk, m, o, e]) => (
                   <tr key={rk}>
-                    <td className="py-3 px-3 font-medium text-atm-ink [word-break:keep-all]">
+                    <td className="py-3 px-3 font-medium text-ink [word-break:keep-all]">
                       {t(`landing.compare.${rk}`)}
                     </td>
                     <td className="py-3 px-3 text-center"><Mark v={m} /></td>
@@ -398,30 +405,35 @@ export default function Landing() {
       </section>
 
       {/* ===== Target (dark) ===== */}
-      <section className="bg-atm-ink text-atm-bg px-6 py-20 md:py-24">
+      <section className="bg-ink text-white px-6 py-20 md:py-24">
         <div className="max-w-5xl mx-auto">
           <header className="text-center mb-12">
-            <div className="text-xs font-mono tracking-[0.25em] uppercase text-atm-accent mb-3">
+            <div className="text-xs font-mono tracking-[0.25em] uppercase text-record mb-3">
               {t('landing.target.label')}
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold [word-break:keep-all]">
+            <h2 className="text-3xl md:text-4xl font-display [word-break:keep-all]">
               {t('landing.target.title')}
             </h2>
           </header>
 
           <div className="grid sm:grid-cols-3 gap-5">
-            {(['persona1', 'persona2', 'persona3'] as const).map((k) => (
+            {/* 이모지 대신 벡터 아이콘 + 시맨틱 그라데이션 칩 (playbook 11-3) */}
+            {([
+              ['persona1', Briefcase, 'bg-grad-record'],
+              ['persona2', GraduationCap, 'bg-grad-journey'],
+              ['persona3', Plane, 'bg-grad-saving'],
+            ] as const).map(([k, PersonaIcon, chip]) => (
               <div
                 key={k}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur"
+                className="bg-white/5 border border-white/10 rounded-card p-6 backdrop-blur"
               >
-                <div className="text-4xl mb-3" aria-hidden>
-                  {t(`landing.target.${k}.emoji`)}
-                </div>
+                <span className={`w-10 h-10 rounded-pill ${chip} flex items-center justify-center mb-3`} aria-hidden>
+                  <PersonaIcon size={18} className="text-white" />
+                </span>
                 <h3 className="text-lg font-bold mb-2 [word-break:keep-all]">
                   {t(`landing.target.${k}.name`)}
                 </h3>
-                <p className="text-sm text-atm-bg/70 leading-relaxed [word-break:keep-all]">
+                <p className="text-sm text-white/70 leading-relaxed [word-break:keep-all]">
                   {t(`landing.target.${k}.desc`)}
                 </p>
               </div>
@@ -431,24 +443,25 @@ export default function Landing() {
       </section>
 
       {/* ===== FAQ (light) ===== */}
-      <section className="px-6 py-20 bg-white border-y border-stone-200">
+      <section className="px-6 py-20 bg-surface border-y border-line">
         <Faq />
       </section>
 
       {/* ===== CTA 2 (dark) ===== */}
-      <section className="bg-gradient-to-br from-atm-ink to-stone-900 text-atm-bg px-6 py-20 md:py-24">
+      {/* 그라데이션 전면 배경 금지 (playbook 11-3) — 플랫 잉크 패널 */}
+      <section className="bg-ink text-white px-6 py-20 md:py-24">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 [word-break:keep-all]">
+          <h2 className="text-3xl md:text-4xl font-display mb-4 [word-break:keep-all]">
             {t('landing.cta2.title')}
           </h2>
-          <p className="text-atm-bg/75 text-base sm:text-lg leading-relaxed mb-8 [word-break:keep-all]">
+          <p className="text-white/75 text-base sm:text-lg leading-relaxed mb-8 [word-break:keep-all]">
             {t('landing.cta2.subtitle')}
           </p>
 
           {user ? (
             <Link
               to="/app"
-              className="inline-block px-8 py-4 bg-atm-accent text-white rounded-xl font-bold hover:opacity-90 transition active:scale-[0.98]"
+              className="inline-block px-8 py-4 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
             >
               {t('landing.hero.ctaApp')}
             </Link>
@@ -456,20 +469,20 @@ export default function Landing() {
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 to="/signup"
-                className="px-8 py-4 bg-atm-accent text-white rounded-xl font-bold hover:opacity-90 transition active:scale-[0.98]"
+                className="px-8 py-4 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
               >
                 {t('landing.hero.ctaPrimary')}
               </Link>
               <Link
                 to="/login"
-                className="px-8 py-4 bg-white/10 border border-white/20 text-atm-bg rounded-xl font-bold hover:bg-white/20 transition active:scale-[0.98]"
+                className="px-8 py-4 bg-white/10 border border-white/20 text-white rounded-pill font-bold hover:bg-white/20 transition active:scale-[0.98]"
               >
                 {t('landing.hero.ctaLogin')}
               </Link>
             </div>
           )}
 
-          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-mono tracking-wider uppercase text-atm-bg/55">
+          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-mono tracking-wider uppercase text-white/55">
             <span>{t('landing.cta2.trust1')}</span>
             <span>·</span>
             <span>{t('landing.cta2.trust2')}</span>
@@ -480,35 +493,35 @@ export default function Landing() {
       </section>
 
       {/* ===== Footer ===== */}
-      <footer className="px-6 py-10 bg-stone-50 border-t border-stone-200">
+      <footer className="px-6 py-10 bg-sunken border-t border-line">
         <div className="max-w-5xl mx-auto space-y-6 text-sm">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
             <div className="flex items-center gap-3">
               <img src="/favicon.svg" alt="" width={40} height={40} className="flex-shrink-0" />
               <div>
-                <div className="font-semibold text-atm-ink mb-0.5">{t('app.name')}</div>
-                <div className="text-xs text-atm-muted">{t('landing.footerTagline')}</div>
+                <div className="font-semibold text-ink mb-0.5">{t('app.name')}</div>
+                <div className="text-xs text-ink-secondary">{t('landing.footerTagline')}</div>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-atm-muted">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-ink-secondary">
               <a
                 href={`mailto:${SUPPORT_EMAIL}`}
-                className="inline-flex items-center gap-2 hover:text-atm-ink"
+                className="inline-flex items-center gap-2 hover:text-ink"
               >
                 <Mail size={14} /> {SUPPORT_EMAIL}
               </a>
-              <Link to="/pricing" className="hover:text-atm-ink">{t('common.pricing')}</Link>
-              <Link to="/terms" className="hover:text-atm-ink">{t('landing.footerTerms')}</Link>
-              <Link to="/privacy" className="hover:text-atm-ink">{t('landing.footerPrivacy')}</Link>
-              <Link to="/refund" className="hover:text-atm-ink">{t('common.refund')}</Link>
-              <Link to="/account-deletion" className="hover:text-atm-ink">{t('landing.footerDataDeletion')}</Link>
-              <Link to="/faq" className="hover:text-atm-ink">FAQ</Link>
+              <Link to="/pricing" className="hover:text-ink">{t('common.pricing')}</Link>
+              <Link to="/terms" className="hover:text-ink">{t('landing.footerTerms')}</Link>
+              <Link to="/privacy" className="hover:text-ink">{t('landing.footerPrivacy')}</Link>
+              <Link to="/refund" className="hover:text-ink">{t('common.refund')}</Link>
+              <Link to="/account-deletion" className="hover:text-ink">{t('landing.footerDataDeletion')}</Link>
+              <Link to="/faq" className="hover:text-ink">FAQ</Link>
             </div>
           </div>
 
           {/* 사업자 정보 — 전자상거래법 준수 */}
-          <div className="pt-5 border-t border-stone-200 text-[11px] text-atm-muted leading-relaxed">
-            <div className="font-semibold text-atm-ink mb-1.5">{COMPANY.legalNameKo} ({COMPANY.legalNameEn})</div>
+          <div className="pt-5 border-t border-line text-[11px] text-ink-secondary leading-relaxed">
+            <div className="font-semibold text-ink mb-1.5">{COMPANY.legalNameKo} ({COMPANY.legalNameEn})</div>
             <div className="flex flex-wrap gap-x-4 gap-y-1">
               <span>{t('landing.bizCeo')}: {COMPANY.ceo}</span>
               <span>{t('landing.bizNo')}: {COMPANY.businessRegistrationNumber}</span>
@@ -583,17 +596,17 @@ function FeatureHeader({
   return (
     <>
       <div className="flex items-center gap-3 mb-4">
-        <span className="font-mono text-xs tracking-[0.3em] text-atm-muted">{n}</span>
-        <span className="h-px flex-1 max-w-12 bg-stone-300" />
+        <span className="font-mono text-xs tracking-[0.3em] text-ink-secondary">{n}</span>
+        <span className="h-px flex-1 max-w-12 bg-line" />
         <span className={`inline-flex items-center gap-1.5 text-xs font-mono tracking-wider uppercase ${ACCENT[accent].text}`}>
           <Icon size={14} />
           {t(labelKey)}
         </span>
       </div>
-      <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4 [word-break:keep-all]">
+      <h2 className="text-3xl md:text-4xl font-display leading-tight mb-4 [word-break:keep-all]">
         {t(titleKey)}
       </h2>
-      <p className="text-atm-muted text-base md:text-lg leading-relaxed mb-5 [word-break:keep-all]">
+      <p className="text-ink-secondary text-base md:text-lg leading-relaxed mb-5 [word-break:keep-all]">
         {t(descKey)}
       </p>
       {/* 점-선 모티프 — 기능별 시맨틱 색으로 '한 줄 → 길' */}
@@ -607,9 +620,9 @@ function FeaturePoints({ pointKeys }: { pointKeys: string[] }) {
   return (
     <ul className="space-y-2.5">
       {pointKeys.map((k) => (
-        <li key={k} className="flex items-start gap-2.5 text-atm-ink">
-          <span className="mt-1 w-4 h-4 rounded-full bg-atm-accent/15 flex items-center justify-center flex-shrink-0">
-            <Check size={10} className="text-atm-accent" strokeWidth={3} />
+        <li key={k} className="flex items-start gap-2.5 text-ink">
+          <span className="mt-1 w-4 h-4 rounded-full bg-record/15 flex items-center justify-center flex-shrink-0">
+            <Check size={10} className="text-record" strokeWidth={3} />
           </span>
           <span className="text-sm md:text-base leading-relaxed [word-break:keep-all]">
             {t(k)}
@@ -623,21 +636,21 @@ function FeaturePoints({ pointKeys }: { pointKeys: string[] }) {
 function Mark({ v }: { v: 'check' | 'cross' | 'partial' }) {
   if (v === 'check') {
     return (
-      <span className="inline-flex w-7 h-7 items-center justify-center rounded-full bg-atm-accent/15">
-        <Check size={14} className="text-atm-accent" strokeWidth={3} />
+      <span className="inline-flex w-7 h-7 items-center justify-center rounded-full bg-record/15">
+        <Check size={14} className="text-record" strokeWidth={3} />
       </span>
     )
   }
   if (v === 'partial') {
     return (
-      <span className="inline-flex w-7 h-7 items-center justify-center rounded-full bg-stone-100">
-        <Minus size={14} className="text-atm-muted" strokeWidth={3} />
+      <span className="inline-flex w-7 h-7 items-center justify-center rounded-full bg-sunken">
+        <Minus size={14} className="text-ink-secondary" strokeWidth={3} />
       </span>
     )
   }
   return (
-    <span className="inline-flex w-7 h-7 items-center justify-center rounded-full bg-stone-100">
-      <X size={14} className="text-stone-400" strokeWidth={3} />
+    <span className="inline-flex w-7 h-7 items-center justify-center rounded-full bg-sunken">
+      <X size={14} className="text-ink-faint" strokeWidth={3} />
     </span>
   )
 }

@@ -16,7 +16,7 @@ export default function PhoneMockup({ children, className = '', maxWidth = 280 }
         className="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-black rounded-full z-10"
         aria-hidden
       />
-      <div className="rounded-[2rem] overflow-hidden bg-atm-bg aspect-[9/19] flex flex-col">
+      <div className="rounded-[2rem] overflow-hidden bg-cream aspect-[9/19] flex flex-col">
         {children}
       </div>
     </div>
