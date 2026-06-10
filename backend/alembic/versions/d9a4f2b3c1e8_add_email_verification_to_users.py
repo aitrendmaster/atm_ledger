@@ -32,12 +32,23 @@ def upgrade() -> None:
     # 2) 기존 사용자 backfill — 운영자/테스터 UX 보존.
     op.execute('UPDATE users SET email_verified = TRUE WHERE email_verified IS NULL')
     # 3) NOT NULL 로 승격 + server_default 부착 (신규 행은 false).
-    op.alter_column(
-        'users',
-        'email_verified',
-        nullable=False,
-        server_default=sa.text('FALSE'),
-    )
+    #    SQLite 는 ALTER COLUMN 미지원 — batch_alter_table 로 테이블 재생성 방식 사용.
+    #    (프로덕션 Postgres 에는 이미 적용된 리비전이므로 동작 변화 없음 — 로컬 dev 전용 호환 수정)
+    if op.get_bind().dialect.name == 'sqlite':
+        with op.batch_alter_table('users') as batch_op:
+            batch_op.alter_column(
+                'email_verified',
+                existing_type=sa.Boolean(),
+                nullable=False,
+                server_default=sa.text('FALSE'),
+            )
+    else:
+        op.alter_column(
+            'users',
+            'email_verified',
+            nullable=False,
+            server_default=sa.text('FALSE'),
+        )
 
     op.add_column(
         'users',
