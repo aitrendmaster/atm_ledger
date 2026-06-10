@@ -902,7 +902,8 @@ export default function ChatLedger() {
                   <button onClick={() => setPendingImage(null)} className="min-w-touch min-h-touch flex items-center justify-center"><X size={16} className="text-ink-secondary" /></button>
                 </div>
               )}
-              {/* QuickChip — 최근 사용 카테고리 기반 빠른 입력 (HANDOFF 3-4) */}
+              {/* QuickChip — 최근 사용 카테고리 기반 빠른 입력 (HANDOFF 3-4).
+                  라벨·삽입 텍스트 모두 현재 언어의 카테고리 번역(ledger.categories.*) 사용 */}
               {!locked && (() => {
                 const recentCats = [];
                 for (const e of [...entries].sort((a, b) => b.date.localeCompare(a.date))) {
@@ -912,13 +913,18 @@ export default function ChatLedger() {
                 if (recentCats.length === 0) return null;
                 return (
                   <div className="mb-2.5 flex gap-2 overflow-x-auto">
-                    {recentCats.map((cat) => (
-                      <button key={cat} type="button"
-                        onClick={() => setInput((prev) => (prev.trim() ? prev : `${cat.split('/')[0]} `))}
-                        className="shrink-0 bg-surface border border-line rounded-pill h-[34px] px-4 text-[13px] text-ink-secondary active:scale-[0.96]">
-                        {cat.split('/')[0]}
-                      </button>
-                    ))}
+                    {recentCats.map((cat) => {
+                      const label = t(`ledger.categories.${cat}`, { defaultValue: cat });
+                      // 삽입 템플릿은 첫 단어만 ("카페·간식" → "카페", "Cafe & Snacks" → "Cafe")
+                      const seed = label.split(/[·&/]/)[0].trim();
+                      return (
+                        <button key={cat} type="button"
+                          onClick={() => setInput((prev) => (prev.trim() ? prev : `${seed} `))}
+                          className="shrink-0 bg-surface border border-line rounded-pill h-[34px] px-4 text-[13px] text-ink-secondary active:scale-[0.96]">
+                          {label}
+                        </button>
+                      );
+                    })}
                   </div>
                 );
               })()}
@@ -1050,8 +1056,8 @@ export default function ChatLedger() {
               </div>
             </div>
 
-            {/* 탭 — 6개 (여정 = 스탬프 보드) */}
-            <div ref={tabsRef} className="flex gap-1 p-1 bg-sunken rounded-pill overflow-x-auto">
+            {/* 탭 — 6개, 3×2 그리드. 터치 타깃 ≥44px + 비활성도 또렷한 잉크 (모바일 가시성) */}
+            <div ref={tabsRef} className="grid grid-cols-3 gap-1.5 p-1.5 bg-sunken rounded-card">
               {[
                 { id: 'calendar', icon: Calendar },
                 { id: 'journey',  icon: StampIcon },
@@ -1061,9 +1067,10 @@ export default function ChatLedger() {
                 { id: 'balance',  icon: BarChart3 },
               ].map(tab => (
                 <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 py-2 px-1 rounded-pill text-[11px] lg:text-xs transition-all whitespace-nowrap flex items-center justify-center gap-1
-                    ${activeTab === tab.id ? 'bg-surface text-ink font-bold shadow-soft' : 'text-ink-faint font-medium'}`}>
-                  <tab.icon size={11} />
+                  aria-pressed={activeTab === tab.id}
+                  className={`min-h-touch px-2 py-2.5 rounded-pill text-[13px] transition-all whitespace-nowrap flex items-center justify-center gap-1.5 active:scale-[0.97]
+                    ${activeTab === tab.id ? 'bg-surface text-ink font-bold shadow-soft' : 'text-ink-secondary font-medium'}`}>
+                  <tab.icon size={15} strokeWidth={activeTab === tab.id ? 2.2 : 1.8} />
                   {t(`ledger.tabs.${tab.id}`, { defaultValue: tab.id === 'journey' ? '여정' : tab.id })}
                 </button>
               ))}

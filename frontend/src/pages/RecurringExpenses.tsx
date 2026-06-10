@@ -15,10 +15,10 @@
  *  - 행 단위 inline edit, 변경된 신규 행만 모아 "저장" 누르면 일괄 등록.
  *  - 기존 행은 onBlur 시 individual PATCH.
  */
-import { ChangeEvent, useMemo, useState } from 'react'
+import { ChangeEvent, ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ChevronLeft, Plus, Save, Trash2 } from 'lucide-react'
+import { AlertTriangle, ChevronLeft, Plus, Save, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 import AppHeader from '../components/AppHeader'
@@ -277,22 +277,22 @@ export default function RecurringExpenses() {
   }, [existingRows, legacyMissingEnd])
 
   return (
-    <div className="min-h-screen" style={{ background: '#F8F5EF' }}>
+    <div className="min-h-screen bg-cream font-sans">
       <AppHeader />
       <div className="max-w-6xl mx-auto px-4 pt-16 pb-12">
         <div className="flex items-center gap-3 mb-6">
           <Link
             to="/app"
-            className="flex items-center gap-1 px-3 py-1.5 bg-white border border-stone-200 rounded-lg text-sm text-atm-muted hover:bg-stone-50"
+            className="flex items-center gap-1 px-3 py-1.5 bg-surface border border-line rounded-pill text-sm text-ink-secondary hover:bg-sunken"
           >
             <ChevronLeft size={16} /> {t('recurring.backToLedger', { defaultValue: '가계부로' })}
           </Link>
-          <h1 className="text-2xl font-bold" style={{ color: '#2C2418' }}>
+          <h1 className="text-2xl font-display text-ink">
             {t('recurring.title', { defaultValue: '반복 지출 관리' })}
           </h1>
         </div>
 
-        <div className="rounded-2xl bg-amber-50 border border-amber-200 p-4 mb-6 text-sm text-amber-900">
+        <div className="rounded-card bg-amber-50 border border-amber-200 p-4 mb-6 text-sm text-amber-900">
           {t('recurring.helpText', {
             defaultValue:
               '매월/매주/매년 자동으로 반복되는 지출을 한 번만 등록하면 캘린더에 자동으로 표시돼. 예시: 매월 16일 이자, 매주 월요일 점심 모임 회비 등.',
@@ -301,8 +301,8 @@ export default function RecurringExpenses() {
 
         {/* 레거시 경고: 종료일 없는 반복 규칙 */}
         {legacyMissingEnd.length > 0 && (
-          <div className="rounded-2xl bg-red-50 border border-red-200 p-4 mb-6 text-sm text-red-900 flex items-start gap-2">
-            <span aria-hidden className="text-base leading-none">⚠️</span>
+          <div className="rounded-card bg-red-50 border border-red-200 p-4 mb-6 text-sm text-red-900 flex items-start gap-2">
+            <AlertTriangle size={16} className="flex-shrink-0 mt-0.5" aria-hidden />
             <div>
               <div className="font-semibold mb-1">
                 {t('recurring.validation.missingEndDateTitle', {
@@ -323,7 +323,7 @@ export default function RecurringExpenses() {
         {/* 기존 규칙 */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
-            <h2 className="text-sm font-semibold" style={{ color: '#7A7567' }}>
+            <h2 className="text-sm font-semibold text-ink-secondary">
               {t('recurring.existing', { defaultValue: '등록된 반복 지출' })} ({existingRowsRaw.length})
             </h2>
             {pendingCount > 0 && (
@@ -337,7 +337,7 @@ export default function RecurringExpenses() {
                 <button
                   type="button"
                   onClick={() => setPendingPatches({})}
-                  className="px-2 py-0.5 text-atm-muted hover:text-atm-ink underline"
+                  className="px-2 py-0.5 text-ink-secondary hover:text-ink underline"
                 >
                   {t('recurring.revertAll', { defaultValue: '되돌리기' })}
                 </button>
@@ -345,13 +345,13 @@ export default function RecurringExpenses() {
             )}
           </div>
           {isLoading ? (
-            <div className="text-sm text-atm-muted">{t('recurring.loading', { defaultValue: '불러오는 중…' })}</div>
+            <div className="text-sm text-ink-secondary">{t('recurring.loading', { defaultValue: '불러오는 중…' })}</div>
           ) : existingRows.length === 0 ? (
-            <div className="text-sm text-atm-muted bg-white border border-stone-200 rounded-xl p-4">
+            <div className="text-sm text-ink-secondary bg-surface border border-line rounded-card p-4">
               {t('recurring.empty', { defaultValue: '아직 등록된 반복 지출이 없어. 아래 + 추가 버튼으로 시작해봐.' })}
             </div>
           ) : (
-            <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
+            <div className="bg-surface border border-line rounded-card overflow-hidden">
               <Table
                 rows={sortedExistingRows}
                 onPatch={(id, patch) => stashExistingPatch(id!, patch)}
@@ -376,14 +376,14 @@ export default function RecurringExpenses() {
         {/* 신규 추가 draft */}
         <section>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold" style={{ color: '#7A7567' }}>
+            <h2 className="text-sm font-semibold text-ink-secondary">
               {t('recurring.newRows', { defaultValue: '새로 추가' })} ({drafts.length})
             </h2>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={addRow}
-                className="flex items-center gap-1 px-3 py-1.5 bg-white border border-stone-200 rounded-lg text-sm text-atm-text hover:bg-stone-50"
+                className="flex items-center gap-1 px-3 py-1.5 bg-surface border border-line rounded-pill text-sm text-ink hover:bg-sunken"
               >
                 <Plus size={14} /> {t('recurring.addRow', { defaultValue: '행 추가' })}
               </button>
@@ -391,8 +391,7 @@ export default function RecurringExpenses() {
                 type="button"
                 onClick={saveAll}
                 disabled={totalToSave === 0 || createBatch.isPending || update.isPending}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-white disabled:opacity-50"
-                style={{ background: '#A0633C' }}
+                className="flex items-center gap-1 px-4 py-2 min-h-touch rounded-pill text-sm font-bold text-ink-ondark bg-grad-record disabled:opacity-50 active:scale-[0.97]"
               >
                 <Save size={14} /> {createBatch.isPending || update.isPending
                   ? t('recurring.saving', { defaultValue: '저장 중…' })
@@ -407,11 +406,11 @@ export default function RecurringExpenses() {
           </div>
 
           {drafts.length === 0 ? (
-            <div className="text-sm text-atm-muted bg-white border border-dashed border-stone-300 rounded-xl p-6 text-center">
+            <div className="text-sm text-ink-secondary bg-surface border border-dashed border-line rounded-card p-6 text-center">
               {t('recurring.emptyDraft', { defaultValue: '“+ 행 추가” 로 시작 — 여러 건을 한꺼번에 추가하고 마지막에 일괄 저장하면 돼.' })}
             </div>
           ) : (
-            <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
+            <div className="bg-surface border border-line rounded-card overflow-hidden">
               <Table
                 rows={drafts}
                 onPatch={(_, patch, idx) => updateDraft(idx!, patch)}
@@ -446,11 +445,194 @@ interface TableProps {
   dirtyIds?: Set<number>
 }
 
+/** 모바일 카드 필드 라벨 */
+function FieldLabel({ children }: { children: ReactNode }) {
+  return <label className="block text-[11px] text-ink-tertiary mb-1">{children}</label>
+}
+
+const M_INPUT =
+  'w-full bg-sunken rounded-pill px-3.5 py-2.5 text-sm text-ink outline-none disabled:opacity-40'
+
 function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDraft = false, missingEndIds, dirtyIds }: TableProps) {
   return (
-    <div className="overflow-x-auto">
+    <>
+      {/* ===== 모바일 (< md): 행당 카드 — 가로 스크롤 테이블 대신 세로 스택 ===== */}
+      <div className="md:hidden divide-y divide-line">
+        {rows.map((r, idx) => {
+          const isMissingEnd = r.id != null && missingEndIds?.has(r.id)
+          const isDirty = r.id != null && dirtyIds?.has(r.id)
+          const rowBg = isMissingEnd ? 'bg-red-50' : isDirty ? 'bg-amber-50' : ''
+          return (
+            <div key={r.id ?? `draft-${idx}`} className={`p-4 ${rowBg}`}>
+              <div className="flex items-start gap-2">
+                <div className="flex-1 min-w-0">
+                  <FieldLabel>{t('recurring.headers.description', { defaultValue: '설명' })}</FieldLabel>
+                  <input
+                    className={M_INPUT}
+                    value={r.description}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      onPatch(r.id, { description: e.target.value }, idx)
+                    }
+                    placeholder={t('recurring.placeholders.description', { defaultValue: '예: 16일 대출 이자' })}
+                    disabled={!editable}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onRemove(r.id, idx)}
+                  className="mt-5 w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-pill text-red-500 active:bg-red-50"
+                  title={t('recurring.delete', { defaultValue: '삭제' })}
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
+
+              <div className="mt-3 grid grid-cols-2 gap-2.5">
+                <div>
+                  <FieldLabel>{t('recurring.headers.amount', { defaultValue: '금액' })}</FieldLabel>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    className={M_INPUT}
+                    value={r.amount || ''}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      onPatch(r.id, { amount: Number(e.target.value) }, idx)
+                    }
+                    placeholder="0"
+                    disabled={!editable}
+                  />
+                  <div className="mt-0.5 text-[10px] text-ink-tertiary text-right">
+                    {r.amount ? formatCurrency(r.amount, cur) : `${curSym}0`}
+                  </div>
+                </div>
+                <div>
+                  <FieldLabel>{t('recurring.headers.category', { defaultValue: '카테고리' })}</FieldLabel>
+                  <select
+                    className={M_INPUT}
+                    value={r.category}
+                    onChange={(e) => onPatch(r.id, { category: e.target.value }, idx)}
+                    disabled={!editable}
+                  >
+                    {CATEGORIES.map((c) => (
+                      <option key={c} value={c}>
+                        {t(`ledger.categories.${c}`, c)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <FieldLabel>{t('recurring.headers.recurrence', { defaultValue: '반복 주기' })}</FieldLabel>
+                  <select
+                    className={M_INPUT}
+                    value={r.recurrence}
+                    onChange={(e) => {
+                      const rec = e.target.value as Recurrence
+                      onPatch(
+                        r.id,
+                        {
+                          recurrence: rec,
+                          recurrence_day:
+                            rec === 'monthly'
+                              ? r.recurrence_day || 1
+                              : rec === 'weekly'
+                                ? r.recurrence_day || 0
+                                : null,
+                        },
+                        idx,
+                      )
+                    }}
+                    disabled={!editable}
+                  >
+                    {FREQUENCIES.map((f) => (
+                      <option key={f} value={f}>
+                        {t(`recurring.frequency.${f}`, {
+                          defaultValue:
+                            f === 'none'
+                              ? '없음 (1회성)'
+                              : f === 'monthly'
+                                ? '매월'
+                                : f === 'weekly'
+                                  ? '매주'
+                                  : '매년',
+                        })}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <FieldLabel>{t('recurring.headers.day', { defaultValue: '반복 일' })}</FieldLabel>
+                  {r.recurrence === 'monthly' && (
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      min={1}
+                      max={31}
+                      className={M_INPUT}
+                      value={r.recurrence_day ?? ''}
+                      onChange={(e) =>
+                        onPatch(r.id, { recurrence_day: e.target.value === '' ? null : Number(e.target.value) }, idx)
+                      }
+                      placeholder="16"
+                      disabled={!editable}
+                    />
+                  )}
+                  {r.recurrence === 'weekly' && (
+                    <select
+                      className={M_INPUT}
+                      value={r.recurrence_day ?? 0}
+                      onChange={(e) => onPatch(r.id, { recurrence_day: Number(e.target.value) }, idx)}
+                      disabled={!editable}
+                    >
+                      {WEEKDAYS.map((wd, wi) => (
+                        <option key={wd} value={wi}>
+                          {t(`recurring.weekday.${wd}`, {
+                            defaultValue: ['월', '화', '수', '목', '금', '토', '일'][wi],
+                          })}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  {r.recurrence === 'none' && (
+                    <div className={`${M_INPUT} text-ink-faint`}>—</div>
+                  )}
+                  {r.recurrence === 'yearly' && (
+                    <div className={`${M_INPUT} text-ink-faint text-xs flex items-center`}>
+                      {t('recurring.fromStartDate', { defaultValue: '시작일의 월/일' })}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <FieldLabel>{t('recurring.headers.startDate', { defaultValue: '시작일' })}</FieldLabel>
+                  <input
+                    type="date"
+                    className={M_INPUT}
+                    value={r.date}
+                    onChange={(e) => onPatch(r.id, { date: e.target.value }, idx)}
+                    disabled={!editable}
+                  />
+                </div>
+                <div>
+                  <FieldLabel>{t('recurring.headers.until', { defaultValue: '종료일 (선택)' })}</FieldLabel>
+                  <input
+                    type="date"
+                    className={M_INPUT}
+                    value={r.recurrence_until ?? ''}
+                    onChange={(e) =>
+                      onPatch(r.id, { recurrence_until: e.target.value || null }, idx)
+                    }
+                    disabled={!editable || r.recurrence === 'none'}
+                  />
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* ===== 데스크탑 (md+): 기존 테이블 ===== */}
+      <div className="hidden md:block overflow-x-auto">
       <table className="w-full text-sm">
-        <thead className="bg-stone-50 text-xs uppercase tracking-wide text-atm-muted">
+        <thead className="bg-sunken text-xs uppercase tracking-wide text-ink-secondary">
           <tr>
             <th className="text-left px-3 py-2 min-w-[180px]">{t('recurring.headers.description', { defaultValue: '설명' })}</th>
             <th className="text-right px-3 py-2 min-w-[120px]">{t('recurring.headers.amount', { defaultValue: '금액' })}</th>
@@ -471,11 +653,11 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
             return (
             <tr
               key={r.id ?? `draft-${idx}`}
-              className={`border-t border-stone-100 ${rowBg}`}
+              className={`border-t border-line ${rowBg}`}
             >
               <td className="px-3 py-2">
                 <input
-                  className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
+                  className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded"
                   value={r.description}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onPatch(r.id, { description: e.target.value }, idx)
@@ -487,7 +669,7 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
               <td className="px-3 py-2 text-right">
                 <input
                   type="number"
-                  className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded text-right"
+                  className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded text-right"
                   value={r.amount || ''}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onPatch(r.id, { amount: Number(e.target.value) }, idx)
@@ -495,11 +677,11 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
                   placeholder="0"
                   disabled={!editable}
                 />
-                <div className="text-[10px] text-atm-muted">{r.amount ? formatCurrency(r.amount, cur) : `${curSym}0`}</div>
+                <div className="text-[10px] text-ink-secondary">{r.amount ? formatCurrency(r.amount, cur) : `${curSym}0`}</div>
               </td>
               <td className="px-3 py-2">
                 <select
-                  className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
+                  className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded"
                   value={r.category}
                   onChange={(e) => onPatch(r.id, { category: e.target.value }, idx)}
                   disabled={!editable}
@@ -513,7 +695,7 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
               </td>
               <td className="px-3 py-2">
                 <select
-                  className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
+                  className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded"
                   value={r.recurrence}
                   onChange={(e) => {
                     const rec = e.target.value as Recurrence
@@ -555,7 +737,7 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
                     type="number"
                     min={1}
                     max={31}
-                    className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
+                    className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded"
                     value={r.recurrence_day ?? ''}
                     onChange={(e) =>
                       onPatch(r.id, { recurrence_day: e.target.value === '' ? null : Number(e.target.value) }, idx)
@@ -566,7 +748,7 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
                 )}
                 {r.recurrence === 'weekly' && (
                   <select
-                    className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
+                    className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded"
                     value={r.recurrence_day ?? 0}
                     onChange={(e) => onPatch(r.id, { recurrence_day: Number(e.target.value) }, idx)}
                     disabled={!editable}
@@ -580,13 +762,13 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
                     ))}
                   </select>
                 )}
-                {r.recurrence === 'none' && <span className="text-xs text-atm-muted">—</span>}
-                {r.recurrence === 'yearly' && <span className="text-xs text-atm-muted">{t('recurring.fromStartDate', { defaultValue: '시작일의 월/일' })}</span>}
+                {r.recurrence === 'none' && <span className="text-xs text-ink-secondary">—</span>}
+                {r.recurrence === 'yearly' && <span className="text-xs text-ink-secondary">{t('recurring.fromStartDate', { defaultValue: '시작일의 월/일' })}</span>}
               </td>
               <td className="px-3 py-2">
                 <input
                   type="date"
-                  className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
+                  className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded"
                   value={r.date}
                   onChange={(e) => onPatch(r.id, { date: e.target.value }, idx)}
                   disabled={!editable}
@@ -595,7 +777,7 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
               <td className="px-3 py-2">
                 <input
                   type="date"
-                  className="w-full bg-transparent outline-none focus:bg-stone-50 px-1 py-0.5 rounded"
+                  className="w-full bg-transparent outline-none focus:bg-sunken px-1 py-0.5 rounded"
                   value={r.recurrence_until ?? ''}
                   onChange={(e) =>
                     onPatch(r.id, { recurrence_until: e.target.value || null }, idx)
@@ -617,6 +799,7 @@ function Table({ rows, onPatch, onRemove, t, curSym, cur, editable = false, isDr
           )})}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
   )
 }
