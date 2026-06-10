@@ -99,10 +99,7 @@ export default function Landing() {
               <span>·</span>
               <span className="text-atm-accent/80">{t('landing.hero.trust4')}</span>
             </div>
-            {/* 키 비주얼: 한 줄 → 길 (점-선 모티프) */}
-            <DotLine color="record" count={9} className="mt-7 max-w-[260px] opacity-90" />
-            <DotLine color="journey" count={9} filled={6} className="mt-2 max-w-[260px] opacity-70" />
-            <p className="mt-4 max-w-md text-xs leading-relaxed text-atm-bg/45 [word-break:keep-all]">
+            <p className="mt-7 max-w-md text-xs leading-relaxed text-atm-bg/45 [word-break:keep-all]">
               {t('landing.hero.privacy')}
             </p>
           </div>
