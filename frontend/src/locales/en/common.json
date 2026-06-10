@@ -1,7 +1,13 @@
 {
   "app": {
     "name": "Moa 365",
-    "tagline": "The ledger you finish in one line."
+    "tagline": "One line a day. Your journey."
+  },
+  "onboarding": {
+    "common": { "next": "Next", "skip": "Skip" },
+    "s1": { "head": "Just one line, bookkeeping done.", "sub": "No category picking, no bank linking. Just write." },
+    "s2": { "head": "The AI sorts it for you.", "sub": "Date, amount, category — all read from one line." },
+    "s3": { "head": "Today's spending — jot one down?", "sub": "Keep it easy, like: \"coffee 4500\" / \"bus 1500\" / \"chicken 23000\"", "cta": "Write my first line" }
   },
   "lang": {
     "label": "Language"
@@ -28,8 +34,8 @@
   },
   "landing": {
     "badge": "Free Beta — AI Ledger",
-    "headline1": "Just chat,",
-    "headline2": "look back on your month.",
+    "headline1": "Just one line,",
+    "headline2": "bookkeeping done.",
     "subtitle": "Type \"latte $5\" and you're done. AI sorts the category, amount and date for you, and a monthly coach helps you build better spending habits.",
     "ctaPrimary": "Start for free",
     "ctaLogin": "Log in",
@@ -46,7 +52,7 @@
     "uspCoachDesc": "Record regrets, wins and next month's pledge — the AI coach compares with last month and offers warm insights.",
     "cta2Heading": "Start today and notice the difference this month.",
     "cta2Subtitle": "Signup in 30 seconds. No credit card. Free during beta.",
-    "footerTagline": "The ledger you finish in one line.",
+    "footerTagline": "One line a day. Your journey.",
     "footerTerms": "Terms",
     "footerPrivacy": "Privacy",
     "footerDataDeletion": "Delete data",
@@ -56,8 +62,8 @@
     "bizAddress": "Address",
     "hero": {
       "badge": "Free beta · AI ledger",
-      "headline1": "One line of chat,",
-      "headline2": "and your ledger's done.",
+      "headline1": "Just one line,",
+      "headline2": "bookkeeping done.",
       "subtitle": "No spreadsheets. No receipts. Just type \"latte $5\" and Moa sorts it out, then walks you through your month with you.",
       "ctaPrimary": "Start for free",
       "ctaLogin": "Log in",
@@ -409,7 +415,7 @@
       "guideButton": "What can I type? See guide"
     },
     "messages": {
-      "welcome": "Hi! Let's start your ledger 📒",
+      "welcome": "Today's spending — jot just one down. One line, the way you'd talk 📒",
       "welcomeHint": "Just type the way you'd talk — e.g. \"lunch kimbap 4 today\". Tap the 💡 button next to the input to see what you can say. Use the Calendar / Places / Review / Plan / Balance tabs to wrap up the month, and the ✏️·🗑 icons on each row to edit or delete an entry.",
       "recorded": "Saved ✓ ({{count}} item(s))",
       "placeRecognized": "📍 \"{{name}}\" detected. Open the entry to pick the exact spot.",

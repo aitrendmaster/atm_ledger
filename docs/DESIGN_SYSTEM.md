@@ -423,6 +423,24 @@ extend: {
 
 ---
 
+## 14b. moa365 브랜드 4색 시맨틱 + 점-선 모티프 (2026-06 플레이북)
+
+> 근거: `moa365-brand-playbook.md` Part 4. 기존 `atm.*`(warm cream/coral) 토큰과 **공존**.
+> 이 4색은 **제품 기능 축**(Record/Journey/Insight/Growth)으로, 지출 카테고리 10색과 별개다. 혼용 금지.
+
+| 컨셉 | 의미 | 그라데이션(좌→우) | 매핑 |
+|---|---|---|---|
+| **Record** | 한 줄 기록·입력 | `#FF6B2C → #FFA63D` | 채팅 입력·음성·영수증 (accent `#E07856`와 정합) |
+| **Journey** | 쌓여가는 여정 | `#01DCE3 → #2D7DFF` | 캘린더·장소·타임라인 |
+| **Insight** | 월간 AI 리뷰·패턴 | `#7B61FF → #A78BFA` | AI 코칭·분석 |
+| **Growth** | 목표·성장 | `#9BE15D → #00C48C` | 반복지출·잔액·목표 |
+
+**토큰**(`tailwind.config.js`): `colors.{record,journey,insight,growth}.{from,to,DEFAULT}` + `backgroundImage.bg-grad-{record,journey,insight,growth}`. 그라데이션 방향은 **좌→우 통일**(시간=여정).
+**폰트**: Pretendard(동적 서브셋 CDN, `index.css` @import; 오프라인 시 시스템 폴백). `fontFamily.sans` 우선순위 갱신.
+**점-선 모티프**: `frontend/src/components/brand/DotLine.tsx` — 점=하루 기록, 선=여정(우측 연장). props `count/filled/color`. 키비주얼(랜딩 히어로)·온보딩에 적용, P2에서 연속기록 StreakDots·Wrapped 항로로 확장.
+**운영 규칙**: 직접적 항해 오브제(배·돛·나침반·키) 금지 — 메타포는 '선과 점'으로만 추상화.
+
 ## 15. 변경 이력
 
+- **2026-06-10**: moa365 브랜드 플레이북 반영 — 4색 시맨틱·Pretendard·점-선 모티프(`DotLine`) 추가(§14b). L1 슬로건/온보딩 동반.
 - **2026-05-21**: 본 문서 신규 작성. Landing 원페이저 리뉴얼과 함께 디자인 시스템 공식 문서화.
