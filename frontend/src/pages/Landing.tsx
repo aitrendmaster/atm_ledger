@@ -29,6 +29,15 @@ import MockPlacePanel from '../components/landing/MockPlacePanel'
 import MockInsightPanel from '../components/landing/MockInsightPanel'
 import MockBalancePanel from '../components/landing/MockBalancePanel'
 import MockRecurringPanel from '../components/landing/MockRecurringPanel'
+import DotLine, { type DotLineColor } from '../components/brand/DotLine'
+
+// 4 시맨틱 액센트 → 정적 Tailwind 클래스(문자열 리터럴이어야 JIT 가 생성). text-* 는 DEFAULT 색.
+const ACCENT: Record<DotLineColor, { text: string }> = {
+  record: { text: 'text-record' },
+  journey: { text: 'text-journey' },
+  insight: { text: 'text-insight' },
+  growth: { text: 'text-growth' },
+}
 
 export default function Landing() {
   const { user } = useAuth()
@@ -90,6 +99,9 @@ export default function Landing() {
               <span>·</span>
               <span className="text-atm-accent/80">{t('landing.hero.trust4')}</span>
             </div>
+            {/* 키 비주얼: 한 줄 → 길 (점-선 모티프) */}
+            <DotLine color="record" count={9} className="mt-7 max-w-[260px] opacity-90" />
+            <DotLine color="journey" count={9} filled={6} className="mt-2 max-w-[260px] opacity-70" />
             <p className="mt-4 max-w-md text-xs leading-relaxed text-atm-bg/45 [word-break:keep-all]">
               {t('landing.hero.privacy')}
             </p>
@@ -147,6 +159,7 @@ export default function Landing() {
       {/* ===== Features ===== */}
       <FeatureSection
         n="01"
+        accent="record"
         icon={MessageCircle}
         labelKey="landing.feature1.label"
         titleKey="landing.feature1.title"
@@ -170,6 +183,7 @@ export default function Landing() {
 
       <FeatureSection
         n="02"
+        accent="journey"
         reverse
         icon={CalendarDays}
         labelKey="landing.feature2.label"
@@ -192,6 +206,7 @@ export default function Landing() {
 
       <FeatureSection
         n="03"
+        accent="growth"
         icon={ListChecks}
         labelKey="landing.feature3.label"
         titleKey="landing.feature3.title"
@@ -209,6 +224,7 @@ export default function Landing() {
 
       <FeatureSection
         n="04"
+        accent="journey"
         reverse
         icon={MapPin}
         labelKey="landing.feature4.label"
@@ -232,12 +248,13 @@ export default function Landing() {
               labelKey="landing.feature5.label"
               titleKey="landing.feature5.title"
               descKey="landing.feature5.desc"
+              accent="insight"
             />
             <FeaturePoints
               pointKeys={['landing.feature5.point1', 'landing.feature5.point2', 'landing.feature5.point3']}
             />
-            <div className="mt-6 bg-atm-accent/10 border border-atm-accent/25 rounded-2xl p-4">
-              <div className="text-sm font-bold text-atm-accent mb-1 flex items-center gap-1.5">
+            <div className="mt-6 bg-insight/10 border border-insight/25 rounded-2xl p-4">
+              <div className="text-sm font-bold text-insight mb-1 flex items-center gap-1.5">
                 <Sparkles size={14} />
                 {t('landing.feature5.messageTitle')}
               </div>
@@ -262,6 +279,7 @@ export default function Landing() {
 
       <FeatureSection
         n="06"
+        accent="growth"
         reverse
         icon={Wallet}
         labelKey="landing.feature6.label"
@@ -283,6 +301,7 @@ export default function Landing() {
 
       <FeatureSection
         n="07"
+        accent="growth"
         icon={Repeat}
         labelKey="landing.feature7.label"
         titleKey="landing.feature7.title"
@@ -515,6 +534,7 @@ interface FeatureSectionProps {
   pointKeys: string[]
   mockup: React.ReactNode
   reverse?: boolean
+  accent?: DotLineColor
 }
 
 function FeatureSection({
@@ -526,6 +546,7 @@ function FeatureSection({
   pointKeys,
   mockup,
   reverse,
+  accent = 'record',
 }: FeatureSectionProps) {
   return (
     <section className="px-6 py-20 md:py-24 max-w-6xl mx-auto">
@@ -535,7 +556,7 @@ function FeatureSection({
         }`}
       >
         <div>
-          <FeatureHeader n={n} icon={Icon} labelKey={labelKey} titleKey={titleKey} descKey={descKey} />
+          <FeatureHeader n={n} icon={Icon} labelKey={labelKey} titleKey={titleKey} descKey={descKey} accent={accent} />
           <FeaturePoints pointKeys={pointKeys} />
         </div>
         <div className={`flex justify-center ${reverse ? 'md:justify-start' : 'md:justify-end'}`}>
@@ -552,12 +573,14 @@ function FeatureHeader({
   labelKey,
   titleKey,
   descKey,
+  accent = 'record',
 }: {
   n: string
   icon: LucideIcon
   labelKey: string
   titleKey: string
   descKey: string
+  accent?: DotLineColor
 }) {
   const { t } = useTranslation()
   return (
@@ -565,7 +588,7 @@ function FeatureHeader({
       <div className="flex items-center gap-3 mb-4">
         <span className="font-mono text-xs tracking-[0.3em] text-atm-muted">{n}</span>
         <span className="h-px flex-1 max-w-12 bg-stone-300" />
-        <span className="inline-flex items-center gap-1.5 text-xs font-mono tracking-wider uppercase text-atm-accent">
+        <span className={`inline-flex items-center gap-1.5 text-xs font-mono tracking-wider uppercase ${ACCENT[accent].text}`}>
           <Icon size={14} />
           {t(labelKey)}
         </span>
@@ -573,9 +596,11 @@ function FeatureHeader({
       <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4 [word-break:keep-all]">
         {t(titleKey)}
       </h2>
-      <p className="text-atm-muted text-base md:text-lg leading-relaxed mb-6 [word-break:keep-all]">
+      <p className="text-atm-muted text-base md:text-lg leading-relaxed mb-5 [word-break:keep-all]">
         {t(descKey)}
       </p>
+      {/* 점-선 모티프 — 기능별 시맨틱 색으로 '한 줄 → 길' */}
+      <DotLine color={accent} count={6} className="max-w-[150px] mb-1" />
     </>
   )
 }
