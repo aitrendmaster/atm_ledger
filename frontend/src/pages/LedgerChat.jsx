@@ -1317,6 +1317,23 @@ export default function ChatLedger() {
                             <Quote size={14} style={{ color: '#A0633C' }} className="flex-shrink-0 mt-0.5" />
                             <p className="text-sm" style={{ color: '#2C2418' }}>{aiInsight.summary}</p>
                           </div>
+                          {aiInsight.premium_required && (
+                            <div className="relative p-4 rounded-2xl overflow-hidden border" style={{ borderColor: '#E8E2D5', backgroundColor: '#FBF8F3' }}>
+                              <div className="space-y-2 select-none pointer-events-none" style={{ filter: 'blur(5px)' }} aria-hidden="true">
+                                <div className="h-3 rounded" style={{ width: '66%', backgroundColor: '#E8EEE6' }} />
+                                <div className="h-3 rounded" style={{ width: '100%', backgroundColor: '#FDF0EA' }} />
+                                <div className="h-3 rounded" style={{ width: '80%', backgroundColor: '#F0E6F1' }} />
+                              </div>
+                              <div className="mt-3 flex flex-col items-center text-center gap-1.5">
+                                <span className="text-2xl leading-none">🔒</span>
+                                <div className="text-sm font-bold" style={{ color: '#2C2418' }}>{t('ledger.reflect.premiumTitle')}</div>
+                                <div className="text-xs" style={{ color: '#7A7567' }}>{t('ledger.reflect.premiumDesc')}</div>
+                                <button onClick={goUpgrade} className="mt-1 px-4 py-2 rounded-xl text-sm font-bold active:scale-[0.98]" style={{ backgroundColor: '#E07856', color: '#FFFDF8' }}>
+                                  {t('ledger.reflect.premiumCta')}
+                                </button>
+                              </div>
+                            </div>
+                          )}
                           {aiInsight.praise && (
                             <div className="p-3 rounded-2xl" style={{ backgroundColor: '#E8EEE6' }}>
                               <div className="flex items-center gap-1.5 mb-1"><ThumbsUp size={12} style={{ color: '#6B8E6B' }} /><span className="text-xs font-medium" style={{ color: '#6B8E6B' }}>{t('ledger.reflect.praise')}</span></div>

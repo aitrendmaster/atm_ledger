@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..config import get_settings
 from ..database import get_db
-from ..deps import get_current_user, is_admin, require_active_plan
+from ..deps import get_current_user, is_admin, is_premium, require_active_plan
 from ..models.ai_usage import AIUsage
 from ..models.user import User
 from ..schemas.ai import (
@@ -95,4 +95,14 @@ async def insight_from_stats(
         user_locale=user.locale or "ko",
         currency_code=user.currency_code or "KRW",
     )
+    # 프리미엄 전환 후킹: 비프리미엄(무료·트라이얼)은 1단(요약)만, 2~4단은 서버에서 비움.
+    # 클라 블러만이면 우회 가능하므로 반드시 서버에서 미포함.
+    if not is_premium(user):
+        return InsightResponse(
+            summary=out.get("summary", ""),
+            praise="",
+            concern="",
+            suggestion="",
+            premium_required=True,
+        )
     return InsightResponse(**out)
