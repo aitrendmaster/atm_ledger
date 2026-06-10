@@ -4,6 +4,7 @@
  * 베이스라인이 마지막 점 너머로 연장돼 '계속 이어지는 여정'의 인상을 준다.
  * 키비주얼·연속기록(P2 StreakDots)·결산 카드에서 공용.
  */
+import { useId } from 'react'
 
 const GRAD: Record<string, [string, string]> = {
   record: ['#FF6B2C', '#FFA63D'],
@@ -37,7 +38,8 @@ export default function DotLine({
   const tail = gap * 1.6 // 마지막 점 너머로 선 연장(여정 지속)
   const width = padL + (count - 1) * gap + tail
   const cy = height / 2
-  const id = `dotline-${color}`
+  // 인스턴스별 고유 id — 같은 화면에 동색 DotLine 여러 개여도 gradient id 충돌 없음.
+  const id = `dotline-${color}-${useId().replace(/:/g, '')}`
   return (
     <svg
       className={className}

@@ -52,7 +52,9 @@
 - 웹/백엔드: Vercel/Render 연속배포(PR 머지).
 - **사용자 대면 디자인(폰트·슬로건·파비콘·스플래시) 변경 → 안드로이드 앱 별도 릴리스**(`npm run cap:sync` → 서명 AAB → Play). 이번 P0+P1은 **v1.4.6** 권장.
 
-## 5. 에이전트 팀 R&R → `infra/docs/AGENT_TEAM.md` "브랜드 이니셔티브" 섹션 참조.
+## 5. 팀 R&R
+- **엔지니어링**: `infra/docs/AGENT_TEAM.md` §7 "브랜드 이니셔티브".
+- **마케팅(기획·제작)**: `docs/moa365-marketing-roles.md` (M1~M7 + 캠페인 캘린더 + 퍼널/측정).
 
 ## 6. Play 스토어 카피 (플레이북 Part 7-2 — `PLAY_STORE_LISTING.md`에 반영)
 
