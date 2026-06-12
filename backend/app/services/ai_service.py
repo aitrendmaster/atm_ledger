@@ -80,6 +80,27 @@ def _strip_fence(text: str) -> str:
     return text.replace("```json", "").replace("```", "").strip()
 
 
+def _extract_json(text: str):
+    """모델 응답에서 첫 번째 JSON 값(object/array)을 관대하게 추출. 실패 시 None.
+
+    admin 오류 로그에 반복 기록된 두 케이스의 복구용:
+    - "Extra data: ..."      → 유효한 JSON 뒤에 모델이 설명 문장/두 번째 블록을 덧붙임
+    - "Expecting value: ..." → JSON 앞에 인사말 등 잡설이 붙음
+    둘 다 응답 안에 유효한 JSON 이 존재하므로 버리지 말고 첫 JSON 값만 취한다.
+    """
+    s = _strip_fence(text or "")
+    if not s:
+        return None
+    dec = json.JSONDecoder()
+    for m in re.finditer(r"[\{\[]", s):
+        try:
+            obj, _ = dec.raw_decode(s, m.start())
+            return obj
+        except json.JSONDecodeError:
+            continue
+    return None
+
+
 def _to_int_amount(v) -> int:
     """Locale-tolerant amount parser.
 
@@ -261,7 +282,16 @@ When NOT a transaction at all (greeting, question, etc.), return items=[], follo
         )
         in_tok, out_tok = _usage_from(resp)
         text_block = next((b.text for b in resp.content if b.type == "text"), "{}")
-        raw_resp = json.loads(_strip_fence(text_block) or "{}")
+        raw_resp = _extract_json(text_block)
+        if raw_resp is None:
+            # 응답 전체에 JSON 이 없음 — 관측 가능성을 위해 error 로 기록하고 빈 결과 반환
+            logger.warning(f"parse_expense: 비-JSON 응답 (head={text_block[:120]!r})")
+            await _record_usage(
+                user_id=user_id, kind="parse", model=MODEL_PARSE,
+                input_tokens=in_tok, output_tokens=out_tok,
+                status="error", error="non-JSON model response",
+            )
+            return {"items": [], "follow_up": None}
 
         # 하위 호환: 옛 prompt 시절 응답이 bare list 일 수도 있음.
         if isinstance(raw_resp, list):
@@ -394,7 +424,8 @@ Respond JSON only (write all 4 string values in the user's language — locale {
         )
         in_tok, out_tok = _usage_from(resp)
         text_block = next((b.text for b in resp.content if b.type == "text"), "{}")
-        result = json.loads(_strip_fence(text_block) or "{}") or fallback
+        extracted = _extract_json(text_block)
+        result = extracted if isinstance(extracted, dict) and extracted else fallback
         await _record_usage(
             user_id=user_id, kind="insight", model=MODEL_INSIGHT,
             input_tokens=in_tok, output_tokens=out_tok,
