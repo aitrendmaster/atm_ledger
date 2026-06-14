@@ -1,45 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- HashRouter SPA: 크롤러가 보는 실제 URL은 apex 1개뿐.
+     클린 경로(/pricing 등)는 전부 홈 HTML을 렌더링하고 canonical이 홈을 가리키므로
+     개별 색인되지 않는다. 따라서 대표 URL 1개만 등재한다.
+     7페이지 개별 색인이 필요하면 BrowserRouter 전환 + 페이지별 canonical이 선행돼야 한다. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://moa365.com/</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://moa365.com/pricing</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://moa365.com/faq</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://moa365.com/privacy</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://moa365.com/terms</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://moa365.com/refund</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://moa365.com/account-deletion</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
   </url>
 </urlset>
