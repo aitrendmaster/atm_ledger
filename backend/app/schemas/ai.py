@@ -40,3 +40,6 @@ class InsightResponse(BaseModel):
     praise: str
     concern: str
     suggestion: str
+    # True 면 비프리미엄(무료·트라이얼) → 2~4단(패턴·제안)은 서버에서 비워 보냄.
+    # 프론트는 블러 + 프리미엄 CTA 노출.
+    premium_required: bool = False

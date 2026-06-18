@@ -102,6 +102,24 @@ def _plan_active(user: User) -> bool:
     return now < created + timedelta(days=FREE_TRIAL_DAYS)
 
 
+def is_premium(user: User) -> bool:
+    """결제 기반 프리미엄 여부 — **트라이얼 제외**. beta·paid·comp 만 True.
+
+    `_plan_active`(트라이얼 포함)와 다르다. 월간 리뷰 2~4단처럼 프리미엄 전용
+    콘텐츠 게이팅에 사용 — 무료/트라이얼은 1단(요약)만, 프리미엄만 전체.
+    """
+    if get_settings().beta_free_mode:
+        return True
+    now = datetime.now(timezone.utc)
+    if user.admin_comp_until is not None and user.admin_comp_until > now:
+        return True
+    if user.subscription_tier == "paid" and (
+        user.subscription_expires_at is None or user.subscription_expires_at > now
+    ):
+        return True
+    return False
+
+
 async def require_active_plan(user: User = Depends(get_current_user)) -> User:
     """무료 체험(가입 후 31일) 만료 시 402 로 차단하는 의존성.
 
