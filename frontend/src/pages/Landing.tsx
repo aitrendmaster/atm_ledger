@@ -16,6 +16,7 @@ import {
   Briefcase,
   GraduationCap,
   Plane,
+  Smartphone,
   type LucideIcon,
 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
@@ -24,6 +25,7 @@ import { COMPANY } from '../config/company'
 import AnnouncementBar from '../components/AnnouncementBar'
 import AppHeader from '../components/AppHeader'
 import Faq from '../components/Faq'
+import HeroCarousel from '../components/landing/HeroCarousel'
 import PhoneMockup from '../components/landing/PhoneMockup'
 import MockChatPanel from '../components/landing/MockChatPanel'
 import MockCalendarPanel from '../components/landing/MockCalendarPanel'
@@ -42,6 +44,9 @@ const ACCENT: Record<DotLineColor, { text: string }> = {
   growth: { text: 'text-growth' },
 }
 
+// 안드로이드 앱(비공개 베타) Play 스토어 링크
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=kr.atm.moa'
+
 export default function Landing() {
   const { user } = useAuth()
   const { t } = useTranslation()
@@ -51,80 +56,135 @@ export default function Landing() {
       <AnnouncementBar />
       <AppHeader />
 
-      {/* ===== Hero (dark) — 브랜드 표면은 다크 유지, 액센트만 Record 그라데이션 (playbook 11-1) ===== */}
+      {/* ===== Hero (dark) — KV 캐러셀(3초 로테이션). 슬라이드1=메인, 슬라이드2=베타 모집 ===== */}
       <section className="relative bg-ink text-white overflow-hidden">
         <div
           className="absolute inset-0"
           style={{ background: 'radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--record) 16%, transparent), transparent 55%)' }}
           aria-hidden
         />
-        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-28 grid md:grid-cols-[1.15fr_1fr] gap-12 md:gap-16 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/15 rounded-pill text-xs text-white/85 mb-6 backdrop-blur">
-              <Sparkles size={14} className="text-record" />
-              {t('landing.hero.badge')}
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display leading-[1.1] tracking-tight mb-5 [word-break:keep-all]">
-              {t('landing.hero.headline1')}
-              <br />
-              <span className="bg-grad-record bg-clip-text text-transparent">{t('landing.hero.headline2')}</span>
-            </h1>
-            <p className="text-white/75 text-base sm:text-lg leading-relaxed max-w-xl mb-8 [word-break:keep-all]">
-              {t('landing.hero.subtitle')}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {user ? (
-                <Link
-                  to="/app"
-                  className="px-6 py-3.5 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
-                >
-                  {t('landing.hero.ctaApp')}
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    to="/signup"
-                    className="px-6 py-3.5 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
-                  >
-                    {t('landing.hero.ctaPrimary')}
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="px-6 py-3.5 bg-white/10 border border-white/20 text-white rounded-pill font-bold hover:bg-white/20 transition active:scale-[0.98]"
-                  >
-                    {t('landing.hero.ctaLogin')}
-                  </Link>
-                </>
-              )}
-            </div>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-mono tracking-wider uppercase text-white/55">
-              <span>{t('landing.hero.trust1')}</span>
-              <span>·</span>
-              <span>{t('landing.hero.trust2')}</span>
-              <span>·</span>
-              <span>{t('landing.hero.trust3')}</span>
-              <span>·</span>
-              <span className="text-record/80">{t('landing.hero.trust4')}</span>
-            </div>
-            <p className="mt-7 max-w-md text-xs leading-relaxed text-white/45 [word-break:keep-all]">
-              {t('landing.hero.privacy')}
-            </p>
-          </div>
+        <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-16 md:pt-32 md:pb-20">
+          <HeroCarousel
+            intervalMs={3000}
+            labels={[t('landing.kv.slide1'), t('landing.kv.slide2')]}
+            slides={[
+              /* ── 슬라이드 1: 메인 히어로 ── */
+              <div key="main" className="grid md:grid-cols-[1.15fr_1fr] gap-12 md:gap-16 items-center">
+                <div>
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/15 rounded-pill text-xs text-white/85 mb-6 backdrop-blur">
+                    <Sparkles size={14} className="text-record" />
+                    {t('landing.hero.badge')}
+                  </span>
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-display leading-[1.1] tracking-tight mb-5 [word-break:keep-all]">
+                    {t('landing.hero.headline1')}
+                    <br />
+                    <span className="bg-grad-record bg-clip-text text-transparent">{t('landing.hero.headline2')}</span>
+                  </h1>
+                  <p className="text-white/75 text-base sm:text-lg leading-relaxed max-w-xl mb-8 [word-break:keep-all]">
+                    {t('landing.hero.subtitle')}
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {user ? (
+                      <Link
+                        to="/app"
+                        className="px-6 py-3.5 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
+                      >
+                        {t('landing.hero.ctaApp')}
+                      </Link>
+                    ) : (
+                      <>
+                        <Link
+                          to="/signup"
+                          className="px-6 py-3.5 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
+                        >
+                          {t('landing.hero.ctaPrimary')}
+                        </Link>
+                        <Link
+                          to="/login"
+                          className="px-6 py-3.5 bg-white/10 border border-white/20 text-white rounded-pill font-bold hover:bg-white/20 transition active:scale-[0.98]"
+                        >
+                          {t('landing.hero.ctaLogin')}
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-mono tracking-wider uppercase text-white/55">
+                    <span>{t('landing.hero.trust1')}</span>
+                    <span>·</span>
+                    <span>{t('landing.hero.trust2')}</span>
+                    <span>·</span>
+                    <span>{t('landing.hero.trust3')}</span>
+                    <span>·</span>
+                    <span className="text-record/80">{t('landing.hero.trust4')}</span>
+                  </div>
+                  <p className="mt-7 max-w-md text-xs leading-relaxed text-white/45 [word-break:keep-all]">
+                    {t('landing.hero.privacy')}
+                  </p>
+                </div>
 
-          <div className="flex justify-center md:justify-end">
-            <PhoneMockup>
-              <MockChatPanel
-                userText={t('landing.feature1.demoUser')}
-                aiText={t('landing.feature1.demoAi')}
-                tags={[
-                  t('landing.feature1.tagCafe'),
-                  t('landing.feature1.tagAmount'),
-                  t('landing.feature1.tagPlace'),
-                ]}
-                inputPlaceholder={t('landing.feature1.demoPlaceholder')}
-              />
-            </PhoneMockup>
-          </div>
+                <div className="flex justify-center md:justify-end">
+                  <PhoneMockup>
+                    <MockChatPanel
+                      userText={t('landing.feature1.demoUser')}
+                      aiText={t('landing.feature1.demoAi')}
+                      tags={[
+                        t('landing.feature1.tagCafe'),
+                        t('landing.feature1.tagAmount'),
+                        t('landing.feature1.tagPlace'),
+                      ]}
+                      inputPlaceholder={t('landing.feature1.demoPlaceholder')}
+                    />
+                  </PhoneMockup>
+                </div>
+              </div>,
+
+              /* ── 슬라이드 2: 안드로이드앱 베타 테스터 모집 ── */
+              <div key="beta" className="grid md:grid-cols-[1.15fr_1fr] gap-12 md:gap-16 items-center">
+                <div>
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/15 rounded-pill text-xs text-white/85 mb-6 backdrop-blur">
+                    <Smartphone size={14} className="text-record" />
+                    {t('landing.kv.betaBadge')}
+                  </span>
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-display leading-[1.1] tracking-tight mb-5 [word-break:keep-all]">
+                    {t('landing.kv.betaTitle')}
+                  </h1>
+                  <p className="text-white/75 text-base sm:text-lg leading-relaxed max-w-xl mb-8 [word-break:keep-all]">
+                    {t('landing.kv.betaDesc')}
+                  </p>
+                  <a
+                    href={PLAY_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 bg-grad-record text-white rounded-pill font-bold hover:opacity-90 transition active:scale-[0.98]"
+                  >
+                    {t('landing.kv.betaCta')} →
+                  </a>
+                </div>
+
+                <div className="flex justify-center md:justify-end">
+                  <a
+                    href={PLAY_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t('landing.kv.betaCta')}
+                    className="block transition hover:opacity-95 active:scale-[0.99]"
+                  >
+                    <PhoneMockup>
+                      <div className="flex flex-col items-center justify-center h-full p-6 text-center gap-5 bg-grad-record">
+                        <Smartphone size={52} className="text-white" strokeWidth={1.5} />
+                        <div className="text-white font-display text-xl leading-snug [word-break:keep-all]">
+                          {t('landing.kv.betaTitle')}
+                        </div>
+                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-white text-ink rounded-pill text-sm font-bold">
+                          Google Play →
+                        </span>
+                      </div>
+                    </PhoneMockup>
+                  </a>
+                </div>
+              </div>,
+            ]}
+          />
         </div>
       </section>
 
@@ -481,6 +541,19 @@ export default function Landing() {
               </Link>
             </div>
           )}
+
+          {/* 안드로이드 앱 테스트 다운로드 — 작은 보조 버튼 */}
+          <div className="mt-4 flex justify-center">
+            <a
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/5 border border-white/15 text-white/80 rounded-pill text-xs font-medium hover:bg-white/10 transition active:scale-[0.98]"
+            >
+              <Smartphone size={13} className="text-record" />
+              {t('landing.cta2.androidCta')}
+            </a>
+          </div>
 
           <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-mono tracking-wider uppercase text-white/55">
             <span>{t('landing.cta2.trust1')}</span>

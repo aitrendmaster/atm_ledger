@@ -60,6 +60,14 @@
     "bizNo": "Business Reg.",
     "bizMailOrder": "Mail-order",
     "bizAddress": "Address",
+    "kv": {
+      "slide1": "Main",
+      "slide2": "Beta",
+      "betaBadge": "Android Beta",
+      "betaTitle": "Android App Beta Testers Wanted",
+      "betaDesc": "Be the first to try the Moa Android app. We're recruiting closed-beta testers — join right from Google Play.",
+      "betaCta": "Join on Google Play"
+    },
     "hero": {
       "badge": "Free beta · AI ledger",
       "headline1": "Just one line,",
@@ -236,6 +244,7 @@
     "cta2": {
       "title": "Start before this month ends.",
       "subtitle": "30-second signup, no card on file, free during beta.",
+      "androidCta": "Download Android app (beta)",
       "trust1": "30-sec signup",
       "trust2": "No card",
       "trust3": "Free beta"
