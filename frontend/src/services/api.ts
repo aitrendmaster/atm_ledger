@@ -104,14 +104,22 @@ api.interceptors.response.use(
       }
       return Promise.reject(err)
     }
-    // 콜드스타트/일시 네트워크 지연 — 백엔드가 자다 깨어나는 경우 1회만 재시도.
+    // 콜드스타트/일시 네트워크 지연 — 백엔드가 자다 깨어나는 경우 재시도.
+    // Render 무료 티어 콜드스타트가 60초(타임아웃)를 넘길 수 있어, 1회로는 부족하다.
+    // 최대 MAX_WAKE_RETRIES 회까지(각 60초 + 2초 백오프) 재시도해 부팅 시간을 흡수한다.
     // (ECONNABORTED=타임아웃, 응답 없음=네트워크. 사용자가 취소한 ERR_CANCELED 는 제외)
+    const MAX_WAKE_RETRIES = 3
     const isWakeable =
       err.code === 'ECONNABORTED' || (!err.response && err.code !== 'ERR_CANCELED')
-    if (isWakeable && original && !original._wakeRetry) {
-      original._wakeRetry = true
-      showWakingToast()
-      return api(original)
+    if (isWakeable && original) {
+      original._wakeRetry = (original._wakeRetry || 0) as number
+      if (original._wakeRetry < MAX_WAKE_RETRIES) {
+        original._wakeRetry += 1
+        showWakingToast()
+        // 서버 부팅 시간 확보용 짧은 백오프 후 재시도
+        await new Promise((res) => setTimeout(res, 2000))
+        return api(original)
+      }
     }
     clearWakingToast()
     return Promise.reject(err)
